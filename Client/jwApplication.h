@@ -23,8 +23,17 @@ namespace jw
 		HWND GetHwnd() { return mHwnd; }
 
 	private:
+		// 핸들
 		HWND mHwnd;
 		HDC mHdc;
+
+		// 백버퍼 비트맵, dc
+		HBITMAP mBackBuffer;
+		HDC mBackHDC;
+
+		// 해상도
+		UINT mWidth;
+		UINT mHeight;
 
 		Vector2 mPos;
 

@@ -12,6 +12,7 @@ namespace jw
 	void PlayScene::Initialize()
 	{
 		Cuphead* cuphead = new Cuphead();
+		//cuphead->SetPos(Vector2(0.0f, 0.0f));
 		AddGameObject(cuphead, eLayerType::Player);
 
 		//override를 써서 자식쪽으로 오지만 부모쪽 함수로 지정가능

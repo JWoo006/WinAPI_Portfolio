@@ -41,6 +41,12 @@
     <Filter Include="Engine\Input">
       <UniqueIdentifier>{f9877a6a-bb28-436d-9a8d-b2acb635aa52}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Player">
+      <UniqueIdentifier>{68e90336-ea39-4396-bf0a-273dc6e31ca5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene">
+      <UniqueIdentifier>{b77a44d1-e8dc-49e9-acfb-9831eb47af51}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -88,17 +94,17 @@
     <ClInclude Include="jwLayer.h">
       <Filter>Engine\Layer</Filter>
     </ClInclude>
-    <ClInclude Include="jwCuphead.h">
-      <Filter>Contents</Filter>
-    </ClInclude>
-    <ClInclude Include="jwPlayScene.h">
-      <Filter>Contents</Filter>
-    </ClInclude>
     <ClInclude Include="jwTime.h">
       <Filter>Engine\Time</Filter>
     </ClInclude>
     <ClInclude Include="jwInput.h">
       <Filter>Engine\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="jwCuphead.h">
+      <Filter>Contents\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="jwPlayScene.h">
+      <Filter>Contents\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -142,17 +148,17 @@
     <ClCompile Include="jwLayer.cpp">
       <Filter>Engine\Layer</Filter>
     </ClCompile>
-    <ClCompile Include="jwCuphead.cpp">
-      <Filter>Contents</Filter>
-    </ClCompile>
-    <ClCompile Include="jwPlayScene.cpp">
-      <Filter>Contents</Filter>
-    </ClCompile>
     <ClCompile Include="jwTime.cpp">
       <Filter>Engine\Time</Filter>
     </ClCompile>
     <ClCompile Include="jwInput.cpp">
       <Filter>Engine\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="jwCuphead.cpp">
+      <Filter>Contents\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="jwPlayScene.cpp">
+      <Filter>Contents\Scene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

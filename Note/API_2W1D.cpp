@@ -25,3 +25,12 @@
 //    git config --global user.name "JWoo006"
 //    git config --global user.email "woo3063@naver.com"
 //    
+
+
+// 오브젝트 잔상 없애기
+// 더블 버퍼링
+// 화면 2개를 만들어 번갈아가며 지우고 그리면서 화면에 출력하는 방식
+// AdjustWindowRect - 작업표시줄에서부터 윈도우크기를 구하는 함수
+// BMP - RGB데이터만 있는 이미지 파일 확장자
+// PNG - RGBA 4byte
+// API는 비트맵만 제공 알파표현 불가

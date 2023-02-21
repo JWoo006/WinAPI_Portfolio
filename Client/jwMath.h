@@ -12,6 +12,13 @@ struct Vector2
 
 	}
 
+	Vector2(float x, float y)
+		: x(x)
+		, y(y)
+	{
+
+	}
+
 	Vector2(int x, int y)
 		: x(x)
 		, y(y)

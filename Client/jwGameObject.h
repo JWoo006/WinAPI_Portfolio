@@ -15,6 +15,8 @@ namespace jw
 		virtual void Render(HDC hdc);
 		virtual void Release();
 
+		void SetPos(Vector2 pos) { mPos = pos; }
+
 	protected:
 		Vector2 mPos;
 
