@@ -1,5 +1,6 @@
 #pragma once
 #include "jwGameObject.h"
+#include "jwImage.h"
 
 namespace jw
 {
@@ -15,7 +16,7 @@ namespace jw
 		virtual void Release() override;
 
 	private:
-
+		Image* mImage;
 	};
 }
 

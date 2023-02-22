@@ -21,6 +21,7 @@ namespace jw
 		//void Release();
 
 		HWND GetHwnd() { return mHwnd; }
+		HDC GetHdc() { return mHdc; }
 
 	private:
 		// วฺต้

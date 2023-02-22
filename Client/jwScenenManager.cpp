@@ -67,7 +67,8 @@ namespace jw
                 continue;
             }
 
-            scene->Release();
+            delete scene;
+            scene = nullptr;
         }
     }
 }

@@ -7,6 +7,11 @@ namespace jw
 	}
 	GameObject::~GameObject()
 	{
+		for (Component* comp : mComponent)
+		{
+			delete comp;
+			comp = nullptr;
+		}
 	}
 	void GameObject::Initialize()
 	{
@@ -46,14 +51,6 @@ namespace jw
 	}
 	void GameObject::Release()
 	{
-		for (Component* comp : mComponent)
-		{
-			if (comp == nullptr)
-			{
-				continue;
-			}
-
-			comp->Release();
-		}
+		
 	}
 }

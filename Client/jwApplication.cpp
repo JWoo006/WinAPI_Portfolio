@@ -12,7 +12,7 @@ namespace jw
 	}
 	Application::~Application()
 	{
-		ScenenManager::Release();
+		//ScenenManager::Release();
 		//Time::Release();
 	}
 	void Application::Initialize(HWND hwnd)

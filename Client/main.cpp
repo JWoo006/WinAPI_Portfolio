@@ -4,6 +4,7 @@
 #include "framework.h"
 #include "Client.h"
 #include "jwApplication.h"
+#include "jwScenenManager.h"
 
 #define MAX_LOADSTRING 100
 
@@ -90,10 +91,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     //    }
     //}
 
-    if (WM_QUIT == msg.message)
-    {
-        
-    }
+    jw::ScenenManager::Release();
 
     return (int) msg.wParam;
 }

@@ -47,6 +47,9 @@
     <Filter Include="Contents\Scene">
       <UniqueIdentifier>{b77a44d1-e8dc-49e9-acfb-9831eb47af51}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Resource">
+      <UniqueIdentifier>{65db6de4-b4b1-4dc8-8bfd-8f99eee3ccfa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -106,6 +109,13 @@
     <ClInclude Include="jwPlayScene.h">
       <Filter>Contents\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="jwResource.h">
+      <Filter>Engine\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="jwResources.h">
+      <Filter>Engine\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="jwImage.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -160,5 +170,12 @@
     <ClCompile Include="jwPlayScene.cpp">
       <Filter>Contents\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="jwResource.cpp">
+      <Filter>Engine\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="jwResources.cpp">
+      <Filter>Engine\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="jwImage.cpp" />
   </ItemGroup>
 </Project>

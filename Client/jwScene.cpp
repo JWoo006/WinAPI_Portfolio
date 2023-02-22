@@ -32,10 +32,7 @@ namespace jw
 	}
 	void Scene::Release()
 	{
-		for (Layer& layer : mLayers)
-		{
-			layer.Release();
-		}
+		
 	}
 	void Scene::AddGameObject(GameObject* obj, eLayerType layer)
 	{
