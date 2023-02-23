@@ -16,7 +16,10 @@ namespace jw
 	}
 	void Cuphead::Initialize()
 	{
-		mImage = Resources::Load<Image>(L"Cuphead", L"..\\Resources\\Idle.bmp");
+		mImage = Resources::Load<Image>(L"Cuphead", L"..\\Resources\\Image\\Cuphead\\Idle.bmp");
+
+		Transform* tr = GetComponent<Transform>();
+		tr->SetPos(Vector2(100, 500));
 
 		GameObject::Initialize();
 	}
@@ -29,12 +32,12 @@ namespace jw
 
 		if (Input::GetKeyState(eKeyCode::A) == eKeyState::Pressed)
 		{
-			pos.x -= 100.0f * Time::DeltaTime();
+			pos.x -= 400.0f * Time::DeltaTime();
 		}
 
 		if (Input::GetKeyState(eKeyCode::D) == eKeyState::Pressed)
 		{
-			pos.x += 100.0f * Time::DeltaTime();
+			pos.x += 400.0f * Time::DeltaTime();
 		}
 
 		if (Input::GetKeyState(eKeyCode::W) == eKeyState::Pressed)
@@ -54,10 +57,11 @@ namespace jw
 		GameObject::Render(hdc);
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
+		//BitBlt(hdc, pos.x, pos.y, mImage->GetWidth(), mImage->GetHeight(), mImage->GetHdc(), 0, 0, SRCCOPY);
+		GdiTransparentBlt(hdc, pos.x, pos.y, mImage->GetWidth(), mImage->GetHeight(), mImage->GetHdc(), 0, 0
+			, mImage->GetWidth(), mImage->GetHeight(), RGB(255, 0, 255));
 
-		BitBlt(hdc, pos.x, pos.y, mImage->GetWidth(), mImage->GetHeight(), mImage->GetHdc(), 0, 0, SRCCOPY);
-
-		
+				
 	}
 	void Cuphead::Release()
 	{

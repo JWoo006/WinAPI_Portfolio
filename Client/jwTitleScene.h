@@ -1,5 +1,6 @@
 #pragma once
 #include "jwScene.h"
+#include "jwImage.h"
 
 namespace jw
 {
@@ -19,5 +20,7 @@ namespace jw
 
 
 	private:
+		Image* mImage;
+		Image* mImage2;
 	};
 }

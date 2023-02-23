@@ -50,6 +50,12 @@
     <Filter Include="Engine\Resource">
       <UniqueIdentifier>{65db6de4-b4b1-4dc8-8bfd-8f99eee3ccfa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Boss">
+      <UniqueIdentifier>{0a74ecae-2fc8-4645-afa8-93d9e70dc620}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Background">
+      <UniqueIdentifier>{4ceca8f0-f10e-464a-8c2e-efb5867363c6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -115,12 +121,20 @@
     <ClInclude Include="jwResources.h">
       <Filter>Engine\Resource</Filter>
     </ClInclude>
-    <ClInclude Include="jwImage.h" />
     <ClInclude Include="jwTitleScene.h">
       <Filter>Contents\Scene</Filter>
     </ClInclude>
     <ClInclude Include="jwTransform.h">
       <Filter>Engine\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="jwImage.h">
+      <Filter>Engine\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="jwBackground.h">
+      <Filter>Contents\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="jwBoss.h">
+      <Filter>Contents\Boss</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -182,12 +196,20 @@
     <ClCompile Include="jwResources.cpp">
       <Filter>Engine\Resource</Filter>
     </ClCompile>
-    <ClCompile Include="jwImage.cpp" />
     <ClCompile Include="jwTitleScene.cpp">
       <Filter>Contents\Scene</Filter>
     </ClCompile>
     <ClCompile Include="jwTransform.cpp">
       <Filter>Engine\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="jwImage.cpp">
+      <Filter>Engine\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="jwBackground.cpp">
+      <Filter>Contents\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="jwBoss.cpp">
+      <Filter>Contents\Boss</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

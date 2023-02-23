@@ -19,6 +19,9 @@ namespace jw
 		virtual void OnEnter();
 		virtual void OnExit();
 
+		// 씬이름 출력
+		virtual void SceneText(HDC hdc);
+
 		void AddGameObject(GameObject* obj, eLayerType layer);
 
 	private:

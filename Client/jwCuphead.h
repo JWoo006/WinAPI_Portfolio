@@ -17,6 +17,7 @@ namespace jw
 
 	private:
 		Image* mImage;
+
 	};
 }
 

@@ -4,6 +4,8 @@
 namespace jw
 {
 	class Cuphead;
+	class Background;
+	class Boss;
 	class PlayScene : public Scene
 	{
 	public:
@@ -21,5 +23,7 @@ namespace jw
 
 	private:
 		Cuphead* mCuphead;
+		Background* mbackground;
+		Boss* mBoss;
 	};
 }

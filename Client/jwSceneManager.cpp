@@ -13,11 +13,12 @@ namespace jw
 
 
         mScenes[(UINT)eSceneType::Title] = new TitleScene();
+        mScenes[(UINT)eSceneType::Title]->SetName(L"TitleScene");
         mScenes[(UINT)eSceneType::Play] = new PlayScene();
-        //mScenes[(UINT)eSceneType::Play]->SetName(L"Player");
+        mScenes[(UINT)eSceneType::Play]->SetName(L"PlayScene");
 
         // 현재 사용할 씬 설정
-        mActiveScene = mScenes[(UINT)eSceneType::Play];
+        mActiveScene = mScenes[(UINT)eSceneType::Title];
 
         for (Scene* scene : mScenes)
         {

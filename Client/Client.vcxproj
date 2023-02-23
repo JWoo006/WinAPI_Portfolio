@@ -133,6 +133,8 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="JongEngine.h" />
     <ClInclude Include="jwApplication.h" />
+    <ClInclude Include="jwBackground.h" />
+    <ClInclude Include="jwBoss.h" />
     <ClInclude Include="jwComponent.h" />
     <ClInclude Include="jwCuphead.h" />
     <ClInclude Include="jwEntity.h" />
@@ -155,6 +157,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jwApplication.cpp" />
+    <ClCompile Include="jwBackground.cpp" />
+    <ClCompile Include="jwBoss.cpp" />
     <ClCompile Include="jwComponent.cpp" />
     <ClCompile Include="jwCuphead.cpp" />
     <ClCompile Include="jwEntity.cpp" />
