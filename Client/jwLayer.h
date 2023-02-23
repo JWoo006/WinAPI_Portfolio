@@ -19,6 +19,7 @@ namespace jw
 
 	private:
 		std::vector<GameObject*> mGameObjects;
+		
 	};
 }
 

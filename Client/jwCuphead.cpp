@@ -1,8 +1,9 @@
 #include "jwCuphead.h"
 #include "jwTime.h"
-#include "jwScenenManager.h"
+#include "jwSceneManager.h"
 #include "jwInput.h"
 #include "jwResources.h"
+#include "jwTransform.h"
 
 
 namespace jw
@@ -23,31 +24,38 @@ namespace jw
 	{
 		GameObject::Update();
 
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->GetPos();
+
 		if (Input::GetKeyState(eKeyCode::A) == eKeyState::Pressed)
 		{
-			mPos.x -= 100.0f * Time::DeltaTime();
+			pos.x -= 100.0f * Time::DeltaTime();
 		}
 
 		if (Input::GetKeyState(eKeyCode::D) == eKeyState::Pressed)
 		{
-			mPos.x += 100.0f * Time::DeltaTime();
+			pos.x += 100.0f * Time::DeltaTime();
 		}
 
 		if (Input::GetKeyState(eKeyCode::W) == eKeyState::Pressed)
 		{
-			mPos.y -= 100.0f * Time::DeltaTime();
+			pos.y -= 100.0f * Time::DeltaTime();
 		}
 
 		if (Input::GetKeyState(eKeyCode::S) == eKeyState::Pressed)
 		{
-			mPos.y += 100.0f * Time::DeltaTime();
+			pos.y += 100.0f * Time::DeltaTime();
 		}
+		tr->SetPos(pos);
+
 	}
 	void Cuphead::Render(HDC hdc)
 	{
 		GameObject::Render(hdc);
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->GetPos();
 
-		BitBlt(hdc, mPos.x, mPos.y, mImage->GetWidth(), mImage->GetHeight(), mImage->GetHdc(), 0, 0, SRCCOPY);
+		BitBlt(hdc, pos.x, pos.y, mImage->GetWidth(), mImage->GetHeight(), mImage->GetHdc(), 0, 0, SRCCOPY);
 
 		
 	}

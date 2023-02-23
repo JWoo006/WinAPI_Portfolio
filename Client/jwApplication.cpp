@@ -1,5 +1,5 @@
 #include "jwApplication.h"
-#include "jwScenenManager.h"
+#include "jwSceneManager.h"
 #include "jwTime.h"
 #include "jwInput.h"
 
@@ -39,7 +39,7 @@ namespace jw
 
 		Time::Initialize();
 		Input::Initialize();
-		ScenenManager::Initialize();
+		SceneManager::Initialize();
 	}
 	void Application::Run()
 	{
@@ -50,7 +50,7 @@ namespace jw
 	{
 		Time::Update();
 		Input::Update();
-		ScenenManager::Update();
+		SceneManager::Update();
 	}
 	void Application::Render()
 	{
@@ -59,7 +59,7 @@ namespace jw
 
 		Time::Render(mBackHDC);
 		Input::Render(mBackHDC);
-		ScenenManager::Render(mBackHDC);
+		SceneManager::Render(mBackHDC);
 
 		// 백버퍼의 화면을 원본에 옮기기
 		BitBlt(mHdc, 0, 0, mWidth, mHeight, mBackHDC, 0, 0, SRCCOPY);

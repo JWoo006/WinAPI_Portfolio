@@ -4,7 +4,8 @@
 #include "framework.h"
 #include "Client.h"
 #include "jwApplication.h"
-#include "jwScenenManager.h"
+#include "jwSceneManager.h"
+#include "jwResources.h"
 
 #define MAX_LOADSTRING 100
 
@@ -91,7 +92,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     //    }
     //}
 
-    jw::ScenenManager::Release();
+    jw::SceneManager::Release();
+    jw::Resources::Release();
 
     return (int) msg.wParam;
 }

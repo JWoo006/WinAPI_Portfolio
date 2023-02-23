@@ -91,7 +91,7 @@
     <ClInclude Include="jwComponent.h">
       <Filter>Engine\Component</Filter>
     </ClInclude>
-    <ClInclude Include="jwScenenManager.h">
+    <ClInclude Include="jwSceneManager.h">
       <Filter>Engine\Scene</Filter>
     </ClInclude>
     <ClInclude Include="jwLayer.h">
@@ -116,6 +116,12 @@
       <Filter>Engine\Resource</Filter>
     </ClInclude>
     <ClInclude Include="jwImage.h" />
+    <ClInclude Include="jwTitleScene.h">
+      <Filter>Contents\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="jwTransform.h">
+      <Filter>Engine\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -152,7 +158,7 @@
     <ClCompile Include="jwComponent.cpp">
       <Filter>Engine\Component</Filter>
     </ClCompile>
-    <ClCompile Include="jwScenenManager.cpp">
+    <ClCompile Include="jwSceneManager.cpp">
       <Filter>Engine\Scene</Filter>
     </ClCompile>
     <ClCompile Include="jwLayer.cpp">
@@ -177,5 +183,11 @@
       <Filter>Engine\Resource</Filter>
     </ClCompile>
     <ClCompile Include="jwImage.cpp" />
+    <ClCompile Include="jwTitleScene.cpp">
+      <Filter>Contents\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="jwTransform.cpp">
+      <Filter>Engine\Component</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

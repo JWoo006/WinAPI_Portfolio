@@ -25,12 +25,10 @@ struct Vector2
 	{
 
 	}
+	Vector2(const Vector2&) = default;
+	Vector2& operator=(const Vector2&) = default;
 
-	Vector2(Vector2& other)
-		: x(other.x)
-		, y(other.y)
-	{
-
-	}
+	Vector2(Vector2&&) = default;
+	Vector2& operator=(Vector2&&) = default;
 };
 

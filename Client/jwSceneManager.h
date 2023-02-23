@@ -3,7 +3,7 @@
 
 namespace jw
 {
-	class ScenenManager
+	class SceneManager
 	{
 	public:
 		// 전역 함수화 - 객체 없이 사용
@@ -15,8 +15,11 @@ namespace jw
 		static void Render(HDC hdc);
 		static void Release();
 
+		static void LoadScene(eSceneType type);
+
 	private:
 		// 전역 변수화 - 위 함수에서 바로 접근가능
 		static std::vector<Scene*> mScenes;
+		static Scene* mActiveScene;
 	};
 }

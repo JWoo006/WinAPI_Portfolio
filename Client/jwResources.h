@@ -54,6 +54,16 @@ namespace jw
 			return dynamic_cast<T*>(resource);
 		}
 
+		static void Release()
+		{
+			//  auto - 자료형 추론해서 알아서 맞춰줌
+			for (auto pair : mResources)
+			{
+				delete pair.second;
+				pair.second = nullptr;
+			}
+		}
+
 	private:
 		static std::map<std::wstring, Resource*> mResources;
 	};

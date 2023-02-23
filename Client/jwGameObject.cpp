@@ -1,9 +1,12 @@
 #include "jwGameObject.h"
+#include "jwTransform.h"
 
 namespace jw
 {
 	GameObject::GameObject()
 	{
+		mComponent.resize((UINT)eComponentType::End);
+		AddComponent<Transform>();
 	}
 	GameObject::~GameObject()
 	{

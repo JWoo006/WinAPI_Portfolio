@@ -145,8 +145,10 @@
     <ClInclude Include="jwPlayScene.h" />
     <ClInclude Include="jwResource.h" />
     <ClInclude Include="jwScene.h" />
-    <ClInclude Include="jwScenenManager.h" />
+    <ClInclude Include="jwSceneManager.h" />
     <ClInclude Include="jwTime.h" />
+    <ClInclude Include="jwTitleScene.h" />
+    <ClInclude Include="jwTransform.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="jwResources.h" />
     <ClInclude Include="targetver.h" />
@@ -164,8 +166,10 @@
     <ClCompile Include="jwPlayScene.cpp" />
     <ClCompile Include="jwResource.cpp" />
     <ClCompile Include="jwScene.cpp" />
-    <ClCompile Include="jwScenenManager.cpp" />
+    <ClCompile Include="jwSceneManager.cpp" />
     <ClCompile Include="jwTime.cpp" />
+    <ClCompile Include="jwTitleScene.cpp" />
+    <ClCompile Include="jwTransform.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="jwResources.cpp" />
   </ItemGroup>

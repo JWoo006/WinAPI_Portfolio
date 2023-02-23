@@ -3,12 +3,11 @@
 
 namespace jw
 {
-	class Cuphead;
-	class PlayScene : public Scene
+	class TitleScene : public Scene
 	{
 	public:
-		PlayScene();
-		~PlayScene();
+		TitleScene();
+		~TitleScene();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
@@ -20,6 +19,5 @@ namespace jw
 
 
 	private:
-		Cuphead* mCuphead;
 	};
 }

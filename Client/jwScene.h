@@ -15,6 +15,10 @@ namespace jw
 		virtual void Render(HDC hdc);
 		virtual void Release();
 
+		// 씬전환간 초기화를 위한 함수
+		virtual void OnEnter();
+		virtual void OnExit();
+
 		void AddGameObject(GameObject* obj, eLayerType layer);
 
 	private:
