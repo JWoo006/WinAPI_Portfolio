@@ -1,6 +1,8 @@
 #include "jwSceneManager.h"
 #include "jwPlayScene.h"
 #include "jwTitleScene.h"
+#include "jwEndingScene.h"
+#include "jwStageScene.h"
 
 namespace jw
 {
@@ -14,8 +16,13 @@ namespace jw
 
         mScenes[(UINT)eSceneType::Title] = new TitleScene();
         mScenes[(UINT)eSceneType::Title]->SetName(L"TitleScene");
+        mScenes[(UINT)eSceneType::Stage] = new StageScene();
+        mScenes[(UINT)eSceneType::Stage]->SetName(L"StageScene");
         mScenes[(UINT)eSceneType::Play] = new PlayScene();
         mScenes[(UINT)eSceneType::Play]->SetName(L"PlayScene");
+        mScenes[(UINT)eSceneType::Ending] = new EndingScene();
+        mScenes[(UINT)eSceneType::Ending]->SetName(L"EndingScene");
+
 
         // 현재 사용할 씬 설정
         mActiveScene = mScenes[(UINT)eSceneType::Title];

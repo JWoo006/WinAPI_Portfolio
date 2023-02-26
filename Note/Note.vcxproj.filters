@@ -31,5 +31,8 @@
     <ClCompile Include="API_2W3D.cpp">
       <Filter>API_2W</Filter>
     </ClCompile>
+    <ClCompile Include="API_2W5D.cpp">
+      <Filter>API_2W</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

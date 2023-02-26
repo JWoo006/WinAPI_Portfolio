@@ -137,6 +137,8 @@
     <ClInclude Include="jwBoss.h" />
     <ClInclude Include="jwComponent.h" />
     <ClInclude Include="jwCuphead.h" />
+    <ClInclude Include="jwCuphead_Stage.h" />
+    <ClInclude Include="jwEndingScene.h" />
     <ClInclude Include="jwEntity.h" />
     <ClInclude Include="jwEnums.h" />
     <ClInclude Include="jwGameObject.h" />
@@ -148,6 +150,7 @@
     <ClInclude Include="jwResource.h" />
     <ClInclude Include="jwScene.h" />
     <ClInclude Include="jwSceneManager.h" />
+    <ClInclude Include="jwStageScene.h" />
     <ClInclude Include="jwTime.h" />
     <ClInclude Include="jwTitleScene.h" />
     <ClInclude Include="jwTransform.h" />
@@ -161,6 +164,8 @@
     <ClCompile Include="jwBoss.cpp" />
     <ClCompile Include="jwComponent.cpp" />
     <ClCompile Include="jwCuphead.cpp" />
+    <ClCompile Include="jwCuphead_Stage.cpp" />
+    <ClCompile Include="jwEndingScene.cpp" />
     <ClCompile Include="jwEntity.cpp" />
     <ClCompile Include="jwGameObject.cpp" />
     <ClCompile Include="jwImage.cpp" />
@@ -171,6 +176,7 @@
     <ClCompile Include="jwResource.cpp" />
     <ClCompile Include="jwScene.cpp" />
     <ClCompile Include="jwSceneManager.cpp" />
+    <ClCompile Include="jwStageScene.cpp" />
     <ClCompile Include="jwTime.cpp" />
     <ClCompile Include="jwTitleScene.cpp" />
     <ClCompile Include="jwTransform.cpp" />

@@ -20,8 +20,17 @@ namespace jw
 	{
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
-			SceneManager::LoadScene(eSceneType::Play);
+			int next = (int)eSceneType::Title;
+			next++;
+			if (next == (int)eSceneType::End)
+			{
+				next = (int)eSceneType::Title;
+			}
+
+			SceneManager::LoadScene((eSceneType)next);
 		}
+
+		Scene::Update();
 	}
 	void TitleScene::Render(HDC hdc)
 	{

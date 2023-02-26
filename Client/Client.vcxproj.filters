@@ -136,6 +136,15 @@
     <ClInclude Include="jwBoss.h">
       <Filter>Contents\Boss</Filter>
     </ClInclude>
+    <ClInclude Include="jwStageScene.h">
+      <Filter>Contents\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="jwEndingScene.h">
+      <Filter>Contents\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="jwCuphead_Stage.h">
+      <Filter>Contents\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -210,6 +219,15 @@
     </ClCompile>
     <ClCompile Include="jwBoss.cpp">
       <Filter>Contents\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="jwStageScene.cpp">
+      <Filter>Contents\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="jwEndingScene.cpp">
+      <Filter>Contents\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="jwCuphead_Stage.cpp">
+      <Filter>Contents\Player</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

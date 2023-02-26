@@ -57,10 +57,13 @@ namespace jw
 		GameObject::Render(hdc);
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
-		//BitBlt(hdc, pos.x, pos.y, mImage->GetWidth(), mImage->GetHeight(), mImage->GetHdc(), 0, 0, SRCCOPY);
-		GdiTransparentBlt(hdc, pos.x, pos.y, mImage->GetWidth(), mImage->GetHeight(), mImage->GetHdc(), 0, 0
-			, mImage->GetWidth(), mImage->GetHeight(), RGB(255, 0, 255));
 
+
+		//BitBlt(hdc, pos.x, pos.y, mImage->GetWidth(), mImage->GetHeight(), mImage->GetHdc(), 0, 0, SRCCOPY);
+		/*GdiTransparentBlt(hdc, pos.x, pos.y, mImage->GetWidth(), mImage->GetHeight(), mImage->GetHdc(), 0, 0
+			, mImage->GetWidth(), mImage->GetHeight(), RGB(255, 0, 255));*/
+		TransparentBlt(hdc, pos.x, pos.y, mImage->GetWidth(), mImage->GetHeight(), mImage->GetHdc(), 0, 0
+			, mImage->GetWidth(), mImage->GetHeight(), RGB(255, 0, 255));
 				
 	}
 	void Cuphead::Release()

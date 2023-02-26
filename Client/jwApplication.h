@@ -24,6 +24,9 @@ namespace jw
 		HDC GetHdc() { return mHdc; }
 
 	private:
+		void clear();
+
+	private:
 		// วฺต้
 		HWND mHwnd;
 		HDC mHdc;

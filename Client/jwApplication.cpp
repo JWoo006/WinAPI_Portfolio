@@ -55,7 +55,7 @@ namespace jw
 	void Application::Render()
 	{
 		// clear
-		Rectangle(mBackHDC, -1, -1, 1602, 902);
+		clear();
 
 		Time::Render(mBackHDC);
 		Input::Render(mBackHDC);
@@ -64,5 +64,13 @@ namespace jw
 		// 백버퍼의 화면을 원본에 옮기기
 		BitBlt(mHdc, 0, 0, mWidth, mHeight, mBackHDC, 0, 0, SRCCOPY);
 
+	}
+	void Application::clear()
+	{
+		HBRUSH grayBrush = CreateSolidBrush(RGB(121, 121, 121));
+		HBRUSH oldBrush = (HBRUSH)SelectObject(mBackHDC, grayBrush);
+		Rectangle(mBackHDC, -1, -1, 1602, 902);
+		SelectObject(mBackHDC, oldBrush);
+		DeleteObject(grayBrush);
 	}
 }

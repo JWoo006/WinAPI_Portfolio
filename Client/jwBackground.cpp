@@ -15,8 +15,6 @@ namespace jw
 		mImage = Resources::Load<Image>(L"stage1_ground", L"..\\Resources\\Image\\Stage1_veggie\\veggie_bg_0003 #264656.bmp");
 		mSkyImage = Resources::Load<Image>(L"stage1_sky", L"..\\Resources\\Image\\Stage1_veggie\\veggie_bg_0012 #264653.bmp");
 
-		Transform* tr = GetComponent<Transform>();
-		tr->SetPos(Vector2(100, 100));
 
 		GameObject::Initialize();
 	}

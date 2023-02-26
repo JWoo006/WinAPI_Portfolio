@@ -32,7 +32,14 @@ namespace jw
 	{
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
-			SceneManager::LoadScene(eSceneType::Title);
+			int next = (int)eSceneType::Play;
+			next++;
+			if (next == (int)eSceneType::End)
+			{
+				next = (int)eSceneType::Title;
+			}
+
+			SceneManager::LoadScene((eSceneType)next);
 		}
 
 		Scene::Update();
