@@ -132,6 +132,8 @@
     <ClInclude Include="CommonInclude.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="JongEngine.h" />
+    <ClInclude Include="jwAnimation.h" />
+    <ClInclude Include="jwAnimator.h" />
     <ClInclude Include="jwApplication.h" />
     <ClInclude Include="jwBackground.h" />
     <ClInclude Include="jwBoss.h" />
@@ -159,6 +161,8 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="jwAnimation.cpp" />
+    <ClCompile Include="jwAnimator.cpp" />
     <ClCompile Include="jwApplication.cpp" />
     <ClCompile Include="jwBackground.cpp" />
     <ClCompile Include="jwBoss.cpp" />

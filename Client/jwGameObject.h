@@ -23,6 +23,7 @@ namespace jw
 			//                아직 모르기 때문에
 			UINT compType = (UINT)comp->GetType();
 			mComponent[compType] = comp;
+			comp->SetOwner(this);
 
 			return comp;
 		}

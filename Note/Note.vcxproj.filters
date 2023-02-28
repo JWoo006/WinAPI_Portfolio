@@ -8,6 +8,9 @@
     <Filter Include="API_2W">
       <UniqueIdentifier>{36e95620-d0e2-4016-bc90-73dceb43a54f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="API_3W">
+      <UniqueIdentifier>{644c70d0-895c-49e5-823d-cc115be4df2a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="API_1W1D.cpp">
@@ -33,6 +36,9 @@
     </ClCompile>
     <ClCompile Include="API_2W5D.cpp">
       <Filter>API_2W</Filter>
+    </ClCompile>
+    <ClCompile Include="API_3W1D.cpp">
+      <Filter>API_3W</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

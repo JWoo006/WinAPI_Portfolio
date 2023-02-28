@@ -145,6 +145,12 @@
     <ClInclude Include="jwCuphead_Stage.h">
       <Filter>Contents\Player</Filter>
     </ClInclude>
+    <ClInclude Include="jwAnimation.h">
+      <Filter>Engine\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="jwAnimator.h">
+      <Filter>Engine\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -228,6 +234,12 @@
     </ClCompile>
     <ClCompile Include="jwCuphead_Stage.cpp">
       <Filter>Contents\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="jwAnimation.cpp">
+      <Filter>Engine\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="jwAnimator.cpp">
+      <Filter>Engine\Component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

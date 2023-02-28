@@ -16,9 +16,6 @@ namespace jw
 		virtual void Release() override;
 
 	private:
-		Image* mImage;
-		float mTime;
-		int mIdx;
 		
 	};
 }

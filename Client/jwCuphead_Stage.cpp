@@ -4,13 +4,12 @@
 #include "jwInput.h"
 #include "jwResources.h"
 #include "jwTransform.h"
+#include "jwAnimator.h"
 
 
 namespace jw
 {
 	Cuphead_Stage::Cuphead_Stage()
-		: mTime(0.0f)
-		, mIdx(0)
 	{
 		
 	}
@@ -19,7 +18,16 @@ namespace jw
 	}
 	void Cuphead_Stage::Initialize()
 	{
-		mImage = Resources::Load<Image>(L"Cuphead_Stage", L"..\\Resources\\Image\\Cuphead\\Cuphead_Stage.bmp");
+		Image* mImage = Resources::Load<Image>(L"Cuphead_Stage", L"..\\Resources\\Image\\Cuphead\\Cuphead_Stage.bmp");
+		Animator* animator = AddComponent<Animator>();
+		animator->CreateAnimation(L"FowardRun", mImage
+			, Vector2::Zero, 16, 8, 16, Vector2::Zero, 0.1);
+		animator->CreateAnimation(L"FowardRight", mImage
+			, Vector2(0.0f, 113.0f), 16, 8, 15, Vector2::Zero, 0.1);
+		animator->CreateAnimation(L"Idle", mImage
+			, Vector2(0.0f, 113.0f * 5), 16, 8, 9, Vector2::Zero, 0.1);
+
+		animator->Play(L"Idle", true);
 
 		Transform* tr = GetComponent<Transform>();
 		tr->SetPos(Vector2(100, 500));
@@ -32,6 +40,7 @@ namespace jw
 
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
+		Animator* animator = GetComponent<Animator>();
 
 		if (Input::GetKeyState(eKeyCode::A) == eKeyState::Pressed)
 		{
@@ -47,6 +56,14 @@ namespace jw
 		{
 			pos.y -= 100.0f * Time::DeltaTime();
 		}
+		if (Input::GetKeyState(eKeyCode::W) == eKeyState::Down)
+		{
+			animator->Play(L"FowardRun", true);
+		}
+		if (Input::GetKeyState(eKeyCode::W) == eKeyState::Up)
+		{
+			animator->Play(L"Idle", true);
+		}
 
 		if (Input::GetKeyState(eKeyCode::S) == eKeyState::Pressed)
 		{
@@ -57,24 +74,8 @@ namespace jw
 	void Cuphead_Stage::Render(HDC hdc)
 	{
 		GameObject::Render(hdc);
-		Transform* tr = GetComponent<Transform>();
-		Vector2 pos = tr->GetPos();
 
-		mTime += Time::DeltaTime();
 		
-		if (mIdx >= 16)
-		{
-			mIdx = 0;
-		}
-
-		if (mTime > 0.1f)
-		{
-			mIdx++;
-			mTime = 0.0f;
-		}
-
-		TransparentBlt(hdc, pos.x, pos.y, 103, 113, mImage->GetHdc()
-			, (103 * mIdx), 0, 103, 113, RGB(255, 0, 255));
 
 	}
 	void Cuphead_Stage::Release()
