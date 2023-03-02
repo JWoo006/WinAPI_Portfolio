@@ -4,9 +4,17 @@
 
 namespace jw
 {
+	class Animator;
 	class Cuphead : public GameObject
 	{
 	public:
+		enum class eCupheadState
+		{
+			Move,
+			Shoot,
+			Death,
+			Idle,
+		};
 		Cuphead();
 		~Cuphead();
 
@@ -15,8 +23,14 @@ namespace jw
 		virtual void Render(HDC hdc) override;
 		virtual void Release() override;
 
+		void move();
+		void shoot();
+		void death();
+		void idle();
+
 	private:
-		Image* mImage;
+		eCupheadState mState;
+		Animator* mAnimator;
 
 	};
 }

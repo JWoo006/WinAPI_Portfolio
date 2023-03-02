@@ -54,6 +54,12 @@ namespace jw
 			return dynamic_cast<T*>(resource);
 		}
 
+		template <typename T>
+		static void Insert(const std::wstring& key, T* resource)
+		{
+			mResources.insert(std::make_pair(key, resource));
+		}
+
 		static void Release()
 		{
 			//  auto - 자료형 추론해서 알아서 맞춰줌

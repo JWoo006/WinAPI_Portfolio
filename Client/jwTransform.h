@@ -15,13 +15,13 @@ namespace jw
 		virtual void Release() override;
 
 		void SetPos(Vector2 pos) { mPos = pos; }
-		void SetSize(Vector2 size) { mSize = size; }
+		void SetSize(Vector2 size) { mScale = size; }
 		Vector2 GetPos() { return mPos; }
-		Vector2 GetSize() { return mSize; }
+		Vector2 GetScale() { return mScale; }
 
 	private:
 		Vector2 mPos;
-		Vector2 mSize;
+		Vector2 mScale;
 	};
 }
 

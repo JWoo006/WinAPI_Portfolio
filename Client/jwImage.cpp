@@ -1,10 +1,41 @@
 #include "jwImage.h"
 #include "jwApplication.h"
+#include "jwResources.h"
 
 extern jw::Application application;
 
 namespace jw
 {
+	Image* Image::Create(const std::wstring& name, UINT width, UINT height)
+	{
+		if (width == 0 || height == 0)
+		{
+			return nullptr;
+		}
+
+		Image* image = Resources::Find<Image>(name);
+		if (image != nullptr)
+		{
+			return image;
+		}
+
+		image = new Image();
+		HDC mainHdc = application.GetHdc();
+		
+		image->mBitmap = CreateCompatibleBitmap(mainHdc, width, height);
+		image->mHdc = CreateCompatibleDC(mainHdc);
+
+		HBITMAP oldBitmap = (HBITMAP)SelectObject(image->mHdc, image->mBitmap);
+		DeleteObject(oldBitmap);
+
+		image->mWidth = width;
+		image->mHeight = height;
+
+		image->SetKey(name);
+		Resources::Insert<Image>(name, image);
+
+		return nullptr;
+	}
 	Image::Image()
 		: mBitmap(NULL)
 		, mHdc(NULL)

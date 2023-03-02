@@ -4,6 +4,7 @@
 #include "jwInput.h"
 #include "jwResources.h"
 #include "jwTransform.h"
+#include "jwAnimator.h"
 
 
 namespace jw
@@ -16,7 +17,11 @@ namespace jw
 	}
 	void Cuphead::Initialize()
 	{
-		mImage = Resources::Load<Image>(L"Cuphead", L"..\\Resources\\Image\\Cuphead\\Idle.bmp");
+		//mImage = Resources::Load<Image>(L"Cuphead", L"..\\Resources\\Image\\Cuphead\\Idle\\Idle.bmp");
+		//Image* mImage = Resources::Load<Image>(L"Cuphead", L"..\\Resources\\Image\\Cuphead\\Idle\\cuphead_idle_0001.bmp");
+		mAnimator = AddComponent<Animator>();
+
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Idle", Vector2::Zero, 0.1f);
 
 		Transform* tr = GetComponent<Transform>();
 		tr->SetPos(Vector2(100, 500));
@@ -30,26 +35,23 @@ namespace jw
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 
-		if (Input::GetKeyState(eKeyCode::A) == eKeyState::Pressed)
+		switch (mState)
 		{
-			pos.x -= 400.0f * Time::DeltaTime();
+		case jw::Cuphead::eCupheadState::Move:
+			move();
+			break;
+		case jw::Cuphead::eCupheadState::Shoot:
+			shoot();
+			break;
+		case jw::Cuphead::eCupheadState::Death:
+			death();
+			break;
+		case jw::Cuphead::eCupheadState::Idle:
+			idle();
+			break;
+		default:
+			break;
 		}
-
-		if (Input::GetKeyState(eKeyCode::D) == eKeyState::Pressed)
-		{
-			pos.x += 400.0f * Time::DeltaTime();
-		}
-
-		if (Input::GetKeyState(eKeyCode::W) == eKeyState::Pressed)
-		{
-			pos.y -= 100.0f * Time::DeltaTime();
-		}
-
-		if (Input::GetKeyState(eKeyCode::S) == eKeyState::Pressed)
-		{
-			pos.y += 100.0f * Time::DeltaTime();
-		}
-		tr->SetPos(pos);
 
 	}
 	void Cuphead::Render(HDC hdc)
@@ -57,17 +59,58 @@ namespace jw
 		GameObject::Render(hdc);
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
-
-
-		//BitBlt(hdc, pos.x, pos.y, mImage->GetWidth(), mImage->GetHeight(), mImage->GetHdc(), 0, 0, SRCCOPY);
-		/*GdiTransparentBlt(hdc, pos.x, pos.y, mImage->GetWidth(), mImage->GetHeight(), mImage->GetHdc(), 0, 0
-			, mImage->GetWidth(), mImage->GetHeight(), RGB(255, 0, 255));*/
-		TransparentBlt(hdc, pos.x, pos.y, mImage->GetWidth(), mImage->GetHeight(), mImage->GetHdc(), 0, 0
-			, mImage->GetWidth(), mImage->GetHeight(), RGB(255, 0, 255));
-				
+						
 	}
 	void Cuphead::Release()
 	{
 		GameObject::Release();
+	}
+	void Cuphead::move()
+	{
+		if (Input::GetKeyUp(eKeyCode::A) || Input::GetKeyUp(eKeyCode::D)
+			|| Input::GetKeyUp(eKeyCode::W) || Input::GetKeyUp(eKeyCode::S))
+		{
+			mState = eCupheadState::Idle;
+			//mAnimator->Play(L"Idle", true);
+		}
+
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->GetPos();
+
+		if (Input::GetKey(eKeyCode::A))
+		{
+			pos.x -= 100.0f * Time::DeltaTime();
+		}
+
+		if (Input::GetKey(eKeyCode::D))
+		{
+			pos.x += 100.0f * Time::DeltaTime();
+		}
+
+		if (Input::GetKey(eKeyCode::W))
+		{
+			pos.y -= 100.0f * Time::DeltaTime();
+		}
+
+		if (Input::GetKey(eKeyCode::S))
+		{
+			pos.y += 100.0f * Time::DeltaTime();
+		}
+		tr->SetPos(pos);
+	}
+	void Cuphead::shoot()
+	{
+	}
+	void Cuphead::death()
+	{
+	}
+	void Cuphead::idle()
+	{
+		if (Input::GetKeyDown(eKeyCode::A) || Input::GetKeyDown(eKeyCode::D)
+			|| Input::GetKeyDown(eKeyCode::W) || Input::GetKeyDown(eKeyCode::S))
+		{
+			mState = eCupheadState::Move;
+			//mAnimator->Play(L"FowardRun", true);
+		}
 	}
 }

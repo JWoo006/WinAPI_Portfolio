@@ -1,4 +1,5 @@
 #include "jwAnimator.h"
+#include "jwResources.h"
 
 namespace jw
 {
@@ -62,8 +63,50 @@ namespace jw
 
 		mAnimations.insert(std::make_pair(name, animation));
 	}
-	void Animator::CreateAnimations()
+	void Animator::CreateAnimations(const std::wstring& path, Vector2 offset, float duration)
 	{
+		// 파일 크기
+		UINT width = 0;
+		UINT height = 0;
+		// 파일 개수
+		UINT fileCount = 0;
+
+		std::filesystem::path fs(path);
+		std::vector<Image*> images = {};
+		//폴더 내 파일 탐색
+		for ( auto& p : std::filesystem::recursive_directory_iterator(path))
+		{
+			std::wstring fileName = p.path().filename();
+			std::wstring fullName = path + L"\\" + fileName;//전체경로 + 파일명
+		     
+			// .png확장자 이미지는 continue
+			const std::wstring ext = p.path().extension();
+			if (ext == L".png")
+			{
+				continue;
+			}
+
+
+			Image* image = Resources::Load<Image>(fileName, fullName);
+			images.push_back(image);
+
+			// 스프라이트 최대 사이즈 구하기
+			if (width < image->GetWidth())
+			{
+				width = image->GetWidth();
+			}
+			if (height < image->GetHeight())
+			{
+				height = image->GetHeight();
+			}
+			fileCount++;
+		}
+
+		std::wstring key = fs.parent_path().filename();
+		key += fs.filename();
+
+		mSpriteSheet = Image::Create(key, width * fileCount, height);
+
 	}
 	Animation* Animator::FindAnimation(const std::wstring& name)
 	{

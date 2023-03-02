@@ -48,7 +48,7 @@ namespace jw
 			, UINT coulmn, UINT row, UINT spriteLength
 			, Vector2 offset, float duration);
 		// 스프라이트로 애니메이션 제작하는 함수
-		void CreateAnimations(); 
+		void CreateAnimations(const std::wstring& path, Vector2 offset, float duration);
 
 		Animation* FindAnimation(const std::wstring& name);
 		void Play(const std::wstring& name, bool loop);
