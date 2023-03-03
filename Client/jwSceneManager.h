@@ -16,6 +16,7 @@ namespace jw
 		static void Release();
 
 		static void LoadScene(eSceneType type);
+		static Scene* GetActiveScene() { return mActiveScene; }
 
 	private:
 		// 전역 변수화 - 위 함수에서 바로 접근가능

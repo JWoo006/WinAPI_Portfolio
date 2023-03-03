@@ -136,7 +136,9 @@
     <ClInclude Include="jwAnimator.h" />
     <ClInclude Include="jwApplication.h" />
     <ClInclude Include="jwBackground.h" />
+    <ClInclude Include="jwBaseBullet.h" />
     <ClInclude Include="jwBoss.h" />
+    <ClInclude Include="jwCollider.h" />
     <ClInclude Include="jwComponent.h" />
     <ClInclude Include="jwCuphead.h" />
     <ClInclude Include="jwCuphead_Stage.h" />
@@ -165,7 +167,9 @@
     <ClCompile Include="jwAnimator.cpp" />
     <ClCompile Include="jwApplication.cpp" />
     <ClCompile Include="jwBackground.cpp" />
+    <ClCompile Include="jwBaseBullet.cpp" />
     <ClCompile Include="jwBoss.cpp" />
+    <ClCompile Include="jwCollider.cpp" />
     <ClCompile Include="jwComponent.cpp" />
     <ClCompile Include="jwCuphead.cpp" />
     <ClCompile Include="jwCuphead_Stage.cpp" />

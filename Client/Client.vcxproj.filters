@@ -56,6 +56,9 @@
     <Filter Include="Contents\Background">
       <UniqueIdentifier>{4ceca8f0-f10e-464a-8c2e-efb5867363c6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Bullet">
+      <UniqueIdentifier>{73680b76-61de-4f0f-84ee-8aea4287420c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -151,6 +154,12 @@
     <ClInclude Include="jwAnimator.h">
       <Filter>Engine\Component</Filter>
     </ClInclude>
+    <ClInclude Include="jwCollider.h">
+      <Filter>Engine\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="jwBaseBullet.h">
+      <Filter>Contents\Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -240,6 +249,12 @@
     </ClCompile>
     <ClCompile Include="jwAnimator.cpp">
       <Filter>Engine\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="jwCollider.cpp">
+      <Filter>Engine\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="jwBaseBullet.cpp">
+      <Filter>Contents\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

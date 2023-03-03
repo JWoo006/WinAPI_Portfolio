@@ -34,7 +34,14 @@ namespace jw
 		image->SetKey(name);
 		Resources::Insert<Image>(name, image);
 
-		return nullptr;
+		// ¹è°æ »öÄ¥
+		HBRUSH myBrush = (HBRUSH)CreateSolidBrush(RGB(255, 0, 255));
+		HBRUSH oldBrush = (HBRUSH)SelectObject(image->GetHdc(), myBrush);
+		Rectangle(image->GetHdc(), -1, -1, image->mWidth + 1, image->mHeight + 1);
+		SelectObject(image->GetHdc(), oldBrush);
+		DeleteObject(myBrush);
+
+		return image;
 	}
 	Image::Image()
 		: mBitmap(NULL)

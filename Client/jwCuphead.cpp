@@ -5,6 +5,9 @@
 #include "jwResources.h"
 #include "jwTransform.h"
 #include "jwAnimator.h"
+#include "jwCollider.h"
+#include "jwBaseBullet.h"
+#include "jwScene.h"
 
 
 namespace jw
@@ -22,9 +25,15 @@ namespace jw
 		mAnimator = AddComponent<Animator>();
 
 		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Idle", Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Aim\\Straight", Vector2(10.0f,0.0f), 0.1f);
 
-		Transform* tr = GetComponent<Transform>();
-		tr->SetPos(Vector2(100, 500));
+
+		mAnimator->Play(L"CupheadIdle", true);
+
+		Collider* collider = AddComponent<Collider>();
+		collider->SetCenter(Vector2(-50.0f, -100.0f));
+		
+		mState = eCupheadState::Idle;
 
 		GameObject::Initialize();
 	}
@@ -56,10 +65,7 @@ namespace jw
 	}
 	void Cuphead::Render(HDC hdc)
 	{
-		GameObject::Render(hdc);
-		Transform* tr = GetComponent<Transform>();
-		Vector2 pos = tr->GetPos();
-						
+		GameObject::Render(hdc);						
 	}
 	void Cuphead::Release()
 	{
@@ -100,6 +106,25 @@ namespace jw
 	}
 	void Cuphead::shoot()
 	{
+		Transform* tr = GetComponent<Transform>();
+		if (Input::GetKey(eKeyCode::K))
+		{
+			Scene* curScene = SceneManager::GetActiveScene();
+			BaseBullet* bullet = new BaseBullet();
+			bullet->GetComponent<Transform>()->SetPos(tr->GetPos());
+			curScene->AddGameObject(bullet, eLayerType::Bullet);
+		}
+
+		if (Input::GetKeyDown(eKeyCode::A)
+			|| Input::GetKeyDown(eKeyCode::D)
+			|| Input::GetKeyDown(eKeyCode::S)
+			|| Input::GetKeyDown(eKeyCode::W))
+		{
+			mState = eCupheadState::Move;
+			//mAnimator->Play(L"FowardRun", true);
+			mAnimator->Play(L"CupheadIdle", true);
+		}
+
 	}
 	void Cuphead::death()
 	{
@@ -111,6 +136,12 @@ namespace jw
 		{
 			mState = eCupheadState::Move;
 			//mAnimator->Play(L"FowardRun", true);
+		}
+
+		if (Input::GetKeyDown(eKeyCode::K))
+		{
+			mState = eCupheadState::Shoot;
+			mAnimator->Play(L"AimStraight", true);
 		}
 	}
 }
