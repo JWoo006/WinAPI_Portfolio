@@ -22,6 +22,10 @@ namespace jw
 	{
 		//mImage = Resources::Load<Image>(L"Cuphead", L"..\\Resources\\Image\\Cuphead\\Idle\\Idle.bmp");
 		//Image* mImage = Resources::Load<Image>(L"Cuphead", L"..\\Resources\\Image\\Cuphead\\Idle\\cuphead_idle_0001.bmp");
+
+		Transform* tr = GetComponent<Transform>();
+		tr->SetPos(Vector2(100.0f, 700.0f));
+
 		mAnimator = AddComponent<Animator>();
 
 		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Idle", Vector2::Zero, 0.1f);
@@ -85,12 +89,12 @@ namespace jw
 
 		if (Input::GetKey(eKeyCode::A))
 		{
-			pos.x -= 100.0f * Time::DeltaTime();
+			pos.x -= 400.0f * Time::DeltaTime();
 		}
 
 		if (Input::GetKey(eKeyCode::D))
 		{
-			pos.x += 100.0f * Time::DeltaTime();
+			pos.x += 400.0f * Time::DeltaTime();
 		}
 
 		if (Input::GetKey(eKeyCode::W))

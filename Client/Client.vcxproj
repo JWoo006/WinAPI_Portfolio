@@ -139,6 +139,7 @@
     <ClInclude Include="jwBaseBullet.h" />
     <ClInclude Include="jwBoss.h" />
     <ClInclude Include="jwCollider.h" />
+    <ClInclude Include="jwCollisionManager.h" />
     <ClInclude Include="jwComponent.h" />
     <ClInclude Include="jwCuphead.h" />
     <ClInclude Include="jwCuphead_Stage.h" />
@@ -158,6 +159,7 @@
     <ClInclude Include="jwTime.h" />
     <ClInclude Include="jwTitleScene.h" />
     <ClInclude Include="jwTransform.h" />
+    <ClInclude Include="jwVeggie_Onion.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="jwResources.h" />
     <ClInclude Include="targetver.h" />
@@ -170,6 +172,7 @@
     <ClCompile Include="jwBaseBullet.cpp" />
     <ClCompile Include="jwBoss.cpp" />
     <ClCompile Include="jwCollider.cpp" />
+    <ClCompile Include="jwCollisionManager.cpp" />
     <ClCompile Include="jwComponent.cpp" />
     <ClCompile Include="jwCuphead.cpp" />
     <ClCompile Include="jwCuphead_Stage.cpp" />
@@ -188,6 +191,7 @@
     <ClCompile Include="jwTime.cpp" />
     <ClCompile Include="jwTitleScene.cpp" />
     <ClCompile Include="jwTransform.cpp" />
+    <ClCompile Include="jwVeggie_Onion.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="jwResources.cpp" />
   </ItemGroup>

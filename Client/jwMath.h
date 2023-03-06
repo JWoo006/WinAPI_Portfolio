@@ -57,6 +57,16 @@ struct Vector2
 		return temp;
 	}
 
+	Vector2 operator*(const Vector2& other)
+	{
+		Vector2 temp;
+
+		temp.x = x * other.x;
+		temp.y = y * other.y;
+
+		return temp;
+	}
+
 	// 누적연산자 반환값이 필요없음 void로 막음
 	void operator+=(const Vector2& other)
 	{

@@ -59,6 +59,9 @@
     <Filter Include="Contents\Bullet">
       <UniqueIdentifier>{73680b76-61de-4f0f-84ee-8aea4287420c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Component\Collider">
+      <UniqueIdentifier>{3b1eb395-e9cd-4fb8-a564-081a322842e5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -154,11 +157,17 @@
     <ClInclude Include="jwAnimator.h">
       <Filter>Engine\Component</Filter>
     </ClInclude>
-    <ClInclude Include="jwCollider.h">
-      <Filter>Engine\Component</Filter>
-    </ClInclude>
     <ClInclude Include="jwBaseBullet.h">
       <Filter>Contents\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="jwVeggie_Onion.h">
+      <Filter>Contents\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="jwCollider.h">
+      <Filter>Engine\Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="jwCollisionManager.h">
+      <Filter>Engine\Component\Collider</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -250,11 +259,17 @@
     <ClCompile Include="jwAnimator.cpp">
       <Filter>Engine\Component</Filter>
     </ClCompile>
-    <ClCompile Include="jwCollider.cpp">
-      <Filter>Engine\Component</Filter>
-    </ClCompile>
     <ClCompile Include="jwBaseBullet.cpp">
       <Filter>Contents\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="jwVeggie_Onion.cpp">
+      <Filter>Contents\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="jwCollider.cpp">
+      <Filter>Engine\Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="jwCollisionManager.cpp">
+      <Filter>Engine\Component\Collider</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

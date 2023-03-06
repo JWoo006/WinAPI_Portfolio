@@ -18,6 +18,10 @@ namespace jw
 	}
 	void Cuphead_Stage::Initialize()
 	{
+		Transform* tr = GetComponent<Transform>();
+		tr->SetPos(Vector2(800.0f, 450.0f));
+
+
 		Image* mImage = Resources::Load<Image>(L"Cuphead_Stage", L"..\\Resources\\Image\\Cuphead\\StageMove\\Cuphead_Stage.bmp");
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"FowardRun", mImage

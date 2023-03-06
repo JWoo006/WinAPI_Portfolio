@@ -2,8 +2,10 @@
 #include "jwCuphead.h"
 #include "jwBackground.h"
 #include "jwBoss.h"
+#include "jwVeggie_Onion.h"
 #include "jwInput.h"
 #include "jwSceneManager.h"
+#include "jwCollisionManager.h"
 
 namespace jw
 {
@@ -22,8 +24,13 @@ namespace jw
 		mbackground = new Background();
 		AddGameObject(mbackground, eLayerType::BG);
 
-		mBoss = new Boss();
-		AddGameObject(mBoss, eLayerType::Monster);
+		/*mBoss = new Boss();
+		AddGameObject(mBoss, eLayerType::Monster);*/
+		Veggie_Onion* Onion = new Veggie_Onion();
+		AddGameObject(Onion, eLayerType::Monster);
+
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
+
 
 		//override를 써서 자식쪽으로 오지만 부모쪽 함수로 지정가능
 		Scene::Initialize();

@@ -23,6 +23,7 @@ namespace jw
 		virtual void SceneText(HDC hdc);
 
 		void AddGameObject(GameObject* obj, eLayerType layer);
+		const std::vector<GameObject*>& GetGameObjects(eLayerType layer);
 
 	private:
 		std::vector<Layer> mLayers;

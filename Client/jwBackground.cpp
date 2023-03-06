@@ -12,8 +12,11 @@ namespace jw
 	}
 	void Background::Initialize()
 	{
-		mImage = Resources::Load<Image>(L"stage1_ground", L"..\\Resources\\Image\\Stage1_veggie\\veggie_bg_0003 #264656.bmp");
-		mSkyImage = Resources::Load<Image>(L"stage1_sky", L"..\\Resources\\Image\\Stage1_veggie\\veggie_bg_0012 #264653.bmp");
+		mImage = Resources::Load<Image>(L"stage1_ground", L"..\\Resources\\Image\\Stage1_veggie\\BackGround\\veggie_bg_0003 #264656.bmp");
+		mSkyImage = Resources::Load<Image>(L"stage1_sky", L"..\\Resources\\Image\\Stage1_veggie\\BackGround\\veggie_bg_0012 #264653.bmp");
+
+		Transform* tr = GetComponent<Transform>();
+		tr->SetScale(Vector2(1.0f, 1.0f));
 
 
 		GameObject::Initialize();
@@ -27,7 +30,7 @@ namespace jw
 
 		BitBlt(hdc, 0, 0, mSkyImage->GetWidth(), mSkyImage->GetHeight(), mSkyImage->GetHdc(), 0, 0, SRCCOPY);
 
-		GdiTransparentBlt(hdc, 0, 400, mImage->GetWidth(), mImage->GetHeight(), mImage->GetHdc(), 0, 0
+		TransparentBlt(hdc, 0, 400, mImage->GetWidth(), mImage->GetHeight(), mImage->GetHdc(), 0, 0
 			, mImage->GetWidth(), mImage->GetHeight(), RGB(255, 0, 255));
 	}
 	void Background::Release()

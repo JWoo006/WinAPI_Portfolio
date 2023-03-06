@@ -8,7 +8,6 @@ namespace jw
 		: Component(eComponentType::Collider)
 		, mCenter(Vector2::Zero)
 		, mSize(Vector2(100.0f, 100.0f))
-		, mScale(Vector2::One)
 		, mPos(Vector2::Zero)
 	{
 	}
