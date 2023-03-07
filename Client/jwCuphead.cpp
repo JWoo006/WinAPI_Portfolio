@@ -27,13 +27,13 @@ namespace jw
 		tr->SetPos(Vector2(100.0f, 700.0f));
 
 		mAnimator = AddComponent<Animator>();
-
 		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Idle", Vector2::Zero, 0.1f);
 		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Aim\\Straight", Vector2(10.0f,0.0f), 0.1f);
 
-
+		mAnimator->GetCompleteEvent(L"CupheadIdle")
+			= std::bind(&Cuphead::idleCompleteEvent, this);
 		mAnimator->Play(L"CupheadIdle", true);
-
+		
 		Collider* collider = AddComponent<Collider>();
 		collider->SetCenter(Vector2(-50.0f, -100.0f));
 		
@@ -147,5 +147,14 @@ namespace jw
 			mState = eCupheadState::Shoot;
 			mAnimator->Play(L"AimStraight", true);
 		}
+	}
+	void Cuphead::idleCompleteEvent()
+	{
+		// 총알- idle 애니매이센 끝날때마다 총알발사
+		Transform* tr = GetComponent<Transform>();
+		Scene* curScene = SceneManager::GetActiveScene();
+		BaseBullet* bullet = new BaseBullet();
+		bullet->GetComponent<Transform>()->SetPos(tr->GetPos());
+		curScene->AddGameObject(bullet, eLayerType::Bullet);
 	}
 }

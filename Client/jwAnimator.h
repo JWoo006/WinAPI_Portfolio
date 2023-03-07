@@ -47,6 +47,7 @@ namespace jw
 			, Vector2 leftTop
 			, UINT coulmn, UINT row, UINT spriteLength
 			, Vector2 offset, float duration);
+
 		// 스프라이트로 애니메이션 제작하는 함수
 		void CreateAnimations(const std::wstring& path, Vector2 offset, float duration);
 
@@ -54,15 +55,14 @@ namespace jw
 		void Play(const std::wstring& name, bool loop);
 
 		Events* FindEvents(const std::wstring& name);
-		/*std::function<void>& GetStartEvent(const std::wstring& name);
-		std::function<void>& GetCompleteEvent(const std::wstring& name);
-		std::function<void>& GetEndEvent(const std::wstring& name);*/
-
+		std::function<void()>& GetStartEvent(const std::wstring& name);
+		std::function<void()>& GetCompleteEvent(const std::wstring& name);
+		std::function<void()>& GetEndEvent(const std::wstring& name);
+						  
 	private:
 		std::map<std::wstring, Animation*> mAnimations;
 		std::map<std::wstring, Events*> mEvents;
 		Animation* mActiveAnimation;
-
 		Image* mSpriteSheet;
 		bool mbLoop;
 	};

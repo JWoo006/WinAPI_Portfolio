@@ -28,6 +28,8 @@ namespace jw
 		void death();
 		void idle();
 
+		void idleCompleteEvent();
+
 	private:
 		eCupheadState mState;
 		Animator* mAnimator;

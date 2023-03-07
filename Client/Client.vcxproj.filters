@@ -53,14 +53,26 @@
     <Filter Include="Contents\Boss">
       <UniqueIdentifier>{0a74ecae-2fc8-4645-afa8-93d9e70dc620}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Background">
-      <UniqueIdentifier>{4ceca8f0-f10e-464a-8c2e-efb5867363c6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\Bullet">
       <UniqueIdentifier>{73680b76-61de-4f0f-84ee-8aea4287420c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Component\Collider">
       <UniqueIdentifier>{3b1eb395-e9cd-4fb8-a564-081a322842e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Title">
+      <UniqueIdentifier>{b8610936-3f16-451f-a8c9-8650cf75c657}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Stage">
+      <UniqueIdentifier>{4ceca8f0-f10e-464a-8c2e-efb5867363c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Stage\Veggie">
+      <UniqueIdentifier>{ca75a441-d1b7-4a6c-b288-7ed3452e4ad3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Stage\Veggie\Background">
+      <UniqueIdentifier>{5faee911-46fb-455d-8eed-34b3ca954577}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Stage\Veggie\Boss">
+      <UniqueIdentifier>{85f9042a-680d-4c6a-ab25-cd6188e03372}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -136,9 +148,6 @@
     <ClInclude Include="jwImage.h">
       <Filter>Engine\Resource</Filter>
     </ClInclude>
-    <ClInclude Include="jwBackground.h">
-      <Filter>Contents\Background</Filter>
-    </ClInclude>
     <ClInclude Include="jwBoss.h">
       <Filter>Contents\Boss</Filter>
     </ClInclude>
@@ -160,14 +169,26 @@
     <ClInclude Include="jwBaseBullet.h">
       <Filter>Contents\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="jwVeggie_Onion.h">
-      <Filter>Contents\Boss</Filter>
-    </ClInclude>
     <ClInclude Include="jwCollider.h">
       <Filter>Engine\Component\Collider</Filter>
     </ClInclude>
     <ClInclude Include="jwCollisionManager.h">
       <Filter>Engine\Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="jwBackground.h">
+      <Filter>Contents\Stage\Veggie\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="jwVeggie_Onion.h">
+      <Filter>Contents\Stage\Veggie\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="jwTitleAnim1.h">
+      <Filter>Contents\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="jwTitleAnim2.h">
+      <Filter>Contents\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="jwTitleAnim3.h">
+      <Filter>Contents\Title</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -238,9 +259,6 @@
     <ClCompile Include="jwImage.cpp">
       <Filter>Engine\Resource</Filter>
     </ClCompile>
-    <ClCompile Include="jwBackground.cpp">
-      <Filter>Contents\Background</Filter>
-    </ClCompile>
     <ClCompile Include="jwBoss.cpp">
       <Filter>Contents\Boss</Filter>
     </ClCompile>
@@ -262,14 +280,26 @@
     <ClCompile Include="jwBaseBullet.cpp">
       <Filter>Contents\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="jwVeggie_Onion.cpp">
-      <Filter>Contents\Boss</Filter>
-    </ClCompile>
     <ClCompile Include="jwCollider.cpp">
       <Filter>Engine\Component\Collider</Filter>
     </ClCompile>
     <ClCompile Include="jwCollisionManager.cpp">
       <Filter>Engine\Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="jwBackground.cpp">
+      <Filter>Contents\Stage\Veggie\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="jwVeggie_Onion.cpp">
+      <Filter>Contents\Stage\Veggie\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="jwTitleAnim1.cpp">
+      <Filter>Contents\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="jwTitleAnim2.cpp">
+      <Filter>Contents\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="jwTitleAnim3.cpp">
+      <Filter>Contents\Title</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

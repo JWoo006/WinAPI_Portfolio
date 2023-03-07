@@ -5,6 +5,7 @@
 #include "jwResources.h"
 #include "jwTransform.h"
 #include "jwAnimator.h"
+#include "jwCollider.h"
 
 
 namespace jw
@@ -21,7 +22,6 @@ namespace jw
 		Transform* tr = GetComponent<Transform>();
 		tr->SetPos(Vector2(800.0f, 450.0f));
 
-
 		Image* mImage = Resources::Load<Image>(L"Cuphead_Stage", L"..\\Resources\\Image\\Cuphead\\StageMove\\Cuphead_Stage.bmp");
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"FowardRun", mImage
@@ -32,6 +32,9 @@ namespace jw
 			, Vector2(0.0f, 113.0f * 5), 16, 8, 9, Vector2::Zero, 0.1);
 
 		mAnimator->Play(L"Idle", true);
+
+		Collider* collider = AddComponent<Collider>();
+		collider->SetCenter(Vector2(-50.0f, -100.0f));
 
 		mState = eCupheadState::Idle;
 

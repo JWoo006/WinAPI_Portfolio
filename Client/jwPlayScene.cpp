@@ -19,6 +19,7 @@ namespace jw
 	{
 		mCuphead = new Cuphead();
 		//cuphead->SetPos(Vector2(0.0f, 0.0f));
+		mCuphead->SetName(L"Cuphead");
 		AddGameObject(mCuphead, eLayerType::Player);
 
 		mbackground = new Background();
@@ -27,10 +28,10 @@ namespace jw
 		/*mBoss = new Boss();
 		AddGameObject(mBoss, eLayerType::Monster);*/
 		Veggie_Onion* Onion = new Veggie_Onion();
+		Onion->SetName(L"Veggie_Onion");
 		AddGameObject(Onion, eLayerType::Monster);
 
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
-
 
 		//override를 써서 자식쪽으로 오지만 부모쪽 함수로 지정가능
 		Scene::Initialize();
