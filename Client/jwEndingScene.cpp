@@ -2,7 +2,7 @@
 #include "jwInput.h"
 #include "jwSceneManager.h"
 #include "jwResources.h"
-
+ 
 namespace jw
 {
 	EndingScene::EndingScene()
