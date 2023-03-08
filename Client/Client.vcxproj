@@ -151,6 +151,7 @@
     <ClInclude Include="jwInput.h" />
     <ClInclude Include="jwLayer.h" />
     <ClInclude Include="jwMath.h" />
+    <ClInclude Include="jwPeashotSpark.h" />
     <ClInclude Include="jwPlayScene.h" />
     <ClInclude Include="jwResource.h" />
     <ClInclude Include="jwScene.h" />
@@ -186,6 +187,7 @@
     <ClCompile Include="jwInput.cpp" />
     <ClCompile Include="jwLayer.cpp" />
     <ClCompile Include="jwMath.cpp" />
+    <ClCompile Include="jwPeashotSpark.cpp" />
     <ClCompile Include="jwPlayScene.cpp" />
     <ClCompile Include="jwResource.cpp" />
     <ClCompile Include="jwScene.cpp" />

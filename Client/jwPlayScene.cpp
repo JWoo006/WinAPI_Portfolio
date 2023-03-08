@@ -7,6 +7,7 @@
 #include "jwSceneManager.h"
 #include "jwCollisionManager.h"
 
+
 namespace jw
 {
 	PlayScene::PlayScene()
@@ -68,6 +69,7 @@ namespace jw
 	}
 	void PlayScene::OnEnter()
 	{
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 	}
 	void PlayScene::OnExit()
 	{

@@ -1,11 +1,24 @@
 #include "jwBaseBullet.h"
 #include "jwTransform.h"
 #include "jwTime.h"
+#include "jwAnimator.h"
+#include "jwSceneManager.h"
+#include "jwInput.h"
+#include "jwResources.h"
+#include "jwCollider.h"
+#include "jwScene.h"
 
 namespace jw
 {
+	float BaseBullet::mDelay = 0.15f;
 	BaseBullet::BaseBullet()
 	{
+		Transform* tr = GetComponent<Transform>();
+		tr->SetScale(Vector2(0.7f, 1.0f));
+		mAnimator = AddComponent<Animator>();
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Weapon_peashot\\main", Vector2::Zero, 0.1f);
+		mAnimator->Play(L"Weapon_peashotmain", true);
+		
 	}
 	BaseBullet::~BaseBullet()
 	{
@@ -15,27 +28,18 @@ namespace jw
 	}
 	void BaseBullet::Update()
 	{
+		GameObject::Update();
+
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
-		pos.x += 100.0f * Time::DeltaTime();
+		float speed = 600.0f;
+		pos.x += speed * Time::DeltaTime();
 		tr->SetPos(pos);
 
 	}
 	void BaseBullet::Render(HDC hdc)
-	{
-		Transform* tr = GetComponent<Transform>();
-		Vector2 pos = tr->GetPos();
-		HPEN pen = CreatePen(BS_SOLID, 2, RGB(255, 0, 255));
-
-		HPEN oldPen = (HPEN)SelectObject(hdc, pen);
-		HBRUSH brush = (HBRUSH)GetStockObject(NULL_BRUSH);
-		HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, brush);
-
-		Ellipse(hdc, pos.x, pos.y, pos.x + 50, pos.y + 50);
-
-		(HPEN)SelectObject(hdc, oldPen);
-		(HBRUSH)SelectObject(hdc, oldBrush);
-		DeleteObject(pen);
+	{		
+		GameObject::Render(hdc);	
 	}
 	void BaseBullet::Release()
 	{

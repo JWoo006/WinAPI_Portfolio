@@ -3,6 +3,7 @@
 #include "jwTitleScene.h"
 #include "jwEndingScene.h"
 #include "jwStageScene.h"
+#include "jwCollisionManager.h"
 
 namespace jw
 {
@@ -25,7 +26,7 @@ namespace jw
 
 
         // «ˆ¿Á ªÁøÎ«“ æ¿ º≥¡§
-        mActiveScene = mScenes[(UINT)eSceneType::Title];
+        mActiveScene = mScenes[(UINT)eSceneType::Play];
 
         for (Scene* scene : mScenes)
         {
@@ -62,6 +63,8 @@ namespace jw
     {
         // «ˆ¿Áæ¿
         mActiveScene->OnExit();
+
+        CollisionManager::Clear();
 
         // ¥Ÿ¿Ωæ¿
         mActiveScene = mScenes[(UINT)type];

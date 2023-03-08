@@ -43,4 +43,14 @@ namespace jw
 	{
 		GameObject::Release();
 	}
+	void Veggie_Onion::OnCollisionEnter(Collider* other)
+	{
+		int a = 0;
+	}
+	void Veggie_Onion::OnCollisionStay(Collider* other)
+	{
+	}
+	void Veggie_Onion::OnCollisionExit(Collider* other)
+	{
+	}
 }

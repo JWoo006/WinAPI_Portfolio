@@ -5,6 +5,7 @@
 namespace jw
 {
 	class Animator;
+	class PeashotSpark;
 	class Cuphead : public GameObject
 	{
 	public:
@@ -23,6 +24,10 @@ namespace jw
 		virtual void Render(HDC hdc) override;
 		virtual void Release() override;
 
+		virtual void OnCollisionEnter(class Collider* other) override;
+		virtual void OnCollisionStay(class Collider* other) override;
+		virtual void OnCollisionExit(class Collider* other) override;
+
 		void move();
 		void shoot();
 		void death();
@@ -33,6 +38,9 @@ namespace jw
 	private:
 		eCupheadState mState;
 		Animator* mAnimator;
+		PeashotSpark* spark;
+		float mSecond;
+		float mFiredelay;
 
 	};
 }

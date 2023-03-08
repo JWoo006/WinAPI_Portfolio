@@ -1,27 +1,28 @@
 #pragma once
 #include "jwGameObject.h"
-#include "jwImage.h"
 
 namespace jw
 {
-	class Background : public GameObject
+	class Animator;
+	class PeashotSpark : public GameObject
 	{
 	public:
-		Background();
-		~Background();
+	
+		PeashotSpark();
+		~PeashotSpark();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
 		virtual void Render(HDC hdc) override;
 		virtual void Release() override;
 
+		void SetOnShot(bool shot) { OnShot = shot; }
+
 	private:
-		Image* mImage;
-		Image* mSkyImage;
-		Vector2 scale;
+		Animator* mAnimator;
+		bool OnShot;
 
 	};
 }
-
 
 

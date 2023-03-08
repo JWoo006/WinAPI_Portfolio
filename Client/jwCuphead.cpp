@@ -8,11 +8,13 @@
 #include "jwCollider.h"
 #include "jwBaseBullet.h"
 #include "jwScene.h"
+#include "jwPeashotSpark.h"
 
 
 namespace jw
 {
 	Cuphead::Cuphead()
+		: mSecond(1.0f)
 	{
 	}
 	Cuphead::~Cuphead()
@@ -25,10 +27,18 @@ namespace jw
 
 		Transform* tr = GetComponent<Transform>();
 		tr->SetPos(Vector2(100.0f, 700.0f));
+		tr->SetScale(Vector2(1.0f, 1.0f));
+
+		mFiredelay = BaseBullet::GetDelay();
+
+		Scene* curScene = SceneManager::GetActiveScene();
+		spark = new PeashotSpark();
+		//spark->GetComponent<Animator>()->Play(L"Weapon_peashotspark", true);
+		curScene->AddGameObject(spark, eLayerType::Effect);
 
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Idle", Vector2::Zero, 0.1f);
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Aim\\Straight", Vector2(10.0f,0.0f), 0.1f);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Aim\\Straight_Shoot", Vector2::Zero, (mFiredelay * 0.3f));
 
 		mAnimator->GetCompleteEvent(L"CupheadIdle")
 			= std::bind(&Cuphead::idleCompleteEvent, this);
@@ -47,6 +57,8 @@ namespace jw
 
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
+
+		spark->GetComponent<Transform>()->SetPos(tr->GetPos());
 
 		switch (mState)
 		{
@@ -74,6 +86,16 @@ namespace jw
 	void Cuphead::Release()
 	{
 		GameObject::Release();
+	}
+	void Cuphead::OnCollisionEnter(Collider* other)
+	{
+		int a = 0;
+	}
+	void Cuphead::OnCollisionStay(Collider* other)
+	{
+	}
+	void Cuphead::OnCollisionExit(Collider* other)
+	{
 	}
 	void Cuphead::move()
 	{
@@ -113,10 +135,24 @@ namespace jw
 		Transform* tr = GetComponent<Transform>();
 		if (Input::GetKey(eKeyCode::K))
 		{
-			Scene* curScene = SceneManager::GetActiveScene();
-			BaseBullet* bullet = new BaseBullet();
-			bullet->GetComponent<Transform>()->SetPos(tr->GetPos());
-			curScene->AddGameObject(bullet, eLayerType::Bullet);
+			mSecond += Time::DeltaTime();
+
+			if (mSecond > mFiredelay)
+			{
+				Scene* curScene = SceneManager::GetActiveScene();
+				BaseBullet* bullet = new BaseBullet();
+				bullet->GetComponent<Transform>()->SetPos(tr->GetPos() + Vector2(100.0f, -50.0f));
+				//bullet->GetComponent<Animator>()->Play(L"Weapon_peashotmain", true);
+				curScene->AddGameObject(bullet, eLayerType::Bullet);
+				
+				mSecond = 0.0f;
+			}
+		}
+		else
+		{
+			mState = eCupheadState::Idle;
+			spark->SetOnShot(false);
+			mAnimator->Play(L"CupheadIdle", true);
 		}
 
 		if (Input::GetKeyDown(eKeyCode::A)
@@ -125,6 +161,7 @@ namespace jw
 			|| Input::GetKeyDown(eKeyCode::W))
 		{
 			mState = eCupheadState::Move;
+			spark->SetOnShot(false);
 			//mAnimator->Play(L"FowardRun", true);
 			mAnimator->Play(L"CupheadIdle", true);
 		}
@@ -145,16 +182,17 @@ namespace jw
 		if (Input::GetKeyDown(eKeyCode::K))
 		{
 			mState = eCupheadState::Shoot;
-			mAnimator->Play(L"AimStraight", true);
+			mAnimator->Play(L"AimStraight_Shoot", true);
+			spark->SetOnShot(true);
 		}
 	}
 	void Cuphead::idleCompleteEvent()
 	{
 		// 총알- idle 애니매이센 끝날때마다 총알발사
-		Transform* tr = GetComponent<Transform>();
+		/*Transform* tr = GetComponent<Transform>();
 		Scene* curScene = SceneManager::GetActiveScene();
 		BaseBullet* bullet = new BaseBullet();
 		bullet->GetComponent<Transform>()->SetPos(tr->GetPos());
-		curScene->AddGameObject(bullet, eLayerType::Bullet);
+		curScene->AddGameObject(bullet, eLayerType::Bullet);*/
 	}
 }

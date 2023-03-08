@@ -47,6 +47,7 @@ namespace jw
 	}
 	void StageScene::OnEnter()
 	{
+
 	}
 	void StageScene::OnExit()
 	{
