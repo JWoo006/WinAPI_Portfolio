@@ -52,7 +52,7 @@ namespace jw
 				{
 					deleteGameObjects.push_back((*iter));
 
-					iter = gameObjects.erase(iter);
+					iter = gameObjects.erase(iter); 
 				}
 				else
 				{
