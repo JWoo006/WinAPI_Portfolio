@@ -19,8 +19,8 @@ namespace jw
 	}
 	void Veggie_Onion::Initialize()
 	{
-		Transform* tr = GetComponent<Transform>();
-		tr->SetPos(Vector2(1100.0f, 700.0f));
+		/*Transform* tr = GetComponent<Transform>();
+		tr->SetPos(Vector2(1100.0f, 700.0f));*/
 
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage1_veggie\\onion\\idle", Vector2::Zero, 0.1f);

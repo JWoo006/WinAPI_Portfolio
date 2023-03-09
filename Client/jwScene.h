@@ -13,6 +13,7 @@ namespace jw
 		virtual void Initialize();
 		virtual void Update();
 		virtual void Render(HDC hdc);
+		virtual void Destroy();
 		virtual void Release();
 
 		// 씬전환간 초기화를 위한 함수
@@ -23,7 +24,7 @@ namespace jw
 		virtual void SceneText(HDC hdc);
 
 		void AddGameObject(GameObject* obj, eLayerType layer);
-		const std::vector<GameObject*>& GetGameObjects(eLayerType layer);
+		std::vector<GameObject*>& GetGameObjects(eLayerType layer);
 
 	private:
 		std::vector<Layer> mLayers;

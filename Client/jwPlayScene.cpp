@@ -6,6 +6,7 @@
 #include "jwInput.h"
 #include "jwSceneManager.h"
 #include "jwCollisionManager.h"
+#include "jwObject.h"
 
 
 namespace jw
@@ -18,24 +19,27 @@ namespace jw
 	}
 	void PlayScene::Initialize()
 	{
-		mCuphead = new Cuphead();
-		//cuphead->SetPos(Vector2(0.0f, 0.0f));
+		/*mCuphead = new Cuphead();
 		mCuphead->SetName(L"Cuphead");
-		AddGameObject(mCuphead, eLayerType::Player);
+		AddGameObject(mCuphead, eLayerType::Player);*/
 
-		mbackground = new Background();
-		AddGameObject(mbackground, eLayerType::BG);
+		object::Instantiate<Cuphead>(Vector2(100.0f, 700.0f), eLayerType::Player, eSceneType::Play);
 
-		/*mBoss = new Boss();
-		AddGameObject(mBoss, eLayerType::Monster);*/
-		Veggie_Onion* Onion = new Veggie_Onion();
+		/*mbackground = new Background();
+		AddGameObject(mbackground, eLayerType::BG);*/
+
+		object::Instantiate<Background>(eLayerType::BG, eSceneType::Play);
+
+		/*Veggie_Onion* Onion = new Veggie_Onion();
 		Onion->SetName(L"Veggie_Onion");
-		AddGameObject(Onion, eLayerType::Monster);
+		AddGameObject(Onion, eLayerType::Monster);*/
+
+		object::Instantiate< Veggie_Onion>(Vector2(1100.0f, 700.0f), eLayerType::Monster, eSceneType::Play);
 
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 
 		//override를 써서 자식쪽으로 오지만 부모쪽 함수로 지정가능
-		Scene::Initialize();
+		//Scene::Initialize();
 	}
 	void PlayScene::Update()
 	{

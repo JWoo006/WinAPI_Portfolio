@@ -4,6 +4,7 @@
 namespace jw
 {
 	GameObject::GameObject()
+		: mState(eState::Active)
 	{
 		mComponent.resize((UINT)eComponentType::End);
 		AddComponent<Transform>();

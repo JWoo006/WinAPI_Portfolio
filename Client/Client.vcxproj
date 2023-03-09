@@ -138,6 +138,7 @@
     <ClInclude Include="jwBackground.h" />
     <ClInclude Include="jwBaseBullet.h" />
     <ClInclude Include="jwBoss.h" />
+    <ClInclude Include="jwCamera.h" />
     <ClInclude Include="jwCollider.h" />
     <ClInclude Include="jwCollisionManager.h" />
     <ClInclude Include="jwComponent.h" />
@@ -151,12 +152,14 @@
     <ClInclude Include="jwInput.h" />
     <ClInclude Include="jwLayer.h" />
     <ClInclude Include="jwMath.h" />
+    <ClInclude Include="jwObject.h" />
     <ClInclude Include="jwPeashotSpark.h" />
     <ClInclude Include="jwPlayScene.h" />
     <ClInclude Include="jwResource.h" />
     <ClInclude Include="jwScene.h" />
     <ClInclude Include="jwSceneManager.h" />
     <ClInclude Include="jwStageScene.h" />
+    <ClInclude Include="jwTestBullet.h" />
     <ClInclude Include="jwTime.h" />
     <ClInclude Include="jwTitleAnim1.h" />
     <ClInclude Include="jwTitleAnim2.h" />
@@ -175,6 +178,7 @@
     <ClCompile Include="jwBackground.cpp" />
     <ClCompile Include="jwBaseBullet.cpp" />
     <ClCompile Include="jwBoss.cpp" />
+    <ClCompile Include="jwCamera.cpp" />
     <ClCompile Include="jwCollider.cpp" />
     <ClCompile Include="jwCollisionManager.cpp" />
     <ClCompile Include="jwComponent.cpp" />
@@ -193,6 +197,7 @@
     <ClCompile Include="jwScene.cpp" />
     <ClCompile Include="jwSceneManager.cpp" />
     <ClCompile Include="jwStageScene.cpp" />
+    <ClCompile Include="jwTestBullet.cpp" />
     <ClCompile Include="jwTime.cpp" />
     <ClCompile Include="jwTitleAnim1.cpp" />
     <ClCompile Include="jwTitleAnim2.cpp" />

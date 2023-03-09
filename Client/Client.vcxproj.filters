@@ -32,9 +32,6 @@
     <Filter Include="Engine\Layer">
       <UniqueIdentifier>{7e6e80ee-34b3-4a97-929c-ab7eadeadbe5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Scene\PlayScene">
-      <UniqueIdentifier>{dc3e1842-d351-43cf-8c73-1db6c9623800}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Time">
       <UniqueIdentifier>{74173db9-cd8e-4d14-ab7b-e12d0bf1c841}</UniqueIdentifier>
     </Filter>
@@ -79,6 +76,9 @@
     </Filter>
     <Filter Include="Contents\Effect">
       <UniqueIdentifier>{8b7fbcff-0c05-4de5-9463-06e60059e13c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Camera">
+      <UniqueIdentifier>{d3420c04-ecf4-46d8-84e6-5a5f68b92087}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -199,6 +199,15 @@
     <ClInclude Include="jwPeashotSpark.h">
       <Filter>Contents\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="jwTestBullet.h">
+      <Filter>Contents\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="jwCamera.h">
+      <Filter>Engine\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="jwObject.h">
+      <Filter>Engine\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -312,6 +321,12 @@
     </ClCompile>
     <ClCompile Include="jwPeashotSpark.cpp">
       <Filter>Contents\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="jwTestBullet.cpp">
+      <Filter>Contents\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="jwCamera.cpp">
+      <Filter>Engine\Camera</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

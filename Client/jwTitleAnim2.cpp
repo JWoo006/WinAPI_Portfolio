@@ -16,8 +16,8 @@ namespace jw
 	}
 	void TitleAnim2::Initialize()
 	{
-		Transform* tr = GetComponent<Transform>();
-		tr->SetPos(Vector2(500.0f, 800.0f));
+		/*Transform* tr = GetComponent<Transform>();
+		tr->SetPos(Vector2(500.0f, 800.0f));*/
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Title_Screen\\Background\\cuphead_title", Vector2::Zero, 0.06f);
 		mAnimator->Play(L"Backgroundcuphead_title", true);

@@ -3,6 +3,8 @@
 #include "jwSceneManager.h"
 #include "jwResources.h"
 #include "jwCuphead_Stage.h"
+#include "jwCamera.h"
+#include "jwObject.h"
 
 namespace jw
 {
@@ -14,10 +16,14 @@ namespace jw
 	}
 	void StageScene::Initialize()
 	{
-		mCuphead_Stage = new Cuphead_Stage();
-		AddGameObject(mCuphead_Stage, eLayerType::Player);
+		/*mCuphead_Stage = new Cuphead_Stage();
+		AddGameObject(mCuphead_Stage, eLayerType::Player);*/
 
-		Scene::Initialize();
+		object::Instantiate<Cuphead_Stage>(eLayerType::Player, eSceneType::Stage);
+
+		Camera::SetTarget(mCuphead_Stage);
+
+		//Scene::Initialize();
 
 	}
 	void StageScene::Update()

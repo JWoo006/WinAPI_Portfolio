@@ -1,6 +1,7 @@
 #include "jwCollider.h"
 #include "jwTransform.h"
 #include "jwGameObject.h"
+#include "jwCamera.h"
 
 namespace jw
 {
@@ -33,9 +34,10 @@ namespace jw
 		HBRUSH brush = (HBRUSH)GetStockObject(NULL_BRUSH);
 		HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, brush);
 		
-		Transform* tr = GetOwner()->GetComponent<Transform>();
-		mPos = tr->GetPos() + mCenter;
-		Rectangle(hdc, mPos.x, mPos.y, mPos.x + mSize.x, mPos.y + mSize.y);
+		/*Transform* tr = GetOwner()->GetComponent<Transform>();
+		mPos = tr->GetPos() + mCenter;*/
+		Vector2 pos = Camera::CalculatePos(mPos);
+		Rectangle(hdc, pos.x, pos.y, pos.x + mSize.x, pos.y + mSize.y);
 
 		(HPEN)SelectObject(hdc, oldPen);
 		(HBRUSH)SelectObject(hdc, oldBrush);

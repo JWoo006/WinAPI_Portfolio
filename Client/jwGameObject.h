@@ -8,6 +8,13 @@ namespace jw
 	class GameObject : public Entity
 	{
 	public:
+		enum class eState
+		{
+			Active,
+			Pause,
+			Death,
+		};
+
 		GameObject();
 		virtual ~GameObject();
 
@@ -49,8 +56,12 @@ namespace jw
 			return nullptr;
 		}
 
+		eState GetState() { return mState; }
+		void SetState(eState state) { mState = state; }
+
 	private:
 		std::vector<Component*> mComponent;
+		eState mState;
 		
 	};
 

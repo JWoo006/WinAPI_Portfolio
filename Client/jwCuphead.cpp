@@ -7,8 +7,10 @@
 #include "jwAnimator.h"
 #include "jwCollider.h"
 #include "jwBaseBullet.h"
+#include "jwTestBullet.h"
 #include "jwScene.h"
 #include "jwPeashotSpark.h"
+#include "jwObject.h"
 
 
 namespace jw
@@ -25,9 +27,9 @@ namespace jw
 		//mImage = Resources::Load<Image>(L"Cuphead", L"..\\Resources\\Image\\Cuphead\\Idle\\Idle.bmp");
 		//Image* mImage = Resources::Load<Image>(L"Cuphead", L"..\\Resources\\Image\\Cuphead\\Idle\\cuphead_idle_0001.bmp");
 
-		Transform* tr = GetComponent<Transform>();
+		/*Transform* tr = GetComponent<Transform>();
 		tr->SetPos(Vector2(100.0f, 700.0f));
-		tr->SetScale(Vector2(1.0f, 1.0f));
+		tr->SetScale(Vector2(1.0f, 1.0f));*/
 
 		mFiredelay = BaseBullet::GetDelay();
 
@@ -139,11 +141,15 @@ namespace jw
 
 			if (mSecond > mFiredelay)
 			{
-				Scene* curScene = SceneManager::GetActiveScene();
-				BaseBullet* bullet = new BaseBullet();
-				bullet->GetComponent<Transform>()->SetPos(tr->GetPos() + Vector2(100.0f, -50.0f));
-				//bullet->GetComponent<Animator>()->Play(L"Weapon_peashotmain", true);
-				curScene->AddGameObject(bullet, eLayerType::Bullet);
+				TestBullet* testbullet
+					= object::Instantiate<TestBullet>(tr->GetPos() + Vector2(100.0f, -50.0f), eLayerType::Bullet, eSceneType::Play);
+
+
+				//Scene* curScene = SceneManager::GetActiveScene();
+				////BaseBullet* bullet = new BaseBullet();
+				//TestBullet* bullet = new TestBullet();
+				//bullet->GetComponent<Transform>()->SetPos(tr->GetPos() + Vector2(100.0f, -50.0f));
+				//curScene->AddGameObject(bullet, eLayerType::Bullet);
 				
 				mSecond = 0.0f;
 			}

@@ -3,6 +3,7 @@
 #include "jwTime.h"
 #include "jwInput.h"
 #include "jwCollisionManager.h"
+#include "jwCamera.h"
 
 namespace jw
 {
@@ -41,6 +42,7 @@ namespace jw
 		Time::Initialize();
 		Input::Initialize();
 		SceneManager::Initialize();
+		Camera::Initialize();
 	}
 	void Application::Run()
 	{
@@ -51,6 +53,7 @@ namespace jw
 	{
 		Time::Update();
 		Input::Update();
+		Camera::Update();
 		SceneManager::Update();
 		CollisionManager::Update();
 	}
