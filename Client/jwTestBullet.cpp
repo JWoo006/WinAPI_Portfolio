@@ -12,12 +12,13 @@ namespace jw
 	float TestBullet::mDelay = 0.15f;
 	TestBullet::TestBullet()
 		: mTime(0.0f)
+		, mDegree(0.0f)
 	{
 		Transform* tr = GetComponent<Transform>();
 		tr->SetScale(Vector2(0.7f, 1.0f));
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Weapon_peashot\\main", Vector2::Zero, 0.1f);
-		mAnimator->Play(L"Weapon_peashotmain", true);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Weapon_peashot\\main_R", Vector2(60.0f, 0.0f), 0.1f);
+		mAnimator->Play(L"Weapon_peashotmain_R", true);
 	}
 	TestBullet::~TestBullet()
 	{
@@ -34,7 +35,7 @@ namespace jw
 		//dir.Normalize();
 		
 		Vector2 dir = Vector2(1.0f, 0.0f);
-		dir = math::Rotate(dir, -40.0f);
+		dir = math::Rotate(dir, mDegree);
 		//float x = cosf(PI / 4.0f); // 45µµ
 		//float y = sinf(PI / 4.0f);
 		//float x = dir.x * cosf(PI / 4.0f) - dir.y * sinf(PI / 4.0f);

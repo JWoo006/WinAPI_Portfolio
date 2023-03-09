@@ -117,22 +117,22 @@ namespace jw
 		
 		if (Input::GetKey(eKeyCode::A))
 		{
-			pos.x -= 100.0f * Time::DeltaTime();
+			pos.x -= 200.0f * Time::DeltaTime();
 		}
 
 		if (Input::GetKey(eKeyCode::D))
 		{
-			pos.x += 100.0f * Time::DeltaTime();
+			pos.x += 200.0f * Time::DeltaTime();
 		}
 
 		if (Input::GetKey(eKeyCode::W))
 		{
-			pos.y -= 100.0f * Time::DeltaTime();
+			pos.y -= 200.0f * Time::DeltaTime();
 		}
 
 		if (Input::GetKey(eKeyCode::S))
 		{
-			pos.y += 100.0f * Time::DeltaTime();
+			pos.y += 200.0f * Time::DeltaTime();
 		}
 		tr->SetPos(pos);
 	}

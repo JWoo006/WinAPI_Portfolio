@@ -19,7 +19,7 @@ namespace jw
 		/*mCuphead_Stage = new Cuphead_Stage();
 		AddGameObject(mCuphead_Stage, eLayerType::Player);*/
 
-		object::Instantiate<Cuphead_Stage>(eLayerType::Player, eSceneType::Stage);
+		mCuphead_Stage = object::Instantiate<Cuphead_Stage>(eLayerType::Player, eSceneType::Stage);
 
 		Camera::SetTarget(mCuphead_Stage);
 

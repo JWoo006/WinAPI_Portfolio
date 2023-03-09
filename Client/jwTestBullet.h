@@ -18,10 +18,14 @@ namespace jw
 
 		static float GetDelay() { return mDelay; }
 
+		void SetDegree(float degree) { mDegree = degree; }
+
 	private:
 		static float mDelay;
 		float mTime;
+		float mDegree;
 		Animator* mAnimator;
+		
 	};
 }
 

@@ -11,10 +11,16 @@ namespace jw
 	public:
 		enum class eCupheadState
 		{
-			Move,
-			Shoot,
+			Move_L,
+			Move_R,
+			Shoot_L,
+			Shoot_R,
+			Shoot_UP,
+			Shoot_Down,
 			Death,
-			Idle,
+			Idle_L,
+			Idle_R,
+
 		};
 		Cuphead();
 		~Cuphead();
@@ -34,6 +40,8 @@ namespace jw
 		void idle();
 
 		void idleCompleteEvent();
+		
+		eCupheadState GetCupheadState() { return mState; }
 
 	private:
 		eCupheadState mState;

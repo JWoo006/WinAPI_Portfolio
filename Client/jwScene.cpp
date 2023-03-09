@@ -31,6 +31,8 @@ namespace jw
 		for (Layer& layer : mLayers)
 		{
 			layer.Render(hdc);
+
+			Destroy();
 		}
 	}
 

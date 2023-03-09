@@ -33,23 +33,28 @@ namespace jw
 
 		mFiredelay = BaseBullet::GetDelay();
 
-		Scene* curScene = SceneManager::GetActiveScene();
-		spark = new PeashotSpark();
-		//spark->GetComponent<Animator>()->Play(L"Weapon_peashotspark", true);
-		curScene->AddGameObject(spark, eLayerType::Effect);
+		//Scene* curScene = SceneManager::GetActiveScene();
+		//spark = new PeashotSpark();
+		////spark->GetComponent<Animator>()->Play(L"Weapon_peashotspark", true);
+		//curScene->AddGameObject(spark, eLayerType::Effect);
+
+		spark = object::Instantiate<PeashotSpark>(eLayerType::Effect, eSceneType::Play);
 
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Idle", Vector2::Zero, 0.1f);
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Aim\\Straight_Shoot", Vector2::Zero, (mFiredelay * 0.3f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Idle_L", Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Idle_R", Vector2::Zero, 0.1f);
 
-		mAnimator->GetCompleteEvent(L"CupheadIdle")
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Aim\\Straight_Shoot_L", Vector2::Zero, (mFiredelay * 0.3f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Aim\\Straight_Shoot_R", Vector2::Zero, (mFiredelay * 0.3f));
+
+		mAnimator->GetCompleteEvent(L"CupheadIdle_R")
 			= std::bind(&Cuphead::idleCompleteEvent, this);
-		mAnimator->Play(L"CupheadIdle", true);
+		mAnimator->Play(L"CupheadIdle_R", true);
 		
 		Collider* collider = AddComponent<Collider>();
 		collider->SetCenter(Vector2(-50.0f, -100.0f));
 		
-		mState = eCupheadState::Idle;
+		mState = eCupheadState::Idle_R;
 
 		GameObject::Initialize();
 	}
@@ -64,16 +69,31 @@ namespace jw
 
 		switch (mState)
 		{
-		case jw::Cuphead::eCupheadState::Move:
+		case jw::Cuphead::eCupheadState::Move_L:
 			move();
 			break;
-		case jw::Cuphead::eCupheadState::Shoot:
+		case jw::Cuphead::eCupheadState::Move_R:
+			move();
+			break;
+		case jw::Cuphead::eCupheadState::Shoot_L:
+			shoot();
+			break;
+		case jw::Cuphead::eCupheadState::Shoot_R:
+			shoot();
+			break;
+		case jw::Cuphead::eCupheadState::Shoot_UP:
+			shoot();
+			break;
+		case jw::Cuphead::eCupheadState::Shoot_Down:
 			shoot();
 			break;
 		case jw::Cuphead::eCupheadState::Death:
 			death();
 			break;
-		case jw::Cuphead::eCupheadState::Idle:
+		case jw::Cuphead::eCupheadState::Idle_L:
+			idle();
+			break;
+		case jw::Cuphead::eCupheadState::Idle_R:
 			idle();
 			break;
 		default:
@@ -101,11 +121,15 @@ namespace jw
 	}
 	void Cuphead::move()
 	{
-		if (Input::GetKeyUp(eKeyCode::A) || Input::GetKeyUp(eKeyCode::D)
-			|| Input::GetKeyUp(eKeyCode::W) || Input::GetKeyUp(eKeyCode::S))
+		if (Input::GetKeyUp(eKeyCode::A) || Input::GetKeyUp(eKeyCode::W) || Input::GetKeyUp(eKeyCode::S))
 		{
-			mState = eCupheadState::Idle;
-			//mAnimator->Play(L"Idle", true);
+			mState = eCupheadState::Idle_L;
+			mAnimator->Play(L"CupheadIdle_L", true);
+		}
+		if (Input::GetKeyUp(eKeyCode::D) || Input::GetKeyUp(eKeyCode::W) || Input::GetKeyUp(eKeyCode::S))
+		{
+			mState = eCupheadState::Idle_R;
+			mAnimator->Play(L"CupheadIdle_R", true);
 		}
 
 		Transform* tr = GetComponent<Transform>();
@@ -123,53 +147,84 @@ namespace jw
 
 		if (Input::GetKey(eKeyCode::W))
 		{
-			pos.y -= 100.0f * Time::DeltaTime();
+			//pos.y -= 100.0f * Time::DeltaTime();
 		}
 
 		if (Input::GetKey(eKeyCode::S))
 		{
-			pos.y += 100.0f * Time::DeltaTime();
+			//pos.y += 100.0f * Time::DeltaTime();
 		}
 		tr->SetPos(pos);
 	}
 	void Cuphead::shoot()
 	{
 		Transform* tr = GetComponent<Transform>();
-		if (Input::GetKey(eKeyCode::K))
+
+		if (GetCupheadState() == eCupheadState::Shoot_L)
+		{
+			if (Input::GetKey(eKeyCode::K))
 		{
 			mSecond += Time::DeltaTime();
 
 			if (mSecond > mFiredelay)
 			{
 				TestBullet* testbullet
-					= object::Instantiate<TestBullet>(tr->GetPos() + Vector2(100.0f, -50.0f), eLayerType::Bullet, eSceneType::Play);
-
-
-				//Scene* curScene = SceneManager::GetActiveScene();
-				////BaseBullet* bullet = new BaseBullet();
-				//TestBullet* bullet = new TestBullet();
-				//bullet->GetComponent<Transform>()->SetPos(tr->GetPos() + Vector2(100.0f, -50.0f));
-				//curScene->AddGameObject(bullet, eLayerType::Bullet);
+					= object::Instantiate<TestBullet>((tr->GetPos() + Vector2(0.0f, -60.0f))  , eLayerType::Bullet, eSceneType::Play);
 				
+				testbullet->SetDegree(180.0f);
+
 				mSecond = 0.0f;
 			}
 		}
 		else
 		{
-			mState = eCupheadState::Idle;
+			mState = GetCupheadState();
+			mState = eCupheadState::Idle_L;
 			spark->SetOnShot(false);
-			mAnimator->Play(L"CupheadIdle", true);
+			mAnimator->Play(L"CupheadIdle_L", true);
+		}
+		}
+		else if (GetCupheadState() == eCupheadState::Shoot_R)
+		{
+			if (Input::GetKey(eKeyCode::K))
+			{
+				mSecond += Time::DeltaTime();
+
+				if (mSecond > mFiredelay)
+				{
+					TestBullet* testbullet
+						= object::Instantiate<TestBullet>(tr->GetPos() + Vector2(0.0f, -60.0f), eLayerType::Bullet, eSceneType::Play);
+
+					testbullet->SetDegree(0.0f);
+
+					mSecond = 0.0f;
+				}
+			}
+			else
+			{
+				mState = GetCupheadState();
+				mState = eCupheadState::Idle_L;
+				spark->SetOnShot(false);
+				mAnimator->Play(L"CupheadIdle_R", true);
+			}
 		}
 
 		if (Input::GetKeyDown(eKeyCode::A)
-			|| Input::GetKeyDown(eKeyCode::D)
 			|| Input::GetKeyDown(eKeyCode::S)
 			|| Input::GetKeyDown(eKeyCode::W))
 		{
-			mState = eCupheadState::Move;
+			mState = eCupheadState::Move_L;
 			spark->SetOnShot(false);
-			//mAnimator->Play(L"FowardRun", true);
-			mAnimator->Play(L"CupheadIdle", true);
+			mAnimator->Play(L"CupheadIdle_L", true);
+		}
+
+		if (Input::GetKeyDown(eKeyCode::D)
+			|| Input::GetKeyDown(eKeyCode::S)
+			|| Input::GetKeyDown(eKeyCode::W))
+		{
+			mState = eCupheadState::Move_R;
+			spark->SetOnShot(false);
+			mAnimator->Play(L"CupheadIdle_R", true);
 		}
 
 	}
@@ -178,18 +233,32 @@ namespace jw
 	}
 	void Cuphead::idle()
 	{
-		if (Input::GetKeyDown(eKeyCode::A) || Input::GetKeyDown(eKeyCode::D)
-			|| Input::GetKeyDown(eKeyCode::W) || Input::GetKeyDown(eKeyCode::S))
+		if (Input::GetKeyDown(eKeyCode::A) || Input::GetKeyDown(eKeyCode::W) || Input::GetKeyDown(eKeyCode::S))
 		{
-			mState = eCupheadState::Move;
-			//mAnimator->Play(L"FowardRun", true);
+			mState = eCupheadState::Move_L;
+			mAnimator->Play(L"CupheadIdle_L", true);
+		}
+
+		if (Input::GetKeyDown(eKeyCode::D) || Input::GetKeyDown(eKeyCode::W) || Input::GetKeyDown(eKeyCode::S))
+		{
+			mState = eCupheadState::Move_R;
+			mAnimator->Play(L"CupheadIdle_R", true);
 		}
 
 		if (Input::GetKeyDown(eKeyCode::K))
 		{
-			mState = eCupheadState::Shoot;
-			mAnimator->Play(L"AimStraight_Shoot", true);
-			spark->SetOnShot(true);
+			if (GetCupheadState() == eCupheadState::Idle_L)
+			{
+				mState = eCupheadState::Shoot_L;
+				mAnimator->Play(L"AimStraight_Shoot_L", true);
+				spark->SetOnShot(true);
+			}
+			else
+			{
+				mState = eCupheadState::Shoot_R;
+				mAnimator->Play(L"AimStraight_Shoot_R", true);
+				spark->SetOnShot(true);
+			}
 		}
 	}
 	void Cuphead::idleCompleteEvent()
