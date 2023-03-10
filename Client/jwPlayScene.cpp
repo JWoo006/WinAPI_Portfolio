@@ -27,8 +27,6 @@ namespace jw
 		object::Instantiate< Veggie_Onion>(Vector2(1100.0f, 700.0f), eLayerType::Monster);
 
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
-		//CollisionManager::SetLayer(eLayerType::Bullet, eLayerType::Monster, true);
-
 	}
 	void PlayScene::Update()
 	{
