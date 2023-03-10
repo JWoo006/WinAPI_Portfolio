@@ -80,6 +80,9 @@
     <Filter Include="Engine\Camera">
       <UniqueIdentifier>{d3420c04-ecf4-46d8-84e6-5a5f68b92087}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Weapon\Peashot_test">
+      <UniqueIdentifier>{34b63035-ea55-4bee-8fc5-071b6a295867}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -208,6 +211,18 @@
     <ClInclude Include="jwObject.h">
       <Filter>Engine\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="jwPeashot_L.h">
+      <Filter>Contents\Weapon\Peashot_test</Filter>
+    </ClInclude>
+    <ClInclude Include="jwPeashot_Up.h">
+      <Filter>Contents\Weapon\Peashot_test</Filter>
+    </ClInclude>
+    <ClInclude Include="jwPeashot_diagnal_L.h">
+      <Filter>Contents\Weapon\Peashot_test</Filter>
+    </ClInclude>
+    <ClInclude Include="jwPeashot_diagnal_R.h">
+      <Filter>Contents\Weapon\Peashot_test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -327,6 +342,18 @@
     </ClCompile>
     <ClCompile Include="jwCamera.cpp">
       <Filter>Engine\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="jwPeashot_L.cpp">
+      <Filter>Contents\Weapon\Peashot_test</Filter>
+    </ClCompile>
+    <ClCompile Include="jwPeashot_Up.cpp">
+      <Filter>Contents\Weapon\Peashot_test</Filter>
+    </ClCompile>
+    <ClCompile Include="jwPeashot_diagnal_L.cpp">
+      <Filter>Contents\Weapon\Peashot_test</Filter>
+    </ClCompile>
+    <ClCompile Include="jwPeashot_diagnal_R.cpp">
+      <Filter>Contents\Weapon\Peashot_test</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

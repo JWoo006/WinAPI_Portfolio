@@ -25,7 +25,8 @@ namespace jw
 			Shoot_UP_R,
 			Shoot_Run_L,
 			Shoot_Run_R,
-			Shoot_Down,
+			Shoot_Run_diag_Up_L,
+			Shoot_Run_diag_Up_R,
 			Death,
 			Idle_L,
 			Idle_R,
@@ -45,12 +46,13 @@ namespace jw
 
 		void idle();
 		void move();
+		void duck();
+		void aim_up();
 		void shoot();
 		void shoot_run();
 		void shoot_duck();
 		void shoot_up();
-		void aim_up();
-		void duck();
+		void shoot_run_diag_up();
 		void death();
 
 		void idleCompleteEvent();

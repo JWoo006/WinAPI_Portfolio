@@ -154,6 +154,10 @@
     <ClInclude Include="jwMath.h" />
     <ClInclude Include="jwObject.h" />
     <ClInclude Include="jwPeashotSpark.h" />
+    <ClInclude Include="jwPeashot_diagnal_L.h" />
+    <ClInclude Include="jwPeashot_diagnal_R.h" />
+    <ClInclude Include="jwPeashot_L.h" />
+    <ClInclude Include="jwPeashot_Up.h" />
     <ClInclude Include="jwPlayScene.h" />
     <ClInclude Include="jwResource.h" />
     <ClInclude Include="jwScene.h" />
@@ -192,6 +196,10 @@
     <ClCompile Include="jwLayer.cpp" />
     <ClCompile Include="jwMath.cpp" />
     <ClCompile Include="jwPeashotSpark.cpp" />
+    <ClCompile Include="jwPeashot_diagnal_L.cpp" />
+    <ClCompile Include="jwPeashot_diagnal_R.cpp" />
+    <ClCompile Include="jwPeashot_L.cpp" />
+    <ClCompile Include="jwPeashot_Up.cpp" />
     <ClCompile Include="jwPlayScene.cpp" />
     <ClCompile Include="jwResource.cpp" />
     <ClCompile Include="jwScene.cpp" />
