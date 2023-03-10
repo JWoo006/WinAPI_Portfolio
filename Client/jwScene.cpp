@@ -1,5 +1,6 @@
 #include "jwScene.h"
 #include "jwApplication.h"
+#include "jwSceneManager.h"
 
 extern jw::Application application;
 
@@ -14,10 +15,7 @@ namespace jw
 	}
 	void Scene::Initialize()
 	{
-		/*for (Layer& layer : mLayers)
-		{
-			layer.Initialize();
-		}*/
+		SceneManager::SetActiveScene(this);
 	}
 	void Scene::Update()
 	{
@@ -31,8 +29,6 @@ namespace jw
 		for (Layer& layer : mLayers)
 		{
 			layer.Render(hdc);
-
-			Destroy();
 		}
 	}
 

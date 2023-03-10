@@ -18,24 +18,15 @@ namespace jw
 	}
 	void TitleScene::Initialize()
 	{
-		/*TitleAnim1* mTitle1 = new TitleAnim1();
-		AddGameObject(mTitle1, eLayerType::BG);
+		//override를 써서 자식쪽으로 오지만 부모쪽 함수로 지정가능
+		Scene::Initialize();
 
-		TitleAnim2* mTitle2 = new TitleAnim2();
-		AddGameObject(mTitle2, eLayerType::BG);
-
-		TitleAnim3* mTitle3 = new TitleAnim3();
-		AddGameObject(mTitle3, eLayerType::BG);*/
-
-		object::Instantiate<TitleAnim1>(Vector2(800.0f, 800.0f), eLayerType::BG, eSceneType::Title);
-		object::Instantiate<TitleAnim2>(Vector2(500.0f, 800.0f), eLayerType::BG, eSceneType::Title);
-		object::Instantiate<TitleAnim3>(Vector2(1100.0f, 800.0f), eLayerType::BG, eSceneType::Title);
-
+		object::Instantiate<TitleAnim1>(Vector2(800.0f, 800.0f), eLayerType::BG);
+		object::Instantiate<TitleAnim2>(Vector2(500.0f, 800.0f), eLayerType::BG);
+		object::Instantiate<TitleAnim3>(Vector2(1100.0f, 800.0f), eLayerType::BG);
 
 		mImage = Resources::Load<Image>(L"Background1", L"..\\Resources\\Image\\Title_Screen\\Background\\title_screen_background #262704.bmp");
 		mImage2 = Resources::Load<Image>(L"Background2", L"..\\Resources\\Image\\Title_Screen\\Background\\title_chips_left_0001 #262672.bmp");
-
-		//Scene::Initialize();
 	}
 	void TitleScene::Update()
 	{

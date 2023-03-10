@@ -1,11 +1,11 @@
 #include "jwPeashotSpark.h"
 #include "jwTransform.h"
 #include "jwAnimator.h"
+#include "jwObject.h"
 
 namespace jw
 {
 	PeashotSpark::PeashotSpark()
-		: OnShot(false)
 	{
 	}
 	PeashotSpark::~PeashotSpark()
@@ -14,8 +14,11 @@ namespace jw
 	void PeashotSpark::Initialize()
 	{
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Weapon_peashot\\spark", Vector2(70.0f,-40.0f), 0.1f);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Weapon_peashot\\spark", Vector2::Zero, 0.02f);
 		mAnimator->Play(L"Weapon_peashotspark", true);
+
+		mAnimator->GetCompleteEvent(L"Weapon_peashotspark")
+			= std::bind(&PeashotSpark::SparkCompleteEvent, this);
 	}
 	void PeashotSpark::Update()
 	{
@@ -23,13 +26,13 @@ namespace jw
 	}
 	void PeashotSpark::Render(HDC hdc)
 	{
-		if (OnShot)
-		{
-			GameObject::Render(hdc);
-		}
-		
+		GameObject::Render(hdc);
 	}
 	void PeashotSpark::Release()
 	{
+	}
+	void PeashotSpark::SparkCompleteEvent()
+	{
+		object::Destroy(this);
 	}
 }

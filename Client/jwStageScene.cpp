@@ -16,15 +16,12 @@ namespace jw
 	}
 	void StageScene::Initialize()
 	{
-		/*mCuphead_Stage = new Cuphead_Stage();
-		AddGameObject(mCuphead_Stage, eLayerType::Player);*/
-
-		mCuphead_Stage = object::Instantiate<Cuphead_Stage>(eLayerType::Player, eSceneType::Stage);
+		//override를 써서 자식쪽으로 오지만 부모쪽 함수로 지정가능
+		Scene::Initialize();
+		
+		mCuphead_Stage = object::Instantiate<Cuphead_Stage>(eLayerType::Player);
 
 		Camera::SetTarget(mCuphead_Stage);
-
-		//Scene::Initialize();
-
 	}
 	void StageScene::Update()
 	{

@@ -6,6 +6,7 @@
 #include "jwCollider.h"
 #include "jwScene.h"
 #include "jwObject.h"
+#include "jwCuphead.h"
 
 namespace jw
 {
@@ -14,17 +15,23 @@ namespace jw
 		: mTime(0.0f)
 		, mDegree(0.0f)
 	{
-		Transform* tr = GetComponent<Transform>();
-		tr->SetScale(Vector2(0.7f, 1.0f));
-		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Weapon_peashot\\main_R", Vector2(60.0f, 0.0f), 0.1f);
-		mAnimator->Play(L"Weapon_peashotmain_R", true);
+		
 	}
 	TestBullet::~TestBullet()
 	{
+
 	}
 	void TestBullet::Initialize()
 	{
+		int a = 0;
+		mBulletdirection;
+
+		Transform* tr = GetComponent<Transform>();
+		tr->SetScale(Vector2(0.7f, 1.0f));
+		mAnimator = AddComponent<Animator>();
+
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Weapon_peashot\\main_R", Vector2::Zero, 0.1f);
+		mAnimator->Play(L"Weapon_peashotmain_R", true);
 	}
 	void TestBullet::Update()
 	{
@@ -43,7 +50,7 @@ namespace jw
 
 
 		Vector2 pos = tr->GetPos();
-		float speed = 600.0f;
+		float speed = 1000.0f;
 		pos.x += speed * dir.x * Time::DeltaTime();
 		pos.y += speed * dir.y * Time::DeltaTime();
 		tr->SetPos(pos);

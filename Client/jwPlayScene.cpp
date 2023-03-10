@@ -19,27 +19,15 @@ namespace jw
 	}
 	void PlayScene::Initialize()
 	{
-		/*mCuphead = new Cuphead();
-		mCuphead->SetName(L"Cuphead");
-		AddGameObject(mCuphead, eLayerType::Player);*/
+		//override를 써서 자식쪽으로 오지만 부모쪽 함수로 지정가능
+		Scene::Initialize();
 
-		object::Instantiate<Cuphead>(Vector2(100.0f, 700.0f), eLayerType::Player, eSceneType::Play);
-
-		/*mbackground = new Background();
-		AddGameObject(mbackground, eLayerType::BG);*/
-
-		object::Instantiate<Background>(eLayerType::BG, eSceneType::Play);
-
-		/*Veggie_Onion* Onion = new Veggie_Onion();
-		Onion->SetName(L"Veggie_Onion");
-		AddGameObject(Onion, eLayerType::Monster);*/
-
-		object::Instantiate< Veggie_Onion>(Vector2(1100.0f, 700.0f), eLayerType::Monster, eSceneType::Play);
+		object::Instantiate<Cuphead>(Vector2(100.0f, 700.0f), eLayerType::Player);
+		object::Instantiate<Background>(eLayerType::BG);
+		object::Instantiate< Veggie_Onion>(Vector2(1100.0f, 700.0f), eLayerType::Monster);
 
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 
-		//override를 써서 자식쪽으로 오지만 부모쪽 함수로 지정가능
-		//Scene::Initialize();
 	}
 	void PlayScene::Update()
 	{

@@ -13,6 +13,8 @@ namespace jw
 	}
 	void EndingScene::Initialize()
 	{
+		//override를 써서 자식쪽으로 오지만 부모쪽 함수로 지정가능
+		Scene::Initialize();
 	}
 	void EndingScene::Update()
 	{

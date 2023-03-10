@@ -8,6 +8,13 @@ namespace jw
 	class TestBullet : public GameObject
 	{
 	public:
+		enum class eBulletDirection
+		{
+			UP,
+			LEFT,
+			RIGHT,
+		};
+
 		TestBullet();
 		~TestBullet();
 
@@ -19,12 +26,14 @@ namespace jw
 		static float GetDelay() { return mDelay; }
 
 		void SetDegree(float degree) { mDegree = degree; }
+		void SetState(eBulletDirection state) { mBulletdirection = state; }
 
 	private:
 		static float mDelay;
 		float mTime;
 		float mDegree;
 		Animator* mAnimator;
+		eBulletDirection mBulletdirection;
 		
 	};
 }

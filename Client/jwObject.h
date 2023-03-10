@@ -13,35 +13,19 @@ namespace jw::object
 		Scene* scene = SceneManager::GetActiveScene();
 		scene->AddGameObject(gameObj, type);
 		gameObj->Initialize();
-
-		return gameObj;
-	}
-
-
-
-	template <typename T>
-	static inline T* Instantiate(eLayerType type, eSceneType scenetype)
-	{
-		T* gameObj = new T();
-		Scene* scene = SceneManager::GetScene(scenetype);
-		scene->AddGameObject(gameObj, type);
-		gameObj->Initialize();
-
 		return gameObj;
 	}
 
 	template <typename T>
-	static inline T* Instantiate(Vector2 pos, eLayerType type, eSceneType scenetype)
+	static inline T* Instantiate(Vector2 pos, eLayerType type)
 	{
 		T* gameObj = new T();
-		Scene* scene = SceneManager::GetScene(scenetype);
+		Scene* scene = SceneManager::GetActiveScene();
 		scene->AddGameObject(gameObj, type);
 		gameObj->Initialize();
 		gameObj->GameObject::GetComponent<Transform>()->SetPos(pos);
-
 		return gameObj;
 	}
-
 
 	static void Destroy(GameObject* obj)
 	{

@@ -32,18 +32,16 @@ namespace jw
 		{
 			mActiveAnimation->Update();
 
-			if (mbLoop && mActiveAnimation->IsComplete())
+			if (mActiveAnimation->IsComplete())
 			{
 				Animator::Events* events
-					= FindEvents(mActiveAnimation->GetName());
+					= FindEvents(mActiveAnimation->GetAnimationName());
 
 				if (events != nullptr)
-				{
 					events->mCompleteEvent();
-				}
-
-				mActiveAnimation->Reset();
 			}
+			if (mbLoop && mActiveAnimation->IsComplete())
+				mActiveAnimation->Reset();
 		}
 	}
 	void Animator::Render(HDC hdc)
@@ -70,7 +68,7 @@ namespace jw
 
 		animation = new Animation();
 		animation->Create(sheet, leftTop, coulmn, row, spriteLength, offset,  duration);
-		animation->SetName(name);
+		animation->SetAnimationName(name);
 		animation->SetAnimator(this);
 
 		mAnimations.insert(std::make_pair(name, animation));
@@ -160,7 +158,7 @@ namespace jw
 		if (mActiveAnimation != nullptr)
 		{
 			Animator::Events* prevEvents
-				= FindEvents(mActiveAnimation->GetName());
+				= FindEvents(mActiveAnimation->GetAnimationName());
 
 			if (prevEvents != nullptr)
 				prevEvents->mEndEvent();
@@ -171,7 +169,7 @@ namespace jw
 		mbLoop = loop;
 
 		Animator::Events* events
-			= FindEvents(mActiveAnimation->GetName());
+			= FindEvents(mActiveAnimation->GetAnimationName());
 
 		if (events != nullptr)
 			events->mStartEvent();
@@ -192,7 +190,7 @@ namespace jw
 		Animation* animation = FindAnimation(name);
 
 		Animator::Events* events
-			= FindEvents(animation->GetName());
+			= FindEvents(animation->GetAnimationName());
 
 		return events->mStartEvent.mEvent;
 	}
@@ -201,7 +199,7 @@ namespace jw
 		Animation* animation = FindAnimation(name);
 
 		Animator::Events* events
-			= FindEvents(animation->GetName());
+			= FindEvents(animation->GetAnimationName());
 
 		return events->mCompleteEvent.mEvent;
 	}
@@ -210,7 +208,7 @@ namespace jw
 		Animation* animation = FindAnimation(name);
 
 		Animator::Events* events
-			= FindEvents(animation->GetName());
+			= FindEvents(animation->GetAnimationName());
 
 		return events->mEndEvent.mEvent;
 	}

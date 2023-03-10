@@ -4,6 +4,7 @@
 #include "jwEndingScene.h"
 #include "jwStageScene.h"
 #include "jwCollisionManager.h"
+#include "jwCamera.h"
 
 namespace jw
 {
@@ -24,10 +25,6 @@ namespace jw
         mScenes[(UINT)eSceneType::Ending] = new EndingScene();
         mScenes[(UINT)eSceneType::Ending]->SetName(L"EndingScene");
 
-
-        // 현재 사용할 씬 설정
-        mActiveScene = mScenes[(UINT)eSceneType::Title];
-
         for (Scene* scene : mScenes)
         {
             if (scene == nullptr)
@@ -37,6 +34,9 @@ namespace jw
 
             scene->Initialize();
         }
+
+        // 현재 사용할 씬 설정
+        mActiveScene = mScenes[(UINT)eSceneType::Play];
     }
     void SceneManager::Update()
     {
@@ -45,6 +45,10 @@ namespace jw
     void SceneManager::Render(HDC hdc)
     {
         mActiveScene->Render(hdc);
+    }
+    void SceneManager::Destroy()
+    {
+        mActiveScene->Destroy();
     }
     void SceneManager::Release()
     {
@@ -61,6 +65,8 @@ namespace jw
     }
     void SceneManager::LoadScene(eSceneType type)
     {
+        // Camera::Clear();
+
         // 현재씬
         mActiveScene->OnExit();
 

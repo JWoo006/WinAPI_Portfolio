@@ -48,6 +48,7 @@ namespace jw
 	{
 		Update();
 		Render();
+		SceneManager::Destroy();
 	}
 	void Application::Update()
 	{

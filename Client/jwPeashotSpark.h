@@ -16,11 +16,10 @@ namespace jw
 		virtual void Render(HDC hdc) override;
 		virtual void Release() override;
 
-		void SetOnShot(bool shot) { OnShot = shot; }
+		void SparkCompleteEvent();
 
 	private:
 		Animator* mAnimator;
-		bool OnShot;
 
 	};
 }
