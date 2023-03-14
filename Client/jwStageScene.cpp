@@ -38,13 +38,8 @@ namespace jw
 			{
 				next = (int)eSceneType::Title;
 			}
-
-			//Fade_Out_Rectangle* fadeout = object::Instantiate<Fade_Out_Rectangle>(Vector2::Zero, eLayerType::Effect);
-
 			SceneManager::LoadScene((eSceneType)next);
-
 		}
-
 		Scene::Update();
 	}
 	void StageScene::Render(HDC hdc)
