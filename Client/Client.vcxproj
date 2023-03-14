@@ -147,6 +147,9 @@
     <ClInclude Include="jwEndingScene.h" />
     <ClInclude Include="jwEntity.h" />
     <ClInclude Include="jwEnums.h" />
+    <ClInclude Include="jwFadeInOut.h" />
+    <ClInclude Include="jwFade_In_Rectangle.h" />
+    <ClInclude Include="jwFade_Out_Rectangle.h" />
     <ClInclude Include="jwGameObject.h" />
     <ClInclude Include="jwImage.h" />
     <ClInclude Include="jwInput.h" />
@@ -160,6 +163,7 @@
     <ClInclude Include="jwPeashot_Up.h" />
     <ClInclude Include="jwPlayScene.h" />
     <ClInclude Include="jwResource.h" />
+    <ClInclude Include="jwRigidbody.h" />
     <ClInclude Include="jwScene.h" />
     <ClInclude Include="jwSceneManager.h" />
     <ClInclude Include="jwStageScene.h" />
@@ -190,6 +194,9 @@
     <ClCompile Include="jwCuphead_Stage.cpp" />
     <ClCompile Include="jwEndingScene.cpp" />
     <ClCompile Include="jwEntity.cpp" />
+    <ClCompile Include="jwFadeInOut.cpp" />
+    <ClCompile Include="jwFade_In_Rectangle.cpp" />
+    <ClCompile Include="jwFade_Out_Rectangle.cpp" />
     <ClCompile Include="jwGameObject.cpp" />
     <ClCompile Include="jwImage.cpp" />
     <ClCompile Include="jwInput.cpp" />
@@ -202,6 +209,7 @@
     <ClCompile Include="jwPeashot_Up.cpp" />
     <ClCompile Include="jwPlayScene.cpp" />
     <ClCompile Include="jwResource.cpp" />
+    <ClCompile Include="jwRigidbody.cpp" />
     <ClCompile Include="jwScene.cpp" />
     <ClCompile Include="jwSceneManager.cpp" />
     <ClCompile Include="jwStageScene.cpp" />

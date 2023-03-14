@@ -22,6 +22,7 @@ namespace jw
 
 	private:
 		Image* mImage;
+		float mTime;
 		Cuphead_Stage* mCuphead_Stage;
 	};
 }

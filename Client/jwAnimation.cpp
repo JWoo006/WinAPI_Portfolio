@@ -71,6 +71,21 @@ namespace jw
             , mSpriteSheet[mSpriteIndex].size.x, mSpriteSheet[mSpriteIndex].size.y
             , RGB(255, 0, 255));
 
+        //알파 블렌딩
+        //BLENDFUNCTION func = {};
+        //func.BlendOp = AC_SRC_OVER;
+        //func.BlendFlags = 0;
+        //func.AlphaFormat = 0;
+        //func.SourceConstantAlpha = 127; // 알파값 - 낮을수록 투명
+
+        //AlphaBlend(hdc, pos.x, pos.y
+        //    , mSpriteSheet[mSpriteIndex].size.x * scale.x 
+        //    , mSpriteSheet[mSpriteIndex].size.y * scale.y
+        //    , mSheetImage->GetHdc()
+        //    , mSpriteSheet[mSpriteIndex].leftTop.x, mSpriteSheet[mSpriteIndex].leftTop.y
+        //    , mSpriteSheet[mSpriteIndex].size.x, mSpriteSheet[mSpriteIndex].size.y
+        //    , func);
+
     }
     void Animation::Create(Image* sheet, Vector2 leftTop
         , UINT coulmn, UINT row, UINT spriteLength

@@ -14,6 +14,9 @@
     <Filter Include="API_4W">
       <UniqueIdentifier>{665e2528-f6ae-40e4-a46e-fc2f2a5b6d6a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="API_5W">
+      <UniqueIdentifier>{cba911c9-f14d-4718-b8bb-a0c0e0b3d7fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="API_1W1D.cpp">
@@ -60,6 +63,9 @@
     </ClCompile>
     <ClCompile Include="API_4W3D.cpp">
       <Filter>API_4W</Filter>
+    </ClCompile>
+    <ClCompile Include="API_5W_1D.cpp">
+      <Filter>API_5W</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -6,6 +6,9 @@
 #include "jwTitleAnim2.h"
 #include "jwTitleAnim3.h"
 #include "jwObject.h"
+#include "jwFade_In_Rectangle.h"
+#include "jwFade_Out_Rectangle.h"
+
 
 
 namespace jw
@@ -62,8 +65,11 @@ namespace jw
 	}
 	void TitleScene::OnEnter()
 	{
+		Fade_In_Rectangle* fadein = object::Instantiate<Fade_In_Rectangle>(Vector2::Zero, eLayerType::Effect);
 	}
 	void TitleScene::OnExit()
 	{
+		//Fade_Out_Rectangle* fadeout = object::Instantiate<Fade_Out_Rectangle>(Vector2::Zero, eLayerType::Effect);
+		//fadeout->SetEnd(false);
 	}
 }

@@ -68,6 +68,7 @@ namespace jw
 		
 		Collider* collider = AddComponent<Collider>();
 		collider->SetCenter(Vector2(-50.0f, -100.0f));
+		collider->SetSize(Vector2(50.0f, 50.0f));
 		
 		mState = eCupheadState::Idle_R;
 
@@ -829,7 +830,7 @@ namespace jw
 				if (mSecond > mFiredelay)
 				{
 					Peashot_diagnal_L* bullet
-						= object::Instantiate<Peashot_diagnal_L>((pos + Vector2(-60.0f, -70.0f)), eLayerType::Bullet);
+						= object::Instantiate<Peashot_diagnal_L>((pos + Vector2(-60.0f, 0.0f)), eLayerType::Bullet);
 					bullet->SetDegree(-135.0f);
 
 					object::Instantiate<PeashotSpark>((pos + Vector2(-80.0f, -80.0f)), eLayerType::Effect);
@@ -881,7 +882,7 @@ namespace jw
 				if (mSecond > mFiredelay)
 				{
 					Peashot_diagnal_R* bullet
-						= object::Instantiate<Peashot_diagnal_R>((tr->GetPos() + Vector2(60.0f, -70.0f)), eLayerType::Bullet);
+						= object::Instantiate<Peashot_diagnal_R>((tr->GetPos() + Vector2(60.0f, 0.0f)), eLayerType::Bullet);
 					bullet->SetDegree(-45.0f);
 
 					object::Instantiate<PeashotSpark>((tr->GetPos() + Vector2(80.0f, -80.0f)), eLayerType::Effect);

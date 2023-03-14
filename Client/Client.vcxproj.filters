@@ -83,6 +83,18 @@
     <Filter Include="Contents\Weapon\Peashot_test">
       <UniqueIdentifier>{34b63035-ea55-4bee-8fc5-071b6a295867}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Component\Animator">
+      <UniqueIdentifier>{b1f3dc88-0a44-40ee-b654-f1eba6de1f55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\Transform">
+      <UniqueIdentifier>{cc11df5f-2938-4f68-b44b-d698f10c4cb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\RigidBody">
+      <UniqueIdentifier>{d53ffb27-a353-487c-a104-eedf14769734}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Effect\Fade_InOut">
+      <UniqueIdentifier>{a4a3ec63-8922-430b-a471-475fc7d65746}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -151,9 +163,6 @@
     <ClInclude Include="jwTitleScene.h">
       <Filter>Contents\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="jwTransform.h">
-      <Filter>Engine\Component</Filter>
-    </ClInclude>
     <ClInclude Include="jwImage.h">
       <Filter>Engine\Resource</Filter>
     </ClInclude>
@@ -168,12 +177,6 @@
     </ClInclude>
     <ClInclude Include="jwCuphead_Stage.h">
       <Filter>Contents\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="jwAnimation.h">
-      <Filter>Engine\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="jwAnimator.h">
-      <Filter>Engine\Component</Filter>
     </ClInclude>
     <ClInclude Include="jwCollider.h">
       <Filter>Engine\Component\Collider</Filter>
@@ -222,6 +225,27 @@
     </ClInclude>
     <ClInclude Include="jwPeashot_diagnal_R.h">
       <Filter>Contents\Weapon\Peashot_test</Filter>
+    </ClInclude>
+    <ClInclude Include="jwAnimation.h">
+      <Filter>Engine\Component\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="jwAnimator.h">
+      <Filter>Engine\Component\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="jwTransform.h">
+      <Filter>Engine\Component\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="jwRigidbody.h">
+      <Filter>Engine\Component\RigidBody</Filter>
+    </ClInclude>
+    <ClInclude Include="jwFadeInOut.h">
+      <Filter>Contents\Effect\Fade_InOut</Filter>
+    </ClInclude>
+    <ClInclude Include="jwFade_In_Rectangle.h">
+      <Filter>Contents\Effect\Fade_InOut</Filter>
+    </ClInclude>
+    <ClInclude Include="jwFade_Out_Rectangle.h">
+      <Filter>Contents\Effect\Fade_InOut</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -286,9 +310,6 @@
     <ClCompile Include="jwTitleScene.cpp">
       <Filter>Contents\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="jwTransform.cpp">
-      <Filter>Engine\Component</Filter>
-    </ClCompile>
     <ClCompile Include="jwImage.cpp">
       <Filter>Engine\Resource</Filter>
     </ClCompile>
@@ -303,12 +324,6 @@
     </ClCompile>
     <ClCompile Include="jwCuphead_Stage.cpp">
       <Filter>Contents\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="jwAnimation.cpp">
-      <Filter>Engine\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="jwAnimator.cpp">
-      <Filter>Engine\Component</Filter>
     </ClCompile>
     <ClCompile Include="jwCollider.cpp">
       <Filter>Engine\Component\Collider</Filter>
@@ -354,6 +369,27 @@
     </ClCompile>
     <ClCompile Include="jwPeashot_diagnal_R.cpp">
       <Filter>Contents\Weapon\Peashot_test</Filter>
+    </ClCompile>
+    <ClCompile Include="jwAnimation.cpp">
+      <Filter>Engine\Component\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="jwAnimator.cpp">
+      <Filter>Engine\Component\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="jwTransform.cpp">
+      <Filter>Engine\Component\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="jwRigidbody.cpp">
+      <Filter>Engine\Component\RigidBody</Filter>
+    </ClCompile>
+    <ClCompile Include="jwFadeInOut.cpp">
+      <Filter>Contents\Effect\Fade_InOut</Filter>
+    </ClCompile>
+    <ClCompile Include="jwFade_In_Rectangle.cpp">
+      <Filter>Contents\Effect\Fade_InOut</Filter>
+    </ClCompile>
+    <ClCompile Include="jwFade_Out_Rectangle.cpp">
+      <Filter>Contents\Effect\Fade_InOut</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -12,6 +12,7 @@ namespace jw
 		, mSize(Vector2(100.0f, 100.0f))
 		, mPos(Vector2::Zero)
 		, mID(ColliderNumber++)
+		, mCollisionCount(0)
 	{
 	}
 	Collider::~Collider()
@@ -20,6 +21,7 @@ namespace jw
 	void Collider::Initialize()
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
+		mCenter = Vector2(10.0f, 0.0f);
 		mPos = tr->GetPos() + mCenter;
 	}
 	void Collider::Update()
@@ -29,7 +31,16 @@ namespace jw
 	}
 	void Collider::Render(HDC hdc)
 	{
-		HPEN pen = CreatePen(BS_SOLID, 2, RGB(0, 255, 0));
+		HPEN pen = NULL;
+		if (mCollisionCount <= 0 )
+		{
+			pen = CreatePen(BS_SOLID, 2, RGB(0, 255, 0));
+		}
+		else
+		{
+			pen = CreatePen(BS_SOLID, 2, RGB(255, 0, 0));
+		}
+
 		HPEN oldPen = (HPEN)SelectObject(hdc, pen);
 		HBRUSH brush = (HBRUSH)GetStockObject(NULL_BRUSH);
 		HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, brush);
@@ -48,6 +59,8 @@ namespace jw
 	}
 	void Collider::OnCollisionEnter(Collider* other)
 	{
+		mCollisionCount++;
+
 		GetOwner()->OnCollisionEnter(other);
 	}
 	void Collider::OnCollisionStay(Collider* other)
@@ -56,6 +69,8 @@ namespace jw
 	}
 	void Collider::OnCollisionExit(Collider* other)
 	{
+		mCollisionCount--;
+
 		GetOwner()->OnCollisionExit(other);
 	}
 }

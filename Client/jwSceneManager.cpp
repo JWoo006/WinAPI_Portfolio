@@ -5,6 +5,9 @@
 #include "jwStageScene.h"
 #include "jwCollisionManager.h"
 #include "jwCamera.h"
+#include "jwFade_In_Rectangle.h"
+#include "jwFade_Out_Rectangle.h"
+#include "jwObject.h"
 
 namespace jw
 {
@@ -69,9 +72,8 @@ namespace jw
 
         // ÇöÀç¾À
         mActiveScene->OnExit();
-
         CollisionManager::Clear();
-
+        
         // ´ÙÀ½¾À
         mActiveScene = mScenes[(UINT)type];
         mActiveScene->OnEnter();

@@ -5,10 +5,14 @@
 #include "jwCuphead_Stage.h"
 #include "jwCamera.h"
 #include "jwObject.h"
+#include "jwFade_In_Rectangle.h"
+#include "jwFade_Out_Rectangle.h"
+#include "jwTime.h"
 
 namespace jw
 {
 	StageScene::StageScene()
+		: mTime(0.0f)
 	{
 	}
 	StageScene::~StageScene()
@@ -25,6 +29,7 @@ namespace jw
 	}
 	void StageScene::Update()
 	{
+
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
 			int next = (int)eSceneType::Stage;
@@ -34,7 +39,10 @@ namespace jw
 				next = (int)eSceneType::Title;
 			}
 
+			//Fade_Out_Rectangle* fadeout = object::Instantiate<Fade_Out_Rectangle>(Vector2::Zero, eLayerType::Effect);
+
 			SceneManager::LoadScene((eSceneType)next);
+
 		}
 
 		Scene::Update();
@@ -50,9 +58,11 @@ namespace jw
 	}
 	void StageScene::OnEnter()
 	{
-
+		Fade_In_Rectangle* fadein = object::Instantiate<Fade_In_Rectangle>(Vector2::Zero, eLayerType::Effect);
+		//Fade_Out_Rectangle* fadeout = object::Instantiate<Fade_Out_Rectangle>(Vector2::Zero, eLayerType::Effect);
 	}
 	void StageScene::OnExit()
 	{
+		
 	}
 }

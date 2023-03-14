@@ -7,6 +7,8 @@
 #include "jwSceneManager.h"
 #include "jwCollisionManager.h"
 #include "jwObject.h"
+#include "jwFade_In_Rectangle.h"
+#include "jwFade_Out_Rectangle.h"
 
 
 namespace jw
@@ -46,13 +48,9 @@ namespace jw
 	}
 	void PlayScene::Render(HDC hdc)
 	{
-		
-		
 		Scene::Render(hdc);
 
 		Scene::SceneText(hdc);
-
-		
 	}
 	void PlayScene::Release()
 	{
@@ -61,10 +59,13 @@ namespace jw
 	void PlayScene::OnEnter()
 	{
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
+		Fade_In_Rectangle* fadein = object::Instantiate<Fade_In_Rectangle>(Vector2::Zero, eLayerType::Effect);
+
 	}
 	void PlayScene::OnExit()
 	{
-		//mCuphead->SetPos(Vector2(0.0f, 0.0f));
+		//Fade_Out_Rectangle* fadeout = object::Instantiate<Fade_Out_Rectangle>(Vector2::Zero, eLayerType::Effect);
+		//fadeout->SetEnd(false);
 	}
 	
 }

@@ -69,6 +69,16 @@ struct Vector2
 		return temp;
 	}
 
+	Vector2 operator*(const float radio)
+	{
+		Vector2 temp;
+
+		temp.x = x * radio;
+		temp.y = y * radio;
+
+		return temp;
+	}
+
 	Vector2 operator/(const float radio)
 	{
 		Vector2 temp;
@@ -78,8 +88,6 @@ struct Vector2
 
 		return temp;
 	}
-
-
 
 	// 누적연산자 반환값이 필요없음 void로 막음
 	void operator+=(const Vector2& other)
@@ -92,6 +100,12 @@ struct Vector2
 	{
 		x -= other.x;
 		y -= other.y;
+	}
+
+	void Clear()
+	{
+		x = 0.0f;
+		y = 0.0f;
 	}
 
 	float Length()
