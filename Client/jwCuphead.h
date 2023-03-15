@@ -4,6 +4,7 @@
 
 namespace jw
 {
+	class Rigidbody;
 	class Animator;
 	class PeashotSpark;
 	class Cuphead : public GameObject
@@ -64,6 +65,7 @@ namespace jw
 	private:
 		eCupheadState mState;
 		Animator* mAnimator;
+		Rigidbody* mRigidbody;
 		PeashotSpark* spark;
 		float mSecond;
 		float mFiredelay;

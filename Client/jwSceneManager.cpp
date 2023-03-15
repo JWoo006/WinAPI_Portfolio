@@ -5,9 +5,6 @@
 #include "jwStageScene.h"
 #include "jwCollisionManager.h"
 #include "jwCamera.h"
-#include "jwFade_In_Rectangle.h"
-#include "jwFade_Out_Rectangle.h"
-#include "jwObject.h"
 
 namespace jw
 {
@@ -68,7 +65,7 @@ namespace jw
     }
     void SceneManager::LoadScene(eSceneType type)
     {
-        // Camera::Clear();
+        Camera::Clear();
 
         // ÇöÀç¾À
         mActiveScene->OnExit();

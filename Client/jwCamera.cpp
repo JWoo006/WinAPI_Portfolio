@@ -4,6 +4,7 @@
 #include "jwTransform.h"
 #include "jwInput.h"
 #include "jwTime.h"
+#include "jwImage.h"
 
 extern jw::Application application;
 
@@ -14,11 +15,22 @@ namespace jw
 	Vector2 Camera::mDistance = Vector2::Zero;
 	GameObject* Camera::mTarget = nullptr;
 
+	Camera::eCameraEffectType Camera::mType = Camera::eCameraEffectType::None;
+	class Image* Camera::mCutton = nullptr;
+	float Camera::mCuttonAlpha = 1.0f;
+	float Camera::mAlphaTime = 0.0f;
+	float Camera::mEndTime = 1.0f;
+
 	void Camera::Initialize()
 	{
 		mResolution.x = application.GetWidth();
 		mResolution.y = application.GetHeight();
 		mLookPosition = (mResolution / 2.0f); // 중앙
+
+		mType = eCameraEffectType::FadeOut;
+		mCutton = Image::Create(L"Cutton"
+			, mResolution.x, mResolution.y, RGB(0, 0, 0));
+
 	}
 	void Camera::Update()
 	{
@@ -46,7 +58,46 @@ namespace jw
 				= mTarget->GetComponent<Transform>()->GetPos();
 		}
 
+		if (mAlphaTime < mEndTime)
+		{
+			mAlphaTime += Time::DeltaTime();
+			// 255 -> 1 비율로 계산
+			float ratio = (mAlphaTime / mEndTime);
+
+			if (mType == eCameraEffectType::FadeIn)
+			{
+				mCuttonAlpha = 1.0f - ratio; // 점점 0으로(투명)
+			}
+			else if (mType == eCameraEffectType::FadeOut)
+			{
+				mCuttonAlpha = ratio; // 점점 1으로(255 )
+			}
+			else
+			{
+
+			}
+		}
+
 		mDistance = mLookPosition - (mResolution / 2.0f);
+	}
+	void Camera::Render(HDC hdc)
+	{
+		if (mAlphaTime < mEndTime
+			)
+		{
+			BLENDFUNCTION func = {};
+			func.BlendOp = AC_SRC_OVER;
+			func.BlendFlags = 0;
+			func.AlphaFormat = 0;
+			func.SourceConstantAlpha = (BYTE)(255.0f * mCuttonAlpha);
+
+			AlphaBlend(hdc, 0, 0
+				, mResolution.x, mResolution.y
+				, mCutton->GetHdc()
+				, 0, 0
+				, mCutton->GetWidth(), mCutton->GetHeight()
+				, func);
+		}
 	}
 	void Camera::Clear()
 	{
@@ -54,5 +105,9 @@ namespace jw
 		mResolution.y = application.GetHeight();
 		mLookPosition = (mResolution / 2.0f);
 		mDistance = Vector2::Zero;
+	}
+	void Camera::SetInit()
+	{
+		mAlphaTime = 0.0f;
 	}
 }

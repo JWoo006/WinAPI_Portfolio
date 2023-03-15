@@ -5,9 +5,6 @@
 #include "jwCuphead_Stage.h"
 #include "jwCamera.h"
 #include "jwObject.h"
-#include "jwFade_In_Rectangle.h"
-#include "jwFade_Out_Rectangle.h"
-#include "jwTime.h"
 
 namespace jw
 {
@@ -45,7 +42,7 @@ namespace jw
 	void StageScene::Render(HDC hdc)
 	{
 		Scene::Render(hdc);
-
+		
 		Scene::SceneText(hdc);
 	}
 	void StageScene::Release()
@@ -53,8 +50,7 @@ namespace jw
 	}
 	void StageScene::OnEnter()
 	{
-		Fade_In_Rectangle* fadein = object::Instantiate<Fade_In_Rectangle>(Vector2::Zero, eLayerType::Effect);
-		//Fade_Out_Rectangle* fadeout = object::Instantiate<Fade_Out_Rectangle>(Vector2::Zero, eLayerType::Effect);
+		
 	}
 	void StageScene::OnExit()
 	{

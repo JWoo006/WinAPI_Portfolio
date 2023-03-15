@@ -2,9 +2,6 @@
 #include "jwInput.h"
 #include "jwSceneManager.h"
 #include "jwResources.h"
-#include "jwObject.h"
-#include "jwFade_In_Rectangle.h"
-#include "jwFade_Out_Rectangle.h"
  
 namespace jw
 {
@@ -30,10 +27,6 @@ namespace jw
 				next = (int)eSceneType::Title;
 			}
 
-			
-			
-			
-			
 			SceneManager::LoadScene((eSceneType)next);
 
 		}
@@ -51,9 +44,6 @@ namespace jw
 	}
 	void EndingScene::OnEnter()
 	{
-		
-		Fade_In_Rectangle* fadein = object::Instantiate<Fade_In_Rectangle>(Vector2::Zero, eLayerType::Effect);
-		
 	}
 	void EndingScene::OnExit()
 	{

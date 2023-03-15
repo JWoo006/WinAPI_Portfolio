@@ -15,6 +15,7 @@
 #include "jwPeashot_diagnal_R.h"
 #include "jwPeashotSpark.h"
 #include "jwObject.h"
+#include "jwRigidbody.h"
 
 
 namespace jw
@@ -70,6 +71,9 @@ namespace jw
 		collider->SetCenter(Vector2(-50.0f, -100.0f));
 		collider->SetSize(Vector2(50.0f, 50.0f));
 		
+		mRigidbody = AddComponent<Rigidbody>();
+		mRigidbody->SetMass(1.0f);
+
 		mState = eCupheadState::Idle_R;
 
 		GameObject::Initialize();

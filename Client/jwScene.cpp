@@ -29,6 +29,8 @@ namespace jw
 		for (Layer& layer : mLayers)
 		{
 			layer.Render(hdc);
+
+			
 		}
 	}
 
@@ -58,6 +60,9 @@ namespace jw
 				}
 			}
 		}
+
+		// 죽은 위치에서 충돌중인 다른 충돌체가 있었다면 exit를
+		// 호출 해준후에 삭제
 
 		for (GameObject* deathObj : deleteGameObjects)
 		{

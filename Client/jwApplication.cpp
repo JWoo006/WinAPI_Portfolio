@@ -66,6 +66,7 @@ namespace jw
 		Time::Render(mBackHDC);
 		Input::Render(mBackHDC);
 		SceneManager::Render(mBackHDC);
+		Camera::Render(mBackHDC);
 
 		// 백버퍼의 화면을 원본에 옮기기
 		BitBlt(mHdc, 0, 0, mWidth, mHeight, mBackHDC, 0, 0, SRCCOPY);

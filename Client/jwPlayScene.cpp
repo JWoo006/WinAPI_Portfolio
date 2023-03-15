@@ -7,8 +7,6 @@
 #include "jwSceneManager.h"
 #include "jwCollisionManager.h"
 #include "jwObject.h"
-#include "jwFade_In_Rectangle.h"
-#include "jwFade_Out_Rectangle.h"
 
 
 namespace jw
@@ -24,7 +22,7 @@ namespace jw
 		//override를 써서 자식쪽으로 오지만 부모쪽 함수로 지정가능
 		Scene::Initialize();
 
-		object::Instantiate<Cuphead>(Vector2(100.0f, 700.0f), eLayerType::Player);
+		object::Instantiate<Cuphead>(Vector2(100.0f, 100.0f), eLayerType::Player);
 		object::Instantiate<Background>(eLayerType::BG);
 		object::Instantiate< Veggie_Onion>(Vector2(1100.0f, 700.0f), eLayerType::Monster);
 
@@ -59,13 +57,9 @@ namespace jw
 	void PlayScene::OnEnter()
 	{
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
-		Fade_In_Rectangle* fadein = object::Instantiate<Fade_In_Rectangle>(Vector2::Zero, eLayerType::Effect);
-
 	}
 	void PlayScene::OnExit()
 	{
-		//Fade_Out_Rectangle* fadeout = object::Instantiate<Fade_Out_Rectangle>(Vector2::Zero, eLayerType::Effect);
-		//fadeout->SetEnd(false);
 	}
 	
 }

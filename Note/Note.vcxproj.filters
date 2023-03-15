@@ -67,5 +67,8 @@
     <ClCompile Include="API_5W_1D.cpp">
       <Filter>API_5W</Filter>
     </ClCompile>
+    <ClCompile Include="API_5W2D.cpp">
+      <Filter>API_5W</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
