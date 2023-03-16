@@ -26,7 +26,8 @@ namespace jw
 		static Vector2 CalculatePos(Vector2 pos) { return pos - mDistance; }
 		static void SetCameraEffectType(eCameraEffectType Type){ mType = Type;}
 		static void SetInit();
-
+		static float GetAlphaTime() { return mAlphaTime; }
+		static bool isEffectEnd() { return mbEffectEnd; }
 
 	private:
 		static Vector2 mResolution; //ÇØ»óµµ
@@ -39,6 +40,7 @@ namespace jw
 		static float mCuttonAlpha;
 		static float mAlphaTime;
 		static float mEndTime;
+		static bool mbEffectEnd;
 	};
 }
 

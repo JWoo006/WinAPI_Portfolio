@@ -247,6 +247,9 @@
     <ClInclude Include="jwFade_Out_Rectangle.h">
       <Filter>Contents\Effect\Fade_InOut</Filter>
     </ClInclude>
+    <ClInclude Include="jwGround_Veggie.h">
+      <Filter>Contents\Stage\Veggie\Background</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -390,6 +393,9 @@
     </ClCompile>
     <ClCompile Include="jwFade_Out_Rectangle.cpp">
       <Filter>Contents\Effect\Fade_InOut</Filter>
+    </ClCompile>
+    <ClCompile Include="jwGround_Veggie.cpp">
+      <Filter>Contents\Stage\Veggie\Background</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -7,6 +7,7 @@
 #include "jwSceneManager.h"
 #include "jwCollisionManager.h"
 #include "jwObject.h"
+#include "jwGround_Veggie.h"
 
 
 namespace jw
@@ -22,9 +23,11 @@ namespace jw
 		//override를 써서 자식쪽으로 오지만 부모쪽 함수로 지정가능
 		Scene::Initialize();
 
-		object::Instantiate<Cuphead>(Vector2(100.0f, 100.0f), eLayerType::Player);
+		object::Instantiate<Cuphead>(Vector2(100.0f, 700.0f), eLayerType::Player);
 		object::Instantiate<Background>(eLayerType::BG);
-		object::Instantiate< Veggie_Onion>(Vector2(1100.0f, 700.0f), eLayerType::Monster);
+		object::Instantiate<Veggie_Onion>(Vector2(1100.0f, 700.0f), eLayerType::Monster);
+		object::Instantiate<Ground_Veggie>(Vector2(-1.0f, 700.0f), eLayerType::Ground);
+
 
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 	}
@@ -57,6 +60,7 @@ namespace jw
 	void PlayScene::OnEnter()
 	{
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Ground, true);
 	}
 	void PlayScene::OnExit()
 	{

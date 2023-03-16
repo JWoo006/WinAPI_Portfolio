@@ -8,7 +8,7 @@ namespace jw
 		'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L',
 		'Z', 'X', 'C', 'V', 'B', 'N', 'M',
 
-		VK_UP, VK_DOWN, VK_LEFT, VK_RIGHT,
+		VK_UP, VK_DOWN, VK_LEFT, VK_RIGHT, VK_SPACE,
 	};
 
 	//          이너클래스여서 접근제어 지정해줘야함

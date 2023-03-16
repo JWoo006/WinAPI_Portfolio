@@ -68,8 +68,8 @@ namespace jw
 		mAnimator->Play(L"CupheadIdle_R", true);
 		
 		Collider* collider = AddComponent<Collider>();
-		collider->SetCenter(Vector2(-50.0f, -100.0f));
-		collider->SetSize(Vector2(50.0f, 50.0f));
+		collider->SetCenter(Vector2(-75.0f, -145.0f));
+		collider->SetSize(Vector2(150.0f, 150.0f));
 		
 		mRigidbody = AddComponent<Rigidbody>();
 		mRigidbody->SetMass(1.0f);
@@ -226,6 +226,15 @@ namespace jw
 				mAnimator->Play(L"DuckDuck_start_R", false);
 			}
 		}
+
+		if (Input::GetKeyDown(eKeyCode::SPACE))
+		{
+			Vector2 velocity = mRigidbody->GetVelocity();
+			velocity.y -= 500.0f;
+
+			mRigidbody->SetVelocity(velocity);
+			mRigidbody->SetGround(false);
+		}
 	}
 	void Cuphead::move()
 	{
@@ -288,6 +297,15 @@ namespace jw
 		{
 			mState = eCupheadState::Duck_R;
 			mAnimator->Play(L"DuckDuck_start_R", false);
+		}
+
+		if (Input::GetKeyDown(eKeyCode::SPACE))
+		{
+			Vector2 velocity = mRigidbody->GetVelocity();
+			velocity.y -= 500.0f;
+
+			mRigidbody->SetVelocity(velocity);
+			mRigidbody->SetGround(false);
 		}
 		
 		tr->SetPos(pos);
@@ -416,12 +434,12 @@ namespace jw
 					mSecond = 0.0f;
 				}
 
-				if (Input::GetKeyDown(eKeyCode::D))
+				if (Input::GetKeyDown(eKeyCode::D) || Input::GetKey(eKeyCode::D))
 				{
 					mState = eCupheadState::Shoot_Run_R;
 					mAnimator->Play(L"ShootRun_R", true);
 				}
-				if (Input::GetKeyDown(eKeyCode::A))
+				if (Input::GetKeyDown(eKeyCode::A) || Input::GetKey(eKeyCode::A))
 				{
 					mState = eCupheadState::Shoot_Run_L;
 					mAnimator->Play(L"ShootRun_L", true);
@@ -464,12 +482,12 @@ namespace jw
 					mSecond = 0.0f;
 				}
 
-				if (Input::GetKeyDown(eKeyCode::D))
+				if (Input::GetKeyDown(eKeyCode::D) || Input::GetKey(eKeyCode::D))
 				{
 					mState = eCupheadState::Shoot_Run_R;
 					mAnimator->Play(L"ShootRun_R", true);
 				}
-				if (Input::GetKeyDown(eKeyCode::A))
+				if (Input::GetKeyDown(eKeyCode::A) || Input::GetKey(eKeyCode::A))
 				{
 					mState = eCupheadState::Shoot_Run_L;
 					mAnimator->Play(L"ShootRun_L", true);
@@ -672,6 +690,12 @@ namespace jw
 					mState = eCupheadState::Shoot_Run_R;
 					mAnimator->Play(L"ShootRun_R", true);
 				}
+				if (Input::GetKeyUp(eKeyCode::S))
+				{
+					mState = eCupheadState::Shoot_L;
+					mAnimator->Play(L"ShootStraight_Shoot_L", true);
+				}
+
 			}
 			else if (Input::GetKey(eKeyCode::S))
 			{
@@ -710,6 +734,11 @@ namespace jw
 				{
 					mState = eCupheadState::Shoot_Run_R;
 					mAnimator->Play(L"ShootRun_R", true);
+				}
+				if (Input::GetKeyUp(eKeyCode::S))
+				{
+					mState = eCupheadState::Shoot_R;
+					mAnimator->Play(L"ShootStraight_Shoot_R", true);
 				}
 			}
 			else if (Input::GetKey(eKeyCode::S))

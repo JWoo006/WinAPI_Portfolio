@@ -6,11 +6,13 @@
 #include "jwTitleAnim2.h"
 #include "jwTitleAnim3.h"
 #include "jwObject.h"
+#include "jwCamera.h"
 
 
 namespace jw
 {
 	TitleScene::TitleScene()
+		: mbEffectOn(false)
 	{
 	}
 	TitleScene::~TitleScene()
@@ -32,16 +34,16 @@ namespace jw
 	{
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
-			int next = (int)eSceneType::Title;
-			next++;
-			if (next == (int)eSceneType::End)
+			mNextScene = (int)eSceneType::Title;
+			mNextScene++;
+			mbEffectOn = true;
+			if (mNextScene == (int)eSceneType::End)
 			{
-				next = (int)eSceneType::Title;
+				mNextScene = (int)eSceneType::Title;
 			}
 
-			SceneManager::LoadScene((eSceneType)next);
+			//SceneManager::LoadScene((eSceneType)mNextScene);
 		}
-
 		Scene::Update();
 	}
 	void TitleScene::Render(HDC hdc)
@@ -53,6 +55,26 @@ namespace jw
 		GdiTransparentBlt(hdc, 140, 720, mImage2->GetWidth(), mImage2->GetHeight()
 			, mImage2->GetHdc(), 0, 0, mImage2->GetWidth(), mImage2->GetHeight(), RGB(255, 0, 255));
 
+		if (mbEffectOn)
+		{
+			if ((Camera::isEffectEnd()))
+			{
+				Camera::SetInit();
+				Camera::Render(hdc);
+
+				bool b = Camera::isEffectEnd();
+
+				if (!b)
+				{
+					mbEffectOn = false;
+				}
+			}
+			//mbEffectOn = false;	
+		}
+		if (Camera::isEffectEnd() && mbEffectOn)
+		{
+			int a = 0;
+		}
 
 		Scene::SceneText(hdc);
 	}

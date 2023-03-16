@@ -22,5 +22,7 @@ namespace jw
 	private:
 		Image* mImage;
 		Image* mImage2;
+		int mNextScene;
+		bool mbEffectOn;
 	};
 }

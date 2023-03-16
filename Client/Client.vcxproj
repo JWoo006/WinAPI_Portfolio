@@ -151,6 +151,7 @@
     <ClInclude Include="jwFade_In_Rectangle.h" />
     <ClInclude Include="jwFade_Out_Rectangle.h" />
     <ClInclude Include="jwGameObject.h" />
+    <ClInclude Include="jwGround_Veggie.h" />
     <ClInclude Include="jwImage.h" />
     <ClInclude Include="jwInput.h" />
     <ClInclude Include="jwLayer.h" />
@@ -198,6 +199,7 @@
     <ClCompile Include="jwFade_In_Rectangle.cpp" />
     <ClCompile Include="jwFade_Out_Rectangle.cpp" />
     <ClCompile Include="jwGameObject.cpp" />
+    <ClCompile Include="jwGround_Veggie.cpp" />
     <ClCompile Include="jwImage.cpp" />
     <ClCompile Include="jwInput.cpp" />
     <ClCompile Include="jwLayer.cpp" />

@@ -107,6 +107,8 @@ struct Vector2
 		y -= other.y;
 	}
 
+	
+
 	void operator*=(const Vector2& other)
 	{
 		x *= other.x;
@@ -122,6 +124,12 @@ struct Vector2
 	bool operator==(const Vector2& other)
 	{
 		return (x == other.x && y == other.y);
+	}
+
+	void operator-=(const float& value1)
+	{
+		x -= value1;
+		y -= value1;
 	}
 
 	void Clear()

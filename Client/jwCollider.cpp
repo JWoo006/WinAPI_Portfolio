@@ -17,11 +17,11 @@ namespace jw
 	}
 	Collider::~Collider()
 	{
+
 	}
 	void Collider::Initialize()
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
-		mCenter = Vector2(10.0f, 0.0f);
 		mPos = tr->GetPos() + mCenter;
 	}
 	void Collider::Update()
@@ -45,8 +45,6 @@ namespace jw
 		HBRUSH brush = (HBRUSH)GetStockObject(NULL_BRUSH);
 		HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, brush);
 		
-		/*Transform* tr = GetOwner()->GetComponent<Transform>();
-		mPos = tr->GetPos() + mCenter;*/
 		Vector2 pos = Camera::CalculatePos(mPos);
 		Rectangle(hdc, pos.x, pos.y, pos.x + mSize.x, pos.y + mSize.y);
 

@@ -20,6 +20,7 @@ namespace jw
 	float Camera::mCuttonAlpha = 1.0f;
 	float Camera::mAlphaTime = 0.0f;
 	float Camera::mEndTime = 1.0f;
+	bool Camera::mbEffectEnd = false;
 
 	void Camera::Initialize()
 	{
@@ -77,13 +78,12 @@ namespace jw
 
 			}
 		}
-
+		
 		mDistance = mLookPosition - (mResolution / 2.0f);
 	}
 	void Camera::Render(HDC hdc)
 	{
-		if (mAlphaTime < mEndTime
-			)
+		if (mAlphaTime < mEndTime)
 		{
 			BLENDFUNCTION func = {};
 			func.BlendOp = AC_SRC_OVER;
@@ -98,6 +98,11 @@ namespace jw
 				, mCutton->GetWidth(), mCutton->GetHeight()
 				, func);
 		}
+		else
+		{
+			mbEffectEnd = true;
+		}
+		
 	}
 	void Camera::Clear()
 	{
@@ -109,5 +114,6 @@ namespace jw
 	void Camera::SetInit()
 	{
 		mAlphaTime = 0.0f;
+		mbEffectEnd = false;
 	}
 }

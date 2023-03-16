@@ -17,6 +17,7 @@ enum class eLayerType
 	Monster,
 	Player,
 	Bullet,
+	Ground,
 	Effect,
 	UI,
 	End,

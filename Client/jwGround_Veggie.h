@@ -4,11 +4,11 @@
 
 namespace jw
 {
-	class Background : public GameObject
+	class Ground_Veggie : public GameObject
 	{
 	public:
-		Background();
-		~Background();
+		Ground_Veggie();
+		~Ground_Veggie();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
@@ -20,12 +20,8 @@ namespace jw
 		virtual void OnCollisionExit(class Collider* other) override;
 
 	private:
-		Image* mImage;
-		Image* mSkyImage;
-		Vector2 scale;
 		class Collider* mCollider;
 	};
 }
-
 
 
