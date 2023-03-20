@@ -18,9 +18,10 @@ WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름�
 jw::Application application;
 
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
-ATOM                MyRegisterClass(HINSTANCE hInstance);
+ATOM                MyRegisterClass(HINSTANCE hInstance, LPCWSTR name, WNDPROC proc);
 BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
+LRESULT CALLBACK    AtlasWndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
     // 1. 윈도우의 정보를 담고있는 클래스를 정의(메모리에 등록
@@ -46,7 +47,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     // 전역 문자열을 초기화합니다.
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_CLIENT, szWindowClass, MAX_LOADSTRING);
-    MyRegisterClass(hInstance);
+    
+    // main window
+    MyRegisterClass(hInstance, szWindowClass, WndProc);
+
+    // tile window
+    //MyRegisterClass(hInstance, L"AtlasWindow", AtlasWndProc);
+
 
     // 애플리케이션 초기화를 수행합니다:
     if (!InitInstance (hInstance, nCmdShow))
@@ -104,7 +111,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 //
 //  용도: 창 클래스를 등록합니다.
 //
-ATOM MyRegisterClass(HINSTANCE hInstance)
+ATOM MyRegisterClass(HINSTANCE hInstance, LPCWSTR name, WNDPROC proc)
 {
     WNDCLASSEXW wcex;
 
@@ -112,7 +119,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 
     wcex.style          = CS_HREDRAW | CS_VREDRAW;
     //                    WndProc() 메세지를 처리 함수
-    wcex.lpfnWndProc    = WndProc;
+    wcex.lpfnWndProc    = proc;
     wcex.cbClsExtra     = 0;
     wcex.cbWndExtra     = 0;
     wcex.hInstance      = hInstance;
@@ -120,7 +127,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
     wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
     wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_CLIENT);
-    wcex.lpszClassName  = szWindowClass;
+    wcex.lpszClassName  = name;
     wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
     return RegisterClassExW(&wcex);
@@ -144,17 +151,26 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
     //            nWidth, nHeight, hWndParent, hMenu, hInstance, lpParam)\
     // hmenu - 도움말, 옵션... -> nullptr넣을시 default값으로 설정
    //핸들 - 윈도우 고유의 id 
+   //main
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
       CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 
+   // tile window
+   HWND hWnd2 = CreateWindowW(L"AtlasWindow", szTitle, WS_OVERLAPPEDWINDOW,
+       1600, 0, 500, 500, nullptr, nullptr, hInstance, nullptr);
 
    if (!hWnd)
    {
       return FALSE;
    }
 
+   //main window
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
+
+   // tile window
+   ShowWindow(hWnd2, nCmdShow);
+   UpdateWindow(hWnd2);
 
    application.Initialize(hWnd);
 

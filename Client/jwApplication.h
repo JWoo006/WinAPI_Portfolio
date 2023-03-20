@@ -18,7 +18,7 @@ namespace jw
 		// 렌더링
 		void Render();
 
-		//void Release();
+		void SetMenuBar(bool power);
 
 		HWND GetHwnd() { return mHwnd; }
 		HDC GetHdc() { return mHdc; }
@@ -32,6 +32,7 @@ namespace jw
 		// 핸들
 		HWND mHwnd;
 		HDC mHdc;
+		HMENU mMenubar;
 
 		// 백버퍼 비트맵, dc
 		HBITMAP mBackBuffer;

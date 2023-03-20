@@ -15,7 +15,7 @@ namespace jw
 		mLimitedVelocity.x = 200.0f;
 		mLimitedVelocity.y = 1000.0f;
 		mbGround = false;
-		mGravity = Vector2(0.0f, 800.0f);
+		mGravity = Vector2(0.0f, 2000.0f);
 		mFriction = 100.0f;
 	}
 	Rigidbody::~Rigidbody()

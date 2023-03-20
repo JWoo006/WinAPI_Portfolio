@@ -95,6 +95,9 @@
     <Filter Include="Contents\Effect\Fade_InOut">
       <UniqueIdentifier>{a4a3ec63-8922-430b-a471-475fc7d65746}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Object">
+      <UniqueIdentifier>{2b3b85a8-0f6b-4f0f-bbe7-c386fcc19c43}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -250,6 +253,12 @@
     <ClInclude Include="jwGround_Veggie.h">
       <Filter>Contents\Stage\Veggie\Background</Filter>
     </ClInclude>
+    <ClInclude Include="jwToolScene.h">
+      <Filter>Contents\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="jwTile.h">
+      <Filter>Contents\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -396,6 +405,12 @@
     </ClCompile>
     <ClCompile Include="jwGround_Veggie.cpp">
       <Filter>Contents\Stage\Veggie\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="jwToolScene.cpp">
+      <Filter>Contents\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="jwTile.cpp">
+      <Filter>Contents\Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

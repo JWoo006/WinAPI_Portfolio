@@ -169,11 +169,13 @@
     <ClInclude Include="jwSceneManager.h" />
     <ClInclude Include="jwStageScene.h" />
     <ClInclude Include="jwTestBullet.h" />
+    <ClInclude Include="jwTile.h" />
     <ClInclude Include="jwTime.h" />
     <ClInclude Include="jwTitleAnim1.h" />
     <ClInclude Include="jwTitleAnim2.h" />
     <ClInclude Include="jwTitleAnim3.h" />
     <ClInclude Include="jwTitleScene.h" />
+    <ClInclude Include="jwToolScene.h" />
     <ClInclude Include="jwTransform.h" />
     <ClInclude Include="jwVeggie_Onion.h" />
     <ClInclude Include="Resource.h" />
@@ -216,11 +218,13 @@
     <ClCompile Include="jwSceneManager.cpp" />
     <ClCompile Include="jwStageScene.cpp" />
     <ClCompile Include="jwTestBullet.cpp" />
+    <ClCompile Include="jwTile.cpp" />
     <ClCompile Include="jwTime.cpp" />
     <ClCompile Include="jwTitleAnim1.cpp" />
     <ClCompile Include="jwTitleAnim2.cpp" />
     <ClCompile Include="jwTitleAnim3.cpp" />
     <ClCompile Include="jwTitleScene.cpp" />
+    <ClCompile Include="jwToolScene.cpp" />
     <ClCompile Include="jwTransform.cpp" />
     <ClCompile Include="jwVeggie_Onion.cpp" />
     <ClCompile Include="main.cpp" />

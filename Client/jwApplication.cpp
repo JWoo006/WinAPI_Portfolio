@@ -1,3 +1,4 @@
+#include "Resource.h"
 #include "jwApplication.h"
 #include "jwSceneManager.h"
 #include "jwTime.h"
@@ -29,13 +30,16 @@ namespace jw
 		AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
 
 		// 윈도우 크기 변경 및 출력 설정
-		SetWindowPos(mHwnd, nullptr, 100, 50, rect.right - rect.left, rect.bottom - rect.top, 0);
+		SetWindowPos(mHwnd, nullptr, 0, 0, rect.right - rect.left, rect.bottom - rect.top, 0);
 		
 		ShowWindow(hwnd, true);
 
 		// 백버퍼 화면 생성(크기) 및 dc생성
 		mBackBuffer = CreateCompatibleBitmap(mHdc, mWidth, mHeight);
 		mBackHDC = CreateCompatibleDC(mHdc);
+		// 메뉴 정보 받기
+		mMenubar = LoadMenu(nullptr, MAKEINTRESOURCE(IDI_CLIENT));
+
 		HBITMAP DefaultBitmap = (HBITMAP)SelectObject(mBackHDC, mBackBuffer);
 		DeleteObject(DefaultBitmap);
 
@@ -43,6 +47,8 @@ namespace jw
 		Input::Initialize();
 		SceneManager::Initialize();
 		Camera::Initialize();
+
+		SetMenuBar(false);
 	}
 	void Application::Run()
 	{
@@ -66,11 +72,26 @@ namespace jw
 		Time::Render(mBackHDC);
 		Input::Render(mBackHDC);
 		SceneManager::Render(mBackHDC);
-		Camera::Render(mBackHDC);
+		//Camera::Render(mBackHDC);
 
 		// 백버퍼의 화면을 원본에 옮기기
 		BitBlt(mHdc, 0, 0, mWidth, mHeight, mBackHDC, 0, 0, SRCCOPY);
 
+	}
+	void Application::SetMenuBar(bool power)
+	{
+		SetMenu(mHwnd, mMenubar);
+
+		RECT rect = { 0, 0, mWidth , mHeight };
+		AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, power);
+
+		// 윈도우 크기 변경및 출력 설정
+		SetWindowPos(mHwnd
+			, nullptr, 0, 0
+			, rect.right - rect.left
+			, rect.bottom - rect.top
+			, 0);
+		ShowWindow(mHwnd, true);
 	}
 	void Application::clear()
 	{

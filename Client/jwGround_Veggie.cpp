@@ -39,6 +39,9 @@ namespace jw
 		Rigidbody* rb = cuphead->GetComponent<Rigidbody>();
 		rb->SetGround(true);
 
+		cuphead->SetGroundCheck(true);
+		cuphead->SetJumpCount(1);
+
 		Collider* cupheadCol = cuphead->GetComponent<Collider>();
 		Vector2 cupheadPos = cupheadCol->GetPos();
 

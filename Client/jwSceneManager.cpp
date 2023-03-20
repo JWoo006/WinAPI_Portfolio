@@ -3,6 +3,7 @@
 #include "jwTitleScene.h"
 #include "jwEndingScene.h"
 #include "jwStageScene.h"
+#include "jwToolScene.h"
 #include "jwCollisionManager.h"
 #include "jwCamera.h"
 
@@ -24,6 +25,8 @@ namespace jw
         mScenes[(UINT)eSceneType::Play]->SetName(L"PlayScene");
         mScenes[(UINT)eSceneType::Ending] = new EndingScene();
         mScenes[(UINT)eSceneType::Ending]->SetName(L"EndingScene");
+        mScenes[(UINT)eSceneType::Tool] = new ToolScene();
+        mScenes[(UINT)eSceneType::Tool]->SetName(L"ToolScene");
 
         for (Scene* scene : mScenes)
         {

@@ -12,7 +12,6 @@
 namespace jw
 {
 	TitleScene::TitleScene()
-		: mbEffectOn(false)
 	{
 	}
 	TitleScene::~TitleScene()
@@ -36,13 +35,12 @@ namespace jw
 		{
 			mNextScene = (int)eSceneType::Title;
 			mNextScene++;
-			mbEffectOn = true;
 			if (mNextScene == (int)eSceneType::End)
 			{
 				mNextScene = (int)eSceneType::Title;
 			}
 
-			//SceneManager::LoadScene((eSceneType)mNextScene);
+			SceneManager::LoadScene((eSceneType)mNextScene);
 		}
 		Scene::Update();
 	}
@@ -54,27 +52,6 @@ namespace jw
 
 		GdiTransparentBlt(hdc, 140, 720, mImage2->GetWidth(), mImage2->GetHeight()
 			, mImage2->GetHdc(), 0, 0, mImage2->GetWidth(), mImage2->GetHeight(), RGB(255, 0, 255));
-
-		if (mbEffectOn)
-		{
-			if ((Camera::isEffectEnd()))
-			{
-				Camera::SetInit();
-				Camera::Render(hdc);
-
-				bool b = Camera::isEffectEnd();
-
-				if (!b)
-				{
-					mbEffectOn = false;
-				}
-			}
-			//mbEffectOn = false;	
-		}
-		if (Camera::isEffectEnd() && mbEffectOn)
-		{
-			int a = 0;
-		}
 
 		Scene::SceneText(hdc);
 	}

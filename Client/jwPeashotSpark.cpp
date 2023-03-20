@@ -13,10 +13,12 @@ namespace jw
 	}
 	void PeashotSpark::Initialize()
 	{
+		Transform* tr = GetComponent<Transform>();
+		tr->SetScale(Vector2(2.0f, 2.0f));
+
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Weapon_peashot\\spark", Vector2::Zero, 0.02f);
 		mAnimator->Play(L"Weapon_peashotspark", true);
-
 		mAnimator->GetCompleteEvent(L"Weapon_peashotspark")
 			= std::bind(&PeashotSpark::SparkCompleteEvent, this);
 	}

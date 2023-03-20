@@ -28,7 +28,7 @@ namespace jw
 		mResolution.y = application.GetHeight();
 		mLookPosition = (mResolution / 2.0f); // Áß¾Ó
 
-		mType = eCameraEffectType::FadeOut;
+		mType = eCameraEffectType::None;
 		mCutton = Image::Create(L"Cutton"
 			, mResolution.x, mResolution.y, RGB(0, 0, 0));
 

@@ -60,10 +60,13 @@ namespace jw
 			return mKeys[static_cast<UINT>(keyCode)].state == eKeyState::Up;
 		}
 
+		static __forceinline Vector2 GetMousePos() { return mMousePos; }
+
 	private:
 		// 사용할 키의 개수 만큼 할당
 		// 반복문으로 순회하면서 각 키들의 상태를 체크
 		static std::vector<Key> mKeys;
+		static Vector2 mMousePos;
 	};
 
 }

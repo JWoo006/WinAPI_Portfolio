@@ -73,5 +73,8 @@
     <ClCompile Include="API_5W3D.cpp">
       <Filter>API_5W</Filter>
     </ClCompile>
+    <ClCompile Include="API_5W4D.cpp">
+      <Filter>API_5W</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -7,6 +7,7 @@ namespace jw
 	class Rigidbody;
 	class Animator;
 	class PeashotSpark;
+	class Collider;
 	class Cuphead : public GameObject
 	{
 	public:
@@ -14,6 +15,8 @@ namespace jw
 		{
 			Move_L,
 			Move_R,
+			Jump_L,
+			Jump_R,
 			Duck_L,
 			Duck_R,
 			Duck_Shoot_L,
@@ -28,6 +31,12 @@ namespace jw
 			Shoot_Run_R,
 			Shoot_Run_diag_Up_L,
 			Shoot_Run_diag_Up_R,
+			Shoot_Jump_L,
+			Shoot_Jump_R,
+			Shoot_Jump_Up_L,
+			Shoot_Jump_Up_R,
+			Shoot_Jump_diag_Up_L,
+			Shoot_Jump_diag_Up_R,
 			Death,
 			Idle_L,
 			Idle_R,
@@ -47,6 +56,7 @@ namespace jw
 
 		void idle();
 		void move();
+		void jump();
 		void duck();
 		void aim_up();
 		void shoot();
@@ -54,11 +64,18 @@ namespace jw
 		void shoot_duck();
 		void shoot_up();
 		void shoot_run_diag_up();
+		void shoot_jump();
+		void shoot_jump_up();
+		void shoot_jump_diag_up();
 		void death();
 
 		void idleCompleteEvent();
 		void duckLCompleteEvent();
 		void duckRCompleteEvent();
+
+		void SetJumpCount(int cnt) { mJumpCount = cnt; }
+		void SetGroundCheck(bool check) { mbGroundCheck = check; }
+
 		
 		eCupheadState GetCupheadState() { return mState; }
 
@@ -67,8 +84,12 @@ namespace jw
 		Animator* mAnimator;
 		Rigidbody* mRigidbody;
 		PeashotSpark* spark;
+		Collider* collider;
 		float mSecond;
 		float mFiredelay;
+		int mJumpCount;
+		bool mbGroundCheck;
+		float mJumpScale;
 
 	};
 }

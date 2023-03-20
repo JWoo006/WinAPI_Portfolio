@@ -22,6 +22,9 @@ namespace jw
 {
 	Cuphead::Cuphead()
 		: mSecond(1.0f)
+		, mJumpCount(1)
+		, mbGroundCheck(true)
+		, mJumpScale(1000.0f)
 	{
 	}
 	Cuphead::~Cuphead()
@@ -37,6 +40,9 @@ namespace jw
 
 		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Run\\Run_L", Vector2::Zero, 0.05f);
 		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Run\\Run_R", Vector2::Zero, 0.05f);
+
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Jump\\Jump_L", Vector2::Zero, 0.05f);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Jump\\Jump_R", Vector2::Zero, 0.05f);
 
 		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Duck\\Duck_start_L", Vector2::Zero, 0.05f);
 		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Duck\\Duck_start_R", Vector2::Zero, 0.05f);
@@ -67,7 +73,7 @@ namespace jw
 
 		mAnimator->Play(L"CupheadIdle_R", true);
 		
-		Collider* collider = AddComponent<Collider>();
+		collider = AddComponent<Collider>();
 		collider->SetCenter(Vector2(-75.0f, -145.0f));
 		collider->SetSize(Vector2(150.0f, 150.0f));
 		
@@ -91,60 +97,138 @@ namespace jw
 		{
 
 		case jw::Cuphead::eCupheadState::Move_L:
+			collider->SetCenter(Vector2(-75.0f, -145.0f));
+			collider->SetSize(Vector2(150.0f, 150.0f));
 			move();
 			break;
 		case jw::Cuphead::eCupheadState::Move_R:
+			collider->SetCenter(Vector2(-75.0f, -145.0f));
+			collider->SetSize(Vector2(150.0f, 150.0f));
 			move();
 			break;
+		case jw::Cuphead::eCupheadState::Jump_L:
+			collider->SetCenter(Vector2(-75.0f, -145.0f));
+			collider->SetSize(Vector2(150.0f, 150.0f));
+			jump();
+			break;
+		case jw::Cuphead::eCupheadState::Jump_R:
+			collider->SetCenter(Vector2(-75.0f, -145.0f));
+			collider->SetSize(Vector2(150.0f, 150.0f));
+			jump();
+			break;
 		case jw::Cuphead::eCupheadState::Duck_L:
+			collider->SetCenter(Vector2(-75.0f, -65.0f));
+			collider->SetSize(Vector2(150.0f, 70.0f));
 			duck();
 			break;
 		case jw::Cuphead::eCupheadState::Duck_R:
+			collider->SetCenter(Vector2(-75.0f, -65.0f));
+			collider->SetSize(Vector2(150.0f, 70.0f));
 			duck();
 			break;
 		case jw::Cuphead::eCupheadState::Duck_Shoot_L:
+			collider->SetCenter(Vector2(-75.0f, -65.0f));
+			collider->SetSize(Vector2(150.0f, 70.0f));
 			shoot_duck();
 			break;
 		case jw::Cuphead::eCupheadState::Duck_Shoot_R:
+			collider->SetCenter(Vector2(-75.0f, -65.0f));
+			collider->SetSize(Vector2(150.0f, 70.0f));
 			shoot_duck();
 			break;
 		case jw::Cuphead::eCupheadState::Aim_UP_L:
+			collider->SetCenter(Vector2(-75.0f, -145.0f));
+			collider->SetSize(Vector2(150.0f, 150.0f));
 			aim_up();
 			break;
 		case jw::Cuphead::eCupheadState::Aim_UP_R:
+			collider->SetCenter(Vector2(-75.0f, -145.0f));
+			collider->SetSize(Vector2(150.0f, 150.0f));
 			aim_up();
 			break;
 		case jw::Cuphead::eCupheadState::Shoot_L:
+			collider->SetCenter(Vector2(-75.0f, -145.0f));
+			collider->SetSize(Vector2(150.0f, 150.0f));
 			shoot();
 			break;
 		case jw::Cuphead::eCupheadState::Shoot_R:
+			collider->SetCenter(Vector2(-75.0f, -145.0f));
+			collider->SetSize(Vector2(150.0f, 150.0f));
 			shoot();
 			break;
 		case jw::Cuphead::eCupheadState::Shoot_Run_L:
+			collider->SetCenter(Vector2(-75.0f, -145.0f));
+			collider->SetSize(Vector2(150.0f, 150.0f));
 			shoot_run();
 			break;
 		case jw::Cuphead::eCupheadState::Shoot_Run_R:
+			collider->SetCenter(Vector2(-75.0f, -145.0f));
+			collider->SetSize(Vector2(150.0f, 150.0f));
 			shoot_run();
 			break;
 		case jw::Cuphead::eCupheadState::Shoot_UP_L:
+			collider->SetCenter(Vector2(-75.0f, -145.0f));
+			collider->SetSize(Vector2(150.0f, 150.0f));
 			shoot_up();
 			break;
 		case jw::Cuphead::eCupheadState::Shoot_UP_R:
+			collider->SetCenter(Vector2(-75.0f, -145.0f));
+			collider->SetSize(Vector2(150.0f, 150.0f));
 			shoot_up();
 			break;
 		case jw::Cuphead::eCupheadState::Shoot_Run_diag_Up_L:
+			collider->SetCenter(Vector2(-75.0f, -145.0f));
+			collider->SetSize(Vector2(150.0f, 150.0f));
 			shoot_run_diag_up();
 			break;
 		case jw::Cuphead::eCupheadState::Shoot_Run_diag_Up_R:
+			collider->SetCenter(Vector2(-75.0f, -145.0f));
+			collider->SetSize(Vector2(150.0f, 150.0f));
 			shoot_run_diag_up();
 			break;
+		case jw::Cuphead::eCupheadState::Shoot_Jump_L:
+			collider->SetCenter(Vector2(-75.0f, -145.0f));
+			collider->SetSize(Vector2(150.0f, 150.0f));
+			shoot_jump();
+			break;
+		case jw::Cuphead::eCupheadState::Shoot_Jump_R:
+			collider->SetCenter(Vector2(-75.0f, -145.0f));
+			collider->SetSize(Vector2(150.0f, 150.0f));
+			shoot_jump();
+			break;
+		case jw::Cuphead::eCupheadState::Shoot_Jump_Up_L:
+			collider->SetCenter(Vector2(-75.0f, -145.0f));
+			collider->SetSize(Vector2(150.0f, 150.0f));
+			shoot_jump_up();
+			break;
+		case jw::Cuphead::eCupheadState::Shoot_Jump_Up_R:
+			collider->SetCenter(Vector2(-75.0f, -145.0f));
+			collider->SetSize(Vector2(150.0f, 150.0f));
+			shoot_jump_up();
+			break;
+		case jw::Cuphead::eCupheadState::Shoot_Jump_diag_Up_L:
+			collider->SetCenter(Vector2(-75.0f, -145.0f));
+			collider->SetSize(Vector2(150.0f, 150.0f));
+			shoot_jump_diag_up();
+			break;
+		case jw::Cuphead::eCupheadState::Shoot_Jump_diag_Up_R:
+			collider->SetCenter(Vector2(-75.0f, -145.0f));
+			collider->SetSize(Vector2(150.0f, 150.0f));
+			shoot_jump_diag_up();
+			break;
 		case jw::Cuphead::eCupheadState::Death:
+			collider->SetCenter(Vector2(-75.0f, -145.0f));
+			collider->SetSize(Vector2(150.0f, 150.0f));
 			death();
 			break;
 		case jw::Cuphead::eCupheadState::Idle_L:
+			collider->SetCenter(Vector2(-75.0f, -145.0f));
+			collider->SetSize(Vector2(150.0f, 150.0f));
 			idle();
 			break;
 		case jw::Cuphead::eCupheadState::Idle_R:
+			collider->SetCenter(Vector2(-75.0f, -145.0f));
+			collider->SetSize(Vector2(150.0f, 150.0f));
 			idle();
 			break;
 		default:
@@ -227,13 +311,27 @@ namespace jw
 			}
 		}
 
-		if (Input::GetKeyDown(eKeyCode::SPACE))
+		if (Input::GetKeyDown(eKeyCode::SPACE) && mJumpCount >= 1)
 		{
+			mJumpCount--;
+			mbGroundCheck = false;
+
 			Vector2 velocity = mRigidbody->GetVelocity();
-			velocity.y -= 500.0f;
+			velocity.y -= mJumpScale;
 
 			mRigidbody->SetVelocity(velocity);
 			mRigidbody->SetGround(false);
+
+			if (Cuphead::GetCupheadState() == eCupheadState::Idle_L)
+			{
+				mState = eCupheadState::Jump_L;
+				mAnimator->Play(L"JumpJump_L", true);
+			}
+			else
+			{
+				mState = eCupheadState::Jump_R;
+				mAnimator->Play(L"JumpJump_R", true);
+			}
 		}
 	}
 	void Cuphead::move()
@@ -299,20 +397,90 @@ namespace jw
 			mAnimator->Play(L"DuckDuck_start_R", false);
 		}
 
-		if (Input::GetKeyDown(eKeyCode::SPACE))
+		if (Input::GetKeyDown(eKeyCode::SPACE) && mJumpCount >= 1)
 		{
+			mJumpCount--;
+			mbGroundCheck = false;
+
 			Vector2 velocity = mRigidbody->GetVelocity();
-			velocity.y -= 500.0f;
+			velocity.y -= mJumpScale;
 
 			mRigidbody->SetVelocity(velocity);
 			mRigidbody->SetGround(false);
+
+			if (Cuphead::GetCupheadState() == eCupheadState::Move_L)
+			{
+				mState = eCupheadState::Jump_L;
+				mAnimator->Play(L"JumpJump_L", true);
+			}
+			else
+			{
+				mState = eCupheadState::Jump_R;
+				mAnimator->Play(L"JumpJump_R", true);
+			}
 		}
 		
 		tr->SetPos(pos);
 	}
 
+	void Cuphead::jump()
+	{
+		if (mbGroundCheck)
+		{
+			if (GetCupheadState() == eCupheadState::Jump_L)
+			{
+				mState = eCupheadState::Idle_L;
+				mAnimator->Play(L"CupheadIdle_L", true);
+			}
+			else if (GetCupheadState() == eCupheadState::Jump_R)
+			{
+				mState = eCupheadState::Idle_R;
+				mAnimator->Play(L"CupheadIdle_R", true);
+			}
+		
+		}
+
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->GetPos();
+
+		if (Input::GetKey(eKeyCode::A) || Input::GetKeyDown(eKeyCode::A))
+		{
+			pos.x -= 400.0f * Time::DeltaTime();
+			if (GetCupheadState() == eCupheadState::Jump_R)
+			{
+				mState = eCupheadState::Jump_L;
+				mAnimator->Play(L"JumpJump_L", true);
+			}
+		}
+
+		if (Input::GetKey(eKeyCode::D) || Input::GetKeyDown(eKeyCode::D))
+		{
+			pos.x += 400.0f * Time::DeltaTime();
+			if (GetCupheadState() == eCupheadState::Jump_L)
+			{
+				mState = eCupheadState::Jump_R;
+				mAnimator->Play(L"JumpJump_R", true);
+			}
+		}
+
+		if (Input::GetKeyDown(eKeyCode::K) || Input::GetKey(eKeyCode::K))
+		{
+			if (GetCupheadState() == eCupheadState::Jump_L)
+			{
+				mState = eCupheadState::Shoot_Jump_L;
+			}
+			else if (GetCupheadState() == eCupheadState::Jump_R)
+			{
+				mState = eCupheadState::Shoot_Jump_R;
+			}
+		}
+
+		tr->SetPos(pos);
+	}
+
 	void Cuphead::duck()
 	{
+		
 		if (Input::GetKeyDown(eKeyCode::A))
 		{
 			mState = eCupheadState::Duck_L;
@@ -326,6 +494,7 @@ namespace jw
 
 		if (Input::GetKeyUp(eKeyCode::S) && GetCupheadState() == eCupheadState::Duck_L)
 		{
+
 			if (Input::GetKeyDown(eKeyCode::A))
 			{
 				mState = eCupheadState::Move_L;
@@ -339,6 +508,7 @@ namespace jw
 		}
 		if (Input::GetKeyUp(eKeyCode::S) && GetCupheadState() == eCupheadState::Duck_R)
 		{
+
 			if (Input::GetKeyDown(eKeyCode::D))
 			{
 				mState = eCupheadState::Move_R;
@@ -362,6 +532,30 @@ namespace jw
 			{
 				mState = eCupheadState::Duck_Shoot_R;
 				mAnimator->Play(L"DuckShoot_R", true);
+			}
+		}
+
+		if (Input::GetKeyDown(eKeyCode::SPACE) && mJumpCount >= 1)
+		{
+
+			mJumpCount--;
+			mbGroundCheck = false;
+
+			Vector2 velocity = mRigidbody->GetVelocity();
+			velocity.y -= mJumpScale;
+
+			mRigidbody->SetVelocity(velocity);
+			mRigidbody->SetGround(false);
+
+			if (Cuphead::GetCupheadState() == eCupheadState::Duck_L)
+			{
+				mState = eCupheadState::Jump_L;
+				mAnimator->Play(L"JumpJump_L", true);
+			}
+			else
+			{
+				mState = eCupheadState::Jump_R;
+				mAnimator->Play(L"JumpJump_R", true);
 			}
 		}
 
@@ -409,6 +603,29 @@ namespace jw
 				mAnimator->Play(L"CupheadIdle_R", true);
 			}
 		}
+
+		if (Input::GetKeyDown(eKeyCode::SPACE) && mJumpCount >= 1)
+		{
+			mJumpCount--;
+			mbGroundCheck = false;
+
+			Vector2 velocity = mRigidbody->GetVelocity();
+			velocity.y -= mJumpScale;
+
+			mRigidbody->SetVelocity(velocity);
+			mRigidbody->SetGround(false);
+
+			if (Cuphead::GetCupheadState() == eCupheadState::Aim_UP_L)
+			{
+				mState = eCupheadState::Jump_L;
+				mAnimator->Play(L"JumpJump_L", true);
+			}
+			else
+			{
+				mState = eCupheadState::Jump_R;
+				mAnimator->Play(L"JumpJump_R", true);
+			}
+		}
 	}
 
 	void Cuphead::shoot()
@@ -429,7 +646,7 @@ namespace jw
 					bullet = object::Instantiate<Peashot_L>((pos + Vector2(-60.0f, -60.0f)), eLayerType::Bullet);
 					bullet->SetDegree(180.0f);
 
-					object::Instantiate<PeashotSpark>((pos + Vector2(-70.0f, -40.0f)), eLayerType::Effect);
+					object::Instantiate<PeashotSpark>((pos + Vector2(-80.0f, -80.0f)), eLayerType::Effect);
 
 					mSecond = 0.0f;
 				}
@@ -477,7 +694,7 @@ namespace jw
 
 					bullet->SetDegree(0.0f);
 
-					object::Instantiate<PeashotSpark>((pos + Vector2(70.0f, -40.0f)), eLayerType::Effect);
+					object::Instantiate<PeashotSpark>((pos + Vector2(40.0f, -80.0f)), eLayerType::Effect);
 
 					mSecond = 0.0f;
 				}
@@ -512,21 +729,28 @@ namespace jw
 			}
 		}
 
-		/*if (Input::GetKeyDown(eKeyCode::A)
-			|| Input::GetKeyDown(eKeyCode::S)
-			|| Input::GetKeyDown(eKeyCode::W))
+		if (Input::GetKeyDown(eKeyCode::SPACE) && mJumpCount >= 1)
 		{
-			mState = eCupheadState::Move_L;
-			mAnimator->Play(L"CupheadIdle_L", true);
-		}
+			mJumpCount--;
+			mbGroundCheck = false;
 
-		if (Input::GetKeyDown(eKeyCode::D)
-			|| Input::GetKeyDown(eKeyCode::S)
-			|| Input::GetKeyDown(eKeyCode::W))
-		{
-			mState = eCupheadState::Move_R;
-			mAnimator->Play(L"CupheadIdle_R", true);
-		}*/
+			Vector2 velocity = mRigidbody->GetVelocity();
+			velocity.y -= mJumpScale;
+
+			mRigidbody->SetVelocity(velocity);
+			mRigidbody->SetGround(false);
+
+			if (Cuphead::GetCupheadState() == eCupheadState::Shoot_L)
+			{
+				mState = eCupheadState::Jump_L;
+				mAnimator->Play(L"JumpJump_L", true);
+			}
+			else
+			{
+				mState = eCupheadState::Jump_R;
+				mAnimator->Play(L"JumpJump_R", true);
+			}
+		}
 
 	}
 
@@ -547,7 +771,7 @@ namespace jw
 						= object::Instantiate<Peashot_L>((pos + Vector2(-60.0f, -50.0f)), eLayerType::Bullet);
 					bullet->SetDegree(180.0f);
 
-					object::Instantiate<PeashotSpark>((pos + Vector2(-70.0f, -30.0f)), eLayerType::Effect);
+					object::Instantiate<PeashotSpark>((pos + Vector2(-110.0f, -70.0f)), eLayerType::Effect);
 
 					mSecond = 0.0f;
 				}
@@ -605,7 +829,7 @@ namespace jw
 						= object::Instantiate<TestBullet>((tr->GetPos() + Vector2(60.0f, -50.0f)), eLayerType::Bullet);
 					bullet->SetDegree(0.0f);
 
-					object::Instantiate<PeashotSpark>((tr->GetPos() + Vector2(70.0f, -30.0f)), eLayerType::Effect);
+					object::Instantiate<PeashotSpark>((tr->GetPos() + Vector2(70.0f, -70.0f)), eLayerType::Effect);
 
 					mSecond = 0.0f;
 				}
@@ -651,6 +875,29 @@ namespace jw
 				mAnimator->Play(L"CupheadIdle_R", true);
 			}
 		}
+
+		if (Input::GetKeyDown(eKeyCode::SPACE) && mJumpCount >= 1)
+		{
+			mJumpCount--;
+			mbGroundCheck = false;
+
+			Vector2 velocity = mRigidbody->GetVelocity();
+			velocity.y -= mJumpScale;
+
+			mRigidbody->SetVelocity(velocity);
+			mRigidbody->SetGround(false);
+
+			if (Cuphead::GetCupheadState() == eCupheadState::Shoot_Run_L)
+			{
+				mState = eCupheadState::Jump_L;
+				mAnimator->Play(L"JumpJump_L", true);
+			}
+			else
+			{
+				mState = eCupheadState::Jump_R;
+				mAnimator->Play(L"JumpJump_R", true);
+			}
+		}
 	}
 
 	void Cuphead::shoot_duck()
@@ -670,7 +917,7 @@ namespace jw
 						= object::Instantiate<Peashot_L>((tr->GetPos() + Vector2(-60.0f, -20.0f)), eLayerType::Bullet);
 					bullet->SetDegree(180.0f);
 
-					object::Instantiate<PeashotSpark>((tr->GetPos() + Vector2(-70.0f, -0.0f)), eLayerType::Effect);
+					object::Instantiate<PeashotSpark>((tr->GetPos() + Vector2(-90.0f, -40.0f)), eLayerType::Effect);
 
 					mSecond = 0.0f;
 				}
@@ -715,7 +962,7 @@ namespace jw
 						= object::Instantiate<TestBullet>((tr->GetPos() + Vector2(60.0f, -20.0f)), eLayerType::Bullet);
 					bullet->SetDegree(0.0f);
 
-					object::Instantiate<PeashotSpark>((tr->GetPos() + Vector2(70.0f, -0.0f)), eLayerType::Effect);
+					object::Instantiate<PeashotSpark>((tr->GetPos() + Vector2(70.0f, -40.0f)), eLayerType::Effect);
 
 					mSecond = 0.0f;
 				}
@@ -747,6 +994,29 @@ namespace jw
 				mAnimator->Play(L"DuckIdle_R", true);
 			}
 		}
+
+		if (Input::GetKeyDown(eKeyCode::SPACE) && mJumpCount >= 1)
+		{
+			mJumpCount--;
+			mbGroundCheck = false;
+
+			Vector2 velocity = mRigidbody->GetVelocity();
+			velocity.y -= mJumpScale;
+
+			mRigidbody->SetVelocity(velocity);
+			mRigidbody->SetGround(false);
+
+			if (Cuphead::GetCupheadState() == eCupheadState::Duck_Shoot_L)
+			{
+				mState = eCupheadState::Jump_L;
+				mAnimator->Play(L"JumpJump_L", true);
+			}
+			else
+			{
+				mState = eCupheadState::Jump_R;
+				mAnimator->Play(L"JumpJump_R", true);
+			}
+		}
 	}
 
 	void Cuphead::shoot_up()
@@ -767,7 +1037,7 @@ namespace jw
 
 					bullet->SetDegree(-90.0f);
 
-					object::Instantiate<PeashotSpark>((pos + Vector2(-35.0f, -120.0f)), eLayerType::Effect);
+					object::Instantiate<PeashotSpark>((pos + Vector2(-60.0f, -150.0f)), eLayerType::Effect);
 
 					mSecond = 0.0f;
 				}
@@ -814,7 +1084,7 @@ namespace jw
 
 					bullet->SetDegree(-90.0f);
 
-					object::Instantiate<PeashotSpark>((pos + Vector2(35.0f, -120.0f)), eLayerType::Effect);
+					object::Instantiate<PeashotSpark>((pos + Vector2(20.0f, -150.0f)), eLayerType::Effect);
 
 					mSecond = 0.0f;
 				}
@@ -845,6 +1115,29 @@ namespace jw
 			{
 				mState = eCupheadState::Idle_R;
 				mAnimator->Play(L"CupheadIdle_R", true);
+			}
+		}
+
+		if (Input::GetKeyDown(eKeyCode::SPACE) && mJumpCount >= 1)
+		{
+			mJumpCount--;
+			mbGroundCheck = false;
+
+			Vector2 velocity = mRigidbody->GetVelocity();
+			velocity.y -= mJumpScale;
+
+			mRigidbody->SetVelocity(velocity);
+			mRigidbody->SetGround(false);
+
+			if (Cuphead::GetCupheadState() == eCupheadState::Shoot_UP_L)
+			{
+				mState = eCupheadState::Jump_L;
+				mAnimator->Play(L"JumpJump_L", true);
+			}
+			else
+			{
+				mState = eCupheadState::Jump_R;
+				mAnimator->Play(L"JumpJump_R", true);
 			}
 		}
 	}
@@ -958,6 +1251,585 @@ namespace jw
 				mAnimator->Play(L"CupheadIdle_R", true);
 			}
 		}
+
+		if (Input::GetKeyDown(eKeyCode::SPACE) && mJumpCount >= 1)
+		{
+			mJumpCount--;
+			mbGroundCheck = false;
+
+			Vector2 velocity = mRigidbody->GetVelocity();
+			velocity.y -= mJumpScale;
+
+			mRigidbody->SetVelocity(velocity);
+			mRigidbody->SetGround(false);
+
+			if (Cuphead::GetCupheadState() == eCupheadState::Shoot_Run_diag_Up_L)
+			{
+				mState = eCupheadState::Jump_L;
+				mAnimator->Play(L"JumpJump_L", true);
+			}
+			else
+			{
+				mState = eCupheadState::Jump_R;
+				mAnimator->Play(L"JumpJump_R", true);
+			}
+		}
+	}
+
+	void Cuphead::shoot_jump()
+	{
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->GetPos();
+
+		if (GetCupheadState() == eCupheadState::Shoot_Jump_L)
+		{
+			if (Input::GetKey(eKeyCode::K))
+			{
+				mSecond += Time::DeltaTime();
+
+				if (mSecond > mFiredelay)
+				{
+					Peashot_L* bullet;
+
+					bullet = object::Instantiate<Peashot_L>((pos + Vector2(-60.0f, -60.0f)), eLayerType::Bullet);
+					bullet->SetDegree(180.0f);
+
+					object::Instantiate<PeashotSpark>((pos + Vector2(-70.0f, -40.0f)), eLayerType::Effect);
+
+					mSecond = 0.0f;
+				}
+
+				if (Input::GetKeyDown(eKeyCode::D) || Input::GetKey(eKeyCode::D))
+				{
+					mState = eCupheadState::Shoot_Jump_R;
+					mAnimator->Play(L"JumpJump_R", true);
+				}
+				if (Input::GetKeyDown(eKeyCode::A) || Input::GetKey(eKeyCode::A))
+				{
+					pos.x -= 400.0f * Time::DeltaTime();
+					mState = eCupheadState::Shoot_Jump_L;
+				}
+
+				if (Input::GetKeyDown(eKeyCode::W) || Input::GetKey(eKeyCode::W))
+				{
+					mState = eCupheadState::Shoot_Jump_Up_L;
+				}
+
+				if ((Input::GetKeyDown(eKeyCode::W) || Input::GetKey(eKeyCode::W))
+					&& (Input::GetKeyDown(eKeyCode::A) || Input::GetKey(eKeyCode::A)))
+				{
+					mState = eCupheadState::Shoot_Jump_diag_Up_L;
+				}
+
+				if (mbGroundCheck)
+				{
+					if ((Input::GetKeyDown(eKeyCode::A) || Input::GetKey(eKeyCode::A)))
+					{
+						mState = eCupheadState::Shoot_Run_L;
+						mAnimator->Play(L"ShootRun_L", true);
+					}
+					if ((Input::GetKeyDown(eKeyCode::D) || Input::GetKey(eKeyCode::D)))
+					{
+						mState = eCupheadState::Shoot_Run_L;
+						mAnimator->Play(L"ShootRun_R", true);
+					}
+					if ((Input::GetKeyDown(eKeyCode::W) || Input::GetKey(eKeyCode::W))
+						&& (Input::GetKeyDown(eKeyCode::A) || Input::GetKey(eKeyCode::A)))
+					{
+						mState = eCupheadState::Shoot_Run_diag_Up_L;
+						mAnimator->Play(L"ShootRun_diagonal_up_L", true);
+					}
+					if ((Input::GetKeyDown(eKeyCode::W) || Input::GetKey(eKeyCode::W))
+						&& (Input::GetKeyDown(eKeyCode::D) || Input::GetKey(eKeyCode::D)))
+					{
+						mState = eCupheadState::Shoot_Run_diag_Up_R;
+						mAnimator->Play(L"ShootRun_diagonal_up_R", true);
+					}
+					if (Input::GetKeyDown(eKeyCode::W) || Input::GetKey(eKeyCode::W))
+					{
+						mState = eCupheadState::Shoot_UP_L;
+						mAnimator->Play(L"ShootUp_L", true);
+					}
+
+					if (Input::GetKeyUp(eKeyCode::W) && Input::GetKeyUp(eKeyCode::D)
+						&& Input::GetKeyUp(eKeyCode::A))
+					{
+						mState = eCupheadState::Shoot_L;
+						mAnimator->Play(L"ShootStraight_Shoot_L", true);
+					}
+				}
+
+
+
+			}
+			else if(!mbGroundCheck)
+			{
+				mState = eCupheadState::Jump_L;
+			}
+			else if (mbGroundCheck)
+			{
+				mState = eCupheadState::Idle_L;
+			}
+			
+		}
+		if (GetCupheadState() == eCupheadState::Shoot_Jump_R)
+		{
+			if (Input::GetKey(eKeyCode::K))
+			{
+				mSecond += Time::DeltaTime();
+
+				if (mSecond > mFiredelay)
+				{
+					TestBullet* bullet
+						= object::Instantiate<TestBullet>(pos + Vector2(60.0f, -60.0f), eLayerType::Bullet);
+
+					bullet->SetDegree(0.0f);
+
+					object::Instantiate<PeashotSpark>((pos + Vector2(70.0f, -40.0f)), eLayerType::Effect);
+
+					mSecond = 0.0f;
+				}
+
+				if (Input::GetKeyDown(eKeyCode::A) || Input::GetKey(eKeyCode::A))
+				{
+					mState = eCupheadState::Shoot_Jump_L;
+					mAnimator->Play(L"JumpJump_L", true);
+				}
+				if (Input::GetKeyDown(eKeyCode::D) || Input::GetKey(eKeyCode::D))
+				{
+					pos.x += 400.0f * Time::DeltaTime();
+					mState = eCupheadState::Shoot_Jump_R;
+				}
+
+				if (Input::GetKeyDown(eKeyCode::W) || Input::GetKey(eKeyCode::W))
+				{
+					mState = eCupheadState::Shoot_Jump_Up_R;
+				}
+
+				if ((Input::GetKeyDown(eKeyCode::W) || Input::GetKey(eKeyCode::W))
+					&& (Input::GetKeyDown(eKeyCode::D) || Input::GetKey(eKeyCode::D)))
+				{
+					mState = eCupheadState::Shoot_Jump_diag_Up_R;
+				}
+
+				if (mbGroundCheck)
+				{
+					if ((Input::GetKeyDown(eKeyCode::A) || Input::GetKey(eKeyCode::A)))
+					{
+						mState = eCupheadState::Shoot_Run_L;
+						mAnimator->Play(L"ShootRun_L", true);
+					}
+					if ((Input::GetKeyDown(eKeyCode::D) || Input::GetKey(eKeyCode::D)))
+					{
+						mState = eCupheadState::Shoot_Run_L;
+						mAnimator->Play(L"ShootRun_R", true);
+					}
+					if ((Input::GetKeyDown(eKeyCode::W) || Input::GetKey(eKeyCode::W))
+						&& (Input::GetKeyDown(eKeyCode::A) || Input::GetKey(eKeyCode::A)))
+					{
+						mState = eCupheadState::Shoot_Run_diag_Up_L;
+						mAnimator->Play(L"ShootRun_diagonal_up_L", true);
+					}
+					if ((Input::GetKeyDown(eKeyCode::W) || Input::GetKey(eKeyCode::W))
+						&& (Input::GetKeyDown(eKeyCode::D) || Input::GetKey(eKeyCode::D)))
+					{
+						mState = eCupheadState::Shoot_Run_diag_Up_R;
+						mAnimator->Play(L"ShootRun_diagonal_up_R", true);
+					}
+					if (Input::GetKeyDown(eKeyCode::W) || Input::GetKey(eKeyCode::W))
+					{
+						mState = eCupheadState::Shoot_UP_R;
+						mAnimator->Play(L"ShootUp_R", true);
+					}
+
+					if (Input::GetKeyUp(eKeyCode::W) && Input::GetKeyUp(eKeyCode::D)
+						&& Input::GetKeyUp(eKeyCode::A))
+					{
+						mState = eCupheadState::Shoot_R;
+						mAnimator->Play(L"ShootStraight_Shoot_R", true);
+					}
+				}
+			}
+			else if (!mbGroundCheck)
+			{
+				mState = eCupheadState::Jump_R;
+			}
+			else if (mbGroundCheck)
+			{
+				mState = eCupheadState::Idle_R;
+			}
+		
+		}
+
+		tr->SetPos(pos);
+	}
+
+	void Cuphead::shoot_jump_up()
+	{
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->GetPos();
+
+		if (GetCupheadState() == eCupheadState::Shoot_Jump_Up_L)
+		{
+			if (Input::GetKey(eKeyCode::K))
+			{
+				mSecond += Time::DeltaTime();
+
+				if (mSecond > mFiredelay)
+				{
+					Peashot_Up* bullet
+						= object::Instantiate<Peashot_Up>(pos + Vector2(-30.0f, -90.0f), eLayerType::Bullet);
+
+					bullet->SetDegree(-90.0f);
+
+					object::Instantiate<PeashotSpark>((pos + Vector2(-60.0f, -150.0f)), eLayerType::Effect);
+
+					mSecond = 0.0f;
+				}
+
+				if (Input::GetKeyUp(eKeyCode::W))
+				{
+					mState = eCupheadState::Shoot_Jump_L;
+				}
+
+				if ((Input::GetKey(eKeyCode::W))
+					&& (Input::GetKeyDown(eKeyCode::D) || Input::GetKey(eKeyCode::D)))
+				{
+					mState = eCupheadState::Shoot_Jump_diag_Up_R;
+				}
+
+				if ((Input::GetKey(eKeyCode::W))
+					&& (Input::GetKeyDown(eKeyCode::A) || Input::GetKey(eKeyCode::A)))
+				{
+					mState = eCupheadState::Shoot_Jump_diag_Up_L;
+				}
+
+				if (mbGroundCheck)
+				{
+					if ((Input::GetKeyDown(eKeyCode::A) || Input::GetKey(eKeyCode::A)))
+					{
+						mState = eCupheadState::Shoot_Run_L;
+						mAnimator->Play(L"ShootRun_L", true);
+					}
+					if ((Input::GetKeyDown(eKeyCode::D) || Input::GetKey(eKeyCode::D)))
+					{
+						mState = eCupheadState::Shoot_Run_L;
+						mAnimator->Play(L"ShootRun_R", true);
+					}
+					if ((Input::GetKeyDown(eKeyCode::W) || Input::GetKey(eKeyCode::W))
+						&& (Input::GetKeyDown(eKeyCode::A) || Input::GetKey(eKeyCode::A)))
+					{
+						mState = eCupheadState::Shoot_Run_diag_Up_L;
+						mAnimator->Play(L"ShootRun_diagonal_up_L", true);
+					}
+					if ((Input::GetKeyDown(eKeyCode::W) || Input::GetKey(eKeyCode::W))
+						&& (Input::GetKeyDown(eKeyCode::D) || Input::GetKey(eKeyCode::D)))
+					{
+						mState = eCupheadState::Shoot_Run_diag_Up_R;
+						mAnimator->Play(L"ShootRun_diagonal_up_R", true);
+					}
+					if (Input::GetKeyDown(eKeyCode::W) || Input::GetKey(eKeyCode::W))
+					{
+						mState = eCupheadState::Shoot_UP_L;
+						mAnimator->Play(L"ShootUp_L", true);
+					}
+
+					if (Input::GetKeyUp(eKeyCode::W) && Input::GetKeyUp(eKeyCode::D)
+						&& Input::GetKeyUp(eKeyCode::A))
+					{
+						mState = eCupheadState::Shoot_L;
+						mAnimator->Play(L"ShootStraight_Shoot_L", true);
+					}
+				}
+			}
+			else if (!mbGroundCheck)
+			{
+				mState = eCupheadState::Jump_L;
+			}
+			else if (mbGroundCheck)
+			{
+				mState = eCupheadState::Idle_L;
+			}
+		}
+		if (GetCupheadState() == eCupheadState::Shoot_Jump_Up_R)
+		{
+			if (Input::GetKey(eKeyCode::K))
+			{
+				mSecond += Time::DeltaTime();
+
+				if (mSecond > mFiredelay)
+				{
+					Peashot_Up* bullet
+						= object::Instantiate<Peashot_Up>(pos + Vector2(10.0f, -90.0f), eLayerType::Bullet);
+
+					bullet->SetDegree(-90.0f);
+
+					object::Instantiate<PeashotSpark>((pos + Vector2(0.0f, -150.0f)), eLayerType::Effect);
+
+					mSecond = 0.0f;
+				}
+				if (Input::GetKeyUp(eKeyCode::W))
+				{
+					mState = eCupheadState::Shoot_Jump_R;
+				}
+
+				if ((Input::GetKey(eKeyCode::W))
+					&& (Input::GetKeyDown(eKeyCode::D) || Input::GetKey(eKeyCode::D)))
+				{
+					mState = eCupheadState::Shoot_Jump_diag_Up_R;
+				}
+
+				if ((Input::GetKey(eKeyCode::W))
+					&& (Input::GetKeyDown(eKeyCode::A) || Input::GetKey(eKeyCode::A)))
+				{
+					mState = eCupheadState::Shoot_Jump_diag_Up_L;
+				}
+
+				if (mbGroundCheck)
+				{
+					if ((Input::GetKeyDown(eKeyCode::A) || Input::GetKey(eKeyCode::A)))
+					{
+						mState = eCupheadState::Shoot_Run_L;
+						mAnimator->Play(L"ShootRun_L", true);
+					}
+					if ((Input::GetKeyDown(eKeyCode::D) || Input::GetKey(eKeyCode::D)))
+					{
+						mState = eCupheadState::Shoot_Run_L;
+						mAnimator->Play(L"ShootRun_R", true);
+					}
+					if ((Input::GetKeyDown(eKeyCode::W) || Input::GetKey(eKeyCode::W))
+						&& (Input::GetKeyDown(eKeyCode::A) || Input::GetKey(eKeyCode::A)))
+					{
+						mState = eCupheadState::Shoot_Run_diag_Up_L;
+						mAnimator->Play(L"ShootRun_diagonal_up_L", true);
+					}
+					if ((Input::GetKeyDown(eKeyCode::W) || Input::GetKey(eKeyCode::W))
+						&& (Input::GetKeyDown(eKeyCode::D) || Input::GetKey(eKeyCode::D)))
+					{
+						mState = eCupheadState::Shoot_Run_diag_Up_R;
+						mAnimator->Play(L"ShootRun_diagonal_up_R", true);
+					}
+					if (Input::GetKeyDown(eKeyCode::W) || Input::GetKey(eKeyCode::W))
+					{
+						mState = eCupheadState::Shoot_UP_R;
+						mAnimator->Play(L"ShootUp_R", true);
+					}
+					if (Input::GetKeyUp(eKeyCode::W) && Input::GetKeyUp(eKeyCode::D)
+						&& Input::GetKeyUp(eKeyCode::A))
+					{
+						mState = eCupheadState::Shoot_R;
+						mAnimator->Play(L"ShootStraight_Shoot_R", true);
+					}
+					
+				}
+			}
+			else if (!mbGroundCheck)
+			{
+				mState = eCupheadState::Jump_R;
+			}
+			else if (mbGroundCheck)
+			{
+				mState = eCupheadState::Idle_R;
+			}
+		}
+	}
+
+	void Cuphead::shoot_jump_diag_up()
+	{
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->GetPos();
+
+		if (GetCupheadState() == eCupheadState::Shoot_Jump_diag_Up_L)
+		{
+			if (Input::GetKey(eKeyCode::K))
+			{
+				mSecond += Time::DeltaTime();
+
+				if (mSecond > mFiredelay)
+				{
+					Peashot_diagnal_L* bullet
+						= object::Instantiate<Peashot_diagnal_L>((pos + Vector2(-60.0f, 0.0f)), eLayerType::Bullet);
+					bullet->SetDegree(-135.0f);
+
+					object::Instantiate<PeashotSpark>((pos + Vector2(-80.0f, -80.0f)), eLayerType::Effect);
+
+					mSecond = 0.0f;
+				}
+
+				if (Input::GetKeyUp(eKeyCode::W) && Input::GetKeyUp(eKeyCode::A))
+				{
+					mState = eCupheadState::Shoot_Jump_L;
+				}
+
+				if (Input::GetKeyUp(eKeyCode::W) && Input::GetKey(eKeyCode::A))
+				{
+					mState = eCupheadState::Shoot_Jump_L;
+				}
+
+				if (Input::GetKey(eKeyCode::W) && Input::GetKey(eKeyCode::A))
+				{
+					pos.x -= 400.0f * Time::DeltaTime();
+				}
+
+				if (Input::GetKeyUp(eKeyCode::W) && Input::GetKey(eKeyCode::D))
+				{
+					mState = eCupheadState::Shoot_Jump_R;
+				}
+
+				if (Input::GetKey(eKeyCode::W) && Input::GetKeyUp(eKeyCode::D))
+				{
+					mState = eCupheadState::Shoot_Jump_Up_L;
+				}
+
+				if ((Input::GetKey(eKeyCode::W))
+					&& (Input::GetKeyDown(eKeyCode::A) || Input::GetKey(eKeyCode::A)))
+				{
+					mState = eCupheadState::Shoot_Jump_diag_Up_L;
+				}
+
+				if (mbGroundCheck)
+				{
+					if ((Input::GetKeyDown(eKeyCode::A) || Input::GetKey(eKeyCode::A)))
+					{
+						mState = eCupheadState::Shoot_Run_L;
+						mAnimator->Play(L"ShootRun_L", true);
+					}
+					if ((Input::GetKeyDown(eKeyCode::D) || Input::GetKey(eKeyCode::D)))
+					{
+						mState = eCupheadState::Shoot_Run_L;
+						mAnimator->Play(L"ShootRun_R", true);
+					}
+					if ((Input::GetKeyDown(eKeyCode::W) || Input::GetKey(eKeyCode::W))
+						&& (Input::GetKeyDown(eKeyCode::A) || Input::GetKey(eKeyCode::A)))
+					{
+						mState = eCupheadState::Shoot_Run_diag_Up_L;
+						mAnimator->Play(L"ShootRun_diagonal_up_L", true);
+					}
+					if ((Input::GetKeyDown(eKeyCode::W) || Input::GetKey(eKeyCode::W))
+						&& (Input::GetKeyDown(eKeyCode::D) || Input::GetKey(eKeyCode::D)))
+					{
+						mState = eCupheadState::Shoot_Run_diag_Up_R;
+						mAnimator->Play(L"ShootRun_diagonal_up_R", true);
+					}
+					if (Input::GetKeyDown(eKeyCode::W) || Input::GetKey(eKeyCode::W))
+					{
+						mState = eCupheadState::Shoot_UP_L;
+						mAnimator->Play(L"ShootUp_L", true);
+					}
+
+					if (Input::GetKeyUp(eKeyCode::W) && Input::GetKeyUp(eKeyCode::D)
+						&& Input::GetKeyUp(eKeyCode::A))
+					{
+						mState = eCupheadState::Shoot_L;
+						mAnimator->Play(L"ShootStraight_Shoot_L", true);
+					}
+				}
+			}
+			else if (!mbGroundCheck)
+			{
+				mState = eCupheadState::Jump_L;
+			}
+			else if (mbGroundCheck)
+			{
+				mState = eCupheadState::Idle_L;
+			}
+		}
+		if (GetCupheadState() == eCupheadState::Shoot_Jump_diag_Up_R)
+		{
+			if (Input::GetKey(eKeyCode::K))
+			{
+				mSecond += Time::DeltaTime();
+
+				if (mSecond > mFiredelay)
+				{
+					Peashot_diagnal_R* bullet
+						= object::Instantiate<Peashot_diagnal_R>((tr->GetPos() + Vector2(60.0f, 0.0f)), eLayerType::Bullet);
+					bullet->SetDegree(-45.0f);
+
+					object::Instantiate<PeashotSpark>((tr->GetPos() + Vector2(80.0f, -80.0f)), eLayerType::Effect);
+
+					mSecond = 0.0f;
+				}
+
+				if (Input::GetKeyUp(eKeyCode::W) && Input::GetKeyUp(eKeyCode::A))
+				{
+					mState = eCupheadState::Shoot_Jump_R;
+				}
+
+				if (Input::GetKeyUp(eKeyCode::W) && Input::GetKey(eKeyCode::A))
+				{
+					mState = eCupheadState::Shoot_Jump_L;
+				}
+
+				if (Input::GetKeyUp(eKeyCode::W) && Input::GetKey(eKeyCode::D))
+				{
+					mState = eCupheadState::Shoot_Jump_R;
+				}
+
+				if (Input::GetKey(eKeyCode::W) && Input::GetKey(eKeyCode::D))
+				{
+					pos.x += 400.0f * Time::DeltaTime();
+				}
+
+				if (Input::GetKey(eKeyCode::W) && Input::GetKeyUp(eKeyCode::D))
+				{
+					mState = eCupheadState::Shoot_Jump_Up_R;
+				}
+
+				if ((Input::GetKey(eKeyCode::W))
+					&& (Input::GetKeyDown(eKeyCode::A) || Input::GetKey(eKeyCode::A)))
+				{
+					mState = eCupheadState::Shoot_Jump_diag_Up_L;
+				}
+
+				if (mbGroundCheck)
+				{
+					if ((Input::GetKeyDown(eKeyCode::A) || Input::GetKey(eKeyCode::A)))
+					{
+						mState = eCupheadState::Shoot_Run_L;
+						mAnimator->Play(L"ShootRun_L", true);
+					}
+					if ((Input::GetKeyDown(eKeyCode::D) || Input::GetKey(eKeyCode::D)))
+					{
+						mState = eCupheadState::Shoot_Run_L;
+						mAnimator->Play(L"ShootRun_R", true);
+					}
+					if ((Input::GetKeyDown(eKeyCode::W) || Input::GetKey(eKeyCode::W))
+						&& (Input::GetKeyDown(eKeyCode::A) || Input::GetKey(eKeyCode::A)))
+					{
+						mState = eCupheadState::Shoot_Run_diag_Up_L;
+						mAnimator->Play(L"ShootRun_diagonal_up_L", true);
+					}
+					if ((Input::GetKeyDown(eKeyCode::W) || Input::GetKey(eKeyCode::W))
+						&& (Input::GetKeyDown(eKeyCode::D) || Input::GetKey(eKeyCode::D)))
+					{
+						mState = eCupheadState::Shoot_Run_diag_Up_R;
+						mAnimator->Play(L"ShootRun_diagonal_up_R", true);
+					}
+					if (Input::GetKeyDown(eKeyCode::W) || Input::GetKey(eKeyCode::W))
+					{
+						mState = eCupheadState::Shoot_UP_R;
+						mAnimator->Play(L"ShootUp_R", true);
+					}
+
+					if (Input::GetKeyUp(eKeyCode::W) && Input::GetKeyUp(eKeyCode::D)
+						&& Input::GetKeyUp(eKeyCode::A))
+					{
+						mState = eCupheadState::Shoot_R;
+						mAnimator->Play(L"ShootStraight_Shoot_R", true);
+					}
+				}
+			}
+			else if (!mbGroundCheck)
+			{
+				mState = eCupheadState::Jump_R;
+			}
+			else if (mbGroundCheck)
+			{
+				mState = eCupheadState::Idle_R;
+			}
+		}
+		tr->SetPos(pos);
 	}
 
 	void Cuphead::death()
