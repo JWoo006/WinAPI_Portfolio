@@ -15,6 +15,7 @@ enum class eSceneType
 enum class eLayerType
 {
 	BG,
+	BG2,
 	Tile,
 	Monster,
 	Player,
@@ -22,6 +23,7 @@ enum class eLayerType
 	Ground,
 	Effect,
 	UI,
+	BG3,
 	End,
 };
 

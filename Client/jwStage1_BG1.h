@@ -4,11 +4,11 @@
 
 namespace jw
 {
-	class Background : public GameObject
+	class Stage1_BG1 : public GameObject
 	{
 	public:
-		Background();
-		~Background();
+		Stage1_BG1();
+		~Stage1_BG1();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
@@ -24,6 +24,4 @@ namespace jw
 		Vector2 scale;
 	};
 }
-
-
 

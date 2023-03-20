@@ -16,7 +16,7 @@ namespace jw
 		tr->SetScale(Vector2(2.0f, 1.8f));
 		scale = tr->GetScale();
 
-		mImage = Resources::Load<Image>(L"stage1_ground", L"..\\Resources\\Image\\Stage1_veggie\\BackGround\\veggie_bg.bmp");
+		mImage = Resources::Load<Image>(L"Stage1_BG1", L"..\\Resources\\Image\\Stage1_veggie\\BackGround\\veggie_bg1.bmp");
 		
 		GameObject::Initialize();
 	}
@@ -34,7 +34,6 @@ namespace jw
 	}
 	void Background::Release()
 	{
-		//GameObject::Release();
 	}
 	void Background::OnCollisionEnter(Collider* other)
 	{

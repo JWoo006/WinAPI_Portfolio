@@ -167,6 +167,10 @@
     <ClInclude Include="jwRigidbody.h" />
     <ClInclude Include="jwScene.h" />
     <ClInclude Include="jwSceneManager.h" />
+    <ClInclude Include="jwStage1_BG_header.h" />
+    <ClInclude Include="jwStage1_BG1.h" />
+    <ClInclude Include="jwStage1_BG2.h" />
+    <ClInclude Include="jwStage1_BG_Sky.h" />
     <ClInclude Include="jwStageScene.h" />
     <ClInclude Include="jwTestBullet.h" />
     <ClInclude Include="jwTile.h" />
@@ -216,6 +220,9 @@
     <ClCompile Include="jwRigidbody.cpp" />
     <ClCompile Include="jwScene.cpp" />
     <ClCompile Include="jwSceneManager.cpp" />
+    <ClCompile Include="jwStage1_BG1.cpp" />
+    <ClCompile Include="jwStage1_BG2.cpp" />
+    <ClCompile Include="jwStage1_BG_Sky.cpp" />
     <ClCompile Include="jwStageScene.cpp" />
     <ClCompile Include="jwTestBullet.cpp" />
     <ClCompile Include="jwTile.cpp" />

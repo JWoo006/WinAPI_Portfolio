@@ -1330,7 +1330,7 @@ namespace jw
 					}
 					if ((Input::GetKeyDown(eKeyCode::D) || Input::GetKey(eKeyCode::D)))
 					{
-						mState = eCupheadState::Shoot_Run_L;
+						mState = eCupheadState::Shoot_Run_R;
 						mAnimator->Play(L"ShootRun_R", true);
 					}
 					if ((Input::GetKeyDown(eKeyCode::W) || Input::GetKey(eKeyCode::W))
@@ -1421,7 +1421,7 @@ namespace jw
 					}
 					if ((Input::GetKeyDown(eKeyCode::D) || Input::GetKey(eKeyCode::D)))
 					{
-						mState = eCupheadState::Shoot_Run_L;
+						mState = eCupheadState::Shoot_Run_R;
 						mAnimator->Play(L"ShootRun_R", true);
 					}
 					if ((Input::GetKeyDown(eKeyCode::W) || Input::GetKey(eKeyCode::W))
@@ -1442,8 +1442,7 @@ namespace jw
 						mAnimator->Play(L"ShootUp_R", true);
 					}
 
-					if (Input::GetKeyUp(eKeyCode::W) && Input::GetKeyUp(eKeyCode::D)
-						&& Input::GetKeyUp(eKeyCode::A))
+					if (Input::GetKeyUp(eKeyCode::W) && Input::GetKeyUp(eKeyCode::D) && Input::GetKeyUp(eKeyCode::A))
 					{
 						mState = eCupheadState::Shoot_R;
 						mAnimator->Play(L"ShootStraight_Shoot_R", true);
@@ -1513,7 +1512,7 @@ namespace jw
 					}
 					if ((Input::GetKeyDown(eKeyCode::D) || Input::GetKey(eKeyCode::D)))
 					{
-						mState = eCupheadState::Shoot_Run_L;
+						mState = eCupheadState::Shoot_Run_R;
 						mAnimator->Play(L"ShootRun_R", true);
 					}
 					if ((Input::GetKeyDown(eKeyCode::W) || Input::GetKey(eKeyCode::W))
@@ -1594,7 +1593,7 @@ namespace jw
 					}
 					if ((Input::GetKeyDown(eKeyCode::D) || Input::GetKey(eKeyCode::D)))
 					{
-						mState = eCupheadState::Shoot_Run_L;
+						mState = eCupheadState::Shoot_Run_R;
 						mAnimator->Play(L"ShootRun_R", true);
 					}
 					if ((Input::GetKeyDown(eKeyCode::W) || Input::GetKey(eKeyCode::W))
@@ -1676,7 +1675,7 @@ namespace jw
 					mState = eCupheadState::Shoot_Jump_R;
 				}
 
-				if (Input::GetKey(eKeyCode::W) && Input::GetKeyUp(eKeyCode::D))
+				if (Input::GetKey(eKeyCode::W) && Input::GetKeyUp(eKeyCode::A))
 				{
 					mState = eCupheadState::Shoot_Jump_Up_L;
 				}
@@ -1696,7 +1695,7 @@ namespace jw
 					}
 					if ((Input::GetKeyDown(eKeyCode::D) || Input::GetKey(eKeyCode::D)))
 					{
-						mState = eCupheadState::Shoot_Run_L;
+						mState = eCupheadState::Shoot_Run_R;
 						mAnimator->Play(L"ShootRun_R", true);
 					}
 					if ((Input::GetKeyDown(eKeyCode::W) || Input::GetKey(eKeyCode::W))
@@ -1791,7 +1790,7 @@ namespace jw
 					}
 					if ((Input::GetKeyDown(eKeyCode::D) || Input::GetKey(eKeyCode::D)))
 					{
-						mState = eCupheadState::Shoot_Run_L;
+						mState = eCupheadState::Shoot_Run_R;
 						mAnimator->Play(L"ShootRun_R", true);
 					}
 					if ((Input::GetKeyDown(eKeyCode::W) || Input::GetKey(eKeyCode::W))

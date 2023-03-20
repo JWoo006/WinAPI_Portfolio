@@ -98,6 +98,9 @@
     <Filter Include="Contents\Object">
       <UniqueIdentifier>{2b3b85a8-0f6b-4f0f-bbe7-c386fcc19c43}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Stage\Veggie\object">
+      <UniqueIdentifier>{c3af6e7a-ae17-414f-8956-62d70c5a2569}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -250,14 +253,26 @@
     <ClInclude Include="jwFade_Out_Rectangle.h">
       <Filter>Contents\Effect\Fade_InOut</Filter>
     </ClInclude>
-    <ClInclude Include="jwGround_Veggie.h">
-      <Filter>Contents\Stage\Veggie\Background</Filter>
-    </ClInclude>
     <ClInclude Include="jwToolScene.h">
       <Filter>Contents\Scene</Filter>
     </ClInclude>
     <ClInclude Include="jwTile.h">
       <Filter>Contents\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="jwStage1_BG_Sky.h">
+      <Filter>Contents\Stage\Veggie\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="jwStage1_BG1.h">
+      <Filter>Contents\Stage\Veggie\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="jwStage1_BG2.h">
+      <Filter>Contents\Stage\Veggie\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="jwGround_Veggie.h">
+      <Filter>Contents\Stage\Veggie\object</Filter>
+    </ClInclude>
+    <ClInclude Include="jwStage1_BG_header.h">
+      <Filter>Contents\Stage\Veggie\Background</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -403,14 +418,23 @@
     <ClCompile Include="jwFade_Out_Rectangle.cpp">
       <Filter>Contents\Effect\Fade_InOut</Filter>
     </ClCompile>
-    <ClCompile Include="jwGround_Veggie.cpp">
-      <Filter>Contents\Stage\Veggie\Background</Filter>
-    </ClCompile>
     <ClCompile Include="jwToolScene.cpp">
       <Filter>Contents\Scene</Filter>
     </ClCompile>
     <ClCompile Include="jwTile.cpp">
       <Filter>Contents\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="jwStage1_BG_Sky.cpp">
+      <Filter>Contents\Stage\Veggie\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="jwStage1_BG1.cpp">
+      <Filter>Contents\Stage\Veggie\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="jwStage1_BG2.cpp">
+      <Filter>Contents\Stage\Veggie\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="jwGround_Veggie.cpp">
+      <Filter>Contents\Stage\Veggie\object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
