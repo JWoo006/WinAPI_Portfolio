@@ -28,6 +28,8 @@ namespace jw
 
 		mImage = Resources::Load<Image>(L"Background1", L"..\\Resources\\Image\\Title_Screen\\Background\\title_screen_background #262704.bmp");
 		mImage2 = Resources::Load<Image>(L"Background2", L"..\\Resources\\Image\\Title_Screen\\Background\\title_chips_left_0001 #262672.bmp");
+		mImage3 = Resources::Load<Image>(L"Background3", L"..\\Resources\\Image\\Title_Screen\\Background\\veggie_bg_0002 #264646.png");
+		int a = 0;
 	}
 	void TitleScene::Update()
 	{
@@ -52,6 +54,11 @@ namespace jw
 
 		GdiTransparentBlt(hdc, 140, 720, mImage2->GetWidth(), mImage2->GetHeight()
 			, mImage2->GetHdc(), 0, 0, mImage2->GetWidth(), mImage2->GetHeight(), RGB(255, 0, 255));
+
+		Graphics graphic(hdc);
+
+
+		graphic.DrawImage(mImage3->GetImage(), 110, 110, mImage3->GetWidth(), mImage3->GetHeight());
 
 		Scene::SceneText(hdc);
 	}

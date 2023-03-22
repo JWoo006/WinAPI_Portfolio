@@ -60,8 +60,7 @@ namespace jw
         pos = Camera::CalculatePos(pos);
         pos += mSpriteSheet[mSpriteIndex].offset;
         pos.x -= mSpriteSheet[mSpriteIndex].size.x / 2.0f;
-        pos.y -= mSpriteSheet[mSpriteIndex].size.y;
-
+        pos.y -= mSpriteSheet[mSpriteIndex].size.y;        
 
         TransparentBlt(hdc, pos.x, pos.y
             , mSpriteSheet[mSpriteIndex].size.x * scale.x
@@ -71,13 +70,16 @@ namespace jw
             , mSpriteSheet[mSpriteIndex].size.x, mSpriteSheet[mSpriteIndex].size.y
             , RGB(255, 0, 255));
 
+        Graphics graphic(hdc);
+        
+        
+
         //알파 블렌딩
         //BLENDFUNCTION func = {};
         //func.BlendOp = AC_SRC_OVER;
         //func.BlendFlags = 0;
         //func.AlphaFormat = 0;
         //func.SourceConstantAlpha = 127; // 알파값 - 낮을수록 투명
-
         //AlphaBlend(hdc, pos.x, pos.y
         //    , mSpriteSheet[mSpriteIndex].size.x * scale.x 
         //    , mSpriteSheet[mSpriteIndex].size.y * scale.y

@@ -97,7 +97,7 @@ namespace jw
 			const std::wstring ext = p.path().extension();
 			if (ext == L".png")
 			{
-				continue;
+				//continue;
 			}
 
 

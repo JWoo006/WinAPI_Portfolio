@@ -22,6 +22,7 @@ namespace jw
 	private:
 		Image* mImage;
 		Image* mImage2;
+		Image* mImage3;
 		int mNextScene;
 	};
 }

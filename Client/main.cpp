@@ -6,6 +6,7 @@
 #include "jwApplication.h"
 #include "jwSceneManager.h"
 #include "jwResources.h"
+#include "CommonInclude.h"
 
 #define MAX_LOADSTRING 100
 
@@ -31,6 +32,10 @@ INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
     // 4. 윈도우 클래스를 정의할떄 등록된 메서지 처리함수를
     //    순회하면서 들어오는 메세지를 처리해준다.
 
+// Gdiplus
+ULONG_PTR gdiplusToken;
+Gdiplus::GdiplusStartupInput gdiplusStartupInput;
+
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
                      _In_ LPWSTR    lpCmdLine,
@@ -43,6 +48,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     //메모리 릭체크
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
+    Gdiplus::GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
 
     // 전역 문자열을 초기화합니다.
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
@@ -101,6 +108,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     jw::SceneManager::Release();
     jw::Resources::Release();
+
+    Gdiplus::GdiplusShutdown(gdiplusToken);
 
     return (int) msg.wParam;
 }

@@ -40,6 +40,8 @@ namespace jw
 		void SetAnimationName(const std::wstring& name) { mAnimationName = name; }
 		std::wstring& GetAnimationName() { return mAnimationName; }
 
+		Gdiplus::ColorMatrix GetMatrix() { return mColorMatrix; }
+
 	private:
 		Animator* mAnimator;
 		Image* mSheetImage;
@@ -48,6 +50,9 @@ namespace jw
 		float mTime;
 		bool mbComplete;
 		int mSpriteIndex;
+
+		Gdiplus::ColorMatrix mColorMatrix;
+
 	};
 }
 

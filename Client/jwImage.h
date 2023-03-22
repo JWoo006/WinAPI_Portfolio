@@ -19,9 +19,13 @@ namespace jw
 		UINT GetWidth() { return mWidth; }
 		UINT GetHeight() { return mHeight; }
 
+		Gdiplus::Bitmap* GetImage() { return mImage; }
+
 	private:
 		HBITMAP mBitmap;
 		HDC mHdc;
+		Gdiplus::Bitmap* mImage;
+
 		UINT mWidth;
 		UINT mHeight;
 
