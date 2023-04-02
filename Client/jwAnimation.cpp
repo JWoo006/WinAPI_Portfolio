@@ -4,6 +4,7 @@
 #include "jwAnimator.h"
 #include "jwTransform.h"
 #include "jwGameObject.h"
+#include "jwResources.h"
 #include "jwCamera.h"
 
 namespace jw
@@ -33,19 +34,41 @@ namespace jw
 
         mTime += Time::DeltaTime();
 
-        if (mSpriteSheet[mSpriteIndex].duration < mTime)
+        if (mImageType == eImageFormat::PNG)
         {
-            mTime = 0.0f;
+            if (mSpriteSheet[mImagesIndex].duration < mTime)
+            {
+                mTime = 0.0f;
+                if (mImages.size() <= mImagesIndex + 1)
+                {
 
-            if (mSpriteSheet.size() <= mSpriteIndex + 1)
-            {
-                mbComplete = true;
+                    int a = mImages.size();
+                    mbComplete = true;
+                }
+                else
+                {
+                    mImagesIndex++;
+                }
             }
-            else
-            {
-                mSpriteIndex++;
-            }            
         }
+        else
+        {
+            if (mSpriteSheet[mSpriteIndex].duration < mTime)
+            {
+                mTime = 0.0f;
+
+                if (mSpriteSheet.size() <= mSpriteIndex + 1)
+                {
+                    mbComplete = true;
+                }
+                else
+                {
+                    mSpriteIndex++;
+                }
+            }
+        }
+
+        
     }
     void Animation::Render(HDC hdc)
     {
@@ -58,21 +81,36 @@ namespace jw
         // 캐릭터의 발을 기준으로 포지션을 계산
         Vector2 pos = tr->GetPos();
         pos = Camera::CalculatePos(pos);
-        pos += mSpriteSheet[mSpriteIndex].offset;
-        pos.x -= mSpriteSheet[mSpriteIndex].size.x / 2.0f;
-        pos.y -= mSpriteSheet[mSpriteIndex].size.y;        
-
-        TransparentBlt(hdc, pos.x, pos.y
-            , mSpriteSheet[mSpriteIndex].size.x * scale.x
-            , mSpriteSheet[mSpriteIndex].size.y * scale.y
-            , mSheetImage->GetHdc()
-            , mSpriteSheet[mSpriteIndex].leftTop.x, mSpriteSheet[mSpriteIndex].leftTop.y
-            , mSpriteSheet[mSpriteIndex].size.x, mSpriteSheet[mSpriteIndex].size.y
-            , RGB(255, 0, 255));
-
+       
         Graphics graphic(hdc);
-        
-        
+        if (mImageType == eImageFormat::PNG)
+        {
+            //pos += mImagesOffset;
+            //pos.x -= size.x / 2.0f;
+            //pos.y -= size.y;
+
+            pos += mSpriteSheet[mImagesIndex].offset;
+            pos.x -= mSpriteSheet[mImagesIndex].size.x / 2.0f;
+            pos.y -= mSpriteSheet[mImagesIndex].size.y;
+            
+
+            //graphic.DrawImage(mImages[mImagesIndex]->GetImage(), 0, 0, mImages[mImagesIndex]->GetWidth(), mImages[mImagesIndex]->GetHeight());
+            graphic.DrawImage(mImages[mImagesIndex]->GetImage(), pos.x, pos.y, mImages[mImagesIndex]->GetWidth(), mImages[mImagesIndex]->GetHeight());
+        }
+        else
+        {
+            pos += mSpriteSheet[mSpriteIndex].offset;
+            pos.x -= mSpriteSheet[mSpriteIndex].size.x / 2.0f;
+            pos.y -= mSpriteSheet[mSpriteIndex].size.y;
+
+            TransparentBlt(hdc, pos.x, pos.y
+                , mSpriteSheet[mSpriteIndex].size.x * scale.x
+                , mSpriteSheet[mSpriteIndex].size.y * scale.y
+                , mSheetImage->GetHdc()
+                , mSpriteSheet[mSpriteIndex].leftTop.x, mSpriteSheet[mSpriteIndex].leftTop.y
+                , mSpriteSheet[mSpriteIndex].size.x, mSpriteSheet[mSpriteIndex].size.y
+                , RGB(255, 0, 255));
+        }
 
         //알파 블렌딩
         //BLENDFUNCTION func = {};
@@ -89,32 +127,80 @@ namespace jw
         //    , func);
 
     }
-    void Animation::Create(Image* sheet, Vector2 leftTop
+    void Animation::Create(Image* sheet, const std::wstring& path, Vector2 leftTop
         , UINT coulmn, UINT row, UINT spriteLength
-        , Vector2 offset, float duration)
+        , Vector2 offset, float duration, eImageFormat imgformat, bool reverse)
     {
-        mSheetImage = sheet;
+        mImageType = imgformat;
 
-        //UINT coulmn = mSheetImage->GetWidth() / size.x;
-        Vector2 size = Vector2::One;
-        size.x = mSheetImage->GetWidth() / (float)coulmn;
-        size.y = mSheetImage->GetHeight() / (float)row;
-
-        for (size_t i = 0; i < spriteLength; i++)
+        if (imgformat == eImageFormat::PNG)
         {
-            Sprite spriteInfo;
-            spriteInfo.leftTop.x = leftTop.x + (size.x * i);
-            spriteInfo.leftTop.y = leftTop.y;
-            spriteInfo.size = size;
-            spriteInfo.offset = offset;
-            spriteInfo.duration = duration;
+            for (auto& p : std::filesystem::recursive_directory_iterator(path))
+            {
+                auto a = std::filesystem::recursive_directory_iterator(path);
 
-            mSpriteSheet.push_back(spriteInfo);
+                std::wstring fileName = p.path().filename();
+                std::wstring fullName = path + L"\\" + fileName;//전체경로 + 파일명
+
+                // .png확장자 이미지는 continue
+                const std::wstring ext = p.path().extension();
+                if (ext == L".png")
+                {
+                    int a = 0;
+                    //continue;
+                }
+
+                Image* image = Resources::Load<Image>(fileName, fullName);
+
+                if (reverse)
+                {
+                    image->ImageFlipX();
+                }
+
+                mImages.push_back(image);
+
+                Sprite spriteInfo;
+                spriteInfo.duration = duration;
+                spriteInfo.offset = offset;
+                spriteInfo.size.x = image->GetWidth();
+                spriteInfo.size.y = image->GetHeight();
+
+                mSpriteSheet.push_back(spriteInfo);
+
+                /*size = Vector2::One;
+                size.x = image->GetWidth();
+                size.y = image->GetHeight();*/
+            }
+            /*mImagesSize = size;
+            mImagesOffset = offset;
+            mImagesDuration = duration;*/
+        }
+        else
+        {
+            mSheetImage = sheet;
+
+            //UINT coulmn = mSheetImage->GetWidth() / size.x;
+            Vector2 size = Vector2::One;
+            size.x = mSheetImage->GetWidth() / (float)coulmn;
+            size.y = mSheetImage->GetHeight() / (float)row;
+
+            for (size_t i = 0; i < spriteLength; i++)
+            {
+                Sprite spriteInfo;
+                spriteInfo.leftTop.x = leftTop.x + (size.x * i);
+                spriteInfo.leftTop.y = leftTop.y;
+                spriteInfo.size = size;
+                spriteInfo.offset = offset;
+                spriteInfo.duration = duration;
+
+                mSpriteSheet.push_back(spriteInfo);
+            }
         }
     }
     void Animation::Reset()
     {
         mSpriteIndex = 0;
+        mImagesIndex = 0;
         mTime = 0.0f;
         mbComplete = false;
     }

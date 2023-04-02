@@ -16,7 +16,7 @@ namespace jw
 		Transform* tr = GetComponent<Transform>();
 		tr->SetScale(Vector2(0.7f, 1.0f));
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Weapon_peashot\\main_R", Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Weapon_peashot\\main_R", Vector2::Zero, 0.1f, eImageFormat::BMP, false);
 		mAnimator->Play(L"Weapon_peashotmain_R", true);
 		
 	}

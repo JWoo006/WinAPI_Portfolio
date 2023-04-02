@@ -18,9 +18,9 @@ namespace jw
 		/*Transform* tr = GetComponent<Transform>();
 		tr->SetPos(Vector2(800.0f, 800.0f));*/
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Title_Screen\\Background\\chalice_title", Vector2::Zero, 0.06f);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Title_Screen\\Background\\chalice_title", Vector2::Zero, 0.06f, eImageFormat::PNG, false);
 		mAnimator->Play(L"Backgroundchalice_title", true);
-
+		
 		GameObject::Initialize();
 	}
 	void TitleAnim1::Update()

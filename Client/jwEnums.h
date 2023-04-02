@@ -37,3 +37,10 @@ enum class eComponentType
 	Audio,
 	End,
 };
+
+enum class eImageFormat
+{
+	BMP,
+	PNG,
+	NONE,
+};

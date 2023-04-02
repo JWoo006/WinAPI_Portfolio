@@ -24,14 +24,14 @@ namespace jw
 
 		Image* mImage = Resources::Load<Image>(L"Cuphead_Stage", L"..\\Resources\\Image\\Cuphead\\StageMove\\Cuphead_Stage.bmp");
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"FowardRun", mImage
+		/*mAnimator->CreateAnimation(L"FowardRun", mImage
 			, Vector2::Zero, 16, 8, 16, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"FowardRight", mImage
 			, Vector2(0.0f, 113.0f), 16, 8, 15, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"Idle", mImage
 			, Vector2(0.0f, 113.0f * 5), 16, 8, 9, Vector2::Zero, 0.1);
 
-		mAnimator->Play(L"Idle", true);
+		mAnimator->Play(L"Idle", true);*/
 
 		Collider* collider = AddComponent<Collider>();
 		collider->SetCenter(Vector2(-50.0f, -100.0f));
@@ -105,8 +105,8 @@ namespace jw
 	}
 	void Cuphead_Stage::move()
 	{
-		if (Input::GetKeyUp(eKeyCode::A) || Input::GetKeyUp(eKeyCode::D)
-			|| Input::GetKeyUp(eKeyCode::W) || Input::GetKeyUp(eKeyCode::S))
+		if (Input::GetKeyUp(eKeyCode::LEFT) || Input::GetKeyUp(eKeyCode::RIGHT)
+			|| Input::GetKeyUp(eKeyCode::UP) || Input::GetKeyUp(eKeyCode::DOWN))
 		{
 			mState = eCupheadState::Idle;
 			mAnimator->Play(L"Idle", true);
@@ -115,22 +115,22 @@ namespace jw
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 		
-		if (Input::GetKey(eKeyCode::A))
+		if (Input::GetKey(eKeyCode::LEFT))
 		{
 			pos.x -= 200.0f * Time::DeltaTime();
 		}
 
-		if (Input::GetKey(eKeyCode::D))
+		if (Input::GetKey(eKeyCode::RIGHT))
 		{
 			pos.x += 200.0f * Time::DeltaTime();
 		}
 
-		if (Input::GetKey(eKeyCode::W))
+		if (Input::GetKey(eKeyCode::UP))
 		{
 			pos.y -= 200.0f * Time::DeltaTime();
 		}
 
-		if (Input::GetKey(eKeyCode::S))
+		if (Input::GetKey(eKeyCode::DOWN))
 		{
 			pos.y += 200.0f * Time::DeltaTime();
 		}
@@ -144,8 +144,8 @@ namespace jw
 	}
 	void Cuphead_Stage::idle()
 	{
-		if (Input::GetKeyDown(eKeyCode::A) || Input::GetKeyDown(eKeyCode::D)
-			|| Input::GetKeyDown(eKeyCode::W) || Input::GetKeyDown(eKeyCode::S))
+		if (Input::GetKeyDown(eKeyCode::LEFT) || Input::GetKeyDown(eKeyCode::RIGHT)
+			|| Input::GetKeyDown(eKeyCode::UP) || Input::GetKeyDown(eKeyCode::DOWN))
 		{
 			mState = eCupheadState::Move;
 			mAnimator->Play(L"FowardRun", true);

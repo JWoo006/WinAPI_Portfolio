@@ -23,7 +23,7 @@ namespace jw
 		tr->SetPos(Vector2(1100.0f, 700.0f));*/
 
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage1_veggie\\onion\\idle", Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage1_veggie\\onion\\idle", Vector2::Zero, 0.1f, eImageFormat::BMP, false);
 		mAnimator->Play(L"onionidle", true);
 
 		Collider* collider = AddComponent<Collider>();

@@ -54,10 +54,9 @@ namespace jw
 	void Animator::Release()
 	{
 	}
-	void Animator::CreateAnimation(const std::wstring& name
-		, Image* sheet, Vector2 leftTop
-		, UINT coulmn, UINT row, UINT spriteLength
-		, Vector2 offset, float duration)
+	void Animator::CreateAnimation(const std::wstring& name, const std::wstring& path
+		, Image* sheet, Vector2 leftTop, UINT coulmn, UINT row
+		, UINT spriteLength, Vector2 offset, float duration, eImageFormat imgformat, bool reverse)
 	{
 		Animation* animation = FindAnimation(name);
 
@@ -65,9 +64,9 @@ namespace jw
 		{
 			return;
 		}
-
 		animation = new Animation();
-		animation->Create(sheet, leftTop, coulmn, row, spriteLength, offset,  duration);
+
+		animation->Create(sheet, path, leftTop, coulmn, row, spriteLength, offset, duration, imgformat, reverse);
 		animation->SetAnimationName(name);
 		animation->SetAnimator(this);
 
@@ -76,8 +75,9 @@ namespace jw
 		// 애니메이션 생성될때 이벤트도 추가
 		Events* event = new Events();
 		mEvents.insert(std::make_pair(name, event));
+
 	}
-	void Animator::CreateAnimations(const std::wstring& path, Vector2 offset, float duration)
+	void Animator::CreateAnimations(const std::wstring& path, Vector2 offset, float duration, eImageFormat imgformat, bool reverse)
 	{
 		// 파일 크기
 		UINT width = 0;
@@ -90,6 +90,8 @@ namespace jw
 		//폴더 내 파일 탐색
 		for ( auto& p : std::filesystem::recursive_directory_iterator(path))
 		{
+			auto a = std::filesystem::recursive_directory_iterator(path);
+
 			std::wstring fileName = p.path().filename();
 			std::wstring fullName = path + L"\\" + fileName;//전체경로 + 파일명
 		     
@@ -97,9 +99,9 @@ namespace jw
 			const std::wstring ext = p.path().extension();
 			if (ext == L".png")
 			{
+				int a = 0;
 				//continue;
 			}
-
 
 			Image* image = Resources::Load<Image>(fileName, fullName);
 			images.push_back(image);
@@ -137,8 +139,8 @@ namespace jw
 			index++;
 		}
 
-		CreateAnimation(key, mSpriteSheet, Vector2::Zero, index, 1
-			, index, offset, duration);
+		CreateAnimation(key,path, mSpriteSheet, Vector2::Zero, index, 1
+			, index, offset, duration, imgformat, reverse);
 
 	}
 	Animation* Animator::FindAnimation(const std::wstring& name)

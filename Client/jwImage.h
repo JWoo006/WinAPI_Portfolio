@@ -21,10 +21,15 @@ namespace jw
 
 		Gdiplus::Bitmap* GetImage() { return mImage; }
 
+		void ImageFlipX();
+		bool GetReversed() { return mbReverse; }
+		void RotateImage();
+
 	private:
 		HBITMAP mBitmap;
 		HDC mHdc;
 		Gdiplus::Bitmap* mImage;
+		bool mbReverse;
 
 		UINT mWidth;
 		UINT mHeight;

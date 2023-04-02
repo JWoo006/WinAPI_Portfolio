@@ -6,6 +6,14 @@ extern jw::Application application;
 
 namespace jw
 {
+	Image::Image()
+		:mHdc(NULL)
+		, mImage(nullptr)
+	{
+	}
+	Image::~Image()
+	{
+	}
 	Image* Image::Create(const std::wstring& name, UINT width, UINT height)
 	{
 		//if (width == 0 || height == 0)
@@ -42,21 +50,21 @@ namespace jw
 		//DeleteObject(myBrush);
 
 		//return image;
+		
 		Image* image = Resources::Find<Image>(name);
 		if (image != nullptr)
 		{
-			return nullptr;
+			return image;
 		}
+
 		image = new Image();
-		Gdiplus::Bitmap* bmp1 = new Gdiplus::Bitmap(width, height, PixelFormat32bppARGB);
-		image->mImage = bmp1;
-		Gdiplus::Status status = bmp1->GetHBITMAP(Color(0, 0, 0), &(image->mBitmap));
-		if (status != 0)
-		{
-			return nullptr;
-		}
-		HDC mainDC = application.GetHdc();
-		image->mHdc = CreateCompatibleDC(mainDC);
+		HDC mainHdc = application.GetHdc();
+
+		Gdiplus::Bitmap* bmp = new Gdiplus::Bitmap(width, height, PixelFormat32bppARGB);
+		image->mImage = bmp;
+		bmp->GetHBITMAP(Color(255, 0, 255), &(image->mBitmap));
+
+		image->mHdc = CreateCompatibleDC(mainHdc);
 
 		HBITMAP oldBitmap = (HBITMAP)SelectObject(image->mHdc, image->mBitmap);
 		DeleteObject(oldBitmap);
@@ -67,16 +75,12 @@ namespace jw
 		image->SetKey(name);
 		Resources::Insert<Image>(name, image);
 
-		HBRUSH myBrush = (HBRUSH)CreateSolidBrush(RGB(255, 0, 255));
-		HBRUSH oldBrush = (HBRUSH)SelectObject(image->GetHdc(), myBrush);
-		Rectangle(image->GetHdc(), -1, -1, image->mWidth + 1, image->mHeight + 1);
-		SelectObject(image->GetHdc(), oldBrush);
-		DeleteObject(myBrush);
+		
 
 		return image;
-		
 	}
 
+	//Ä«¸Þ¶ó
 	Image* Image::Create(const std::wstring& name
 		, UINT width, UINT height, COLORREF rgb)
 	{
@@ -113,16 +117,6 @@ namespace jw
 		SelectObject(image->GetHdc(), oldBrush2);
 		DeleteObject(oldBrush2);
 		return image;
-	}
-	Image::Image()
-		: mBitmap(NULL)
-		, mHdc(NULL)
-		, mWidth(0)
-		, mHeight(0)
-	{
-	}
-	Image::~Image()
-	{
 	}
 	HRESULT Image::Load(const std::wstring& path)
 	{
@@ -170,5 +164,13 @@ namespace jw
 		DeleteObject(oldBitmap);
 
 		return S_OK;
+	}
+	void Image::ImageFlipX()
+	{
+		mImage->RotateFlip(RotateFlipType::RotateNoneFlipX);
+		/*mImage->GetHBITMAP(Color(255, 0, 255), &mBitmap);
+		HBITMAP oldBitmap = (HBITMAP)SelectObject(mHdc, mBitmap);
+		DeleteObject(oldBitmap);*/
+		mbReverse = true;
 	}
 }

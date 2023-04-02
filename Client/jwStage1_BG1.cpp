@@ -28,7 +28,7 @@ namespace jw
 
 		GameObject::Render(hdc);
 
-		TransparentBlt(hdc, -40, -20, mImage->GetWidth() * scale.x, mImage->GetHeight() * scale.y, mImage->GetHdc(), 0, 0
+ 		TransparentBlt(hdc, -40, -20, mImage->GetWidth() * scale.x, mImage->GetHeight() * scale.y, mImage->GetHdc(), 0, 0
 			, mImage->GetWidth(), mImage->GetHeight(), RGB(255, 0, 255));
 
 	}

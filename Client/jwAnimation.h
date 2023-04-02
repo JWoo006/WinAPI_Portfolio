@@ -31,8 +31,8 @@ namespace jw
 		void Initialize();
 		void Update();
 		void Render(HDC hdc);
-		void Create(Image* sheet, Vector2 leftTop, UINT coulmn, UINT row , UINT spriteLength,  Vector2 offset
-			, float duration );
+		void Create(Image* sheet, const std::wstring& path, Vector2 leftTop, UINT coulmn, UINT row , UINT spriteLength,  Vector2 offset
+			, float duration, eImageFormat imgformat ,bool reverse);
 		void Reset(); // 루프 애니메이션이 한바퀴 돌고 다시 돌아오게하는 함수
 
 		bool IsComplete() { return mbComplete; }
@@ -46,10 +46,20 @@ namespace jw
 		Animator* mAnimator;
 		Image* mSheetImage;
 		std::vector<Sprite> mSpriteSheet;
+
+		std::vector<Image*> mImages;
+		UINT mImagesIndex;
+		Vector2 size;
+		Vector2 mImagesLeftTop;
+		Vector2 mImagesSize;
+		Vector2 mImagesOffset; // 기준
+		float mImagesDuration; // 애니메이션안의 스프라이트 넘어가는 시간
+
 		std::wstring mAnimationName;
 		float mTime;
 		bool mbComplete;
 		int mSpriteIndex;
+		eImageFormat mImageType;
 
 		Gdiplus::ColorMatrix mColorMatrix;
 
