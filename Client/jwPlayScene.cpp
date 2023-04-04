@@ -8,6 +8,9 @@
 #include "jwObject.h"
 #include "jwStage1_BG_header.h"
 #include "jwGround_Veggie.h"
+#include "jwObject.h"
+#include "jwSceneLoad_In.h"
+#include "jwtestEnemy.h"
 
 
 namespace jw
@@ -28,9 +31,11 @@ namespace jw
 		//object::Instantiate<Stage1_BG2>(eLayerType::BG3);
 		object::Instantiate<Veggie_Onion>(Vector2(1100.0f, 800.0f), eLayerType::Monster);
 		object::Instantiate<Ground_Veggie>(Vector2(-1.0f, 800.0f), eLayerType::Ground);
+		object::Instantiate<testEnemy>(Vector2(300.0f, 500.0f), eLayerType::ParryObj);
 
 
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::ParryObj, true);
 	}
 	void PlayScene::Update()
 	{
@@ -61,7 +66,10 @@ namespace jw
 	void PlayScene::OnEnter()
 	{
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::ParryObj, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Ground, true);
+
+		object::Instantiate<SceneLoad_In>(Vector2(800.0f, 900.0f), eLayerType::UI);
 	}
 	void PlayScene::OnExit()
 	{

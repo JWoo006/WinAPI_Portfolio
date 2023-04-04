@@ -27,6 +27,17 @@ namespace jw::object
 		return gameObj;
 	}
 
+	template <typename T>
+	static inline T* Instantiate(Vector2 pos, eLayerType type, auto init)
+	{
+		T* gameObj = new T(init);
+		Scene* scene = SceneManager::GetActiveScene();
+		scene->AddGameObject(gameObj, type);
+		gameObj->GameObject::GetComponent<Transform>()->SetPos(pos);
+		gameObj->Initialize();
+		return gameObj;
+	}
+
 	static void Destroy(GameObject* obj)
 	{
 		obj->SetState(GameObject::eState::Death);

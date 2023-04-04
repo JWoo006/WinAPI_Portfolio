@@ -13,9 +13,9 @@ namespace jw
 		, mVelocity(Vector2::Zero)
 	{
 		mLimitedVelocity.x = 200.0f;
-		mLimitedVelocity.y = 1000.0f;
+		mLimitedVelocity.y = 1000000.0f;
 		mbGround = false;
-		mGravity = Vector2(0.0f, 2000.0f);
+		mGravity = Vector2(0.0f, 2200.0f);
 		mFriction = 100.0f;
 	}
 	Rigidbody::~Rigidbody()
@@ -33,6 +33,8 @@ namespace jw
 		// 속도에 가속도를 더해준다
 		mVelocity += mAccelation * Time::DeltaTime();
 
+		mTime = Time::DeltaTime();
+
 		if (mbGround)
 		{
 			// 지면에 있을시
@@ -46,48 +48,48 @@ namespace jw
 		else
 		{
 			// 공중에 떠 있을시
-			mVelocity += mGravity * Time::DeltaTime();
+			mVelocity += mGravity * mTime;
 		}
 
-		// 중력가속도 최대 속도 제한
-		Vector2 gravity = mGravity;
-		gravity.Normalize();
-		float dot = math::Dot(mVelocity, gravity);
-		gravity = gravity * dot;
+		//// 중력가속도 최대 속도 제한
+		//Vector2 gravity = mGravity;
+		//gravity.Normalize();
+		//float dot = math::Dot(mVelocity, gravity);
+		//gravity = gravity * dot;
 
-		Vector2 sideVelocity = mVelocity - gravity;
-		if (mLimitedVelocity.y < gravity.Length())
-		{
-			gravity.Normalize();
-			gravity *= mLimitedVelocity.y;
-		}
+		//Vector2 sideVelocity = mVelocity - gravity;
+		//if (mLimitedVelocity.y < gravity.Length())
+		//{
+		//	gravity.Normalize();
+		//	gravity *= mLimitedVelocity.y;
+		//}
 
-		// 수평 가속도 최대 속도 제한
-		if (mLimitedVelocity.x < sideVelocity.Length())
-		{
-			sideVelocity.Normalize();
-			sideVelocity *= mLimitedVelocity.y;
-		}
+		//// 수평 가속도 최대 속도 제한
+		//if (mLimitedVelocity.x < sideVelocity.Length())
+		//{
+		//	sideVelocity.Normalize();
+		//	sideVelocity *= mLimitedVelocity.y;
+		//}
 
-		// 마찰력
-		// 적용된 힘이 없고 속도가 0이 아닐때만 실행
-		if (!(mVelocity == Vector2::Zero))
-		{
-			// 속도에 반대방향으로 마찰력이 적용
-			Vector2 friction = -mVelocity;
-			friction = friction.Normalize() * mFriction * mMass
-				* Time::DeltaTime();
+		//// 마찰력
+		//// 적용된 힘이 없고 속도가 0이 아닐때만 실행
+		//if (!(mVelocity == Vector2::Zero))
+		//{
+		//	// 속도에 반대방향으로 마찰력이 적용
+		//	Vector2 friction = -mVelocity;
+		//	friction = friction.Normalize() * mFriction * mMass
+		//		* Time::DeltaTime();
 
-			// 마찰력으로 인한 속도감소가 현재 속도보다 클 때
-			if (mVelocity.Length() < friction.Length())
-			{
-				mVelocity = Vector2::Zero;
-			}
-			else
-			{
-				mVelocity += friction;
-			}
-		}
+		//	// 마찰력으로 인한 속도감소가 현재 속도보다 클 때
+		//	if (mVelocity.Length() < friction.Length())
+		//	{
+		//		mVelocity = Vector2::Zero;
+		//	}
+		//	else
+		//	{
+		//		mVelocity += friction;
+		//	}
+		//}
 
 		// 물체를 속도에 맞게끔 이동
 		Transform* tr = GetOwner()->GetComponent<Transform>();

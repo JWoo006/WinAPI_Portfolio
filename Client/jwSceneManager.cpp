@@ -11,6 +11,7 @@ namespace jw
 {
     std::vector<Scene*> SceneManager::mScenes = {};
     Scene* SceneManager::mActiveScene = nullptr;
+    eSceneType SceneManager::mNextScene = eSceneType::End;
 
     void SceneManager::Initialize()
     {

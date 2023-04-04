@@ -32,7 +32,7 @@ namespace jw
 		void Update();
 		void Render(HDC hdc);
 		void Create(Image* sheet, const std::wstring& path, Vector2 leftTop, UINT coulmn, UINT row , UINT spriteLength,  Vector2 offset
-			, float duration, eImageFormat imgformat ,bool reverse);
+			, float duration, eImageFormat imgformat , eAnimationDir dir);
 		void Reset(); // 루프 애니메이션이 한바퀴 돌고 다시 돌아오게하는 함수
 
 		bool IsComplete() { return mbComplete; }

@@ -18,6 +18,8 @@ namespace jw
 		HBITMAP GeBitmap() { return mBitmap; }
 		UINT GetWidth() { return mWidth; }
 		UINT GetHeight() { return mHeight; }
+		void SetWidth(float x) { mWidth = x; }
+		void SetHeight(float y) { mWidth = y; }
 
 		Gdiplus::Bitmap* GetImage() { return mImage; }
 

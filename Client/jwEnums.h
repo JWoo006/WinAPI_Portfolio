@@ -18,12 +18,13 @@ enum class eLayerType
 	BG2,
 	Tile,
 	Monster,
+	ParryObj,
 	Player,
 	Bullet,
 	Ground,
 	Effect,
-	UI,
 	BG3,
+	UI,
 	End,
 };
 
@@ -42,5 +43,12 @@ enum class eImageFormat
 {
 	BMP,
 	PNG,
+	NONE,
+};
+
+enum class eAnimationDir
+{
+	L,
+	R,
 	NONE,
 };

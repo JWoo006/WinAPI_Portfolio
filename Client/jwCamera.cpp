@@ -35,7 +35,7 @@ namespace jw
 	}
 	void Camera::Update()
 	{
-		if (Input::GetKey(eKeyCode::LEFT))
+		/*if (Input::GetKey(eKeyCode::LEFT))
 		{
 			mLookPosition.x -= 400.0f * Time::DeltaTime();
 		}
@@ -50,7 +50,7 @@ namespace jw
 		if (Input::GetKey(eKeyCode::DOWN))
 		{
 			mLookPosition.y += 100.0f * Time::DeltaTime();
-		}
+		}*/
 
 		if (mTarget != nullptr)
 		{
@@ -110,6 +110,7 @@ namespace jw
 		mResolution.y = application.GetHeight();
 		mLookPosition = (mResolution / 2.0f);
 		mDistance = Vector2::Zero;
+		mTarget = nullptr;
 	}
 	void Camera::SetInit()
 	{

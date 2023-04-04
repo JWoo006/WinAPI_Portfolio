@@ -56,7 +56,7 @@ namespace jw
 	}
 	void Animator::CreateAnimation(const std::wstring& name, const std::wstring& path
 		, Image* sheet, Vector2 leftTop, UINT coulmn, UINT row
-		, UINT spriteLength, Vector2 offset, float duration, eImageFormat imgformat, bool reverse)
+		, UINT spriteLength, Vector2 offset, float duration, eImageFormat imgformat, eAnimationDir dir)
 	{
 		Animation* animation = FindAnimation(name);
 
@@ -66,7 +66,7 @@ namespace jw
 		}
 		animation = new Animation();
 
-		animation->Create(sheet, path, leftTop, coulmn, row, spriteLength, offset, duration, imgformat, reverse);
+		animation->Create(sheet, path, leftTop, coulmn, row, spriteLength, offset, duration, imgformat, dir);
 		animation->SetAnimationName(name);
 		animation->SetAnimator(this);
 
@@ -77,7 +77,7 @@ namespace jw
 		mEvents.insert(std::make_pair(name, event));
 
 	}
-	void Animator::CreateAnimations(const std::wstring& path, Vector2 offset, float duration, eImageFormat imgformat, bool reverse)
+	void Animator::CreateAnimations(const std::wstring& path, Vector2 offset, float duration, eImageFormat imgformat, eAnimationDir dir)
 	{
 		// 파일 크기
 		UINT width = 0;
@@ -140,7 +140,7 @@ namespace jw
 		}
 
 		CreateAnimation(key,path, mSpriteSheet, Vector2::Zero, index, 1
-			, index, offset, duration, imgformat, reverse);
+			, index, offset, duration, imgformat, dir);
 
 	}
 	Animation* Animator::FindAnimation(const std::wstring& name)

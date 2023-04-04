@@ -129,7 +129,7 @@ namespace jw
     }
     void Animation::Create(Image* sheet, const std::wstring& path, Vector2 leftTop
         , UINT coulmn, UINT row, UINT spriteLength
-        , Vector2 offset, float duration, eImageFormat imgformat, bool reverse)
+        , Vector2 offset, float duration, eImageFormat imgformat, eAnimationDir dir)
     {
         mImageType = imgformat;
 
@@ -152,7 +152,7 @@ namespace jw
 
                 Image* image = Resources::Load<Image>(fileName, fullName);
 
-                if (reverse)
+                if (dir == eAnimationDir::L)
                 {
                     image->ImageFlipX();
                 }

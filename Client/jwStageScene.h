@@ -5,6 +5,7 @@
 namespace jw
 {
 	class Cuphead_Stage;
+	class VeggieWorldIcon;
 	class StageScene : public Scene
 	{
 	public:
@@ -23,7 +24,9 @@ namespace jw
 	private:
 		Image* mImage;
 		float mTime;
+		int mNextScene;
 		Cuphead_Stage* mCuphead_Stage;
+		VeggieWorldIcon* mVeggieWorldIcon;
 	};
 }
 

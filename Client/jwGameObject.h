@@ -58,10 +58,13 @@ namespace jw
 
 		eState GetState() { return mState; }
 		void SetState(eState state) { mState = state; }
+		void SetLayerType(eLayerType type) { mLayerType = type; }
+		eLayerType GetLayerType() { return mLayerType; }
 
 	private:
 		std::vector<Component*> mComponent;
 		eState mState;
+		eLayerType mLayerType;
 		
 	};
 

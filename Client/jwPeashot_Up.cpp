@@ -25,7 +25,7 @@ namespace jw
 		tr->SetScale(Vector2(1.0f, 0.7f));
 		mAnimator = AddComponent<Animator>();
 
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Weapon_peashot\\Up", Vector2::Zero, 0.1f, eImageFormat::BMP, false);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Weapon_peashot\\Up", Vector2::Zero, 0.1f, eImageFormat::BMP, eAnimationDir::R);
 		mAnimator->Play(L"Weapon_peashotUp", true);
 	}
 	void Peashot_Up::Update()

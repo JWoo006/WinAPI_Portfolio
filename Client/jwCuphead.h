@@ -21,6 +21,12 @@ namespace jw
 			Duck_R,
 			Duck_Shoot_L,
 			Duck_Shoot_R,
+			Dash_Ground_L,
+			Dash_Ground_R,
+			Dash_Air_L,
+			Dash_Air_R,
+			Parry_L,
+			Parry_R,
 			Aim_UP_L,
 			Aim_UP_R,
 			Shoot_L,
@@ -58,6 +64,8 @@ namespace jw
 		void move();
 		void jump();
 		void duck();
+		void dash();
+		void parry();
 		void aim_up();
 		void shoot();
 		void shoot_run();
@@ -72,9 +80,12 @@ namespace jw
 		void idleCompleteEvent();
 		void duckLCompleteEvent();
 		void duckRCompleteEvent();
+		void parryStartEvent();
+		void parryCompleteEvent();
 
 		void SetJumpCount(int cnt) { mJumpCount = cnt; }
 		void SetGroundCheck(bool check) { mbGroundCheck = check; }
+		void GroundInit();
 
 		
 		eCupheadState GetCupheadState() { return mState; }
@@ -86,9 +97,15 @@ namespace jw
 		PeashotSpark* spark;
 		Collider* collider;
 		float mSecond;
+		float mDashTime;
 		float mFiredelay;
 		int mJumpCount;
+		int mAirDashCount;
+		int mParryCount;
 		bool mbGroundCheck;
+		bool mbDashEnd;
+		bool mbParrying;
+		bool mbParrySuccess;
 		float mJumpScale;
 
 	};

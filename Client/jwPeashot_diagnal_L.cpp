@@ -25,7 +25,7 @@ namespace jw
 		tr->SetScale(Vector2(0.9f, 0.6f));
 		mAnimator = AddComponent<Animator>();
 
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Weapon_peashot\\Diagonal_L", Vector2::Zero, 0.1f, eImageFormat::BMP,true);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Weapon_peashot\\Diagonal_L", Vector2::Zero, 0.1f, eImageFormat::BMP, eAnimationDir::L);
 		mAnimator->Play(L"Weapon_peashotDiagonal_L", true);
 	}
 	void Peashot_diagnal_L::Update()

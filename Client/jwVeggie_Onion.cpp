@@ -1,13 +1,8 @@
 #include "jwVeggie_Onion.h"
-#include "jwTime.h"
-#include "jwSceneManager.h"
-#include "jwInput.h"
 #include "jwResources.h"
 #include "jwTransform.h"
 #include "jwAnimator.h"
 #include "jwCollider.h"
-#include "jwBaseBullet.h"
-#include "jwScene.h"
 
 namespace jw
 {
@@ -23,7 +18,7 @@ namespace jw
 		tr->SetPos(Vector2(1100.0f, 700.0f));*/
 
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage1_veggie\\onion\\idle", Vector2::Zero, 0.1f, eImageFormat::BMP, false);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage1_veggie\\onion\\idle", Vector2::Zero, 0.1f, eImageFormat::BMP, eAnimationDir::R);
 		mAnimator->Play(L"onionidle", true);
 
 		Collider* collider = AddComponent<Collider>();

@@ -101,6 +101,15 @@
     <Filter Include="Contents\Stage\Veggie\object">
       <UniqueIdentifier>{c3af6e7a-ae17-414f-8956-62d70c5a2569}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Object\SceneObj">
+      <UniqueIdentifier>{158d5909-1d5b-4eae-a8f3-8261455e7548}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Player\PlayerEffect">
+      <UniqueIdentifier>{eea20614-0c60-4e1a-b36c-696cd2e84664}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\WorldMap">
+      <UniqueIdentifier>{83da3c14-5d9e-4d61-9b52-3716e32ae2d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -180,9 +189,6 @@
     </ClInclude>
     <ClInclude Include="jwEndingScene.h">
       <Filter>Contents\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="jwCuphead_Stage.h">
-      <Filter>Contents\Player</Filter>
     </ClInclude>
     <ClInclude Include="jwCollider.h">
       <Filter>Engine\Component\Collider</Filter>
@@ -274,6 +280,39 @@
     <ClInclude Include="jwStage1_BG_header.h">
       <Filter>Contents\Stage\Veggie\Background</Filter>
     </ClInclude>
+    <ClInclude Include="jwSceneLoad.h">
+      <Filter>Contents\Object\SceneObj</Filter>
+    </ClInclude>
+    <ClInclude Include="jwSceneLoad_In.h">
+      <Filter>Contents\Object\SceneObj</Filter>
+    </ClInclude>
+    <ClInclude Include="jwTitleBG.h">
+      <Filter>Contents\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="jwTitleBG2.h">
+      <Filter>Contents\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="jwJumpDust.h">
+      <Filter>Contents\Player\PlayerEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="jwDashEffect.h">
+      <Filter>Contents\Player\PlayerEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="jwtestEnemy.h">
+      <Filter>Contents\Stage\Veggie\object</Filter>
+    </ClInclude>
+    <ClInclude Include="jwParryEffect.h">
+      <Filter>Contents\Player\PlayerEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="jwCuphead_Stage.h">
+      <Filter>Contents\WorldMap</Filter>
+    </ClInclude>
+    <ClInclude Include="jwVeggieWorldIcon.h">
+      <Filter>Contents\WorldMap</Filter>
+    </ClInclude>
+    <ClInclude Include="jwWorldMap1.h">
+      <Filter>Contents\WorldMap</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -348,9 +387,6 @@
     </ClCompile>
     <ClCompile Include="jwEndingScene.cpp">
       <Filter>Contents\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="jwCuphead_Stage.cpp">
-      <Filter>Contents\Player</Filter>
     </ClCompile>
     <ClCompile Include="jwCollider.cpp">
       <Filter>Engine\Component\Collider</Filter>
@@ -435,6 +471,39 @@
     </ClCompile>
     <ClCompile Include="jwGround_Veggie.cpp">
       <Filter>Contents\Stage\Veggie\object</Filter>
+    </ClCompile>
+    <ClCompile Include="jwSceneLoad.cpp">
+      <Filter>Contents\Object\SceneObj</Filter>
+    </ClCompile>
+    <ClCompile Include="jwSceneLoad_In.cpp">
+      <Filter>Contents\Object\SceneObj</Filter>
+    </ClCompile>
+    <ClCompile Include="jwTitleBG.cpp">
+      <Filter>Contents\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="jwTitleBG2.cpp">
+      <Filter>Contents\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="jwJumpDust.cpp">
+      <Filter>Contents\Player\PlayerEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="jwDashEffect.cpp">
+      <Filter>Contents\Player\PlayerEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="jwtestEnemy.cpp">
+      <Filter>Contents\Stage\Veggie\object</Filter>
+    </ClCompile>
+    <ClCompile Include="jwParryEffect.cpp">
+      <Filter>Contents\Player\PlayerEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="jwCuphead_Stage.cpp">
+      <Filter>Contents\WorldMap</Filter>
+    </ClCompile>
+    <ClCompile Include="jwVeggieWorldIcon.cpp">
+      <Filter>Contents\WorldMap</Filter>
+    </ClCompile>
+    <ClCompile Include="jwWorldMap1.cpp">
+      <Filter>Contents\WorldMap</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

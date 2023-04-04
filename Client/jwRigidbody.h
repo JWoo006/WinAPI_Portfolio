@@ -19,6 +19,7 @@ namespace jw
 		void SetGround(bool ground) { mbGround = ground; }
 		void SetVelocity(Vector2 velocity) { mVelocity = velocity; }
 		Vector2 GetVelocity() { return mVelocity; }
+		void TimeInit() { mTime = 0.0f; }
 
 	private:
 		float mMass; // 질량 
@@ -27,6 +28,7 @@ namespace jw
 		Vector2 mVelocity; // 속도
 		Vector2 mLimitedVelocity;
 		Vector2 mGravity; // 중력
+		float mTime;
 
 		float mFriction; // 마찰력
 		bool mbGround; // 지면에 접촉 체크

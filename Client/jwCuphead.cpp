@@ -16,14 +16,23 @@
 #include "jwPeashotSpark.h"
 #include "jwObject.h"
 #include "jwRigidbody.h"
+#include "jwJumpDust.h"
+#include "jwDashEffect.h"
+#include "jwParryEffect.h"
 
 
 namespace jw
 {
 	Cuphead::Cuphead()
 		: mSecond(1.0f)
+		, mDashTime(0.0f)
 		, mJumpCount(1)
+		, mAirDashCount(1)
+		, mParryCount(1)
 		, mbGroundCheck(true)
+		, mbDashEnd(false)
+		, mbParrying(false)
+		, mbParrySuccess(false)
 		, mJumpScale(1000.0f)
 	{
 	}
@@ -35,34 +44,42 @@ namespace jw
 		mFiredelay = BaseBullet::GetDelay();
 
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Idle_L", Vector2::Zero, 0.07f, eImageFormat::PNG, true);
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Idle_R", Vector2::Zero, 0.07f, eImageFormat::PNG, false);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Idle_L", Vector2::Zero, 0.07f, eImageFormat::PNG, eAnimationDir::L);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Idle_R", Vector2::Zero, 0.07f, eImageFormat::PNG, eAnimationDir::R);
 
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Run\\Run_L", Vector2::Zero, 0.05f, eImageFormat::PNG, true);
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Run\\Run_R", Vector2::Zero, 0.05f, eImageFormat::PNG, false);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Run\\Run_L", Vector2::Zero, 0.05f, eImageFormat::PNG, eAnimationDir::L);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Run\\Run_R", Vector2::Zero, 0.05f, eImageFormat::PNG, eAnimationDir::R);
 
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Jump\\Jump_L", Vector2::Zero, 0.05f, eImageFormat::PNG, true);
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Jump\\Jump_R", Vector2::Zero, 0.05f, eImageFormat::PNG, false);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Jump\\Jump_L", Vector2::Zero, 0.05f, eImageFormat::PNG, eAnimationDir::L);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Jump\\Jump_R", Vector2::Zero, 0.05f, eImageFormat::PNG, eAnimationDir::R);
 
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Duck\\Duck_start_L", Vector2::Zero, 0.05f, eImageFormat::PNG, true);
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Duck\\Duck_start_R", Vector2::Zero, 0.05f, eImageFormat::PNG, false);
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Duck\\Idle_L", Vector2::Zero, 0.05f, eImageFormat::PNG, true);
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Duck\\Idle_R", Vector2::Zero, 0.05f, eImageFormat::PNG, false);
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Duck\\Shoot_L", Vector2::Zero, (mFiredelay * 0.3f), eImageFormat::PNG, true);
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Duck\\Shoot_R", Vector2::Zero, (mFiredelay * 0.3f), eImageFormat::PNG, false);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Duck\\Duck_start_L", Vector2::Zero, 0.05f, eImageFormat::PNG, eAnimationDir::L);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Duck\\Duck_start_R", Vector2::Zero, 0.05f, eImageFormat::PNG, eAnimationDir::R);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Duck\\Idle_L", Vector2::Zero, 0.05f, eImageFormat::PNG, eAnimationDir::L);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Duck\\Idle_R", Vector2::Zero, 0.05f, eImageFormat::PNG, eAnimationDir::R);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Duck\\Shoot_L", Vector2::Zero, (mFiredelay * 0.3f), eImageFormat::PNG, eAnimationDir::L);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Duck\\Shoot_R", Vector2::Zero, (mFiredelay * 0.3f), eImageFormat::PNG, eAnimationDir::R);
 
 
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Shoot\\Straight_Shoot_L", Vector2::Zero, (mFiredelay * 0.3f), eImageFormat::PNG, true);
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Shoot\\Straight_Shoot_R", Vector2::Zero, (mFiredelay * 0.3f), eImageFormat::PNG, false);
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Shoot\\Up_L", Vector2::Zero, (mFiredelay * 0.3f), eImageFormat::PNG, true);
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Shoot\\Up_R", Vector2::Zero, (mFiredelay * 0.3f), eImageFormat::PNG, false);
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Shoot\\Run_L", Vector2::Zero, (mFiredelay * 0.3f), eImageFormat::PNG, true);
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Shoot\\Run_R", Vector2::Zero, (mFiredelay * 0.3f), eImageFormat::PNG, false);
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Shoot\\Run_diagonal_up_L", Vector2::Zero, (mFiredelay * 0.3f), eImageFormat::PNG, true);
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Shoot\\Run_diagonal_up_R", Vector2::Zero, (mFiredelay * 0.3f), eImageFormat::PNG, false);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Shoot\\Straight_Shoot_L", Vector2::Zero, (mFiredelay * 0.3f), eImageFormat::PNG, eAnimationDir::L);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Shoot\\Straight_Shoot_R", Vector2::Zero, (mFiredelay * 0.3f), eImageFormat::PNG, eAnimationDir::R);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Shoot\\Up_L", Vector2::Zero, (mFiredelay * 0.3f), eImageFormat::PNG, eAnimationDir::L);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Shoot\\Up_R", Vector2::Zero, (mFiredelay * 0.3f), eImageFormat::PNG, eAnimationDir::R);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Shoot\\Run_L", Vector2::Zero, (mFiredelay * 0.3f), eImageFormat::PNG, eAnimationDir::L);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Shoot\\Run_R", Vector2::Zero, (mFiredelay * 0.3f), eImageFormat::PNG, eAnimationDir::R);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Shoot\\Run_diagonal_up_L", Vector2::Zero, (mFiredelay * 0.3f), eImageFormat::PNG, eAnimationDir::L);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Shoot\\Run_diagonal_up_R", Vector2::Zero, (mFiredelay * 0.3f), eImageFormat::PNG, eAnimationDir::R);
 
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Aim\\Up_L", Vector2::Zero, 0.07f, eImageFormat::PNG, true);
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Aim\\Up_R", Vector2::Zero, 0.07f, eImageFormat::PNG, false);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Aim\\Up_L", Vector2::Zero, 0.07f, eImageFormat::PNG, eAnimationDir::L);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Aim\\Up_R", Vector2::Zero, 0.07f, eImageFormat::PNG, eAnimationDir::R);
+
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Dash\\Ground_L", Vector2::Zero, 0.07f, eImageFormat::PNG, eAnimationDir::L);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Dash\\Ground_R", Vector2::Zero, 0.07f, eImageFormat::PNG, eAnimationDir::R);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Dash\\Air_L", Vector2::Zero, 0.07f, eImageFormat::PNG, eAnimationDir::L);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Dash\\Air_R", Vector2::Zero, 0.07f, eImageFormat::PNG, eAnimationDir::R);
+
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Parry\\Parry_L", Vector2::Zero, 0.04f, eImageFormat::PNG, eAnimationDir::L);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Parry\\Parry_R", Vector2::Zero, 0.04f, eImageFormat::PNG, eAnimationDir::R);
 
 		mAnimator->GetCompleteEvent(L"DuckDuck_start_L")
 			= std::bind(&Cuphead::duckLCompleteEvent, this);
@@ -70,6 +87,11 @@ namespace jw
 			= std::bind(&Cuphead::duckRCompleteEvent, this);
 		mAnimator->GetCompleteEvent(L"CupheadIdle_R")
 			= std::bind(&Cuphead::idleCompleteEvent, this);
+
+		mAnimator->GetStartEvent(L"ParryParry_L") = std::bind(&Cuphead::parryStartEvent, this);
+		mAnimator->GetStartEvent(L"ParryParry_R") = std::bind(&Cuphead::parryStartEvent, this);
+		mAnimator->GetCompleteEvent(L"ParryParry_L") = std::bind(&Cuphead::parryCompleteEvent, this);
+		mAnimator->GetCompleteEvent(L"ParryParry_R") = std::bind(&Cuphead::parryCompleteEvent, this);
 
 		mAnimator->Play(L"CupheadIdle_R", true);
 		
@@ -135,6 +157,32 @@ namespace jw
 			collider->SetCenter(Vector2(-75.0f, -65.0f));
 			collider->SetSize(Vector2(150.0f, 70.0f));
 			shoot_duck();
+			break;
+		case jw::Cuphead::eCupheadState::Dash_Ground_L:
+			collider->SetCenter(Vector2(-75.0f, -145.0f));
+			collider->SetSize(Vector2(150.0f, 150.0f));
+			dash();
+			break;
+		case jw::Cuphead::eCupheadState::Dash_Ground_R:
+			collider->SetCenter(Vector2(-75.0f, -145.0f));
+			collider->SetSize(Vector2(150.0f, 150.0f));
+			dash();
+			break;
+		case jw::Cuphead::eCupheadState::Dash_Air_L:
+			collider->SetCenter(Vector2(-75.0f, -145.0f));
+			collider->SetSize(Vector2(150.0f, 150.0f));
+			dash();
+			break;
+		case jw::Cuphead::eCupheadState::Dash_Air_R:
+			collider->SetCenter(Vector2(-75.0f, -145.0f));
+			collider->SetSize(Vector2(150.0f, 150.0f));
+			dash();
+			break;
+		case jw::Cuphead::eCupheadState::Parry_L:
+			parry();
+			break;
+		case jw::Cuphead::eCupheadState::Parry_R:
+			parry();
 			break;
 		case jw::Cuphead::eCupheadState::Aim_UP_L:
 			collider->SetCenter(Vector2(-75.0f, -145.0f));
@@ -245,11 +293,43 @@ namespace jw
 		GameObject::Release();
 	}
 	void Cuphead::OnCollisionEnter(Collider* other)
-	{
-		int a = 0;
+	{	
+		if (other->GetOwner()->GetLayerType() == eLayerType::ParryObj && mbParrying)
+		{
+			mbParrySuccess = true;
+			
+			Transform* tr = other->GetOwner()->GetComponent<Transform>();
+			Vector2 pos = tr->GetPos();
+			object::Instantiate<ParryEffect>(Vector2(pos), eLayerType::Effect);
+			mRigidbody->TimeInit();
+			Vector2 velocity = mRigidbody->GetVelocity();
+			velocity.y -= mJumpScale;
+
+			
+			mRigidbody->SetVelocity(velocity);
+
+			mParryCount = 1;
+		}	
 	}
 	void Cuphead::OnCollisionStay(Collider* other)
 	{
+		if (other->GetOwner()->GetLayerType() == eLayerType::ParryObj && mbParrying && !mbParrySuccess)
+		{
+			mbParrySuccess = true;
+			
+			Transform* tr = other->GetOwner()->GetComponent<Transform>();
+			Vector2 pos = tr->GetPos();
+			object::Instantiate<ParryEffect>(Vector2(pos), eLayerType::Effect);
+
+			mRigidbody->TimeInit();
+			Vector2 velocity = mRigidbody->GetVelocity();
+			velocity.y -= mJumpScale;
+
+			mRigidbody->SetVelocity(velocity);
+
+			mParryCount = 1;
+		}
+
 	}
 	void Cuphead::OnCollisionExit(Collider* other)
 	{
@@ -283,6 +363,60 @@ namespace jw
 			}
 		}
 
+		// 점프
+		if (Input::GetKeyDown(eKeyCode::Z) && mJumpCount >= 1)
+		{
+			mJumpCount--;
+			mbGroundCheck = false;
+
+			Vector2 velocity = mRigidbody->GetVelocity();
+			velocity.y -= mJumpScale;
+
+			mRigidbody->SetVelocity(velocity);
+			mRigidbody->SetGround(false);
+
+			if (Cuphead::GetCupheadState() == eCupheadState::Idle_L)
+			{
+				mState = eCupheadState::Jump_L;
+				mAnimator->Play(L"JumpJump_L", true);
+			}
+			else
+			{
+				mState = eCupheadState::Jump_R;
+				mAnimator->Play(L"JumpJump_R", true);
+			}
+		}
+
+		// 대시
+		if (Input::GetKeyDown(eKeyCode::L_SHIFT) && mState==eCupheadState::Idle_L)
+		{
+			Vector2 velocity = mRigidbody->GetVelocity();
+			velocity.x -= 1000.0f;
+			mRigidbody->SetVelocity(velocity);
+
+			Transform* tr = GetComponent<Transform>();
+			Vector2 pos = tr->GetPos();
+			pos.x -= 50.0f;
+			object::Instantiate<DashEffect>(pos, eLayerType::Effect, eAnimationDir::L);
+
+			mState = eCupheadState::Dash_Ground_L;
+			mAnimator->Play(L"DashGround_L", false);
+		}
+		else if (Input::GetKeyDown(eKeyCode::L_SHIFT) && mState == eCupheadState::Idle_R)
+		{
+			Vector2 velocity = mRigidbody->GetVelocity();
+			velocity.x += 1000.0f;
+			mRigidbody->SetVelocity(velocity);
+
+			Transform* tr = GetComponent<Transform>();
+			Vector2 pos = tr->GetPos();
+			pos.x += 50.0f;
+			object::Instantiate<DashEffect>(pos, eLayerType::Effect, eAnimationDir::R);
+
+			mState = eCupheadState::Dash_Ground_R;
+			mAnimator->Play(L"DashGround_R", false);
+		}
+
 		if (Input::GetKeyDown(eKeyCode::UP))
 		{
 			if (GetCupheadState() == eCupheadState::Idle_L)
@@ -311,56 +445,10 @@ namespace jw
 			}
 		}
 
-		if (Input::GetKeyDown(eKeyCode::Z) && mJumpCount >= 1)
-		{
-			mJumpCount--;
-			mbGroundCheck = false;
-
-			Vector2 velocity = mRigidbody->GetVelocity();
-			velocity.y -= mJumpScale;
-
-			mRigidbody->SetVelocity(velocity);
-			mRigidbody->SetGround(false);
-
-			if (Cuphead::GetCupheadState() == eCupheadState::Idle_L)
-			{
-				mState = eCupheadState::Jump_L;
-				mAnimator->Play(L"JumpJump_L", true);
-			}
-			else
-			{
-				mState = eCupheadState::Jump_R;
-				mAnimator->Play(L"JumpJump_R", true);
-			}
-		}
+		
 	}
 	void Cuphead::move()
 	{
-		if (Input::GetKeyUp(eKeyCode::LEFT) || Input::GetKeyUp(eKeyCode::UP) || Input::GetKeyUp(eKeyCode::DOWN))
-		{
-			mState = eCupheadState::Idle_L;
-			mAnimator->Play(L"CupheadIdle_L", true);
-		}
-		if (Input::GetKeyUp(eKeyCode::RIGHT) || Input::GetKeyUp(eKeyCode::UP) || Input::GetKeyUp(eKeyCode::DOWN))
-		{
-			mState = eCupheadState::Idle_R;
-			mAnimator->Play(L"CupheadIdle_R", true);
-		}
-
-		if (Input::GetKeyDown(eKeyCode::X))
-		{
-			if (GetCupheadState() == eCupheadState::Move_L)
-			{
-				mState = eCupheadState::Shoot_Run_L;
-				mAnimator->Play(L"ShootRun_L", true);
-			}
-			else if(GetCupheadState() == eCupheadState::Move_R)
-			{
-				mState = eCupheadState::Shoot_Run_R;
-				mAnimator->Play(L"ShootRun_R", true);
-			}
-		}
-
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 
@@ -372,6 +460,32 @@ namespace jw
 		if (Input::GetKey(eKeyCode::RIGHT))
 		{
 			pos.x += 400.0f * Time::DeltaTime();
+		}
+
+		if (Input::GetKeyUp(eKeyCode::LEFT) || Input::GetKeyUp(eKeyCode::UP) || Input::GetKeyUp(eKeyCode::DOWN))
+		{
+			mState = eCupheadState::Idle_L;
+			mAnimator->Play(L"CupheadIdle_L", true);
+		}
+		if (Input::GetKeyUp(eKeyCode::RIGHT) || Input::GetKeyUp(eKeyCode::UP) || Input::GetKeyUp(eKeyCode::DOWN))
+		{
+			mState = eCupheadState::Idle_R;
+			mAnimator->Play(L"CupheadIdle_R", true);
+		}
+
+		// 사격
+		if (Input::GetKeyDown(eKeyCode::X) || Input::GetKey(eKeyCode::X))
+		{
+			if (GetCupheadState() == eCupheadState::Move_L)
+			{
+				mState = eCupheadState::Shoot_Run_L;
+				mAnimator->Play(L"ShootRun_L", true);
+			}
+			else if(GetCupheadState() == eCupheadState::Move_R)
+			{
+				mState = eCupheadState::Shoot_Run_R;
+				mAnimator->Play(L"ShootRun_R", true);
+			}
 		}
 
 		if (Input::GetKey(eKeyCode::UP) && Input::GetKey(eKeyCode::LEFT) && Input::GetKeyDown(eKeyCode::X))
@@ -397,6 +511,7 @@ namespace jw
 			mAnimator->Play(L"DuckDuck_start_R", false);
 		}
 
+		// 점프
 		if (Input::GetKeyDown(eKeyCode::Z) && mJumpCount >= 1)
 		{
 			mJumpCount--;
@@ -419,14 +534,108 @@ namespace jw
 				mAnimator->Play(L"JumpJump_R", true);
 			}
 		}
+
+		// 대시
+		if (Input::GetKeyDown(eKeyCode::L_SHIFT) && mState == eCupheadState::Move_L)
+		{
+			Vector2 velocity = mRigidbody->GetVelocity();
+			velocity.x -= 1000.0f;
+			mRigidbody->SetVelocity(velocity);
+
+			Transform* tr = GetComponent<Transform>();
+			Vector2 pos = tr->GetPos();
+			pos.x -= 50.0f;
+			object::Instantiate<DashEffect>(pos, eLayerType::Effect, eAnimationDir::L);
+
+			mState = eCupheadState::Dash_Ground_L;
+			mAnimator->Play(L"DashGround_L", false);
+		}
+		else if (Input::GetKeyDown(eKeyCode::L_SHIFT) && mState == eCupheadState::Move_R)
+		{
+			Vector2 velocity = mRigidbody->GetVelocity();
+			velocity.x += 1000.0f;
+			mRigidbody->SetVelocity(velocity);
+
+			Transform* tr = GetComponent<Transform>();
+			Vector2 pos = tr->GetPos();
+			pos.x += 50.0f;
+			object::Instantiate<DashEffect>(pos, eLayerType::Effect, eAnimationDir::R);
+
+			mState = eCupheadState::Dash_Ground_R;
+			mAnimator->Play(L"DashGround_R", false);
+		}
 		
 		tr->SetPos(pos);
 	}
 
 	void Cuphead::jump()
 	{
+		GroundInit();
+
+		// 패리
+		if (Input::GetKeyDown(eKeyCode::Z) && mParryCount > 0)
+		{
+			mParryCount--;
+
+			if (mState == eCupheadState::Jump_L)
+			{
+				mState = eCupheadState::Parry_L;
+				mAnimator->Play(L"ParryParry_L", false);
+			}
+			else if (mState == eCupheadState::Jump_R)
+			{
+				mState = eCupheadState::Parry_R;
+				mAnimator->Play(L"ParryParry_R", false);
+			}
+		}
+
+		// 대쉬
+		if (mAirDashCount > 0)
+		{
+			if (Input::GetKeyDown(eKeyCode::L_SHIFT) && mState == eCupheadState::Jump_L)
+			{
+				mAirDashCount--;
+
+				mRigidbody->SetGround(true);
+				Vector2 velocity = mRigidbody->GetVelocity();
+				velocity.x -= 1000.0f;
+				mRigidbody->SetVelocity(velocity);
+
+				Transform* tr = GetComponent<Transform>();
+				Vector2 pos = tr->GetPos();
+				pos.x -= 50.0f;
+				object::Instantiate<DashEffect>(pos, eLayerType::Effect, eAnimationDir::L);
+
+				mState = eCupheadState::Dash_Air_L;
+				mAnimator->Play(L"DashAir_L", false);
+			}
+			else if (Input::GetKeyDown(eKeyCode::L_SHIFT) && mState == eCupheadState::Jump_R)
+			{
+				mAirDashCount--;
+
+				// 수평이동을 위해
+				mRigidbody->SetGround(true);
+				Vector2 velocity = mRigidbody->GetVelocity();
+				velocity.x += 1000.0f;
+				mRigidbody->SetVelocity(velocity);
+
+				Transform* tr = GetComponent<Transform>();
+				Vector2 pos = tr->GetPos();
+				pos.x += 50.0f;
+				object::Instantiate<DashEffect>(pos, eLayerType::Effect, eAnimationDir::R);
+
+				mState = eCupheadState::Dash_Air_R;
+				mAnimator->Play(L"DashAir_R", false);
+			}
+		}	
+
+		// 착지
 		if (mbGroundCheck)
 		{
+			Transform* tr = GetComponent<Transform>();
+			Vector2 pos = tr->GetPos();
+			object::Instantiate<JumpDust>(pos, eLayerType::Effect);
+
 			if (GetCupheadState() == eCupheadState::Jump_L)
 			{
 				mState = eCupheadState::Idle_L;
@@ -463,6 +672,7 @@ namespace jw
 			}
 		}
 
+		// 사격
 		if (Input::GetKeyDown(eKeyCode::X) || Input::GetKey(eKeyCode::X))
 		{
 			if (GetCupheadState() == eCupheadState::Jump_L)
@@ -521,6 +731,7 @@ namespace jw
 			}
 		}
 
+		// 사격
 		if (Input::GetKey(eKeyCode::X) || Input::GetKeyDown(eKeyCode::X))
 		{
 			if (GetCupheadState() == eCupheadState::Duck_L)
@@ -535,6 +746,7 @@ namespace jw
 			}
 		}
 
+		// 점프
 		if (Input::GetKeyDown(eKeyCode::Z) && mJumpCount >= 1)
 		{
 
@@ -559,6 +771,110 @@ namespace jw
 			}
 		}
 
+		// 대시
+		if (Input::GetKeyDown(eKeyCode::L_SHIFT) && mState == eCupheadState::Duck_L)
+		{
+			Vector2 velocity = mRigidbody->GetVelocity();
+			velocity.x -= 1000.0f;
+			mRigidbody->SetVelocity(velocity);
+
+			Transform* tr = GetComponent<Transform>();
+			Vector2 pos = tr->GetPos();
+			pos.x -= 50.0f;
+			object::Instantiate<DashEffect>(pos, eLayerType::Effect, eAnimationDir::L);
+
+			mState = eCupheadState::Dash_Ground_L;
+			mAnimator->Play(L"DashGround_L", false);
+		}
+		else if (Input::GetKeyDown(eKeyCode::L_SHIFT) && mState == eCupheadState::Duck_R)
+		{
+			Vector2 velocity = mRigidbody->GetVelocity();
+			velocity.x += 1000.0f;
+			mRigidbody->SetVelocity(velocity);
+
+			Transform* tr = GetComponent<Transform>();
+			Vector2 pos = tr->GetPos();
+			pos.x += 50.0f;
+			object::Instantiate<DashEffect>(pos, eLayerType::Effect, eAnimationDir::R);
+
+			mState = eCupheadState::Dash_Ground_R;
+			mAnimator->Play(L"DashGround_R", false);
+		}
+
+	}
+	void Cuphead::dash()
+	{
+		mDashTime += Time::DeltaTime();
+		if (mDashTime >= 0.3f)
+		{
+			Vector2 velocity = mRigidbody->GetVelocity();
+			mRigidbody->SetVelocity(Vector2::Zero);
+			mDashTime = 0.0f;
+			mbDashEnd = true;
+		}
+
+		if (mbDashEnd)
+		{
+			if (mState == eCupheadState::Dash_Ground_L)
+			{
+				mState = eCupheadState::Idle_L;
+				mAnimator->Play(L"CupheadIdle_L", true);
+				mbDashEnd = false;
+			}
+			else if(mState == eCupheadState::Dash_Ground_R)
+			{
+				mState = eCupheadState::Idle_R;
+				mAnimator->Play(L"CupheadIdle_R", true);
+				mbDashEnd = false;
+			}
+			else if (mState == eCupheadState::Dash_Air_L)
+			{
+				mState = eCupheadState::Jump_L;
+				mAnimator->Play(L"JumpJump_L", true);
+				mRigidbody->SetGround(false);
+				mbDashEnd = false;
+			}
+			else if (mState == eCupheadState::Dash_Air_R)
+			{
+				mState = eCupheadState::Jump_R;
+				mAnimator->Play(L"JumpJump_R", true);
+				mRigidbody->SetGround(false);
+				mbDashEnd = false;
+			}
+
+		}
+
+	}
+	void Cuphead::parry()
+	{
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->GetPos();
+
+		if (Input::GetKey(eKeyCode::LEFT) || Input::GetKeyDown(eKeyCode::LEFT))
+		{
+			pos.x -= 400.0f * Time::DeltaTime();
+		}
+
+		if (Input::GetKey(eKeyCode::RIGHT) || Input::GetKeyDown(eKeyCode::RIGHT))
+		{
+			pos.x += 400.0f * Time::DeltaTime();
+		}
+
+		if (mbGroundCheck)
+		{
+			if (mState == eCupheadState::Parry_L)
+			{
+				mState = eCupheadState::Idle_L;
+				mAnimator->Play(L"CupheadIdle_L", true);
+			}
+			else if (mState == eCupheadState::Parry_R)
+			{
+				mState = eCupheadState::Idle_R;
+				mAnimator->Play(L"CupheadIdle_R", true);
+			}
+		}
+
+		tr->SetPos(pos);
 	}
 	void Cuphead::aim_up()
 	{
@@ -574,6 +890,7 @@ namespace jw
 			mAnimator->Play(L"RunRun_R", true);
 		}
 
+		// 사격
 		if (Input::GetKey(eKeyCode::X))
 		{
 			if (GetCupheadState() == eCupheadState::Aim_UP_L)
@@ -604,6 +921,7 @@ namespace jw
 			}
 		}
 
+		// 점프
 		if (Input::GetKeyDown(eKeyCode::Z) && mJumpCount >= 1)
 		{
 			mJumpCount--;
@@ -626,6 +944,36 @@ namespace jw
 				mAnimator->Play(L"JumpJump_R", true);
 			}
 		}
+
+		// 대시
+		if (Input::GetKeyDown(eKeyCode::L_SHIFT) && mState == eCupheadState::Aim_UP_L)
+		{
+			Vector2 velocity = mRigidbody->GetVelocity();
+			velocity.x -= 1000.0f;
+			mRigidbody->SetVelocity(velocity);
+
+			Transform* tr = GetComponent<Transform>();
+			Vector2 pos = tr->GetPos();
+			pos.x -= 50.0f;
+			object::Instantiate<DashEffect>(pos, eLayerType::Effect, eAnimationDir::L);
+
+			mState = eCupheadState::Dash_Ground_L;
+			mAnimator->Play(L"DashGround_L", false);
+		}
+		else if (Input::GetKeyDown(eKeyCode::L_SHIFT) && mState == eCupheadState::Aim_UP_R)
+		{
+			Vector2 velocity = mRigidbody->GetVelocity();
+			velocity.x += 1000.0f;
+			mRigidbody->SetVelocity(velocity);
+
+			Transform* tr = GetComponent<Transform>();
+			Vector2 pos = tr->GetPos();
+			pos.x += 50.0f;
+			object::Instantiate<DashEffect>(pos, eLayerType::Effect, eAnimationDir::R);
+
+			mState = eCupheadState::Dash_Ground_R;
+			mAnimator->Play(L"DashGround_R", false);
+		}
 	}
 
 	void Cuphead::shoot()
@@ -633,6 +981,7 @@ namespace jw
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 
+		// 사격
 		if (GetCupheadState() == eCupheadState::Shoot_L)
 		{
 			if (Input::GetKey(eKeyCode::X))
@@ -729,6 +1078,7 @@ namespace jw
 			}
 		}
 
+		// 점프
 		if (Input::GetKeyDown(eKeyCode::Z) && mJumpCount >= 1)
 		{
 			mJumpCount--;
@@ -752,6 +1102,36 @@ namespace jw
 			}
 		}
 
+		// 대시
+		if (Input::GetKeyDown(eKeyCode::L_SHIFT) && mState == eCupheadState::Shoot_L)
+		{
+			Vector2 velocity = mRigidbody->GetVelocity();
+			velocity.x -= 1000.0f;
+			mRigidbody->SetVelocity(velocity);
+
+			Transform* tr = GetComponent<Transform>();
+			Vector2 pos = tr->GetPos();
+			pos.x -= 50.0f;
+			object::Instantiate<DashEffect>(pos, eLayerType::Effect, eAnimationDir::L);
+
+			mState = eCupheadState::Dash_Ground_L;
+			mAnimator->Play(L"DashGround_L", false);
+		}
+		else if (Input::GetKeyDown(eKeyCode::L_SHIFT) && mState == eCupheadState::Shoot_R)
+		{
+			Vector2 velocity = mRigidbody->GetVelocity();
+			velocity.x += 1000.0f;
+			mRigidbody->SetVelocity(velocity);
+
+			Transform* tr = GetComponent<Transform>();
+			Vector2 pos = tr->GetPos();
+			pos.x += 50.0f;
+			object::Instantiate<DashEffect>(pos, eLayerType::Effect, eAnimationDir::R);
+
+			mState = eCupheadState::Dash_Ground_R;
+			mAnimator->Play(L"DashGround_R", false);
+		}
+
 	}
 
 	void Cuphead::shoot_run()
@@ -759,6 +1139,7 @@ namespace jw
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 
+		// 사격
 		if (GetCupheadState() == eCupheadState::Shoot_Run_L)
 		{
 			if (Input::GetKey(eKeyCode::X))
@@ -876,6 +1257,7 @@ namespace jw
 			}
 		}
 
+		// 점프
 		if (Input::GetKeyDown(eKeyCode::Z) && mJumpCount >= 1)
 		{
 			mJumpCount--;
@@ -898,6 +1280,36 @@ namespace jw
 				mAnimator->Play(L"JumpJump_R", true);
 			}
 		}
+
+		// 대시
+		if (Input::GetKeyDown(eKeyCode::L_SHIFT) && mState == eCupheadState::Shoot_Run_L)
+		{
+			Vector2 velocity = mRigidbody->GetVelocity();
+			velocity.x -= 1000.0f;
+			mRigidbody->SetVelocity(velocity);
+
+			Transform* tr = GetComponent<Transform>();
+			Vector2 pos = tr->GetPos();
+			pos.x -= 50.0f;
+			object::Instantiate<DashEffect>(pos, eLayerType::Effect, eAnimationDir::L);
+
+			mState = eCupheadState::Dash_Ground_L;
+			mAnimator->Play(L"DashGround_L", false);
+		}
+		else if (Input::GetKeyDown(eKeyCode::L_SHIFT) && mState == eCupheadState::Shoot_Run_R)
+		{
+			Vector2 velocity = mRigidbody->GetVelocity();
+			velocity.x += 1000.0f;
+			mRigidbody->SetVelocity(velocity);
+
+			Transform* tr = GetComponent<Transform>();
+			Vector2 pos = tr->GetPos();
+			pos.x += 50.0f;
+			object::Instantiate<DashEffect>(pos, eLayerType::Effect, eAnimationDir::R);
+
+			mState = eCupheadState::Dash_Ground_R;
+			mAnimator->Play(L"DashGround_R", false);
+		}
 	}
 
 	void Cuphead::shoot_duck()
@@ -905,6 +1317,7 @@ namespace jw
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 
+		// 사격
 		if (GetCupheadState() == eCupheadState::Duck_Shoot_L)
 		{
 			if (Input::GetKey(eKeyCode::X))
@@ -995,6 +1408,7 @@ namespace jw
 			}
 		}
 
+		// 점프
 		if (Input::GetKeyDown(eKeyCode::Z) && mJumpCount >= 1)
 		{
 			mJumpCount--;
@@ -1024,6 +1438,7 @@ namespace jw
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 
+		// 사격
 		if (GetCupheadState() == eCupheadState::Shoot_UP_L)
 		{
 			if (Input::GetKey(eKeyCode::X))
@@ -1118,6 +1533,7 @@ namespace jw
 			}
 		}
 
+		// 점프
 		if (Input::GetKeyDown(eKeyCode::Z) && mJumpCount >= 1)
 		{
 			mJumpCount--;
@@ -1147,6 +1563,7 @@ namespace jw
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 
+		// 사격
 		if (GetCupheadState() == eCupheadState::Shoot_Run_diag_Up_L)
 		{
 			if (Input::GetKey(eKeyCode::X))
@@ -1252,6 +1669,7 @@ namespace jw
 			}
 		}
 
+		// 점프
 		if (Input::GetKeyDown(eKeyCode::Z) && mJumpCount >= 1)
 		{
 			mJumpCount--;
@@ -1278,9 +1696,12 @@ namespace jw
 
 	void Cuphead::shoot_jump()
 	{
+		GroundInit();
+
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 
+		// 사격
 		if (GetCupheadState() == eCupheadState::Shoot_Jump_L)
 		{
 			if (Input::GetKey(eKeyCode::X))
@@ -1323,6 +1744,10 @@ namespace jw
 
 				if (mbGroundCheck)
 				{
+					mState = eCupheadState::Shoot_L;
+					mAnimator->Play(L"ShootStraight_Shoot_L", true);;
+					object::Instantiate<JumpDust>(pos, eLayerType::Effect);
+
 					if ((Input::GetKeyDown(eKeyCode::LEFT) || Input::GetKey(eKeyCode::LEFT)))
 					{
 						mState = eCupheadState::Shoot_Run_L;
@@ -1351,16 +1776,7 @@ namespace jw
 						mAnimator->Play(L"ShootUp_L", true);
 					}
 
-					if (Input::GetKeyUp(eKeyCode::UP) && Input::GetKeyUp(eKeyCode::RIGHT)
-						&& Input::GetKeyUp(eKeyCode::LEFT))
-					{
-						mState = eCupheadState::Shoot_L;
-						mAnimator->Play(L"ShootStraight_Shoot_L", true);
-					}
 				}
-
-
-
 			}
 			else if(!mbGroundCheck)
 			{
@@ -1368,6 +1784,7 @@ namespace jw
 			}
 			else if (mbGroundCheck)
 			{
+				object::Instantiate<JumpDust>(pos, eLayerType::Effect);
 				mState = eCupheadState::Idle_L;
 			}
 			
@@ -1414,6 +1831,10 @@ namespace jw
 
 				if (mbGroundCheck)
 				{
+					mState = eCupheadState::Shoot_R;
+					mAnimator->Play(L"ShootStraight_Shoot_R", true);
+					object::Instantiate<JumpDust>(pos, eLayerType::Effect);
+
 					if ((Input::GetKeyDown(eKeyCode::LEFT) || Input::GetKey(eKeyCode::LEFT)))
 					{
 						mState = eCupheadState::Shoot_Run_L;
@@ -1442,11 +1863,6 @@ namespace jw
 						mAnimator->Play(L"ShootUp_R", true);
 					}
 
-					if (Input::GetKeyUp(eKeyCode::UP) && Input::GetKeyUp(eKeyCode::RIGHT) && Input::GetKeyUp(eKeyCode::LEFT))
-					{
-						mState = eCupheadState::Shoot_R;
-						mAnimator->Play(L"ShootStraight_Shoot_R", true);
-					}
 				}
 			}
 			else if (!mbGroundCheck)
@@ -1455,9 +1871,67 @@ namespace jw
 			}
 			else if (mbGroundCheck)
 			{
+				object::Instantiate<JumpDust>(pos, eLayerType::Effect);
 				mState = eCupheadState::Idle_R;
 			}
 		
+		}
+
+		//대시
+		if (mAirDashCount > 0)
+		{
+			if (Input::GetKeyDown(eKeyCode::L_SHIFT) && mState == eCupheadState::Shoot_Jump_L)
+			{
+				mAirDashCount--;
+
+				mRigidbody->SetGround(true);
+				Vector2 velocity = mRigidbody->GetVelocity();
+				velocity.x -= 1000.0f;
+				mRigidbody->SetVelocity(velocity);
+
+				Transform* tr = GetComponent<Transform>();
+				Vector2 pos = tr->GetPos();
+				pos.x -= 50.0f;
+				object::Instantiate<DashEffect>(pos, eLayerType::Effect, eAnimationDir::L);
+
+				mState = eCupheadState::Dash_Air_L;
+				mAnimator->Play(L"DashAir_L", false);
+			}
+			else if (Input::GetKeyDown(eKeyCode::L_SHIFT) && mState == eCupheadState::Shoot_Jump_R)
+			{
+				mAirDashCount--;
+
+				// 수평이동을 위해
+				mRigidbody->SetGround(true);
+				Vector2 velocity = mRigidbody->GetVelocity();
+				velocity.x += 1000.0f;
+				mRigidbody->SetVelocity(velocity);
+
+				Transform* tr = GetComponent<Transform>();
+				Vector2 pos = tr->GetPos();
+				pos.x += 50.0f;
+				object::Instantiate<DashEffect>(pos, eLayerType::Effect, eAnimationDir::R);
+
+				mState = eCupheadState::Dash_Air_R;
+				mAnimator->Play(L"DashAir_R", false);
+			}
+		}
+
+		// 패리
+		if (Input::GetKeyDown(eKeyCode::Z) && mParryCount > 0)
+		{
+			mParryCount--;
+
+			if (mState == eCupheadState::Shoot_Jump_L)
+			{
+				mState = eCupheadState::Shoot_Jump_L;
+				mAnimator->Play(L"ParryParry_L", false);
+			}
+			else if (mState == eCupheadState::Shoot_Jump_R)
+			{
+				mState = eCupheadState::Shoot_Jump_R;
+				mAnimator->Play(L"ParryParry_R", false);
+			}
 		}
 
 		tr->SetPos(pos);
@@ -1465,9 +1939,12 @@ namespace jw
 
 	void Cuphead::shoot_jump_up()
 	{
+		GroundInit();
+
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 
+		// 사격
 		if (GetCupheadState() == eCupheadState::Shoot_Jump_Up_L)
 		{
 			if (Input::GetKey(eKeyCode::X))
@@ -1505,6 +1982,8 @@ namespace jw
 
 				if (mbGroundCheck)
 				{
+					object::Instantiate<JumpDust>(pos, eLayerType::Effect);
+
 					if ((Input::GetKeyDown(eKeyCode::LEFT) || Input::GetKey(eKeyCode::LEFT)))
 					{
 						mState = eCupheadState::Shoot_Run_L;
@@ -1547,6 +2026,7 @@ namespace jw
 			}
 			else if (mbGroundCheck)
 			{
+				object::Instantiate<JumpDust>(pos, eLayerType::Effect);
 				mState = eCupheadState::Idle_L;
 			}
 		}
@@ -1586,6 +2066,8 @@ namespace jw
 
 				if (mbGroundCheck)
 				{
+					object::Instantiate<JumpDust>(pos, eLayerType::Effect);
+
 					if ((Input::GetKeyDown(eKeyCode::LEFT) || Input::GetKey(eKeyCode::LEFT)))
 					{
 						mState = eCupheadState::Shoot_Run_L;
@@ -1628,16 +2110,78 @@ namespace jw
 			}
 			else if (mbGroundCheck)
 			{
+				object::Instantiate<JumpDust>(pos, eLayerType::Effect);
+
 				mState = eCupheadState::Idle_R;
+			}
+		}
+
+		//대시
+		if (mAirDashCount > 0)
+		{
+			if (Input::GetKeyDown(eKeyCode::L_SHIFT) && mState == eCupheadState::Shoot_Jump_Up_L)
+			{
+				mAirDashCount--;
+
+				mRigidbody->SetGround(true);
+				Vector2 velocity = mRigidbody->GetVelocity();
+				velocity.x -= 1000.0f;
+				mRigidbody->SetVelocity(velocity);
+
+				Transform* tr = GetComponent<Transform>();
+				Vector2 pos = tr->GetPos();
+				pos.x -= 50.0f;
+				object::Instantiate<DashEffect>(pos, eLayerType::Effect, eAnimationDir::L);
+
+				mState = eCupheadState::Dash_Air_L;
+				mAnimator->Play(L"DashAir_L", false);
+			}
+			else if (Input::GetKeyDown(eKeyCode::L_SHIFT) && mState == eCupheadState::Shoot_Jump_Up_R)
+			{
+				mAirDashCount--;
+
+				// 수평이동을 위해
+				mRigidbody->SetGround(true);
+				Vector2 velocity = mRigidbody->GetVelocity();
+				velocity.x += 1000.0f;
+				mRigidbody->SetVelocity(velocity);
+
+				Transform* tr = GetComponent<Transform>();
+				Vector2 pos = tr->GetPos();
+				pos.x += 50.0f;
+				object::Instantiate<DashEffect>(pos, eLayerType::Effect, eAnimationDir::R);
+
+				mState = eCupheadState::Dash_Air_R;
+				mAnimator->Play(L"DashAir_R", false);
+			}
+		}
+
+		// 패리
+		if (Input::GetKeyDown(eKeyCode::Z) && mParryCount > 0)
+		{
+			mParryCount--;
+
+			if (mState == eCupheadState::Shoot_Jump_Up_L)
+			{
+				mState = eCupheadState::Shoot_Jump_Up_L;
+				mAnimator->Play(L"ParryParry_L", false);
+			}
+			else if (mState == eCupheadState::Shoot_Jump_Up_R)
+			{
+				mState = eCupheadState::Shoot_Jump_Up_R;
+				mAnimator->Play(L"ParryParry_R", false);
 			}
 		}
 	}
 
 	void Cuphead::shoot_jump_diag_up()
 	{
+		GroundInit();
+
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 
+		// 사격
 		if (GetCupheadState() == eCupheadState::Shoot_Jump_diag_Up_L)
 		{
 			if (Input::GetKey(eKeyCode::X))
@@ -1688,6 +2232,8 @@ namespace jw
 
 				if (mbGroundCheck)
 				{
+					object::Instantiate<JumpDust>(pos, eLayerType::Effect);
+
 					if ((Input::GetKeyDown(eKeyCode::LEFT) || Input::GetKey(eKeyCode::LEFT)))
 					{
 						mState = eCupheadState::Shoot_Run_L;
@@ -1730,6 +2276,8 @@ namespace jw
 			}
 			else if (mbGroundCheck)
 			{
+				object::Instantiate<JumpDust>(pos, eLayerType::Effect);
+
 				mState = eCupheadState::Idle_L;
 			}
 		}
@@ -1754,22 +2302,18 @@ namespace jw
 				{
 					mState = eCupheadState::Shoot_Jump_R;
 				}
-
 				if (Input::GetKeyUp(eKeyCode::UP) && Input::GetKey(eKeyCode::LEFT))
 				{
 					mState = eCupheadState::Shoot_Jump_L;
 				}
-
 				if (Input::GetKeyUp(eKeyCode::UP) && Input::GetKey(eKeyCode::RIGHT))
 				{
 					mState = eCupheadState::Shoot_Jump_R;
 				}
-
 				if (Input::GetKey(eKeyCode::UP) && Input::GetKey(eKeyCode::RIGHT))
 				{
 					pos.x += 400.0f * Time::DeltaTime();
 				}
-
 				if (Input::GetKey(eKeyCode::UP) && Input::GetKeyUp(eKeyCode::RIGHT))
 				{
 					mState = eCupheadState::Shoot_Jump_Up_R;
@@ -1783,6 +2327,8 @@ namespace jw
 
 				if (mbGroundCheck)
 				{
+					object::Instantiate<JumpDust>(pos, eLayerType::Effect);
+
 					if ((Input::GetKeyDown(eKeyCode::LEFT) || Input::GetKey(eKeyCode::LEFT)))
 					{
 						mState = eCupheadState::Shoot_Run_L;
@@ -1825,9 +2371,69 @@ namespace jw
 			}
 			else if (mbGroundCheck)
 			{
+				object::Instantiate<JumpDust>(pos, eLayerType::Effect);
+
 				mState = eCupheadState::Idle_R;
 			}
 		}
+
+		// 대시
+		if (mAirDashCount > 0)
+		{
+			if (Input::GetKeyDown(eKeyCode::L_SHIFT) && mState == eCupheadState::Shoot_Jump_diag_Up_L)
+			{
+				mAirDashCount--;
+
+				mRigidbody->SetGround(true);
+				Vector2 velocity = mRigidbody->GetVelocity();
+				velocity.x -= 1000.0f;
+				mRigidbody->SetVelocity(velocity);
+
+				Transform* tr = GetComponent<Transform>();
+				Vector2 pos = tr->GetPos();
+				pos.x -= 50.0f;
+				object::Instantiate<DashEffect>(pos, eLayerType::Effect, eAnimationDir::L);
+
+				mState = eCupheadState::Dash_Air_L;
+				mAnimator->Play(L"DashAir_L", false);
+			}
+			else if (Input::GetKeyDown(eKeyCode::L_SHIFT) && mState == eCupheadState::Shoot_Jump_diag_Up_R)
+			{
+				mAirDashCount--;
+
+				// 수평이동을 위해
+				mRigidbody->SetGround(true);
+				Vector2 velocity = mRigidbody->GetVelocity();
+				velocity.x += 1000.0f;
+				mRigidbody->SetVelocity(velocity);
+
+				Transform* tr = GetComponent<Transform>();
+				Vector2 pos = tr->GetPos();
+				pos.x += 50.0f;
+				object::Instantiate<DashEffect>(pos, eLayerType::Effect, eAnimationDir::R);
+
+				mState = eCupheadState::Dash_Air_R;
+				mAnimator->Play(L"DashAir_R", false);
+			}
+		}
+		
+		// 패리
+		if (Input::GetKeyDown(eKeyCode::Z) && mParryCount > 0)
+		{
+			mParryCount--;
+
+			if (mState == eCupheadState::Shoot_Jump_diag_Up_L)
+			{
+				mState = eCupheadState::Shoot_Jump_diag_Up_L;
+				mAnimator->Play(L"ParryParry_L", false);
+			}
+			else if (mState == eCupheadState::Shoot_Jump_diag_Up_R)
+			{
+				mState = eCupheadState::Shoot_Jump_diag_Up_R;
+				mAnimator->Play(L"ParryParry_R", false);
+			}
+		}
+
 		tr->SetPos(pos);
 	}
 
@@ -1851,6 +2457,88 @@ namespace jw
 	void Cuphead::duckRCompleteEvent()
 	{
 		mAnimator->Play(L"DuckIdle_R", true);
+	}
+
+	void Cuphead::parryStartEvent()
+	{
+		mbParrying = true;
+		collider->SetCenter(Vector2(-100.0f, -145.0f));
+		collider->SetSize(Vector2(200.0f, 150.0f));
+	}
+
+	void Cuphead::parryCompleteEvent()
+	{
+		mbParrying = false;
+		mbParrySuccess = false;
+		collider->SetCenter(Vector2(-75.0f, -145.0f));
+		collider->SetSize(Vector2(150.0f, 150.0f));
+
+		if (mbGroundCheck)
+		{
+			if (mState == eCupheadState::Parry_L)
+			{
+				mState = eCupheadState::Idle_L;
+				mAnimator->Play(L"CupheadIdle_L", true);
+			}
+			else if (mState == eCupheadState::Parry_R)
+			{
+				mState = eCupheadState::Idle_R;
+				mAnimator->Play(L"CupheadIdle_R", true);
+			}
+		}
+		else
+		{
+			if (mState == eCupheadState::Parry_L)
+			{
+				mState = eCupheadState::Jump_L;
+				mAnimator->Play(L"JumpJump_L", true);
+			}
+			else if (mState == eCupheadState::Parry_R)
+			{
+				mState = eCupheadState::Jump_R;
+				mAnimator->Play(L"JumpJump_R", true);
+			}
+			else if (mState == eCupheadState::Shoot_Jump_L)
+			{
+				mState = eCupheadState::Shoot_Jump_L;
+				mAnimator->Play(L"JumpJump_L", true);
+			}
+			else if (mState == eCupheadState::Shoot_Jump_R)
+			{
+				mState = eCupheadState::Shoot_Jump_R;
+				mAnimator->Play(L"JumpJump_R", true);
+			}
+			else if (mState == eCupheadState::Shoot_Jump_diag_Up_L)
+			{
+				mState = eCupheadState::Shoot_Jump_diag_Up_L;
+				mAnimator->Play(L"JumpJump_L", true);
+			}
+			else if (mState == eCupheadState::Shoot_Jump_diag_Up_R)
+			{
+				mState = eCupheadState::Shoot_Jump_diag_Up_R;
+				mAnimator->Play(L"JumpJump_R", true);
+			}
+			else if (mState == eCupheadState::Shoot_Jump_Up_L)
+			{
+				mState = eCupheadState::Shoot_Jump_Up_L;
+				mAnimator->Play(L"JumpJump_L", true);
+			}
+			else if (mState == eCupheadState::Shoot_Jump_Up_R)
+			{
+				mState = eCupheadState::Shoot_Jump_Up_R;
+				mAnimator->Play(L"JumpJump_R", true);
+			}
+		}
+
+	}
+
+	void Cuphead::GroundInit()
+	{
+		if (mbGroundCheck)
+		{
+			mParryCount = 1;
+			mAirDashCount = 1;
+		}
 	}
 
 }

@@ -51,10 +51,10 @@ namespace jw
 		void CreateAnimation(const std::wstring& name, const std::wstring& path
 			, Image* sheet, Vector2 leftTop
 			, UINT coulmn, UINT row, UINT spriteLength
-			, Vector2 offset, float duration, eImageFormat imgformat, bool reverse);
+			, Vector2 offset, float duration, eImageFormat imgformat, eAnimationDir dir);
 
 		// 스프라이트로 애니메이션 제작하는 함수
-		void CreateAnimations(const std::wstring& path, Vector2 offset, float duration, eImageFormat imgformat, bool reverse);
+		void CreateAnimations(const std::wstring& path, Vector2 offset, float duration, eImageFormat imgformat, eAnimationDir dir);
 
 		Animation* FindAnimation(const std::wstring& name);
 		void Play(const std::wstring& name, bool loop);

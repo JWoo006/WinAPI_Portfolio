@@ -1,6 +1,8 @@
 #include "jwScene.h"
 #include "jwApplication.h"
 #include "jwSceneManager.h"
+#include "jwObject.h"
+#include "jwSceneLoad_In.h"
 
 extern jw::Application application;
 
@@ -77,7 +79,7 @@ namespace jw
 	}
 	void Scene::OnEnter()
 	{
-		
+		object::Instantiate<SceneLoad_In>(Vector2(800.0f, 900.0f), eLayerType::UI);
 	}
 	void Scene::OnExit()
 	{
@@ -91,6 +93,7 @@ namespace jw
 	void Scene::AddGameObject(GameObject* obj, eLayerType layer)
 	{
 		mLayers[(UINT)layer].AddGameObject(obj);
+		obj->SetLayerType(layer);
 	}
 	std::vector<GameObject*>& Scene::GetGameObjects(eLayerType layer)
 	{

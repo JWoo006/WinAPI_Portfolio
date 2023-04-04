@@ -26,6 +26,7 @@ namespace jw
 		static Vector2 CalculatePos(Vector2 pos) { return pos - mDistance; }
 		static void SetCameraEffectType(eCameraEffectType Type){ mType = Type;}
 		static void SetInit();
+		static Vector2 GetLookPos() { return mLookPosition; }
 		static float GetAlphaTime() { return mAlphaTime; }
 		static bool isEffectEnd() { return mbEffectEnd; }
 

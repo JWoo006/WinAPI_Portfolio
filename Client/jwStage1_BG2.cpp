@@ -16,7 +16,7 @@ namespace jw
 		tr->SetScale(Vector2(2.0f, 1.8f));
 		scale = tr->GetScale();
 
-		mImage = Resources::Load<Image>(L"Stage1_BG2", L"..\\Resources\\Image\\Stage1_veggie\\BackGround\\veggie_bg2.bmp");
+		mImage = Resources::Load<Image>(L"Stage1_BG2", L"..\\Resources\\Image\\Stage1_veggie\\BackGround\\veggie_bg2.png");
 
 		GameObject::Initialize();
 	}
@@ -28,9 +28,15 @@ namespace jw
 
 		GameObject::Render(hdc);
 
-		TransparentBlt(hdc, -40, -30, mImage->GetWidth() * scale.x, mImage->GetHeight() * scale.y, mImage->GetHdc(), 0, 0
-			, mImage->GetWidth(), mImage->GetHeight(), RGB(255, 0, 255));
+		/*TransparentBlt(hdc, -40, -30, mImage->GetWidth() * scale.x, mImage->GetHeight() * scale.y, mImage->GetHdc(), 0, 0
+			, mImage->GetWidth(), mImage->GetHeight(), RGB(255, 0, 255));*/
+		Graphics graphic(hdc);
+		Vector2 scales;
+		scales.x = mImage->GetWidth()* scale.x;
+		scales.y = mImage->GetHeight() * scale.y;
 
+		graphic.DrawImage(mImage->GetImage(), 100, -30, mImage->GetWidth(), mImage->GetHeight());;
+		int a = 0;
 	}
 	void Stage1_BG2::Release()
 	{
