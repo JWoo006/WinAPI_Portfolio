@@ -80,9 +80,6 @@
     <Filter Include="Engine\Camera">
       <UniqueIdentifier>{d3420c04-ecf4-46d8-84e6-5a5f68b92087}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Weapon\Peashot_test">
-      <UniqueIdentifier>{34b63035-ea55-4bee-8fc5-071b6a295867}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Component\Animator">
       <UniqueIdentifier>{b1f3dc88-0a44-40ee-b654-f1eba6de1f55}</UniqueIdentifier>
     </Filter>
@@ -211,32 +208,11 @@
     <ClInclude Include="jwTitleAnim3.h">
       <Filter>Contents\Title</Filter>
     </ClInclude>
-    <ClInclude Include="jwBaseBullet.h">
-      <Filter>Contents\Weapon\Peashot</Filter>
-    </ClInclude>
-    <ClInclude Include="jwPeashotSpark.h">
-      <Filter>Contents\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="jwTestBullet.h">
-      <Filter>Contents\Weapon</Filter>
-    </ClInclude>
     <ClInclude Include="jwCamera.h">
       <Filter>Engine\Camera</Filter>
     </ClInclude>
     <ClInclude Include="jwObject.h">
       <Filter>Engine\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="jwPeashot_L.h">
-      <Filter>Contents\Weapon\Peashot_test</Filter>
-    </ClInclude>
-    <ClInclude Include="jwPeashot_Up.h">
-      <Filter>Contents\Weapon\Peashot_test</Filter>
-    </ClInclude>
-    <ClInclude Include="jwPeashot_diagnal_L.h">
-      <Filter>Contents\Weapon\Peashot_test</Filter>
-    </ClInclude>
-    <ClInclude Include="jwPeashot_diagnal_R.h">
-      <Filter>Contents\Weapon\Peashot_test</Filter>
     </ClInclude>
     <ClInclude Include="jwAnimation.h">
       <Filter>Engine\Component\Animator</Filter>
@@ -314,6 +290,9 @@
       <Filter>Contents\WorldMap</Filter>
     </ClInclude>
     <ClInclude Include="jwPeaShot_Normal.h">
+      <Filter>Contents\Weapon\Peashot</Filter>
+    </ClInclude>
+    <ClInclude Include="jwPeashotSpark.h">
       <Filter>Contents\Weapon\Peashot</Filter>
     </ClInclude>
   </ItemGroup>
@@ -412,29 +391,8 @@
     <ClCompile Include="jwTitleAnim3.cpp">
       <Filter>Contents\Title</Filter>
     </ClCompile>
-    <ClCompile Include="jwBaseBullet.cpp">
-      <Filter>Contents\Weapon\Peashot</Filter>
-    </ClCompile>
-    <ClCompile Include="jwPeashotSpark.cpp">
-      <Filter>Contents\Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="jwTestBullet.cpp">
-      <Filter>Contents\Weapon</Filter>
-    </ClCompile>
     <ClCompile Include="jwCamera.cpp">
       <Filter>Engine\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="jwPeashot_L.cpp">
-      <Filter>Contents\Weapon\Peashot_test</Filter>
-    </ClCompile>
-    <ClCompile Include="jwPeashot_Up.cpp">
-      <Filter>Contents\Weapon\Peashot_test</Filter>
-    </ClCompile>
-    <ClCompile Include="jwPeashot_diagnal_L.cpp">
-      <Filter>Contents\Weapon\Peashot_test</Filter>
-    </ClCompile>
-    <ClCompile Include="jwPeashot_diagnal_R.cpp">
-      <Filter>Contents\Weapon\Peashot_test</Filter>
     </ClCompile>
     <ClCompile Include="jwAnimation.cpp">
       <Filter>Engine\Component\Animator</Filter>
@@ -509,6 +467,9 @@
       <Filter>Contents\WorldMap</Filter>
     </ClCompile>
     <ClCompile Include="jwPeaShot_Normal.cpp">
+      <Filter>Contents\Weapon\Peashot</Filter>
+    </ClCompile>
+    <ClCompile Include="jwPeashotSpark.cpp">
       <Filter>Contents\Weapon\Peashot</Filter>
     </ClCompile>
   </ItemGroup>

@@ -137,7 +137,6 @@
     <ClInclude Include="jwAnimator.h" />
     <ClInclude Include="jwApplication.h" />
     <ClInclude Include="jwBackground.h" />
-    <ClInclude Include="jwBaseBullet.h" />
     <ClInclude Include="jwBoss.h" />
     <ClInclude Include="jwCamera.h" />
     <ClInclude Include="jwCollider.h" />
@@ -162,11 +161,7 @@
     <ClInclude Include="jwObject.h" />
     <ClInclude Include="jwParryEffect.h" />
     <ClInclude Include="jwPeashotSpark.h" />
-    <ClInclude Include="jwPeashot_diagnal_L.h" />
-    <ClInclude Include="jwPeashot_diagnal_R.h" />
-    <ClInclude Include="jwPeashot_L.h" />
     <ClInclude Include="jwPeaShot_Normal.h" />
-    <ClInclude Include="jwPeashot_Up.h" />
     <ClInclude Include="jwPlayScene.h" />
     <ClInclude Include="jwResource.h" />
     <ClInclude Include="jwRigidbody.h" />
@@ -179,7 +174,6 @@
     <ClInclude Include="jwStage1_BG2.h" />
     <ClInclude Include="jwStage1_BG_Sky.h" />
     <ClInclude Include="jwStageScene.h" />
-    <ClInclude Include="jwTestBullet.h" />
     <ClInclude Include="jwtestEnemy.h" />
     <ClInclude Include="jwTile.h" />
     <ClInclude Include="jwTime.h" />
@@ -203,7 +197,6 @@
     <ClCompile Include="jwAnimator.cpp" />
     <ClCompile Include="jwApplication.cpp" />
     <ClCompile Include="jwBackground.cpp" />
-    <ClCompile Include="jwBaseBullet.cpp" />
     <ClCompile Include="jwBoss.cpp" />
     <ClCompile Include="jwCamera.cpp" />
     <ClCompile Include="jwCollider.cpp" />
@@ -226,11 +219,7 @@
     <ClCompile Include="jwMath.cpp" />
     <ClCompile Include="jwParryEffect.cpp" />
     <ClCompile Include="jwPeashotSpark.cpp" />
-    <ClCompile Include="jwPeashot_diagnal_L.cpp" />
-    <ClCompile Include="jwPeashot_diagnal_R.cpp" />
-    <ClCompile Include="jwPeashot_L.cpp" />
     <ClCompile Include="jwPeaShot_Normal.cpp" />
-    <ClCompile Include="jwPeashot_Up.cpp" />
     <ClCompile Include="jwPlayScene.cpp" />
     <ClCompile Include="jwResource.cpp" />
     <ClCompile Include="jwRigidbody.cpp" />
@@ -242,7 +231,6 @@
     <ClCompile Include="jwStage1_BG2.cpp" />
     <ClCompile Include="jwStage1_BG_Sky.cpp" />
     <ClCompile Include="jwStageScene.cpp" />
-    <ClCompile Include="jwTestBullet.cpp" />
     <ClCompile Include="jwtestEnemy.cpp" />
     <ClCompile Include="jwTile.cpp" />
     <ClCompile Include="jwTime.cpp" />

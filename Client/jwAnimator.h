@@ -65,6 +65,8 @@ namespace jw
 		std::function<void()>& GetEndEvent(const std::wstring& name);
 		bool IsComplete() {	return mActiveAnimation->IsComplete();}
 
+		Animation* GetActiveAnimation() { return mActiveAnimation; }
+
 		void SetMatrixBase();
 		void SetMatrixChangeAlpha(float length);
 		void SetMatrixHitFlash();

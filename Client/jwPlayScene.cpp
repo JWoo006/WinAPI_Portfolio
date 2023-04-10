@@ -32,6 +32,7 @@ namespace jw
 		object::Instantiate<Veggie_Onion>(Vector2(1100.0f, 800.0f), eLayerType::Monster);
 		object::Instantiate<Ground_Veggie>(Vector2(-1.0f, 800.0f), eLayerType::Ground);
 		object::Instantiate<testEnemy>(Vector2(300.0f, 500.0f), eLayerType::ParryObj);
+		object::Instantiate<testEnemy>(Vector2(500.0f, 800.0f), eLayerType::ParryObj);
 
 
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);

@@ -13,39 +13,41 @@ namespace jw
 	public:
 		enum class eCupheadState
 		{
-			Move_L,
-			Move_R,
-			Jump_L,
-			Jump_R,
-			Duck_L,
-			Duck_R,
-			Duck_Shoot_L,
-			Duck_Shoot_R,
-			Dash_Ground_L,
-			Dash_Ground_R,
-			Dash_Air_L,
-			Dash_Air_R,
-			Parry_L,
-			Parry_R,
-			Aim_UP_L,
-			Aim_UP_R,
-			Shoot_L,
-			Shoot_R,
-			Shoot_UP_L,
-			Shoot_UP_R,
-			Shoot_Run_L,
-			Shoot_Run_R,
-			Shoot_Run_diag_Up_L,
-			Shoot_Run_diag_Up_R,
-			Shoot_Jump_L,
-			Shoot_Jump_R,
-			Shoot_Jump_Up_L,
-			Shoot_Jump_Up_R,
+			Move_L				,
+			Move_R				,
+			Jump_L				,
+			Jump_R				,
+			Duck_L				,
+			Duck_R				,
+			Duck_Shoot_L		,
+			Duck_Shoot_R		,
+			Dash_Ground_L		,
+			Dash_Ground_R		,
+			Dash_Air_L			,
+			Dash_Air_R			,
+			Parry_L				,
+			Parry_R				,
+			Aim_UP_L			,
+			Aim_UP_R			,
+			Shoot_L				,
+			Shoot_R				,
+			Shoot_UP_L			,
+			Shoot_UP_R			,
+			Shoot_Run_L			,
+			Shoot_Run_R			,
+			Shoot_Run_diag_Up_L	,
+			Shoot_Run_diag_Up_R	,
+			Shoot_Jump_L		,
+			Shoot_Jump_R		,
+			Shoot_Jump_Up_L		,
+			Shoot_Jump_Up_R		,
 			Shoot_Jump_diag_Up_L,
 			Shoot_Jump_diag_Up_R,
-			Death,
-			Idle_L,
-			Idle_R,
+			OnHit_L				,
+			OnHit_R				,
+			Death				,
+			Idle_L				,
+			Idle_R				,
 
 		};
 		Cuphead();
@@ -75,6 +77,7 @@ namespace jw
 		void shoot_jump();
 		void shoot_jump_up();
 		void shoot_jump_diag_up();
+		void Onhit();
 		void death();
 
 		void idleCompleteEvent();
@@ -82,6 +85,7 @@ namespace jw
 		void duckRCompleteEvent();
 		void parryStartEvent();
 		void parryCompleteEvent();
+		void OnhitCompleteEvent();
 
 		void SetJumpCount(int cnt) { mJumpCount = cnt; }
 		void SetGroundCheck(bool check) { mbGroundCheck = check; }
@@ -107,6 +111,11 @@ namespace jw
 		bool mbParrying;
 		bool mbParrySuccess;
 		float mJumpScale;
+		bool mbInvincibile;
+		float mInvincibileTime;
+		bool mbFlashCheck;
+		float mFlashTime;
+		
 
 	};
 }

@@ -8,17 +8,16 @@
 
 namespace jw
 {
+	float PeaShot_Normal::mDelay = 0.15f;
 	PeaShot_Normal::PeaShot_Normal()
 		: mTime(0.0f)
 		, mDegree(0.0f)
-		, mDelay(0.15f)
 	{
 
 	}
 	PeaShot_Normal::PeaShot_Normal(Cuphead::eCupheadState state)
 		: mTime(0.0f)
 		, mDegree(0.0f)
-		, mDelay(0.15f)
 		, mCupheadState(state)
 	{
 	}
@@ -40,12 +39,16 @@ namespace jw
 
 		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Weapon_peashot\\Up", Vector2::Zero, 0.1f, eImageFormat::BMP, eAnimationDir::R);
 
+		mCollider = AddComponent<Collider>();
+		
 
 		if (mCupheadState == Cuphead::eCupheadState::Shoot_L 
 			|| mCupheadState == Cuphead::eCupheadState::Shoot_Run_L
 			|| mCupheadState == Cuphead::eCupheadState::Duck_Shoot_L
 			|| mCupheadState == Cuphead::eCupheadState::Shoot_Jump_L)
 		{
+			mCollider->SetCenter(Vector2(-45.0f, -20.0f));
+			mCollider->SetSize(Vector2(40.0f, 20.0f));
 			mAnimator->Play(L"Weapon_peashotmain_L", true);
 		}
 		else if (mCupheadState == Cuphead::eCupheadState::Shoot_R
@@ -53,6 +56,8 @@ namespace jw
 			|| mCupheadState == Cuphead::eCupheadState::Duck_Shoot_R
 			|| mCupheadState == Cuphead::eCupheadState::Shoot_Jump_R)
 		{
+			mCollider->SetCenter(Vector2(-5.0f, -20.0f));
+			mCollider->SetSize(Vector2(40.0f, 20.0f));
 			mAnimator->Play(L"Weapon_peashotmain_R", true);
 		}
 		else if (mCupheadState == Cuphead::eCupheadState::Shoot_UP_L
@@ -60,17 +65,26 @@ namespace jw
 			|| mCupheadState == Cuphead::eCupheadState::Shoot_Jump_Up_L
 			|| mCupheadState == Cuphead::eCupheadState::Shoot_Jump_Up_R)
 		{
+			mCollider->SetCenter(Vector2(-25.0f, -20.0f));
+			mCollider->SetSize(Vector2(20.0f, 40.0f));
+			mAnimator->Play(L"Weapon_peashotmain_R", true);
 			mAnimator->Play(L"Weapon_peashotUp", true);
 		}
 		else if (mCupheadState == Cuphead::eCupheadState::Shoot_Run_diag_Up_L
 			|| mCupheadState == Cuphead::eCupheadState::Shoot_Jump_diag_Up_L)
 		{
+			mCollider->SetCenter(Vector2(-15.0f, -20.0f));
+			mCollider->SetSize(Vector2(40.0f, 20.0f));
+			mAnimator->Play(L"Weapon_peashotmain_R", true);
 			tr->SetScale(Vector2(0.9f, 0.6f));
 			mAnimator->Play(L"Weapon_peashotDiagonal_L", true);
 		}
 		else if (mCupheadState == Cuphead::eCupheadState::Shoot_Run_diag_Up_R
 			|| mCupheadState == Cuphead::eCupheadState::Shoot_Jump_diag_Up_R)
 		{
+			mCollider->SetCenter(Vector2(-5.0f, -20.0f));
+			mCollider->SetSize(Vector2(40.0f, 20.0f));
+			mAnimator->Play(L"Weapon_peashotmain_R", true);
 			tr->SetScale(Vector2(0.9f, 0.6f));
 			mAnimator->Play(L"Weapon_peashotDiagonal_R", true);
 		}
@@ -103,6 +117,16 @@ namespace jw
 		GameObject::Render(hdc);
 	}
 	void PeaShot_Normal::Release()
+	{
+	}
+	void PeaShot_Normal::OnCollisionEnter(Collider* other)
+	{
+		object::Destroy(this);
+	}
+	void PeaShot_Normal::OnCollisionStay(Collider* other)
+	{
+	}
+	void PeaShot_Normal::OnCollisionExit(Collider* other)
 	{
 	}
 }

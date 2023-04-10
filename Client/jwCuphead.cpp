@@ -15,7 +15,6 @@
 #include "jwDashEffect.h"
 #include "jwParryEffect.h"
 
-
 namespace jw
 {
 	Cuphead::Cuphead()
@@ -29,6 +28,10 @@ namespace jw
 		, mbParrying(false)
 		, mbParrySuccess(false)
 		, mJumpScale(1700.0f)
+		, mbInvincibile(false)
+		, mInvincibileTime(0.0f)
+		, mbFlashCheck(false)
+		, mFlashTime(0.0f)
 	{
 	}
 	Cuphead::~Cuphead()
@@ -36,7 +39,7 @@ namespace jw
 	}
 	void Cuphead::Initialize()
 	{
-		mFiredelay = BaseBullet::GetDelay();
+		mFiredelay = PeaShot_Normal::GetDelay();
 
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Idle_L", Vector2::Zero, 0.07f, eImageFormat::PNG, eAnimationDir::L);
@@ -76,6 +79,9 @@ namespace jw
 		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Parry\\Parry_L", Vector2::Zero, 0.04f, eImageFormat::PNG, eAnimationDir::L);
 		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Parry\\Parry_R", Vector2::Zero, 0.04f, eImageFormat::PNG, eAnimationDir::R);
 
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Hit\\Ground_L", Vector2::Zero, 0.07f, eImageFormat::PNG, eAnimationDir::L);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Hit\\Ground_R", Vector2::Zero, 0.07f, eImageFormat::PNG, eAnimationDir::R);
+
 		mAnimator->GetCompleteEvent(L"DuckDuck_start_L")
 			= std::bind(&Cuphead::duckLCompleteEvent, this);
 		mAnimator->GetCompleteEvent(L"DuckDuck_start_R")
@@ -87,6 +93,9 @@ namespace jw
 		mAnimator->GetStartEvent(L"ParryParry_R") = std::bind(&Cuphead::parryStartEvent, this);
 		mAnimator->GetCompleteEvent(L"ParryParry_L") = std::bind(&Cuphead::parryCompleteEvent, this);
 		mAnimator->GetCompleteEvent(L"ParryParry_R") = std::bind(&Cuphead::parryCompleteEvent, this);
+
+		mAnimator->GetCompleteEvent(L"HitGround_L") = std::bind(&Cuphead::OnhitCompleteEvent, this);
+		mAnimator->GetCompleteEvent(L"HitGround_R") = std::bind(&Cuphead::OnhitCompleteEvent, this);
 
 		mAnimator->Play(L"CupheadIdle_R", true);
 		
@@ -112,7 +121,7 @@ namespace jw
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 
-		//spark->GetComponent<Transform>()->SetPos(tr->GetPos());
+		Onhit();
 
 		switch (mState)
 		{
@@ -263,6 +272,12 @@ namespace jw
 			collider->SetSize(Vector2(150.0f, 150.0f));
 			shoot_jump_diag_up();
 			break;
+		case jw::Cuphead::eCupheadState::OnHit_L:
+			collider->SetCenter(Vector2(-75.0f, -145.0f));
+			collider->SetSize(Vector2(150.0f, 150.0f));
+		case jw::Cuphead::eCupheadState::OnHit_R:
+			collider->SetCenter(Vector2(-75.0f, -145.0f));
+			collider->SetSize(Vector2(150.0f, 150.0f));
 		case jw::Cuphead::eCupheadState::Death:
 			collider->SetCenter(Vector2(-75.0f, -145.0f));
 			collider->SetSize(Vector2(150.0f, 150.0f));
@@ -293,6 +308,7 @@ namespace jw
 	}
 	void Cuphead::OnCollisionEnter(Collider* other)
 	{	
+		// 패리 오브젝트 충돌 && 패링중
 		if (other->GetOwner()->GetLayerType() == eLayerType::ParryObj && mbParrying)
 		{
 			mbParrySuccess = true;
@@ -308,9 +324,40 @@ namespace jw
 
 			mParryCount = 1;
 		}	
+
+		if (other->GetOwner()->GetLayerType() == eLayerType::ParryObj && !mbParrying && !mbInvincibile)
+		{
+			mbInvincibile = true;
+
+			wchar_t lastchar = mAnimator->GetActiveAnimation()->GetAnimationName().back();
+
+			if (lastchar == L'L')
+			{
+				mRigidbody->SetGround(false);
+				Vector2 velocity;
+				velocity.y -= 800;
+				velocity.x += 100;
+				mRigidbody->SetVelocity(velocity);
+
+				mState = eCupheadState::OnHit_L;
+				mAnimator->Play(L"HitGround_L", true);
+			}
+			else if (lastchar == L'R')
+			{
+				mRigidbody->SetGround(false);
+				Vector2 velocity;
+				velocity.y -= 800;
+				velocity.x -= 100;
+				mRigidbody->SetVelocity(velocity);
+
+				mState = eCupheadState::OnHit_R;
+				mAnimator->Play(L"HitGround_R", true);
+			}
+		}
 	}
 	void Cuphead::OnCollisionStay(Collider* other)
 	{
+		// 패리 오브젝트 충돌 && 패링중
 		if (other->GetOwner()->GetLayerType() == eLayerType::ParryObj && mbParrying && !mbParrySuccess)
 		{
 			mbParrySuccess = true;
@@ -324,6 +371,36 @@ namespace jw
 			mRigidbody->SetVelocity(velocity);
 
 			mParryCount = 1;
+		}
+
+		if (other->GetOwner()->GetLayerType() == eLayerType::ParryObj && !mbParrying && !mbInvincibile)
+		{
+			mbInvincibile = true;
+
+			wchar_t lastchar = mAnimator->GetActiveAnimation()->GetAnimationName().back();
+
+			if (lastchar == L'L')
+			{
+				mRigidbody->SetGround(false);
+				Vector2 velocity;
+				velocity.y -= 800;
+				velocity.x += 100;
+				mRigidbody->SetVelocity(velocity);
+
+				mState = eCupheadState::OnHit_L;
+				mAnimator->Play(L"HitGround_L", true);
+			}
+			else if (lastchar == L'R')
+			{
+				mRigidbody->SetGround(false);
+				Vector2 velocity;
+				velocity.y -= 800;
+				velocity.x -= 100;
+				mRigidbody->SetVelocity(velocity);
+
+				mState = eCupheadState::OnHit_R;
+				mAnimator->Play(L"HitGround_R", true);
+			}
 		}
 
 	}
@@ -2434,6 +2511,43 @@ namespace jw
 		tr->SetPos(pos);
 	}
 
+	void Cuphead::Onhit()
+	{
+		if (mbInvincibile)
+		{
+			
+			if (!mbFlashCheck)
+			{
+				mFlashTime += Time::DeltaTime() * 8;
+			}
+			else
+			{
+				mFlashTime -= Time::DeltaTime() * 8;
+			}
+
+			if (mFlashTime > 1)
+			{
+				mbFlashCheck = true;
+			}
+			else if (mFlashTime < 0)
+			{
+				mbFlashCheck = false;
+			}
+
+			mAnimator->SetMatrixChangeAlpha(mFlashTime);
+
+			mInvincibileTime += Time::DeltaTime();
+
+			if (mInvincibileTime > 2.0f)
+			{
+				mInvincibileTime = 0.0f;
+				mbInvincibile = false;
+				mAnimator->SetMatrixBase();
+			}
+
+		}
+	}
+
 	void Cuphead::death()
 	{
 	}
@@ -2527,6 +2641,70 @@ namespace jw
 			}
 		}
 
+	}
+
+	void Cuphead::OnhitCompleteEvent()
+	{
+		Vector2 velocity;
+		velocity.x = 0.0f;
+		mRigidbody->SetVelocity(velocity);
+
+		if (mbGroundCheck)
+		{
+			if (mState == eCupheadState::OnHit_L)
+			{
+				mState = eCupheadState::Idle_L;
+				mAnimator->Play(L"CupheadIdle_L", true);
+			}
+			else if (mState == eCupheadState::OnHit_R)
+			{
+				mState = eCupheadState::Idle_R;
+				mAnimator->Play(L"CupheadIdle_R", true);
+			}
+		}
+		else
+		{
+			if (mState == eCupheadState::OnHit_L)
+			{
+				mState = eCupheadState::Jump_L;
+				mAnimator->Play(L"JumpJump_L", true);
+			}
+			else if (mState == eCupheadState::OnHit_R)
+			{
+				mState = eCupheadState::Jump_R;
+				mAnimator->Play(L"JumpJump_R", true);
+			}
+			else if (mState == eCupheadState::Shoot_Jump_L)
+			{
+				mState = eCupheadState::Shoot_Jump_L;
+				mAnimator->Play(L"JumpJump_L", true);
+			}
+			else if (mState == eCupheadState::Shoot_Jump_R)
+			{
+				mState = eCupheadState::Shoot_Jump_R;
+				mAnimator->Play(L"JumpJump_R", true);
+			}
+			else if (mState == eCupheadState::Shoot_Jump_diag_Up_L)
+			{
+				mState = eCupheadState::Shoot_Jump_diag_Up_L;
+				mAnimator->Play(L"JumpJump_L", true);
+			}
+			else if (mState == eCupheadState::Shoot_Jump_diag_Up_R)
+			{
+				mState = eCupheadState::Shoot_Jump_diag_Up_R;
+				mAnimator->Play(L"JumpJump_R", true);
+			}
+			else if (mState == eCupheadState::Shoot_Jump_Up_L)
+			{
+				mState = eCupheadState::Shoot_Jump_Up_L;
+				mAnimator->Play(L"JumpJump_L", true);
+			}
+			else if (mState == eCupheadState::Shoot_Jump_Up_R)
+			{
+				mState = eCupheadState::Shoot_Jump_Up_R;
+				mAnimator->Play(L"JumpJump_R", true);
+			}
+		}
 	}
 
 	void Cuphead::GroundInit()

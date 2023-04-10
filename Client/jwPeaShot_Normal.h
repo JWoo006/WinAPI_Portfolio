@@ -25,18 +25,23 @@ namespace jw
 		virtual void Render(HDC hdc) override;
 		virtual void Release() override;
 
-		float GetDelay() { return mDelay; }
+		virtual void OnCollisionEnter(class Collider* other) override;
+		virtual void OnCollisionStay(class Collider* other) override;
+		virtual void OnCollisionExit(class Collider* other) override;
+
+		static float GetDelay() { return mDelay; }
 
 		void SetDegree(float degree) { mDegree = degree; }
 		void SetState(eBulletDirection state) { mBulletdirection = state; }
 
 	private:
-		float mDelay;
+		static float mDelay;
 		float mTime;
 		float mDegree;
 		Animator* mAnimator;
 		eBulletDirection mBulletdirection;
 		Cuphead::eCupheadState mCupheadState;
+		Collider* mCollider;
 
 	};
 }
