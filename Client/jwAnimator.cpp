@@ -25,6 +25,7 @@ namespace jw
 	}
 	void Animator::Initialize()
 	{
+		SetMatrixBase();
 	}
 	void Animator::Update()
 	{
@@ -204,6 +205,40 @@ namespace jw
 			= FindEvents(animation->GetAnimationName());
 
 		return events->mCompleteEvent.mEvent;
+	}
+	void Animator::SetMatrixBase()
+	{
+		mColorMatrix =
+		{
+			1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+			0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+			0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+			0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+			0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+		};
+	}
+	void Animator::SetMatrixChangeAlpha(float change)
+	{
+
+		mColorMatrix =
+		{
+			1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+			0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+			0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+			0.0f, 0.0f, 0.0f, 1.0f - change	, 0.0f,
+			0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+		};
+	}
+	void Animator::SetMatrixHitFlash()
+	{
+		mColorMatrix =
+		{
+			1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+			0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+			0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+			0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+			0.2f, 0.2f, 0.2f, 0.0f, 1.0f,
+		};
 	}
 	std::function<void()>& Animator::GetEndEvent(const std::wstring& name)
 	{

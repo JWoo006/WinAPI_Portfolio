@@ -313,6 +313,9 @@
     <ClInclude Include="jwWorldMap1.h">
       <Filter>Contents\WorldMap</Filter>
     </ClInclude>
+    <ClInclude Include="jwPeaShot_Normal.h">
+      <Filter>Contents\Weapon\Peashot</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -504,6 +507,9 @@
     </ClCompile>
     <ClCompile Include="jwWorldMap1.cpp">
       <Filter>Contents\WorldMap</Filter>
+    </ClCompile>
+    <ClCompile Include="jwPeaShot_Normal.cpp">
+      <Filter>Contents\Weapon\Peashot</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

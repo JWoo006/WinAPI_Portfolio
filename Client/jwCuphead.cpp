@@ -7,12 +7,7 @@
 #include "jwAnimator.h"
 #include "jwCollider.h"
 #include "jwScene.h"
-#include "jwBaseBullet.h"
-#include "jwTestBullet.h"
-#include "jwPeashot_L.h"
-#include "jwPeashot_Up.h"
-#include "jwPeashot_diagnal_L.h"
-#include "jwPeashot_diagnal_R.h"
+#include "jwPeaShot_Normal.h"
 #include "jwPeashotSpark.h"
 #include "jwObject.h"
 #include "jwRigidbody.h"
@@ -33,7 +28,7 @@ namespace jw
 		, mbDashEnd(false)
 		, mbParrying(false)
 		, mbParrySuccess(false)
-		, mJumpScale(1000.0f)
+		, mJumpScale(1700.0f)
 	{
 	}
 	Cuphead::~Cuphead()
@@ -103,6 +98,10 @@ namespace jw
 		mRigidbody->SetMass(1.0f);
 
 		mState = eCupheadState::Idle_R;
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->GetPos();
+		tr->SetScale(Vector2(1.0f, 1.0f));
+
 
 		GameObject::Initialize();
 	}
@@ -301,11 +300,10 @@ namespace jw
 			Transform* tr = other->GetOwner()->GetComponent<Transform>();
 			Vector2 pos = tr->GetPos();
 			object::Instantiate<ParryEffect>(Vector2(pos), eLayerType::Effect);
-			mRigidbody->TimeInit();
-			Vector2 velocity = mRigidbody->GetVelocity();
-			velocity.y -= mJumpScale;
-
 			
+
+			Vector2 velocity;
+			velocity.y -= 1600.0f;
 			mRigidbody->SetVelocity(velocity);
 
 			mParryCount = 1;
@@ -321,10 +319,8 @@ namespace jw
 			Vector2 pos = tr->GetPos();
 			object::Instantiate<ParryEffect>(Vector2(pos), eLayerType::Effect);
 
-			mRigidbody->TimeInit();
-			Vector2 velocity = mRigidbody->GetVelocity();
-			velocity.y -= mJumpScale;
-
+			Vector2 velocity;
+			velocity.y -= 1600.0f;
 			mRigidbody->SetVelocity(velocity);
 
 			mParryCount = 1;
@@ -990,9 +986,10 @@ namespace jw
 
 				if (mSecond > mFiredelay)
 				{
-					Peashot_L* bullet;
+					PeaShot_Normal* bullet;
 
-					bullet = object::Instantiate<Peashot_L>((pos + Vector2(-60.0f, -60.0f)), eLayerType::Bullet);
+					//bullet = object::Instantiate<Peashot_L>((pos + Vector2(-60.0f, -60.0f)), eLayerType::Bullet);
+					bullet = object::Instantiate<PeaShot_Normal>((pos + Vector2(-60.0f, -60.0f)), eLayerType::Bullet, GetCupheadState());
 					bullet->SetDegree(180.0f);
 
 					object::Instantiate<PeashotSpark>((pos + Vector2(-80.0f, -80.0f)), eLayerType::Effect);
@@ -1038,8 +1035,8 @@ namespace jw
 
 				if (mSecond > mFiredelay)
 				{
-					TestBullet* bullet
-						= object::Instantiate<TestBullet>(pos + Vector2(60.0f, -60.0f), eLayerType::Bullet);
+					PeaShot_Normal* bullet;
+					bullet = object::Instantiate<PeaShot_Normal>(pos + Vector2(60.0f, -60.0f), eLayerType::Bullet, GetCupheadState());
 
 					bullet->SetDegree(0.0f);
 
@@ -1148,8 +1145,8 @@ namespace jw
 
 				if (mSecond > mFiredelay)
 				{
-					Peashot_L* bullet
-						= object::Instantiate<Peashot_L>((pos + Vector2(-60.0f, -50.0f)), eLayerType::Bullet);
+					PeaShot_Normal* bullet
+						= object::Instantiate<PeaShot_Normal>((pos + Vector2(-60.0f, -50.0f)), eLayerType::Bullet, GetCupheadState());
 					bullet->SetDegree(180.0f);
 
 					object::Instantiate<PeashotSpark>((pos + Vector2(-110.0f, -70.0f)), eLayerType::Effect);
@@ -1206,8 +1203,8 @@ namespace jw
 
 				if (mSecond > mFiredelay)
 				{
-					TestBullet* bullet
-						= object::Instantiate<TestBullet>((tr->GetPos() + Vector2(60.0f, -50.0f)), eLayerType::Bullet);
+					PeaShot_Normal* bullet
+						= object::Instantiate<PeaShot_Normal>((tr->GetPos() + Vector2(60.0f, -50.0f)), eLayerType::Bullet, GetCupheadState());
 					bullet->SetDegree(0.0f);
 
 					object::Instantiate<PeashotSpark>((tr->GetPos() + Vector2(70.0f, -70.0f)), eLayerType::Effect);
@@ -1326,8 +1323,8 @@ namespace jw
 
 				if (mSecond > mFiredelay)
 				{
-					Peashot_L* bullet
-						= object::Instantiate<Peashot_L>((tr->GetPos() + Vector2(-60.0f, -20.0f)), eLayerType::Bullet);
+					PeaShot_Normal* bullet
+						= object::Instantiate<PeaShot_Normal>((tr->GetPos() + Vector2(-60.0f, -20.0f)), eLayerType::Bullet, GetCupheadState());
 					bullet->SetDegree(180.0f);
 
 					object::Instantiate<PeashotSpark>((tr->GetPos() + Vector2(-90.0f, -40.0f)), eLayerType::Effect);
@@ -1371,8 +1368,8 @@ namespace jw
 
 				if (mSecond > mFiredelay)
 				{
-					TestBullet* bullet
-						= object::Instantiate<TestBullet>((tr->GetPos() + Vector2(60.0f, -20.0f)), eLayerType::Bullet);
+					PeaShot_Normal* bullet
+						= object::Instantiate<PeaShot_Normal>((tr->GetPos() + Vector2(60.0f, -20.0f)), eLayerType::Bullet, GetCupheadState());
 					bullet->SetDegree(0.0f);
 
 					object::Instantiate<PeashotSpark>((tr->GetPos() + Vector2(70.0f, -40.0f)), eLayerType::Effect);
@@ -1447,8 +1444,8 @@ namespace jw
 
 				if (mSecond > mFiredelay)
 				{
-					Peashot_Up* bullet
-						= object::Instantiate<Peashot_Up>(pos + Vector2(-30.0f, -90.0f), eLayerType::Bullet);
+					PeaShot_Normal* bullet
+						= object::Instantiate<PeaShot_Normal>(pos + Vector2(-30.0f, -90.0f), eLayerType::Bullet, GetCupheadState());
 
 					bullet->SetDegree(-90.0f);
 
@@ -1494,8 +1491,8 @@ namespace jw
 
 				if (mSecond > mFiredelay)
 				{
-					Peashot_Up* bullet
-						= object::Instantiate<Peashot_Up>(pos + Vector2(30.0f, -90.0f), eLayerType::Bullet);
+					PeaShot_Normal* bullet
+						= object::Instantiate<PeaShot_Normal>(pos + Vector2(30.0f, -90.0f), eLayerType::Bullet, GetCupheadState());
 
 					bullet->SetDegree(-90.0f);
 
@@ -1572,8 +1569,8 @@ namespace jw
 
 				if (mSecond > mFiredelay)
 				{
-					Peashot_diagnal_L* bullet
-						= object::Instantiate<Peashot_diagnal_L>((pos + Vector2(-60.0f, -40.0f)), eLayerType::Bullet);
+					PeaShot_Normal* bullet
+						= object::Instantiate<PeaShot_Normal>((pos + Vector2(-60.0f, -40.0f)), eLayerType::Bullet,GetCupheadState());
 					bullet->SetDegree(-135.0f);
 
 					object::Instantiate<PeashotSpark>((pos + Vector2(-90.0f, -120.0f)), eLayerType::Effect);
@@ -1624,8 +1621,8 @@ namespace jw
 
 				if (mSecond > mFiredelay)
 				{
-					Peashot_diagnal_R* bullet
-						= object::Instantiate<Peashot_diagnal_R>((tr->GetPos() + Vector2(60.0f, -40.0f)), eLayerType::Bullet);
+					PeaShot_Normal* bullet
+						= object::Instantiate<PeaShot_Normal>((tr->GetPos() + Vector2(60.0f, -40.0f)), eLayerType::Bullet, GetCupheadState());
 					bullet->SetDegree(-45.0f);
 
 					object::Instantiate<PeashotSpark>((tr->GetPos() + Vector2(70.0f, -120.0f)), eLayerType::Effect);
@@ -1710,9 +1707,9 @@ namespace jw
 
 				if (mSecond > mFiredelay)
 				{
-					Peashot_L* bullet;
+					PeaShot_Normal* bullet;
 
-					bullet = object::Instantiate<Peashot_L>((pos + Vector2(-60.0f, -60.0f)), eLayerType::Bullet);
+					bullet = object::Instantiate<PeaShot_Normal>((pos + Vector2(-60.0f, -60.0f)), eLayerType::Bullet, GetCupheadState());
 					bullet->SetDegree(180.0f);
 
 					object::Instantiate<PeashotSpark>((pos + Vector2(-70.0f, -40.0f)), eLayerType::Effect);
@@ -1797,8 +1794,8 @@ namespace jw
 
 				if (mSecond > mFiredelay)
 				{
-					TestBullet* bullet
-						= object::Instantiate<TestBullet>(pos + Vector2(60.0f, -60.0f), eLayerType::Bullet);
+					PeaShot_Normal* bullet
+						= object::Instantiate<PeaShot_Normal>(pos + Vector2(60.0f, -60.0f), eLayerType::Bullet, GetCupheadState());
 
 					bullet->SetDegree(0.0f);
 
@@ -1953,8 +1950,8 @@ namespace jw
 
 				if (mSecond > mFiredelay)
 				{
-					Peashot_Up* bullet
-						= object::Instantiate<Peashot_Up>(pos + Vector2(-30.0f, -90.0f), eLayerType::Bullet);
+					PeaShot_Normal* bullet
+						= object::Instantiate<PeaShot_Normal>(pos + Vector2(-30.0f, -90.0f), eLayerType::Bullet, GetCupheadState());
 
 					bullet->SetDegree(-90.0f);
 
@@ -2038,8 +2035,8 @@ namespace jw
 
 				if (mSecond > mFiredelay)
 				{
-					Peashot_Up* bullet
-						= object::Instantiate<Peashot_Up>(pos + Vector2(10.0f, -90.0f), eLayerType::Bullet);
+					PeaShot_Normal* bullet
+						= object::Instantiate<PeaShot_Normal>(pos + Vector2(10.0f, -90.0f), eLayerType::Bullet, GetCupheadState());
 
 					bullet->SetDegree(-90.0f);
 
@@ -2190,8 +2187,8 @@ namespace jw
 
 				if (mSecond > mFiredelay)
 				{
-					Peashot_diagnal_L* bullet
-						= object::Instantiate<Peashot_diagnal_L>((pos + Vector2(-60.0f, 0.0f)), eLayerType::Bullet);
+					PeaShot_Normal* bullet
+						= object::Instantiate<PeaShot_Normal>((pos + Vector2(-60.0f, 0.0f)), eLayerType::Bullet, GetCupheadState());
 					bullet->SetDegree(-135.0f);
 
 					object::Instantiate<PeashotSpark>((pos + Vector2(-80.0f, -80.0f)), eLayerType::Effect);
@@ -2289,8 +2286,8 @@ namespace jw
 
 				if (mSecond > mFiredelay)
 				{
-					Peashot_diagnal_R* bullet
-						= object::Instantiate<Peashot_diagnal_R>((tr->GetPos() + Vector2(60.0f, 0.0f)), eLayerType::Bullet);
+					PeaShot_Normal* bullet
+						= object::Instantiate<PeaShot_Normal>((tr->GetPos() + Vector2(60.0f, 0.0f)), eLayerType::Bullet, GetCupheadState());
 					bullet->SetDegree(-45.0f);
 
 					object::Instantiate<PeashotSpark>((tr->GetPos() + Vector2(80.0f, -80.0f)), eLayerType::Effect);

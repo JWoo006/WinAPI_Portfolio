@@ -13,9 +13,9 @@ namespace jw
 		, mVelocity(Vector2::Zero)
 	{
 		mLimitedVelocity.x = 200.0f;
-		mLimitedVelocity.y = 1000000.0f;
+		mLimitedVelocity.y = 3000000.f;
 		mbGround = false;
-		mGravity = Vector2(0.0f, 2200.0f);
+		mGravity = Vector2(0.0f, 5000.0f);
 		mFriction = 100.0f;
 	}
 	Rigidbody::~Rigidbody()
@@ -33,7 +33,7 @@ namespace jw
 		// 속도에 가속도를 더해준다
 		mVelocity += mAccelation * Time::DeltaTime();
 
-		mTime = Time::DeltaTime();
+		
 
 		if (mbGround)
 		{
@@ -45,11 +45,12 @@ namespace jw
 			float dot = math::Dot(mVelocity, gravity);
 			mVelocity -= gravity * dot;
 		}
-		else
+		else if(!mbGround)
 		{
 			// 공중에 떠 있을시
-			mVelocity += mGravity * mTime;
+			mVelocity += mGravity * Time::DeltaTime();
 		}
+		
 
 		//// 중력가속도 최대 속도 제한
 		//Vector2 gravity = mGravity;

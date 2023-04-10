@@ -85,17 +85,24 @@ namespace jw
         Graphics graphic(hdc);
         if (mImageType == eImageFormat::PNG)
         {
-            //pos += mImagesOffset;
-            //pos.x -= size.x / 2.0f;
-            //pos.y -= size.y;
-
             pos += mSpriteSheet[mImagesIndex].offset;
-            pos.x -= mSpriteSheet[mImagesIndex].size.x / 2.0f;
-            pos.y -= mSpriteSheet[mImagesIndex].size.y;
-            
+            pos.x -= (mSpriteSheet[mImagesIndex].size.x / 2.0f ) * scale.x;
+            pos.y -= mSpriteSheet[mImagesIndex].size.y * scale.y;
+         
+            Gdiplus::RectF mRect(pos.x, pos.y, mImages[mImagesIndex]->GetWidth() * scale.x, mImages[mImagesIndex]->GetHeight() * scale.y);
 
-            //graphic.DrawImage(mImages[mImagesIndex]->GetImage(), 0, 0, mImages[mImagesIndex]->GetWidth(), mImages[mImagesIndex]->GetHeight());
-            graphic.DrawImage(mImages[mImagesIndex]->GetImage(), pos.x, pos.y, mImages[mImagesIndex]->GetWidth(), mImages[mImagesIndex]->GetHeight());
+            //mAnimator->SetMatrixChangeAlpha(1.0f);
+
+            Gdiplus::ImageAttributes imgAttributes;
+            Gdiplus::ColorMatrix mMatrix = mAnimator->GetMatrix();
+            imgAttributes.SetColorMatrix(&mMatrix, Gdiplus::ColorMatrixFlagsDefault, Gdiplus::ColorAdjustTypeBitmap);
+
+            graphic.DrawImage(mImages[mImagesIndex]->GetImage(), mRect, 0, 0
+                , mImages[mImagesIndex]->GetWidth() * scale.x, mImages[mImagesIndex]->GetHeight() * scale.y
+                , Gdiplus::UnitPixel, &imgAttributes);
+
+            //graphic.DrawImage(mImages[mImagesIndex]->GetImage(), pos.x, pos.y
+            //, mImages[mImagesIndex]->GetWidth() * scale.x, mImages[mImagesIndex]->GetHeight() * scale.y);
         }
         else
         {

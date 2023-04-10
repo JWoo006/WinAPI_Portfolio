@@ -155,6 +155,7 @@ namespace jw
 		{
 			return E_FAIL;
 		}
+
 		mWidth = mImage->GetWidth();
 		mHeight = mImage->GetHeight();
 		HDC mainDC = application.GetHdc();

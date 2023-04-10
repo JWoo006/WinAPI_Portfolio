@@ -28,7 +28,7 @@ namespace jw
 
 		object::Instantiate<Cuphead>(Vector2(100.0f, 800.0f), eLayerType::Player);
 		object::Instantiate<Stage1_BG1>(eLayerType::BG);
-		//object::Instantiate<Stage1_BG2>(eLayerType::BG3);
+		object::Instantiate<Stage1_BG2>(eLayerType::BG3);
 		object::Instantiate<Veggie_Onion>(Vector2(1100.0f, 800.0f), eLayerType::Monster);
 		object::Instantiate<Ground_Veggie>(Vector2(-1.0f, 800.0f), eLayerType::Ground);
 		object::Instantiate<testEnemy>(Vector2(300.0f, 500.0f), eLayerType::ParryObj);

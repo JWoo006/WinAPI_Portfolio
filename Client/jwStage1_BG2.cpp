@@ -28,14 +28,9 @@ namespace jw
 
 		GameObject::Render(hdc);
 
-		/*TransparentBlt(hdc, -40, -30, mImage->GetWidth() * scale.x, mImage->GetHeight() * scale.y, mImage->GetHdc(), 0, 0
-			, mImage->GetWidth(), mImage->GetHeight(), RGB(255, 0, 255));*/
 		Graphics graphic(hdc);
-		Vector2 scales;
-		scales.x = mImage->GetWidth()* scale.x;
-		scales.y = mImage->GetHeight() * scale.y;
 
-		graphic.DrawImage(mImage->GetImage(), 100, -30, mImage->GetWidth(), mImage->GetHeight());;
+	    //graphic.DrawImage(mImage->GetImage(), 0.0f, 700.0f, mImage->GetWidth() * scale.x, mImage->GetHeight() * scale.y);
 		int a = 0;
 	}
 	void Stage1_BG2::Release()

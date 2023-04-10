@@ -65,12 +65,23 @@ namespace jw
 		std::function<void()>& GetEndEvent(const std::wstring& name);
 		bool IsComplete() {	return mActiveAnimation->IsComplete();}
 
+		void SetMatrixBase();
+		void SetMatrixChangeAlpha(float length);
+		void SetMatrixHitFlash();
+		Gdiplus::ColorMatrix GetMatrix() { return mColorMatrix; }
+
+		bool IsHitFlash() { return mbIsHitFlash; }
+		void SetHitFLash(bool flash) { mbIsHitFlash = flash; }
+
 	private:
 		std::map<std::wstring, Animation*> mAnimations;
 		std::map<std::wstring, Events*> mEvents;
 		Animation* mActiveAnimation;
 		Image* mSpriteSheet;
 		bool mbLoop;
+
+		Gdiplus::ColorMatrix mColorMatrix;
+		bool mbIsHitFlash;
 	};
 }
 
