@@ -24,7 +24,7 @@ namespace jw
 		mbOnHit = false;
 		OnHitChecker = 0.0f;
 
-		mPotatoHp = 3;
+		mPotatoHp = 30;
 		mAttackCnt = 3;
 		mAttackTimeChecker = 0.0f;
 		mShootTimerChecker = 0.0f;

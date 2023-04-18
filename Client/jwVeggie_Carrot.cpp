@@ -29,7 +29,7 @@ namespace jw
 		mbOnHit = false;
 		OnHitChecker = 0.0f;
 
-		mCarrotHp = 3;
+		mCarrotHp = 30;
 		mCarrotBombCnt = 4;
 		mHypnoDelayCnt = 4;
 		mHypnoCnt = 3;

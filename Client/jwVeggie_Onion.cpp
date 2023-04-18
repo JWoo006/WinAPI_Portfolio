@@ -24,7 +24,7 @@ namespace jw
 		mbOnHit = false;
 		OnHitChecker = 0.0f;
 
-		mOnionHp = 10;
+		mOnionHp = 30;
 		mAttackCnt = 3;
 		mAttackTimeChecker = 0.0f;
 
