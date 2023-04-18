@@ -65,7 +65,7 @@ namespace jw
 			|| mCupheadState == Cuphead::eCupheadState::Shoot_Jump_Up_L
 			|| mCupheadState == Cuphead::eCupheadState::Shoot_Jump_Up_R)
 		{
-			mCollider->SetCenter(Vector2(-25.0f, -20.0f));
+			mCollider->SetCenter(Vector2(-15.0f, -20.0f));
 			mCollider->SetSize(Vector2(20.0f, 40.0f));
 			mAnimator->Play(L"Weapon_peashotmain_R", true);
 			mAnimator->Play(L"Weapon_peashotUp", true);
@@ -100,7 +100,7 @@ namespace jw
 		dir = math::Rotate(dir, mDegree);
 
 		Vector2 pos = tr->GetPos();
-		float speed = 1000.0f;
+		float speed = 1500.0f;
 		pos.x += speed * dir.x * Time::DeltaTime();
 		pos.y += speed * dir.y * Time::DeltaTime();
 		tr->SetPos(pos);
@@ -121,7 +121,10 @@ namespace jw
 	}
 	void PeaShot_Normal::OnCollisionEnter(Collider* other)
 	{
-		object::Destroy(this);
+		if (other->GetOwner()->GetLayerType() == eLayerType::Monster)
+		{
+			object::Destroy(this);
+		}
 	}
 	void PeaShot_Normal::OnCollisionStay(Collider* other)
 	{

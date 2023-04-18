@@ -42,13 +42,16 @@ namespace jw
 
 		Gdiplus::ColorMatrix GetMatrix() { return mColorMatrix; }
 
+		int GetAnimPNGIndex() { return mImagesIndex; }
+		int GetAnimBMPIndex() { return mSpriteIndex; }
+
 	private:
 		Animator* mAnimator;
 		Image* mSheetImage;
 		std::vector<Sprite> mSpriteSheet;
 
 		std::vector<Image*> mImages;
-		UINT mImagesIndex;
+		int mImagesIndex;
 		Vector2 size;
 		Vector2 mImagesLeftTop;
 		Vector2 mImagesSize;

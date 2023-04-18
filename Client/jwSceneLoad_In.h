@@ -16,10 +16,13 @@ namespace jw
 		virtual void Release() override;
 
 		void AnimCompleteEvent();
+		bool EndCheck() { return mbIsEnd; }
+		void SetEndCheck(bool state) { mbIsEnd = state; }
 
 	private:
 		Animator* mAnimator;
 		Scene* mPrevScene;
+		bool mbIsEnd;
 	};
 }
 

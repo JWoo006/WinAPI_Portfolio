@@ -10,6 +10,7 @@ namespace jw
 		static void Update();
 		static void Render(HDC hdc);
 
+
 		__forceinline static double DeltaTime() { return mDeltaTime; }
 
 	private:

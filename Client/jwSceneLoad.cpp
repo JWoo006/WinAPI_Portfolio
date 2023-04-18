@@ -9,7 +9,6 @@ namespace jw
 
 	SceneLoad::SceneLoad()
 	{
-
 		mNextScene = SceneManager::getNextSceneType();
 
 		mAnimator = AddComponent<Animator>();

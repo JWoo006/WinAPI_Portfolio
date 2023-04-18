@@ -1,5 +1,6 @@
 #pragma once
 #include <math.h>
+#include <cmath>
 #define PI 3.141592
 
 struct Vector2
@@ -177,6 +178,21 @@ namespace jw::math
 	inline static float Cross(Vector2& v1, Vector2& v2)
 	{
 		return v1.x * v2.y - v1.y * v2.x;
+	}
+
+	inline static float CalculateAngle(Vector2& v1, Vector2& v2)
+	{
+		float Angle = 0.0f;
+
+		// 각도 계산 라디안 추출
+		float x = v2.x - v1.x;
+		float y = v2.y - v1.y;
+		Angle = atan2(y, x);
+
+		// Convert radians to degrees
+		Angle = Angle * (180.0 / PI);
+
+		return Angle;
 	}
 
 }

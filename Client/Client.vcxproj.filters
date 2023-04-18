@@ -107,6 +107,15 @@
     <Filter Include="Contents\WorldMap">
       <UniqueIdentifier>{83da3c14-5d9e-4d61-9b52-3716e32ae2d7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Stage\Veggie\Effect">
+      <UniqueIdentifier>{bfee0421-bd83-4411-b4e7-bb52f864bca1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Stage\Common">
+      <UniqueIdentifier>{57a6f20d-c41b-47c4-874c-5b8f4954217b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Stage\WinScreen">
+      <UniqueIdentifier>{03e58088-9c70-4388-aa82-44837cb825be}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -241,9 +250,6 @@
     <ClInclude Include="jwTile.h">
       <Filter>Contents\Object</Filter>
     </ClInclude>
-    <ClInclude Include="jwStage1_BG_Sky.h">
-      <Filter>Contents\Stage\Veggie\Background</Filter>
-    </ClInclude>
     <ClInclude Include="jwStage1_BG1.h">
       <Filter>Contents\Stage\Veggie\Background</Filter>
     </ClInclude>
@@ -294,6 +300,63 @@
     </ClInclude>
     <ClInclude Include="jwPeashotSpark.h">
       <Filter>Contents\Weapon\Peashot</Filter>
+    </ClInclude>
+    <ClInclude Include="jwOnHitEffect.h">
+      <Filter>Contents\Player\PlayerEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="jwCupheadIntroAnim.h">
+      <Filter>Contents\Player\PlayerEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="jwFightText_WALLOP.h">
+      <Filter>Contents\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="jwVeggie_Potato.h">
+      <Filter>Contents\Stage\Veggie\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="jwPotatoIntroEffect.h">
+      <Filter>Contents\Stage\Veggie\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="jwPotatoAttackEffect.h">
+      <Filter>Contents\Stage\Veggie\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="jwBossExplosion.h">
+      <Filter>Contents\Stage\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="jwPotatoShoot.h">
+      <Filter>Contents\Stage\Veggie\object</Filter>
+    </ClInclude>
+    <ClInclude Include="jwStage1_BG3.h">
+      <Filter>Contents\Stage\Veggie\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="jwOnionBullet.h">
+      <Filter>Contents\Stage\Veggie\object</Filter>
+    </ClInclude>
+    <ClInclude Include="jwOnionTears.h">
+      <Filter>Contents\Stage\Veggie\object</Filter>
+    </ClInclude>
+    <ClInclude Include="jwVeggie_Carrot.h">
+      <Filter>Contents\Stage\Veggie\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="jwCarrot_Bomb.h">
+      <Filter>Contents\Stage\Veggie\object</Filter>
+    </ClInclude>
+    <ClInclude Include="jwCarrotHypno_Beam.h">
+      <Filter>Contents\Stage\Veggie\object</Filter>
+    </ClInclude>
+    <ClInclude Include="jwCarrotHypno_Eye.h">
+      <Filter>Contents\Stage\Veggie\object</Filter>
+    </ClInclude>
+    <ClInclude Include="jwWinscreen_BG1.h">
+      <Filter>Contents\Stage\WinScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="jwWinscreen_Cuphead.h">
+      <Filter>Contents\Stage\WinScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="jwWinscreen_Board.h">
+      <Filter>Contents\Stage\WinScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="jwWinscreen_ResultAnim.h">
+      <Filter>Contents\Stage\WinScreen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -421,9 +484,6 @@
     <ClCompile Include="jwTile.cpp">
       <Filter>Contents\Object</Filter>
     </ClCompile>
-    <ClCompile Include="jwStage1_BG_Sky.cpp">
-      <Filter>Contents\Stage\Veggie\Background</Filter>
-    </ClCompile>
     <ClCompile Include="jwStage1_BG1.cpp">
       <Filter>Contents\Stage\Veggie\Background</Filter>
     </ClCompile>
@@ -471,6 +531,63 @@
     </ClCompile>
     <ClCompile Include="jwPeashotSpark.cpp">
       <Filter>Contents\Weapon\Peashot</Filter>
+    </ClCompile>
+    <ClCompile Include="jwOnHitEffect.cpp">
+      <Filter>Contents\Player\PlayerEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="jwCupheadIntroAnim.cpp">
+      <Filter>Contents\Player\PlayerEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="jwFightText_WALLOP.cpp">
+      <Filter>Contents\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="jwVeggie_Potato.cpp">
+      <Filter>Contents\Stage\Veggie\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="jwPotatoIntroEffect.cpp">
+      <Filter>Contents\Stage\Veggie\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="jwPotatoAttackEffect.cpp">
+      <Filter>Contents\Stage\Veggie\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="jwBossExplosion.cpp">
+      <Filter>Contents\Stage\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="jwPotatoShoot.cpp">
+      <Filter>Contents\Stage\Veggie\object</Filter>
+    </ClCompile>
+    <ClCompile Include="jwStage1_BG3.cpp">
+      <Filter>Contents\Stage\Veggie\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="jwOnionBullet.cpp">
+      <Filter>Contents\Stage\Veggie\object</Filter>
+    </ClCompile>
+    <ClCompile Include="jwOnionTears.cpp">
+      <Filter>Contents\Stage\Veggie\object</Filter>
+    </ClCompile>
+    <ClCompile Include="jwVeggie_Carrot.cpp">
+      <Filter>Contents\Stage\Veggie\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="jwCarrot_Bomb.cpp">
+      <Filter>Contents\Stage\Veggie\object</Filter>
+    </ClCompile>
+    <ClCompile Include="jwCarrotHypno_Beam.cpp">
+      <Filter>Contents\Stage\Veggie\object</Filter>
+    </ClCompile>
+    <ClCompile Include="jwCarrotHypno_Eye.cpp">
+      <Filter>Contents\Stage\Veggie\object</Filter>
+    </ClCompile>
+    <ClCompile Include="jwWinscreen_BG1.cpp">
+      <Filter>Contents\Stage\WinScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="jwWinscreen_Cuphead.cpp">
+      <Filter>Contents\Stage\WinScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="jwWinscreen_Board.cpp">
+      <Filter>Contents\Stage\WinScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="jwWinscreen_ResultAnim.cpp">
+      <Filter>Contents\Stage\WinScreen</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

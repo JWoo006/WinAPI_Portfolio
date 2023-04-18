@@ -17,6 +17,7 @@ namespace jw
 		scale = tr->GetScale();
 
 		mImage = Resources::Load<Image>(L"Stage1_BG1", L"..\\Resources\\Image\\Stage1_veggie\\BackGround\\veggie_bg1.bmp");
+		//mImage = Resources::Load<Image>(L"Stage1_BG1", L"..\\Resources\\Image\\Stage1_veggie\\BackGround\\veggie_bg1_b.png");
 
 		GameObject::Initialize();
 	}
@@ -27,6 +28,10 @@ namespace jw
 	{
 
 		GameObject::Render(hdc);
+
+		Graphics graphic(hdc);
+
+		//graphic.DrawImage(mImage->GetImage(), -40.0f, -20.0f, mImage->GetWidth() * scale.x, mImage->GetHeight() * scale.y);
 
  		TransparentBlt(hdc, -40, -20, mImage->GetWidth() * scale.x, mImage->GetHeight() * scale.y, mImage->GetHdc(), 0, 0
 			, mImage->GetWidth(), mImage->GetHeight(), RGB(255, 0, 255));

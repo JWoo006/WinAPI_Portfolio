@@ -14,6 +14,7 @@
 #include "jwJumpDust.h"
 #include "jwDashEffect.h"
 #include "jwParryEffect.h"
+#include "jwOnHitEffect.h"
 
 namespace jw
 {
@@ -42,6 +43,9 @@ namespace jw
 		mFiredelay = PeaShot_Normal::GetDelay();
 
 		mAnimator = AddComponent<Animator>();
+
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Intro", Vector2::Zero, 0.05f, eImageFormat::PNG, eAnimationDir::R);
+
 		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Idle_L", Vector2::Zero, 0.07f, eImageFormat::PNG, eAnimationDir::L);
 		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Idle_R", Vector2::Zero, 0.07f, eImageFormat::PNG, eAnimationDir::R);
 
@@ -100,8 +104,8 @@ namespace jw
 		mAnimator->Play(L"CupheadIdle_R", true);
 		
 		collider = AddComponent<Collider>();
-		collider->SetCenter(Vector2(-75.0f, -145.0f));
-		collider->SetSize(Vector2(150.0f, 150.0f));
+		collider->SetCenter(Vector2(-35.0f, -145.0f));
+		collider->SetSize(Vector2(90.0f, 150.0f));
 		
 		mRigidbody = AddComponent<Rigidbody>();
 		mRigidbody->SetMass(1.0f);
@@ -127,63 +131,63 @@ namespace jw
 		{
 
 		case jw::Cuphead::eCupheadState::Move_L:
-			collider->SetCenter(Vector2(-75.0f, -145.0f));
-			collider->SetSize(Vector2(150.0f, 150.0f));
+			collider->SetCenter(Vector2(-40.0f, -125.0f));
+			collider->SetSize(Vector2(90.0f, 130.0f));
 			move();
 			break;
 		case jw::Cuphead::eCupheadState::Move_R:
-			collider->SetCenter(Vector2(-75.0f, -145.0f));
-			collider->SetSize(Vector2(150.0f, 150.0f));
+			collider->SetCenter(Vector2(-40.0f, -125.0f));
+			collider->SetSize(Vector2(90.0f, 130.0f));
 			move();
 			break;
 		case jw::Cuphead::eCupheadState::Jump_L:
-			collider->SetCenter(Vector2(-75.0f, -145.0f));
-			collider->SetSize(Vector2(150.0f, 150.0f));
+			collider->SetCenter(Vector2(-40.0f, -125.0f));
+			collider->SetSize(Vector2(90.0f, 130.0f));
 			jump();
 			break;
 		case jw::Cuphead::eCupheadState::Jump_R:
-			collider->SetCenter(Vector2(-75.0f, -145.0f));
-			collider->SetSize(Vector2(150.0f, 150.0f));
+			collider->SetCenter(Vector2(-40.0f, -125.0f));
+			collider->SetSize(Vector2(90.0f, 130.0f));
 			jump();
 			break;
 		case jw::Cuphead::eCupheadState::Duck_L:
-			collider->SetCenter(Vector2(-75.0f, -65.0f));
-			collider->SetSize(Vector2(150.0f, 70.0f));
+			collider->SetCenter(Vector2(-40.0f, -65.0f));
+			collider->SetSize(Vector2(90.0f, 70.0f));
 			duck();
 			break;
 		case jw::Cuphead::eCupheadState::Duck_R:
-			collider->SetCenter(Vector2(-75.0f, -65.0f));
-			collider->SetSize(Vector2(150.0f, 70.0f));
+			collider->SetCenter(Vector2(-40.0f, -65.0f));
+			collider->SetSize(Vector2(90.0f, 70.0f));
 			duck();
 			break;
 		case jw::Cuphead::eCupheadState::Duck_Shoot_L:
-			collider->SetCenter(Vector2(-75.0f, -65.0f));
-			collider->SetSize(Vector2(150.0f, 70.0f));
+			collider->SetCenter(Vector2(-40.0f, -65.0f));
+			collider->SetSize(Vector2(90.0f, 70.0f));
 			shoot_duck();
 			break;
 		case jw::Cuphead::eCupheadState::Duck_Shoot_R:
-			collider->SetCenter(Vector2(-75.0f, -65.0f));
-			collider->SetSize(Vector2(150.0f, 70.0f));
+			collider->SetCenter(Vector2(-40.0f, -65.0f));
+			collider->SetSize(Vector2(90.0f, 70.0f));
 			shoot_duck();
 			break;
 		case jw::Cuphead::eCupheadState::Dash_Ground_L:
-			collider->SetCenter(Vector2(-75.0f, -145.0f));
-			collider->SetSize(Vector2(150.0f, 150.0f));
+			collider->SetCenter(Vector2(-40.0f, -125.0f));
+			collider->SetSize(Vector2(90.0f, 130.0f));
 			dash();
 			break;
 		case jw::Cuphead::eCupheadState::Dash_Ground_R:
-			collider->SetCenter(Vector2(-75.0f, -145.0f));
-			collider->SetSize(Vector2(150.0f, 150.0f));
+			collider->SetCenter(Vector2(-40.0f, -125.0f));
+			collider->SetSize(Vector2(90.0f, 130.0f));
 			dash();
 			break;
 		case jw::Cuphead::eCupheadState::Dash_Air_L:
-			collider->SetCenter(Vector2(-75.0f, -145.0f));
-			collider->SetSize(Vector2(150.0f, 150.0f));
+			collider->SetCenter(Vector2(-40.0f, -125.0f));
+			collider->SetSize(Vector2(90.0f, 130.0f));
 			dash();
 			break;
 		case jw::Cuphead::eCupheadState::Dash_Air_R:
-			collider->SetCenter(Vector2(-75.0f, -145.0f));
-			collider->SetSize(Vector2(150.0f, 150.0f));
+			collider->SetCenter(Vector2(-40.0f, -125.0f));
+			collider->SetSize(Vector2(90.0f, 130.0f));
 			dash();
 			break;
 		case jw::Cuphead::eCupheadState::Parry_L:
@@ -193,108 +197,121 @@ namespace jw
 			parry();
 			break;
 		case jw::Cuphead::eCupheadState::Aim_UP_L:
-			collider->SetCenter(Vector2(-75.0f, -145.0f));
-			collider->SetSize(Vector2(150.0f, 150.0f));
+			collider->SetCenter(Vector2(-40.0f, -125.0f));
+			collider->SetSize(Vector2(90.0f, 130.0f));
 			aim_up();
 			break;
 		case jw::Cuphead::eCupheadState::Aim_UP_R:
-			collider->SetCenter(Vector2(-75.0f, -145.0f));
-			collider->SetSize(Vector2(150.0f, 150.0f));
+			collider->SetCenter(Vector2(-40.0f, -125.0f));
+			collider->SetSize(Vector2(90.0f, 130.0f));
 			aim_up();
 			break;
 		case jw::Cuphead::eCupheadState::Shoot_L:
-			collider->SetCenter(Vector2(-75.0f, -145.0f));
-			collider->SetSize(Vector2(150.0f, 150.0f));
+			collider->SetCenter(Vector2(-40.0f, -125.0f));
+			collider->SetSize(Vector2(90.0f, 130.0f));
 			shoot();
 			break;
 		case jw::Cuphead::eCupheadState::Shoot_R:
-			collider->SetCenter(Vector2(-75.0f, -145.0f));
-			collider->SetSize(Vector2(150.0f, 150.0f));
+			collider->SetCenter(Vector2(-40.0f, -125.0f));
+			collider->SetSize(Vector2(90.0f, 130.0f));
 			shoot();
 			break;
 		case jw::Cuphead::eCupheadState::Shoot_Run_L:
-			collider->SetCenter(Vector2(-75.0f, -145.0f));
-			collider->SetSize(Vector2(150.0f, 150.0f));
+			collider->SetCenter(Vector2(-40.0f, -125.0f));
+			collider->SetSize(Vector2(90.0f, 130.0f));
 			shoot_run();
 			break;
 		case jw::Cuphead::eCupheadState::Shoot_Run_R:
-			collider->SetCenter(Vector2(-75.0f, -145.0f));
-			collider->SetSize(Vector2(150.0f, 150.0f));
+			collider->SetCenter(Vector2(-40.0f, -125.0f));
+			collider->SetSize(Vector2(90.0f, 130.0f));
 			shoot_run();
 			break;
 		case jw::Cuphead::eCupheadState::Shoot_UP_L:
-			collider->SetCenter(Vector2(-75.0f, -145.0f));
-			collider->SetSize(Vector2(150.0f, 150.0f));
+			collider->SetCenter(Vector2(-40.0f, -125.0f));
+			collider->SetSize(Vector2(90.0f, 130.0f));
 			shoot_up();
 			break;
 		case jw::Cuphead::eCupheadState::Shoot_UP_R:
-			collider->SetCenter(Vector2(-75.0f, -145.0f));
-			collider->SetSize(Vector2(150.0f, 150.0f));
+			collider->SetCenter(Vector2(-40.0f, -125.0f));
+			collider->SetSize(Vector2(90.0f, 130.0f));
 			shoot_up();
 			break;
 		case jw::Cuphead::eCupheadState::Shoot_Run_diag_Up_L:
-			collider->SetCenter(Vector2(-75.0f, -145.0f));
-			collider->SetSize(Vector2(150.0f, 150.0f));
+			collider->SetCenter(Vector2(-40.0f, -125.0f));
+			collider->SetSize(Vector2(90.0f, 130.0f));
 			shoot_run_diag_up();
 			break;
 		case jw::Cuphead::eCupheadState::Shoot_Run_diag_Up_R:
-			collider->SetCenter(Vector2(-75.0f, -145.0f));
-			collider->SetSize(Vector2(150.0f, 150.0f));
+			collider->SetCenter(Vector2(-40.0f, -125.0f));
+			collider->SetSize(Vector2(90.0f, 130.0f));
 			shoot_run_diag_up();
 			break;
 		case jw::Cuphead::eCupheadState::Shoot_Jump_L:
-			collider->SetCenter(Vector2(-75.0f, -145.0f));
-			collider->SetSize(Vector2(150.0f, 150.0f));
+			collider->SetCenter(Vector2(-40.0f, -125.0f));
+			collider->SetSize(Vector2(90.0f, 130.0f));
 			shoot_jump();
 			break;
 		case jw::Cuphead::eCupheadState::Shoot_Jump_R:
-			collider->SetCenter(Vector2(-75.0f, -145.0f));
-			collider->SetSize(Vector2(150.0f, 150.0f));
+			collider->SetCenter(Vector2(-40.0f, -125.0f));
+			collider->SetSize(Vector2(90.0f, 130.0f));
 			shoot_jump();
 			break;
 		case jw::Cuphead::eCupheadState::Shoot_Jump_Up_L:
-			collider->SetCenter(Vector2(-75.0f, -145.0f));
-			collider->SetSize(Vector2(150.0f, 150.0f));
+			collider->SetCenter(Vector2(-40.0f, -125.0f));
+			collider->SetSize(Vector2(90.0f, 130.0f));
 			shoot_jump_up();
 			break;
 		case jw::Cuphead::eCupheadState::Shoot_Jump_Up_R:
-			collider->SetCenter(Vector2(-75.0f, -145.0f));
-			collider->SetSize(Vector2(150.0f, 150.0f));
+			collider->SetCenter(Vector2(-40.0f, -125.0f));
+			collider->SetSize(Vector2(90.0f, 130.0f));
 			shoot_jump_up();
 			break;
 		case jw::Cuphead::eCupheadState::Shoot_Jump_diag_Up_L:
-			collider->SetCenter(Vector2(-75.0f, -145.0f));
-			collider->SetSize(Vector2(150.0f, 150.0f));
+			collider->SetCenter(Vector2(-40.0f, -125.0f));
+			collider->SetSize(Vector2(90.0f, 130.0f));
 			shoot_jump_diag_up();
 			break;
 		case jw::Cuphead::eCupheadState::Shoot_Jump_diag_Up_R:
-			collider->SetCenter(Vector2(-75.0f, -145.0f));
-			collider->SetSize(Vector2(150.0f, 150.0f));
+			collider->SetCenter(Vector2(-40.0f, -125.0f));
+			collider->SetSize(Vector2(90.0f, 130.0f));
 			shoot_jump_diag_up();
 			break;
 		case jw::Cuphead::eCupheadState::OnHit_L:
-			collider->SetCenter(Vector2(-75.0f, -145.0f));
-			collider->SetSize(Vector2(150.0f, 150.0f));
+			collider->SetCenter(Vector2(-40.0f, -125.0f));
+			collider->SetSize(Vector2(90.0f, 130.0f));
 		case jw::Cuphead::eCupheadState::OnHit_R:
-			collider->SetCenter(Vector2(-75.0f, -145.0f));
-			collider->SetSize(Vector2(150.0f, 150.0f));
+			collider->SetCenter(Vector2(-40.0f, -125.0f));
+			collider->SetSize(Vector2(90.0f, 130.0f));
 		case jw::Cuphead::eCupheadState::Death:
-			collider->SetCenter(Vector2(-75.0f, -145.0f));
-			collider->SetSize(Vector2(150.0f, 150.0f));
+			collider->SetCenter(Vector2(-40.0f, -125.0f));
+			collider->SetSize(Vector2(90.0f, 130.0f));
 			death();
 			break;
 		case jw::Cuphead::eCupheadState::Idle_L:
-			collider->SetCenter(Vector2(-75.0f, -145.0f));
-			collider->SetSize(Vector2(150.0f, 150.0f));
+			collider->SetCenter(Vector2(-40.0f, -125.0f));
+			collider->SetSize(Vector2(90.0f, 130.0f));
 			idle();
 			break;
 		case jw::Cuphead::eCupheadState::Idle_R:
-			collider->SetCenter(Vector2(-75.0f, -145.0f));
-			collider->SetSize(Vector2(150.0f, 150.0f));
+			collider->SetCenter(Vector2(-40.0f, -125.0f));
+			collider->SetSize(Vector2(90.0f, 130.0f));
 			idle();
 			break;
 		default:
 			break;
+		}
+
+		if (Input::GetKeyDown(eKeyCode::K))
+		{
+			if (mbInvincibile)
+			{
+				mbInvincibile = false;
+			}
+			else
+			{
+				mInvincibileTime = -9999.0;
+				mbInvincibile = true;
+			}
 		}
 
 	}
@@ -308,100 +325,216 @@ namespace jw
 	}
 	void Cuphead::OnCollisionEnter(Collider* other)
 	{	
-		// 패리 오브젝트 충돌 && 패링중
-		if (other->GetOwner()->GetLayerType() == eLayerType::ParryObj && mbParrying)
+		if (!mbInvincibile)
 		{
-			mbParrySuccess = true;
-			
-			Transform* tr = other->GetOwner()->GetComponent<Transform>();
-			Vector2 pos = tr->GetPos();
-			object::Instantiate<ParryEffect>(Vector2(pos), eLayerType::Effect);
-			
-
-			Vector2 velocity;
-			velocity.y -= 1600.0f;
-			mRigidbody->SetVelocity(velocity);
-
-			mParryCount = 1;
-		}	
-
-		if (other->GetOwner()->GetLayerType() == eLayerType::ParryObj && !mbParrying && !mbInvincibile)
-		{
-			mbInvincibile = true;
-
-			wchar_t lastchar = mAnimator->GetActiveAnimation()->GetAnimationName().back();
-
-			if (lastchar == L'L')
+			// 패리 오브젝트 충돌 && 패링중
+			if (other->GetOwner()->GetLayerType() == eLayerType::ParryObj && mbParrying)
 			{
-				mRigidbody->SetGround(false);
+				mbParrySuccess = true;
+
+				Transform* tr = other->GetOwner()->GetComponent<Transform>();
+				Vector2 pos = tr->GetPos();
+				object::Instantiate<ParryEffect>(Vector2(pos), eLayerType::Effect);
+
+
 				Vector2 velocity;
-				velocity.y -= 800;
-				velocity.x += 100;
+				velocity.y -= 1600.0f;
 				mRigidbody->SetVelocity(velocity);
 
-				mState = eCupheadState::OnHit_L;
-				mAnimator->Play(L"HitGround_L", true);
+				mParryCount = 1;
 			}
-			else if (lastchar == L'R')
-			{
-				mRigidbody->SetGround(false);
-				Vector2 velocity;
-				velocity.y -= 800;
-				velocity.x -= 100;
-				mRigidbody->SetVelocity(velocity);
 
-				mState = eCupheadState::OnHit_R;
-				mAnimator->Play(L"HitGround_R", true);
+			// 패리 오브젝트 충돌 && 패링중 X
+			if (other->GetOwner()->GetLayerType() == eLayerType::ParryObj && !mbParrying && !mbInvincibile)
+			{
+				Transform* tr = GetComponent<Transform>();
+				Vector2 pos = tr->GetPos();
+
+				mbInvincibile = true;
+
+				wchar_t lastchar = mAnimator->GetActiveAnimation()->GetAnimationName().back();
+
+				if (lastchar == L'L')
+				{
+					mRigidbody->SetGround(false);
+					Vector2 velocity;
+					velocity.y -= 800;
+					velocity.x += 100;
+					mRigidbody->SetVelocity(velocity);
+
+					mState = eCupheadState::OnHit_L;
+					mAnimator->Play(L"HitGround_L", true);
+
+					pos.x += 50.0f;
+					pos.y += 50.0f;
+					object::Instantiate<OnHitEffect>(pos, eLayerType::Effect);
+				}
+				else if (lastchar == L'R')
+				{
+					mRigidbody->SetGround(false);
+					Vector2 velocity;
+					velocity.y -= 800;
+					velocity.x -= 100;
+					mRigidbody->SetVelocity(velocity);
+
+					mState = eCupheadState::OnHit_R;
+					mAnimator->Play(L"HitGround_R", true);
+
+					pos.x -= 50.0f;
+					pos.y += 50.0f;
+					object::Instantiate<OnHitEffect>(pos, eLayerType::Effect);
+				}
+			}
+
+			// 몬스터 충돌
+			if (other->GetOwner()->GetLayerType() == eLayerType::Monster  && !mbInvincibile)
+			{
+				Transform* tr = GetComponent<Transform>();
+				Vector2 pos = tr->GetPos();
+
+				mbInvincibile = true;
+
+				wchar_t lastchar = mAnimator->GetActiveAnimation()->GetAnimationName().back();
+
+				if (lastchar == L'L')
+				{
+					mRigidbody->SetGround(false);
+					Vector2 velocity;
+					velocity.y -= 800;
+					velocity.x += 100;
+					mRigidbody->SetVelocity(velocity);
+
+					mState = eCupheadState::OnHit_L;
+					mAnimator->Play(L"HitGround_L", true);
+
+					pos.x += 50.0f;
+					pos.y += 50.0f;
+					object::Instantiate<OnHitEffect>(pos, eLayerType::Effect);
+				}
+				else if (lastchar == L'R')
+				{
+					mRigidbody->SetGround(false);
+					Vector2 velocity;
+					velocity.y -= 800;
+					velocity.x -= 100;
+					mRigidbody->SetVelocity(velocity);
+
+					mState = eCupheadState::OnHit_R;
+					mAnimator->Play(L"HitGround_R", true);
+
+					pos.x -= 50.0f;
+					pos.y += 50.0f;
+					object::Instantiate<OnHitEffect>(pos, eLayerType::Effect);
+				}
+			}
+
+			// 몬스터 총알 충돌
+			if (other->GetOwner()->GetLayerType() == eLayerType::BossBullet && !mbInvincibile)
+			{
+				Transform* tr = GetComponent<Transform>();
+				Vector2 pos = tr->GetPos();
+
+				mbInvincibile = true;
+
+				wchar_t lastchar = mAnimator->GetActiveAnimation()->GetAnimationName().back();
+
+				if (lastchar == L'L')
+				{
+					mRigidbody->SetGround(false);
+					Vector2 velocity;
+					velocity.y -= 800;
+					velocity.x += 100;
+					mRigidbody->SetVelocity(velocity);
+
+					mState = eCupheadState::OnHit_L;
+					mAnimator->Play(L"HitGround_L", true);
+
+					pos.x += 50.0f;
+					pos.y += 50.0f;
+					object::Instantiate<OnHitEffect>(pos, eLayerType::Effect);
+				}
+				else if (lastchar == L'R')
+				{
+					mRigidbody->SetGround(false);
+					Vector2 velocity;
+					velocity.y -= 800;
+					velocity.x -= 100;
+					mRigidbody->SetVelocity(velocity);
+
+					mState = eCupheadState::OnHit_R;
+					mAnimator->Play(L"HitGround_R", true);
+
+					pos.x -= 50.0f;
+					pos.y += 50.0f;
+					object::Instantiate<OnHitEffect>(pos, eLayerType::Effect);
+				}
 			}
 		}
+
 	}
 	void Cuphead::OnCollisionStay(Collider* other)
 	{
-		// 패리 오브젝트 충돌 && 패링중
-		if (other->GetOwner()->GetLayerType() == eLayerType::ParryObj && mbParrying && !mbParrySuccess)
+		if (mbInvincibile)
 		{
-			mbParrySuccess = true;
-			
-			Transform* tr = other->GetOwner()->GetComponent<Transform>();
-			Vector2 pos = tr->GetPos();
-			object::Instantiate<ParryEffect>(Vector2(pos), eLayerType::Effect);
-
-			Vector2 velocity;
-			velocity.y -= 1600.0f;
-			mRigidbody->SetVelocity(velocity);
-
-			mParryCount = 1;
-		}
-
-		if (other->GetOwner()->GetLayerType() == eLayerType::ParryObj && !mbParrying && !mbInvincibile)
-		{
-			mbInvincibile = true;
-
-			wchar_t lastchar = mAnimator->GetActiveAnimation()->GetAnimationName().back();
-
-			if (lastchar == L'L')
+			// 패리 오브젝트 충돌 && 패링중
+			if (other->GetOwner()->GetLayerType() == eLayerType::ParryObj && mbParrying && !mbParrySuccess)
 			{
-				mRigidbody->SetGround(false);
+				mbParrySuccess = true;
+
+				Transform* tr = other->GetOwner()->GetComponent<Transform>();
+				Vector2 pos = tr->GetPos();
+				object::Instantiate<ParryEffect>(Vector2(pos), eLayerType::Effect);
+
 				Vector2 velocity;
-				velocity.y -= 800;
-				velocity.x += 100;
+				velocity.y -= 1600.0f;
 				mRigidbody->SetVelocity(velocity);
 
-				mState = eCupheadState::OnHit_L;
-				mAnimator->Play(L"HitGround_L", true);
+				mParryCount = 1;
 			}
-			else if (lastchar == L'R')
-			{
-				mRigidbody->SetGround(false);
-				Vector2 velocity;
-				velocity.y -= 800;
-				velocity.x -= 100;
-				mRigidbody->SetVelocity(velocity);
 
-				mState = eCupheadState::OnHit_R;
-				mAnimator->Play(L"HitGround_R", true);
+			if (other->GetOwner()->GetLayerType() == eLayerType::ParryObj && !mbParrying && !mbInvincibile)
+			{
+				Transform* tr = GetComponent<Transform>();
+				Vector2 pos = tr->GetPos();
+
+				mbInvincibile = true;
+
+				wchar_t lastchar = mAnimator->GetActiveAnimation()->GetAnimationName().back();
+
+				if (lastchar == L'L')
+				{
+					mRigidbody->SetGround(false);
+					Vector2 velocity;
+					velocity.y -= 800;
+					velocity.x += 100;
+					mRigidbody->SetVelocity(velocity);
+
+					mState = eCupheadState::OnHit_L;
+					mAnimator->Play(L"HitGround_L", true);
+
+					pos.x += 50.0f;
+					pos.y += 50.0f;
+					object::Instantiate<OnHitEffect>(pos, eLayerType::Effect);
+				}
+				else if (lastchar == L'R')
+				{
+					mRigidbody->SetGround(false);
+					Vector2 velocity;
+					velocity.y -= 800;
+					velocity.x -= 100;
+					mRigidbody->SetVelocity(velocity);
+
+					mState = eCupheadState::OnHit_R;
+					mAnimator->Play(L"HitGround_R", true);
+
+					pos.x -= 50.0f;
+					pos.y += 50.0f;
+					object::Instantiate<OnHitEffect>(pos, eLayerType::Effect);
+				}
 			}
 		}
+
+		
 
 	}
 	void Cuphead::OnCollisionExit(Collider* other)
@@ -1069,7 +1202,7 @@ namespace jw
 					bullet = object::Instantiate<PeaShot_Normal>((pos + Vector2(-60.0f, -60.0f)), eLayerType::Bullet, GetCupheadState());
 					bullet->SetDegree(180.0f);
 
-					object::Instantiate<PeashotSpark>((pos + Vector2(-80.0f, -80.0f)), eLayerType::Effect);
+					object::Instantiate<PeashotSpark>((pos + Vector2(-70.0f, -40.0f)), eLayerType::Effect);
 
 					mSecond = 0.0f;
 				}
@@ -1117,7 +1250,7 @@ namespace jw
 
 					bullet->SetDegree(0.0f);
 
-					object::Instantiate<PeashotSpark>((pos + Vector2(40.0f, -80.0f)), eLayerType::Effect);
+					object::Instantiate<PeashotSpark>((pos + Vector2(50.0f, -40.0f)), eLayerType::Effect);
 
 					mSecond = 0.0f;
 				}
@@ -1226,7 +1359,7 @@ namespace jw
 						= object::Instantiate<PeaShot_Normal>((pos + Vector2(-60.0f, -50.0f)), eLayerType::Bullet, GetCupheadState());
 					bullet->SetDegree(180.0f);
 
-					object::Instantiate<PeashotSpark>((pos + Vector2(-110.0f, -70.0f)), eLayerType::Effect);
+					object::Instantiate<PeashotSpark>((pos + Vector2(-100.0f, -30.0f)), eLayerType::Effect);
 
 					mSecond = 0.0f;
 				}
@@ -1284,7 +1417,7 @@ namespace jw
 						= object::Instantiate<PeaShot_Normal>((tr->GetPos() + Vector2(60.0f, -50.0f)), eLayerType::Bullet, GetCupheadState());
 					bullet->SetDegree(0.0f);
 
-					object::Instantiate<PeashotSpark>((tr->GetPos() + Vector2(70.0f, -70.0f)), eLayerType::Effect);
+					object::Instantiate<PeashotSpark>((tr->GetPos() + Vector2(80.0f, -30.0f)), eLayerType::Effect);
 
 					mSecond = 0.0f;
 				}
@@ -1404,7 +1537,7 @@ namespace jw
 						= object::Instantiate<PeaShot_Normal>((tr->GetPos() + Vector2(-60.0f, -20.0f)), eLayerType::Bullet, GetCupheadState());
 					bullet->SetDegree(180.0f);
 
-					object::Instantiate<PeashotSpark>((tr->GetPos() + Vector2(-90.0f, -40.0f)), eLayerType::Effect);
+					object::Instantiate<PeashotSpark>((tr->GetPos() + Vector2(-90.0f, -10.0f)), eLayerType::Effect);
 
 					mSecond = 0.0f;
 				}
@@ -1449,7 +1582,7 @@ namespace jw
 						= object::Instantiate<PeaShot_Normal>((tr->GetPos() + Vector2(60.0f, -20.0f)), eLayerType::Bullet, GetCupheadState());
 					bullet->SetDegree(0.0f);
 
-					object::Instantiate<PeashotSpark>((tr->GetPos() + Vector2(70.0f, -40.0f)), eLayerType::Effect);
+					object::Instantiate<PeashotSpark>((tr->GetPos() + Vector2(70.0f, -10.0f)), eLayerType::Effect);
 
 					mSecond = 0.0f;
 				}
@@ -1526,7 +1659,7 @@ namespace jw
 
 					bullet->SetDegree(-90.0f);
 
-					object::Instantiate<PeashotSpark>((pos + Vector2(-60.0f, -150.0f)), eLayerType::Effect);
+					object::Instantiate<PeashotSpark>((pos + Vector2(-40.0f, -120.0f)), eLayerType::Effect);
 
 					mSecond = 0.0f;
 				}
@@ -1573,7 +1706,7 @@ namespace jw
 
 					bullet->SetDegree(-90.0f);
 
-					object::Instantiate<PeashotSpark>((pos + Vector2(20.0f, -150.0f)), eLayerType::Effect);
+					object::Instantiate<PeashotSpark>((pos + Vector2(20.0f, -120.0f)), eLayerType::Effect);
 
 					mSecond = 0.0f;
 				}
@@ -1647,10 +1780,10 @@ namespace jw
 				if (mSecond > mFiredelay)
 				{
 					PeaShot_Normal* bullet
-						= object::Instantiate<PeaShot_Normal>((pos + Vector2(-60.0f, -40.0f)), eLayerType::Bullet,GetCupheadState());
+						= object::Instantiate<PeaShot_Normal>((pos + Vector2(-60.0f, -10.0f)), eLayerType::Bullet,GetCupheadState());
 					bullet->SetDegree(-135.0f);
 
-					object::Instantiate<PeashotSpark>((pos + Vector2(-90.0f, -120.0f)), eLayerType::Effect);
+					object::Instantiate<PeashotSpark>((pos + Vector2(-90.0f, -90.0f)), eLayerType::Effect);
 
 					mSecond = 0.0f;
 				}
@@ -1699,10 +1832,10 @@ namespace jw
 				if (mSecond > mFiredelay)
 				{
 					PeaShot_Normal* bullet
-						= object::Instantiate<PeaShot_Normal>((tr->GetPos() + Vector2(60.0f, -40.0f)), eLayerType::Bullet, GetCupheadState());
+						= object::Instantiate<PeaShot_Normal>((tr->GetPos() + Vector2(60.0f, -10.0f)), eLayerType::Bullet, GetCupheadState());
 					bullet->SetDegree(-45.0f);
 
-					object::Instantiate<PeashotSpark>((tr->GetPos() + Vector2(70.0f, -120.0f)), eLayerType::Effect);
+					object::Instantiate<PeashotSpark>((tr->GetPos() + Vector2(70.0f, -90.0f)), eLayerType::Effect);
 
 					mSecond = 0.0f;
 				}
@@ -2581,8 +2714,8 @@ namespace jw
 	{
 		mbParrying = false;
 		mbParrySuccess = false;
-		collider->SetCenter(Vector2(-75.0f, -145.0f));
-		collider->SetSize(Vector2(150.0f, 150.0f));
+		collider->SetCenter(Vector2(-40.0f, -125.0f));
+		collider->SetSize(Vector2(90.0f, 130.0f));
 
 		if (mbGroundCheck)
 		{

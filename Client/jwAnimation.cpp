@@ -98,7 +98,7 @@ namespace jw
             imgAttributes.SetColorMatrix(&mMatrix, Gdiplus::ColorMatrixFlagsDefault, Gdiplus::ColorAdjustTypeBitmap);
 
             graphic.DrawImage(mImages[mImagesIndex]->GetImage(), mRect, 0, 0
-                , mImages[mImagesIndex]->GetWidth() * scale.x, mImages[mImagesIndex]->GetHeight() * scale.y
+                , mImages[mImagesIndex]->GetWidth(), mImages[mImagesIndex]->GetHeight()
                 , Gdiplus::UnitPixel, &imgAttributes);
 
             //graphic.DrawImage(mImages[mImagesIndex]->GetImage(), pos.x, pos.y
@@ -107,8 +107,8 @@ namespace jw
         else
         {
             pos += mSpriteSheet[mSpriteIndex].offset;
-            pos.x -= mSpriteSheet[mSpriteIndex].size.x / 2.0f;
-            pos.y -= mSpriteSheet[mSpriteIndex].size.y;
+            pos.x -= ( mSpriteSheet[mSpriteIndex].size.x / 2.0f )* scale.x;
+            pos.y -= mSpriteSheet[mSpriteIndex].size.y * scale.y;
 
             TransparentBlt(hdc, pos.x, pos.y
                 , mSpriteSheet[mSpriteIndex].size.x * scale.x

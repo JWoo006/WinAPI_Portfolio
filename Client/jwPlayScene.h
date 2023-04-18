@@ -3,8 +3,8 @@
 
 namespace jw
 {
-	class Cuphead;
 	class Background;
+	class Cuphead;
 	class Boss;
 	class PlayScene : public Scene
 	{
@@ -20,10 +20,39 @@ namespace jw
 		virtual void OnEnter() override;
 		virtual void OnExit() override;
 
+		void CupheadIntroCompleteEvent();
+		void BossIntroCompleteEvent();
+
+		void FightTextShow();
+		void FightStart();
+
 
 	private:
-		Cuphead* mCuphead;
 		Background* mbackground;
-		Boss* mBoss;
+		FightText_WALLOP* ftw;
+
+		Cuphead* mCuphead;
+		class Animator* mCupheadAnimator;
+
+		class Veggie_Potato* mBossPotato;
+		class PotatoIntroEffect* mBossPotatoEffect;
+		bool PotatoShow;
+		bool PotatoDeadChecker;
+
+		class Veggie_Onion* mBossOnion;
+		class PotatoIntroEffect* mBossOnionEffect;
+		bool OnionShow;
+		bool OnionDeadChecker;
+
+		class Veggie_Carrot* mBossCarrot;
+		class PotatoIntroEffect* mBossCarrotEffect;
+		bool CarrotShow;
+		bool CarrotDeadChecker;
+
+		class SceneLoad_In* mSceneLoad_In;
+
+		float mTime;
+		bool mbTimeStop;
+		class Animator* mFightTextAnimator;
 	};
 }

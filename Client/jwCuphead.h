@@ -94,6 +94,11 @@ namespace jw
 		
 		eCupheadState GetCupheadState() { return mState; }
 
+		bool GetIsInvincibile() { return mbInvincibile; }
+		void SetInvincibile(bool invin) { mbInvincibile = invin; }
+
+		bool GetIsParrySucess() { return mbParrySuccess; }
+
 	private:
 		eCupheadState mState;
 		Animator* mAnimator;

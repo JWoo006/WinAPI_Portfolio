@@ -8,6 +8,7 @@ namespace jw
 {
 	SceneLoad_In::SceneLoad_In()
 	{
+		mbIsEnd = false;
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Effect\\Circle_in", Vector2::Zero, 0.06f, eImageFormat::PNG, eAnimationDir::R);
 
@@ -31,6 +32,7 @@ namespace jw
 	}
 	void SceneLoad_In::AnimCompleteEvent()
 	{
+		mbIsEnd = true;
 		object::Destroy(this);
 	}
 }
