@@ -26,8 +26,6 @@ namespace jw
         mScenes[(UINT)eSceneType::Play]->SetName(L"PlayScene");
         mScenes[(UINT)eSceneType::Ending] = new EndingScene();
         mScenes[(UINT)eSceneType::Ending]->SetName(L"EndingScene");
-        mScenes[(UINT)eSceneType::Tool] = new ToolScene();
-        mScenes[(UINT)eSceneType::Tool]->SetName(L"ToolScene");
 
         for (Scene* scene : mScenes)
         {
@@ -40,7 +38,7 @@ namespace jw
         }
 
         // 현재 사용할 씬 설정
-        mActiveScene = mScenes[(UINT)eSceneType::Stage];
+        mActiveScene = mScenes[(UINT)eSceneType::Title];
     }
     void SceneManager::Update()
     {
