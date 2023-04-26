@@ -18,7 +18,7 @@ namespace jw
 		/*Transform* tr = GetComponent<Transform>();
 		tr->SetPos(Vector2(1100.0f, 700.0f));*/
 
-		mLoadSceneType = eSceneType::Play;
+		mLoadSceneType = eSceneType::Play_Veggie;
 
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimations(L"..\\Resources\\Image\\World_Map\\WorldIcon\\Veggie_Stage", Vector2::Zero, 0.1f, eImageFormat::PNG, eAnimationDir::R);

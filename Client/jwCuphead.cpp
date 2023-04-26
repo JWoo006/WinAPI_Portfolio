@@ -49,7 +49,8 @@ namespace jw
 		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Idle_L", Vector2::Zero, 0.07f, eImageFormat::PNG, eAnimationDir::L);
 		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Idle_R", Vector2::Zero, 0.07f, eImageFormat::PNG, eAnimationDir::R);
 
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Run\\Run_L", Vector2::Zero, 0.05f, eImageFormat::PNG, eAnimationDir::L);
+		//mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Run\\Run_L", Vector2::Zero, 0.05f, eImageFormat::PNG, eAnimationDir::L);
+		mAnimator->CreateAnimations(L"RunRun_L", L"..\\Resources\\Image\\Cuphead\\Run\\Run_L", Vector2::Zero, 0.05f, eImageFormat::PNG, eAnimationDir::L);
 		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Run\\Run_R", Vector2::Zero, 0.05f, eImageFormat::PNG, eAnimationDir::R);
 
 		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Jump\\Jump_L", Vector2::Zero, 0.05f, eImageFormat::PNG, eAnimationDir::L);

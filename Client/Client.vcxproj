@@ -150,7 +150,7 @@
     <ClInclude Include="jwCupheadIntroAnim.h" />
     <ClInclude Include="jwCuphead_Stage.h" />
     <ClInclude Include="jwDashEffect.h" />
-    <ClInclude Include="jwEndingScene.h" />
+    <ClInclude Include="jwScoreScene.h" />
     <ClInclude Include="jwEntity.h" />
     <ClInclude Include="jwEnums.h" />
     <ClInclude Include="jwFadeInOut.h" />
@@ -171,7 +171,9 @@
     <ClInclude Include="jwParryEffect.h" />
     <ClInclude Include="jwPeashotSpark.h" />
     <ClInclude Include="jwPeaShot_Normal.h" />
-    <ClInclude Include="jwPlayScene.h" />
+    <ClInclude Include="jwStageGround.h" />
+    <ClInclude Include="jwTestPlayScene.h" />
+    <ClInclude Include="jwVeggieScene.h" />
     <ClInclude Include="jwPotatoAttackEffect.h" />
     <ClInclude Include="jwPotatoIntroEffect.h" />
     <ClInclude Include="jwPotatoShoot.h" />
@@ -185,7 +187,7 @@
     <ClInclude Include="jwStage1_BG_header.h" />
     <ClInclude Include="jwStage1_BG1.h" />
     <ClInclude Include="jwStage1_BG2.h" />
-    <ClInclude Include="jwStageScene.h" />
+    <ClInclude Include="jwWorldStageScene.h" />
     <ClInclude Include="jwtestEnemy.h" />
     <ClInclude Include="jwTile.h" />
     <ClInclude Include="jwTime.h" />
@@ -228,7 +230,7 @@
     <ClCompile Include="jwCupheadIntroAnim.cpp" />
     <ClCompile Include="jwCuphead_Stage.cpp" />
     <ClCompile Include="jwDashEffect.cpp" />
-    <ClCompile Include="jwEndingScene.cpp" />
+    <ClCompile Include="jwScoreScene.cpp" />
     <ClCompile Include="jwEntity.cpp" />
     <ClCompile Include="jwFadeInOut.cpp" />
     <ClCompile Include="jwFade_In_Rectangle.cpp" />
@@ -247,7 +249,9 @@
     <ClCompile Include="jwParryEffect.cpp" />
     <ClCompile Include="jwPeashotSpark.cpp" />
     <ClCompile Include="jwPeaShot_Normal.cpp" />
-    <ClCompile Include="jwPlayScene.cpp" />
+    <ClCompile Include="jwStageGround.cpp" />
+    <ClCompile Include="jwTestPlayScene.cpp" />
+    <ClCompile Include="jwVeggieScene.cpp" />
     <ClCompile Include="jwPotatoAttackEffect.cpp" />
     <ClCompile Include="jwPotatoIntroEffect.cpp" />
     <ClCompile Include="jwPotatoShoot.cpp" />
@@ -260,7 +264,7 @@
     <ClCompile Include="jwStage1_BG1.cpp" />
     <ClCompile Include="jwStage1_BG2.cpp" />
     <ClCompile Include="jwStage1_BG3.cpp" />
-    <ClCompile Include="jwStageScene.cpp" />
+    <ClCompile Include="jwWorldStageScene.cpp" />
     <ClCompile Include="jwtestEnemy.cpp" />
     <ClCompile Include="jwTile.cpp" />
     <ClCompile Include="jwTime.cpp" />

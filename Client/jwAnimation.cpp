@@ -158,10 +158,10 @@ namespace jw
                 }
 
                 Image* image = Resources::Load<Image>(fileName, fullName);
-
+                image->ImageFlipX();
                 if (dir == eAnimationDir::L)
                 {
-                    image->ImageFlipX();
+                    
                 }
 
                 mImages.push_back(image);

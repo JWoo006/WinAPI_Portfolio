@@ -3,10 +3,11 @@
 enum class eSceneType
 {
 	Title,
-	Stage,
-	Play,
-	Ending,
+	WorldStage,
+	Play_Veggie,
+	Score,
 	Tool,
+	TestPlay,
 	End,
 
 };

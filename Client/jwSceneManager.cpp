@@ -1,9 +1,10 @@
 #include "jwSceneManager.h"
-#include "jwPlayScene.h"
+#include "jwVeggieScene.h"
 #include "jwTitleScene.h"
-#include "jwEndingScene.h"
-#include "jwStageScene.h"
+#include "jwScoreScene.h"
+#include "jwWorldStageScene.h"
 #include "jwToolScene.h"
+#include "jwTestPlayScene.h"
 #include "jwCollisionManager.h"
 #include "jwCamera.h"
 
@@ -20,12 +21,14 @@ namespace jw
 
         mScenes[(UINT)eSceneType::Title] = new TitleScene();
         mScenes[(UINT)eSceneType::Title]->SetName(L"TitleScene");
-        mScenes[(UINT)eSceneType::Stage] = new StageScene();
-        mScenes[(UINT)eSceneType::Stage]->SetName(L"StageScene");
-        mScenes[(UINT)eSceneType::Play] = new PlayScene();
-        mScenes[(UINT)eSceneType::Play]->SetName(L"PlayScene");
-        mScenes[(UINT)eSceneType::Ending] = new EndingScene();
-        mScenes[(UINT)eSceneType::Ending]->SetName(L"EndingScene");
+        mScenes[(UINT)eSceneType::WorldStage] = new WorldStageScene();
+        mScenes[(UINT)eSceneType::WorldStage]->SetName(L"WorldStageScene");
+        mScenes[(UINT)eSceneType::Play_Veggie] = new VeggieScene();
+        mScenes[(UINT)eSceneType::Play_Veggie]->SetName(L"VeggieScene");
+        mScenes[(UINT)eSceneType::Score] = new ScoreScene();
+        mScenes[(UINT)eSceneType::Score]->SetName(L"ScoreScene");
+        mScenes[(UINT)eSceneType::TestPlay] = new TestPlayScene();
+        mScenes[(UINT)eSceneType::TestPlay]->SetName(L"TestPlayScene");
 
         for (Scene* scene : mScenes)
         {
@@ -38,7 +41,7 @@ namespace jw
         }
 
         // 현재 사용할 씬 설정
-        mActiveScene = mScenes[(UINT)eSceneType::Title];
+        mActiveScene = mScenes[(UINT)eSceneType::WorldStage];
     }
     void SceneManager::Update()
     {

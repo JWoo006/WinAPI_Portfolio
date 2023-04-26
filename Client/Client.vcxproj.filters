@@ -172,7 +172,7 @@
     <ClInclude Include="jwCuphead.h">
       <Filter>Contents\Player</Filter>
     </ClInclude>
-    <ClInclude Include="jwPlayScene.h">
+    <ClInclude Include="jwVeggieScene.h">
       <Filter>Contents\Scene</Filter>
     </ClInclude>
     <ClInclude Include="jwResource.h">
@@ -190,10 +190,10 @@
     <ClInclude Include="jwBoss.h">
       <Filter>Contents\Boss</Filter>
     </ClInclude>
-    <ClInclude Include="jwStageScene.h">
+    <ClInclude Include="jwWorldStageScene.h">
       <Filter>Contents\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="jwEndingScene.h">
+    <ClInclude Include="jwScoreScene.h">
       <Filter>Contents\Scene</Filter>
     </ClInclude>
     <ClInclude Include="jwCollider.h">
@@ -358,6 +358,12 @@
     <ClInclude Include="jwWinscreen_ResultAnim.h">
       <Filter>Contents\Stage\WinScreen</Filter>
     </ClInclude>
+    <ClInclude Include="jwTestPlayScene.h">
+      <Filter>Contents\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="jwStageGround.h">
+      <Filter>Contents\Stage\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -409,7 +415,7 @@
     <ClCompile Include="jwCuphead.cpp">
       <Filter>Contents\Player</Filter>
     </ClCompile>
-    <ClCompile Include="jwPlayScene.cpp">
+    <ClCompile Include="jwVeggieScene.cpp">
       <Filter>Contents\Scene</Filter>
     </ClCompile>
     <ClCompile Include="jwResource.cpp">
@@ -427,10 +433,10 @@
     <ClCompile Include="jwBoss.cpp">
       <Filter>Contents\Boss</Filter>
     </ClCompile>
-    <ClCompile Include="jwStageScene.cpp">
+    <ClCompile Include="jwWorldStageScene.cpp">
       <Filter>Contents\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="jwEndingScene.cpp">
+    <ClCompile Include="jwScoreScene.cpp">
       <Filter>Contents\Scene</Filter>
     </ClCompile>
     <ClCompile Include="jwCollider.cpp">
@@ -588,6 +594,12 @@
     </ClCompile>
     <ClCompile Include="jwWinscreen_ResultAnim.cpp">
       <Filter>Contents\Stage\WinScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="jwTestPlayScene.cpp">
+      <Filter>Contents\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="jwStageGround.cpp">
+      <Filter>Contents\Stage\Common</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
