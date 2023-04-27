@@ -49,8 +49,7 @@ namespace jw
 		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Idle_L", Vector2::Zero, 0.07f, eImageFormat::PNG, eAnimationDir::L);
 		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Idle_R", Vector2::Zero, 0.07f, eImageFormat::PNG, eAnimationDir::R);
 
-		//mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Run\\Run_L", Vector2::Zero, 0.05f, eImageFormat::PNG, eAnimationDir::L);
-		mAnimator->CreateAnimations(L"RunRun_L", L"..\\Resources\\Image\\Cuphead\\Run\\Run_L", Vector2::Zero, 0.05f, eImageFormat::PNG, eAnimationDir::L);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Run\\Run_L", Vector2::Zero, 0.05f, eImageFormat::PNG, eAnimationDir::L);
 		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Run\\Run_R", Vector2::Zero, 0.05f, eImageFormat::PNG, eAnimationDir::R);
 
 		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Jump\\Jump_L", Vector2::Zero, 0.05f, eImageFormat::PNG, eAnimationDir::L);
@@ -122,6 +121,11 @@ namespace jw
 	void Cuphead::Update()
 	{
 		GameObject::Update();
+
+		if (this->GetState() == eState::Death)
+		{
+			int a = 0;
+		}
 
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
@@ -1219,13 +1223,13 @@ namespace jw
 					mAnimator->Play(L"ShootRun_L", true);
 				}
 
-				if (Input::GetKeyDown(eKeyCode::DOWN))
+				if (Input::GetKeyDown(eKeyCode::DOWN) || Input::GetKey(eKeyCode::DOWN))
 				{
 					mState = eCupheadState::Duck_Shoot_L;
 					mAnimator->Play(L"DuckShoot_L", true);
 				}
 
-				if (Input::GetKeyDown(eKeyCode::UP))
+				if (Input::GetKeyDown(eKeyCode::UP) || Input::GetKey(eKeyCode::UP))
 				{
 					mState = eCupheadState::Shoot_UP_L;
 					mAnimator->Play(L"ShootUp_L", true);
@@ -1267,13 +1271,13 @@ namespace jw
 					mAnimator->Play(L"ShootRun_L", true);
 				}
 
-				if (Input::GetKeyDown(eKeyCode::DOWN))
+				if (Input::GetKeyDown(eKeyCode::DOWN) || Input::GetKey(eKeyCode::DOWN))
 				{
 					mState = eCupheadState::Duck_Shoot_R;
 					mAnimator->Play(L"DuckShoot_R", true);
 				}
 
-				if (Input::GetKeyDown(eKeyCode::UP))
+				if (Input::GetKeyDown(eKeyCode::UP) || Input::GetKey(eKeyCode::UP))
 				{
 					mState = eCupheadState::Shoot_UP_R;
 					mAnimator->Play(L"ShootUp_R", true);

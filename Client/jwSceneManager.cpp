@@ -3,8 +3,8 @@
 #include "jwTitleScene.h"
 #include "jwScoreScene.h"
 #include "jwWorldStageScene.h"
-#include "jwToolScene.h"
 #include "jwTestPlayScene.h"
+#include "jwToolScene.h"
 #include "jwCollisionManager.h"
 #include "jwCamera.h"
 
@@ -17,7 +17,6 @@ namespace jw
     void SceneManager::Initialize()
     {
         mScenes.resize((UINT)eSceneType::End);
-
 
         mScenes[(UINT)eSceneType::Title] = new TitleScene();
         mScenes[(UINT)eSceneType::Title]->SetName(L"TitleScene");

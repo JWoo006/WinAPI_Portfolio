@@ -55,7 +55,6 @@ namespace jw
 
 		// 스프라이트로 애니메이션 제작하는 함수
 		void CreateAnimations(const std::wstring& path, Vector2 offset, float duration, eImageFormat imgformat, eAnimationDir dir);
-		void CreateAnimations(const std::wstring& name, const std::wstring& path, Vector2 offset, float duration, eImageFormat imgformat, eAnimationDir dir);
 
 		Animation* FindAnimation(const std::wstring& name);
 		void Play(const std::wstring& name, bool loop);

@@ -1,13 +1,9 @@
 #include "jwPotatoShoot.h"
 #include "jwTime.h"
-#include "jwSceneManager.h"
-#include "jwInput.h"
 #include "jwResources.h"
 #include "jwTransform.h"
 #include "jwAnimator.h"
 #include "jwCollider.h"
-#include "jwBaseBullet.h"
-#include "jwScene.h"
 #include "jwObject.h"
 #include "jwCuphead.h"
 

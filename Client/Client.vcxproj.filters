@@ -59,15 +59,6 @@
     <Filter Include="Contents\Stage">
       <UniqueIdentifier>{4ceca8f0-f10e-464a-8c2e-efb5867363c6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Stage\Veggie">
-      <UniqueIdentifier>{ca75a441-d1b7-4a6c-b288-7ed3452e4ad3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Stage\Veggie\Background">
-      <UniqueIdentifier>{5faee911-46fb-455d-8eed-34b3ca954577}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Stage\Veggie\Boss">
-      <UniqueIdentifier>{85f9042a-680d-4c6a-ab25-cd6188e03372}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\Weapon">
       <UniqueIdentifier>{73680b76-61de-4f0f-84ee-8aea4287420c}</UniqueIdentifier>
     </Filter>
@@ -95,9 +86,6 @@
     <Filter Include="Contents\Object">
       <UniqueIdentifier>{2b3b85a8-0f6b-4f0f-bbe7-c386fcc19c43}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Stage\Veggie\object">
-      <UniqueIdentifier>{c3af6e7a-ae17-414f-8956-62d70c5a2569}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\Object\SceneObj">
       <UniqueIdentifier>{158d5909-1d5b-4eae-a8f3-8261455e7548}</UniqueIdentifier>
     </Filter>
@@ -107,14 +95,38 @@
     <Filter Include="Contents\WorldMap">
       <UniqueIdentifier>{83da3c14-5d9e-4d61-9b52-3716e32ae2d7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Stage\Veggie\Effect">
-      <UniqueIdentifier>{bfee0421-bd83-4411-b4e7-bb52f864bca1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\Stage\Common">
       <UniqueIdentifier>{57a6f20d-c41b-47c4-874c-5b8f4954217b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Contents\Stage\WinScreen">
       <UniqueIdentifier>{03e58088-9c70-4388-aa82-44837cb825be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Stage\1 Veggie">
+      <UniqueIdentifier>{ca75a441-d1b7-4a6c-b288-7ed3452e4ad3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Stage\1 Veggie\Background">
+      <UniqueIdentifier>{5faee911-46fb-455d-8eed-34b3ca954577}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Stage\1 Veggie\Boss">
+      <UniqueIdentifier>{85f9042a-680d-4c6a-ab25-cd6188e03372}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Stage\1 Veggie\object">
+      <UniqueIdentifier>{c3af6e7a-ae17-414f-8956-62d70c5a2569}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Stage\1 Veggie\Effect">
+      <UniqueIdentifier>{bfee0421-bd83-4411-b4e7-bb52f864bca1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Stage\2 Frog">
+      <UniqueIdentifier>{384bc352-60f0-4114-adac-9510ed60e616}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Stage\2 Frog\Background">
+      <UniqueIdentifier>{e06206ca-0249-4075-ae19-2722ed5c2ab5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Stage\2 Frog\Boss">
+      <UniqueIdentifier>{f672703d-33ef-4efb-bbb3-df19a8dd383d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Stage\2 Frog\object">
+      <UniqueIdentifier>{1955d664-0af5-43ed-a09f-7b973a88476f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -203,10 +215,10 @@
       <Filter>Engine\Component\Collider</Filter>
     </ClInclude>
     <ClInclude Include="jwBackground.h">
-      <Filter>Contents\Stage\Veggie\Background</Filter>
+      <Filter>Contents\Stage\1 Veggie\Background</Filter>
     </ClInclude>
     <ClInclude Include="jwVeggie_Onion.h">
-      <Filter>Contents\Stage\Veggie\Boss</Filter>
+      <Filter>Contents\Stage\1 Veggie\Boss</Filter>
     </ClInclude>
     <ClInclude Include="jwTitleAnim1.h">
       <Filter>Contents\Title</Filter>
@@ -251,16 +263,16 @@
       <Filter>Contents\Object</Filter>
     </ClInclude>
     <ClInclude Include="jwStage1_BG1.h">
-      <Filter>Contents\Stage\Veggie\Background</Filter>
+      <Filter>Contents\Stage\1 Veggie\Background</Filter>
     </ClInclude>
     <ClInclude Include="jwStage1_BG2.h">
-      <Filter>Contents\Stage\Veggie\Background</Filter>
+      <Filter>Contents\Stage\1 Veggie\Background</Filter>
     </ClInclude>
     <ClInclude Include="jwGround_Veggie.h">
-      <Filter>Contents\Stage\Veggie\object</Filter>
+      <Filter>Contents\Stage\1 Veggie\object</Filter>
     </ClInclude>
     <ClInclude Include="jwStage1_BG_header.h">
-      <Filter>Contents\Stage\Veggie\Background</Filter>
+      <Filter>Contents\Stage\1 Veggie\Background</Filter>
     </ClInclude>
     <ClInclude Include="jwSceneLoad.h">
       <Filter>Contents\Object\SceneObj</Filter>
@@ -281,7 +293,7 @@
       <Filter>Contents\Player\PlayerEffect</Filter>
     </ClInclude>
     <ClInclude Include="jwtestEnemy.h">
-      <Filter>Contents\Stage\Veggie\object</Filter>
+      <Filter>Contents\Stage\1 Veggie\object</Filter>
     </ClInclude>
     <ClInclude Include="jwParryEffect.h">
       <Filter>Contents\Player\PlayerEffect</Filter>
@@ -311,40 +323,40 @@
       <Filter>Contents\Effect</Filter>
     </ClInclude>
     <ClInclude Include="jwVeggie_Potato.h">
-      <Filter>Contents\Stage\Veggie\Boss</Filter>
+      <Filter>Contents\Stage\1 Veggie\Boss</Filter>
     </ClInclude>
     <ClInclude Include="jwPotatoIntroEffect.h">
-      <Filter>Contents\Stage\Veggie\Effect</Filter>
+      <Filter>Contents\Stage\1 Veggie\Effect</Filter>
     </ClInclude>
     <ClInclude Include="jwPotatoAttackEffect.h">
-      <Filter>Contents\Stage\Veggie\Effect</Filter>
+      <Filter>Contents\Stage\1 Veggie\Effect</Filter>
     </ClInclude>
     <ClInclude Include="jwBossExplosion.h">
       <Filter>Contents\Stage\Common</Filter>
     </ClInclude>
     <ClInclude Include="jwPotatoShoot.h">
-      <Filter>Contents\Stage\Veggie\object</Filter>
+      <Filter>Contents\Stage\1 Veggie\object</Filter>
     </ClInclude>
     <ClInclude Include="jwStage1_BG3.h">
-      <Filter>Contents\Stage\Veggie\Background</Filter>
+      <Filter>Contents\Stage\1 Veggie\Background</Filter>
     </ClInclude>
     <ClInclude Include="jwOnionBullet.h">
-      <Filter>Contents\Stage\Veggie\object</Filter>
+      <Filter>Contents\Stage\1 Veggie\object</Filter>
     </ClInclude>
     <ClInclude Include="jwOnionTears.h">
-      <Filter>Contents\Stage\Veggie\object</Filter>
+      <Filter>Contents\Stage\1 Veggie\object</Filter>
     </ClInclude>
     <ClInclude Include="jwVeggie_Carrot.h">
-      <Filter>Contents\Stage\Veggie\Boss</Filter>
+      <Filter>Contents\Stage\1 Veggie\Boss</Filter>
     </ClInclude>
     <ClInclude Include="jwCarrot_Bomb.h">
-      <Filter>Contents\Stage\Veggie\object</Filter>
+      <Filter>Contents\Stage\1 Veggie\object</Filter>
     </ClInclude>
     <ClInclude Include="jwCarrotHypno_Beam.h">
-      <Filter>Contents\Stage\Veggie\object</Filter>
+      <Filter>Contents\Stage\1 Veggie\object</Filter>
     </ClInclude>
     <ClInclude Include="jwCarrotHypno_Eye.h">
-      <Filter>Contents\Stage\Veggie\object</Filter>
+      <Filter>Contents\Stage\1 Veggie\object</Filter>
     </ClInclude>
     <ClInclude Include="jwWinscreen_BG1.h">
       <Filter>Contents\Stage\WinScreen</Filter>
@@ -361,8 +373,23 @@
     <ClInclude Include="jwTestPlayScene.h">
       <Filter>Contents\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="jwStageGround.h">
+    <ClInclude Include="jwBasicGround.h">
       <Filter>Contents\Stage\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="jwFrogStageBG.h">
+      <Filter>Contents\Stage\2 Frog\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="jwSFrog.h">
+      <Filter>Contents\Stage\2 Frog\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="jwTFrog.h">
+      <Filter>Contents\Stage\2 Frog\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="jwSFrog_Fistobj.h">
+      <Filter>Contents\Stage\2 Frog\object</Filter>
+    </ClInclude>
+    <ClInclude Include="jwTFrog_Firefly.h">
+      <Filter>Contents\Stage\2 Frog\object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -446,10 +473,10 @@
       <Filter>Engine\Component\Collider</Filter>
     </ClCompile>
     <ClCompile Include="jwBackground.cpp">
-      <Filter>Contents\Stage\Veggie\Background</Filter>
+      <Filter>Contents\Stage\1 Veggie\Background</Filter>
     </ClCompile>
     <ClCompile Include="jwVeggie_Onion.cpp">
-      <Filter>Contents\Stage\Veggie\Boss</Filter>
+      <Filter>Contents\Stage\1 Veggie\Boss</Filter>
     </ClCompile>
     <ClCompile Include="jwTitleAnim1.cpp">
       <Filter>Contents\Title</Filter>
@@ -491,13 +518,13 @@
       <Filter>Contents\Object</Filter>
     </ClCompile>
     <ClCompile Include="jwStage1_BG1.cpp">
-      <Filter>Contents\Stage\Veggie\Background</Filter>
+      <Filter>Contents\Stage\1 Veggie\Background</Filter>
     </ClCompile>
     <ClCompile Include="jwStage1_BG2.cpp">
-      <Filter>Contents\Stage\Veggie\Background</Filter>
+      <Filter>Contents\Stage\1 Veggie\Background</Filter>
     </ClCompile>
     <ClCompile Include="jwGround_Veggie.cpp">
-      <Filter>Contents\Stage\Veggie\object</Filter>
+      <Filter>Contents\Stage\1 Veggie\object</Filter>
     </ClCompile>
     <ClCompile Include="jwSceneLoad.cpp">
       <Filter>Contents\Object\SceneObj</Filter>
@@ -518,7 +545,7 @@
       <Filter>Contents\Player\PlayerEffect</Filter>
     </ClCompile>
     <ClCompile Include="jwtestEnemy.cpp">
-      <Filter>Contents\Stage\Veggie\object</Filter>
+      <Filter>Contents\Stage\1 Veggie\object</Filter>
     </ClCompile>
     <ClCompile Include="jwParryEffect.cpp">
       <Filter>Contents\Player\PlayerEffect</Filter>
@@ -548,40 +575,40 @@
       <Filter>Contents\Effect</Filter>
     </ClCompile>
     <ClCompile Include="jwVeggie_Potato.cpp">
-      <Filter>Contents\Stage\Veggie\Boss</Filter>
+      <Filter>Contents\Stage\1 Veggie\Boss</Filter>
     </ClCompile>
     <ClCompile Include="jwPotatoIntroEffect.cpp">
-      <Filter>Contents\Stage\Veggie\Effect</Filter>
+      <Filter>Contents\Stage\1 Veggie\Effect</Filter>
     </ClCompile>
     <ClCompile Include="jwPotatoAttackEffect.cpp">
-      <Filter>Contents\Stage\Veggie\Effect</Filter>
+      <Filter>Contents\Stage\1 Veggie\Effect</Filter>
     </ClCompile>
     <ClCompile Include="jwBossExplosion.cpp">
       <Filter>Contents\Stage\Common</Filter>
     </ClCompile>
     <ClCompile Include="jwPotatoShoot.cpp">
-      <Filter>Contents\Stage\Veggie\object</Filter>
+      <Filter>Contents\Stage\1 Veggie\object</Filter>
     </ClCompile>
     <ClCompile Include="jwStage1_BG3.cpp">
-      <Filter>Contents\Stage\Veggie\Background</Filter>
+      <Filter>Contents\Stage\1 Veggie\Background</Filter>
     </ClCompile>
     <ClCompile Include="jwOnionBullet.cpp">
-      <Filter>Contents\Stage\Veggie\object</Filter>
+      <Filter>Contents\Stage\1 Veggie\object</Filter>
     </ClCompile>
     <ClCompile Include="jwOnionTears.cpp">
-      <Filter>Contents\Stage\Veggie\object</Filter>
+      <Filter>Contents\Stage\1 Veggie\object</Filter>
     </ClCompile>
     <ClCompile Include="jwVeggie_Carrot.cpp">
-      <Filter>Contents\Stage\Veggie\Boss</Filter>
+      <Filter>Contents\Stage\1 Veggie\Boss</Filter>
     </ClCompile>
     <ClCompile Include="jwCarrot_Bomb.cpp">
-      <Filter>Contents\Stage\Veggie\object</Filter>
+      <Filter>Contents\Stage\1 Veggie\object</Filter>
     </ClCompile>
     <ClCompile Include="jwCarrotHypno_Beam.cpp">
-      <Filter>Contents\Stage\Veggie\object</Filter>
+      <Filter>Contents\Stage\1 Veggie\object</Filter>
     </ClCompile>
     <ClCompile Include="jwCarrotHypno_Eye.cpp">
-      <Filter>Contents\Stage\Veggie\object</Filter>
+      <Filter>Contents\Stage\1 Veggie\object</Filter>
     </ClCompile>
     <ClCompile Include="jwWinscreen_BG1.cpp">
       <Filter>Contents\Stage\WinScreen</Filter>
@@ -598,8 +625,23 @@
     <ClCompile Include="jwTestPlayScene.cpp">
       <Filter>Contents\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="jwStageGround.cpp">
+    <ClCompile Include="jwBasicGround.cpp">
       <Filter>Contents\Stage\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="jwFrogStageBG.cpp">
+      <Filter>Contents\Stage\2 Frog\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="jwSFrog.cpp">
+      <Filter>Contents\Stage\2 Frog\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="jwTFrog.cpp">
+      <Filter>Contents\Stage\2 Frog\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="jwSFrog_Fistobj.cpp">
+      <Filter>Contents\Stage\2 Frog\object</Filter>
+    </ClCompile>
+    <ClCompile Include="jwTFrog_Firefly.cpp">
+      <Filter>Contents\Stage\2 Frog\object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

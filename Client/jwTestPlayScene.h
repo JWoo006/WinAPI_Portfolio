@@ -1,17 +1,22 @@
 #pragma once
-#pragma once
 #include "jwScene.h"
 
 namespace jw
 {
 	class Background;
 	class Cuphead;
-	class Boss;
+	class Animator;
 	class TestPlayScene : public Scene
 	{
 	public:
 		TestPlayScene();
 		~TestPlayScene();
+
+		struct StageInfo
+		{
+			int* pBossHp;
+			Cuphead* pCuphead;
+		};
 
 		virtual void Initialize() override;
 		virtual void Update() override;
@@ -30,15 +35,24 @@ namespace jw
 
 	private:
 		Background* mbackground;
-		class FightText_WALLOP* ftw;
+		FightText_WALLOP* ftw;
 
 		Cuphead* mCuphead;
-		class Animator* mCupheadAnimator;
+		Animator* mCupheadAnimator;
+
+		int bossHP;
+		int bossPattern;
+
+		class SFrog* mSFrog;
+		Animator* mSFrogAnimator;
+
+		class TFrog* mTFrog;
+		Animator* mTFrogAnimator;
 
 		class SceneLoad_In* mSceneLoad_In;
 
 		float mTime;
 		bool mbTimeStop;
-		class Animator* mFightTextAnimator;
+		Animator* mFightTextAnimator;
 	};
 }

@@ -6,10 +6,8 @@ enum class eSceneType
 	WorldStage,
 	Play_Veggie,
 	Score,
-	Tool,
 	TestPlay,
 	End,
-
 };
 
 

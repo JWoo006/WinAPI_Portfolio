@@ -32,7 +32,7 @@ namespace jw
 	{
         Scene::Update();
 
-        if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
+        /*if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
         {
             int next = (int)eSceneType::Tool;
             next++;
@@ -42,7 +42,7 @@ namespace jw
             }
 
             SceneManager::LoadScene((eSceneType)next);
-        }
+        }*/
 
         Vector2  temp = Input::GetMousePos();
 

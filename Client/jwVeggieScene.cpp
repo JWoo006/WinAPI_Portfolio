@@ -45,10 +45,6 @@ namespace jw
 		mTime = 0.0f;
 		mbTimeStop = false;
 
-		mCuphead = object::Instantiate<Cuphead>(Vector2(100.0f, 800.0f), eLayerType::Player);
-		mCupheadAnimator = mCuphead->GetComponent<Animator>();
-		mCupheadAnimator->GetCompleteEvent(L"CupheadIntro") = std::bind(&VeggieScene::CupheadIntroCompleteEvent, this);
-
 		object::Instantiate<Stage1_BG1>(eLayerType::BG);
 		//object::Instantiate<Stage1_BG2>(eLayerType::BG3);
 
@@ -76,7 +72,10 @@ namespace jw
 				next = (int)eSceneType::Title;
 			}
 
+			next = (int)eSceneType::Score;
+			
 			SceneManager::LoadScene((eSceneType)next);
+			
 		}
 
 		if (mSceneLoad_In->EndCheck())
@@ -148,7 +147,6 @@ namespace jw
 			SceneManager::SetNextSceneType(eSceneType::Score);
 			//SceneManager::LoadScene((eSceneType)mNextScene);
 			object::Instantiate<SceneLoad>(Vector2(800.0f, 900.0f), eLayerType::UI);
-			
 		}
 
 		Scene::Update();
@@ -173,12 +171,17 @@ namespace jw
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Ground, true);
 		CollisionManager::SetLayer(eLayerType::BossBullet, eLayerType::Ground, true);
 
+		mCuphead = object::Instantiate<Cuphead>(Vector2(100.0f, 800.0f), eLayerType::Player);
+		mCupheadAnimator = mCuphead->GetComponent<Animator>();
+		mCupheadAnimator->GetCompleteEvent(L"CupheadIntro") = std::bind(&VeggieScene::CupheadIntroCompleteEvent, this);
 
 		mSceneLoad_In = object::Instantiate<SceneLoad_In>(Vector2(800.0f, 900.0f), eLayerType::UI);
 
 	}
 	void VeggieScene::OnExit()
 	{
+		object::Destroy(mCuphead);
+		mCuphead = nullptr;
 	}
 
 	void VeggieScene::CupheadIntroCompleteEvent()

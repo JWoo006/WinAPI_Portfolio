@@ -12,6 +12,12 @@ namespace jw
 		VeggieScene();
 		~VeggieScene();
 
+		struct stageInfo
+		{
+			int* BossHPptr;
+			Cuphead* cupheadptr;
+		};
+
 		virtual void Initialize() override;
 		virtual void Update() override;
 		virtual void Render(HDC hdc) override;
@@ -29,7 +35,7 @@ namespace jw
 
 	private:
 		Background* mbackground;
-		class FightText_WALLOP* ftw;
+		FightText_WALLOP* ftw;
 
 		Cuphead* mCuphead;
 		class Animator* mCupheadAnimator;

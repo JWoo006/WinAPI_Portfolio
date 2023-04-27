@@ -105,6 +105,7 @@ namespace jw
 			}
 
 			Image* image = Resources::Load<Image>(fileName, fullName);
+
 			images.push_back(image);
 
 			// 스프라이트 최대 사이즈 구하기
@@ -143,71 +144,6 @@ namespace jw
 		CreateAnimation(key,path, mSpriteSheet, Vector2::Zero, index, 1
 			, index, offset, duration, imgformat, dir);
 
-	}
-	void Animator::CreateAnimations(const std::wstring& name, const std::wstring& path, Vector2 offset, float duration, eImageFormat imgformat, eAnimationDir dir)
-	{
-		// 파일 크기
-		UINT width = 0;
-		UINT height = 0;
-		// 파일 개수
-		UINT fileCount = 0;
-
-		std::filesystem::path fs(path);
-		std::vector<Image*> images = {};
-		//폴더 내 파일 탐색
-		for (auto& p : std::filesystem::recursive_directory_iterator(path))
-		{
-			auto a = std::filesystem::recursive_directory_iterator(path);
-
-			std::wstring fileName = p.path().filename();
-			std::wstring fullName = path + L"\\" + fileName;//전체경로 + 파일명
-
-			// .png확장자 이미지는 continue
-			const std::wstring ext = p.path().extension();
-			if (ext == L".png")
-			{
-				int a = 0;
-				//continue;
-			}
-
-			Image* image = Resources::Load<Image>(fileName, fullName);
-			images.push_back(image);
-
-			// 스프라이트 최대 사이즈 구하기
-			if (width < image->GetWidth())
-			{
-				width = image->GetWidth();
-			}
-			if (height < image->GetHeight())
-			{
-				height = image->GetHeight();
-			}
-			fileCount++;
-		}
-
-		std::wstring key = fs.parent_path().filename();
-		key += fs.filename();
-
-		mSpriteSheet = Image::Create(name, width * fileCount, height);
-
-
-		int index = 0;
-		for (Image* image : images)
-		{
-			int centerX = (width - image->GetWidth()) / 2;
-			int centerY = (height - image->GetHeight());
-
-			BitBlt(mSpriteSheet->GetHdc()
-				, width * index + centerX
-				, 0 + centerY
-				, image->GetWidth()
-				, image->GetHeight(), image->GetHdc(), 0, 0, SRCCOPY);
-
-			index++;
-		}
-
-		CreateAnimation(name, path, mSpriteSheet, Vector2::Zero, index, 1
-			, index, offset, duration, imgformat, dir);
 	}
 	Animation* Animator::FindAnimation(const std::wstring& name)
 	{

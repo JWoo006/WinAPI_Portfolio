@@ -45,6 +45,7 @@ namespace jw
 			{
 				next = (int)eSceneType::Title;
 			}
+
 			next = (int)eSceneType::TestPlay;
 
 			SceneManager::LoadScene((eSceneType)next);

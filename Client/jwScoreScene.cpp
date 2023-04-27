@@ -34,14 +34,7 @@ namespace jw
 	{
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
-			int next = (int)eSceneType::Score;
-			next++;
-			if (next == (int)eSceneType::End)
-			{
-				next = (int)eSceneType::Title;
-			}
-
-			next = (int)eSceneType::WorldStage;
+			int next = (int)eSceneType::WorldStage;
 
 			SceneManager::LoadScene((eSceneType)next);
 

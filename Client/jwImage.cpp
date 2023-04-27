@@ -168,7 +168,7 @@ namespace jw
 	}
 	void Image::ImageFlipX()
 	{
-		mImage->RotateFlip(RotateFlipType::Rotate180FlipX);
+		mImage->RotateFlip(RotateFlipType::RotateNoneFlipX);
 		/*mImage->GetHBITMAP(Color(255, 0, 255), &mBitmap);
 		HBITMAP oldBitmap = (HBITMAP)SelectObject(mHdc, mBitmap);
 		DeleteObject(oldBitmap);*/
