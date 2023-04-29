@@ -258,7 +258,7 @@ namespace jw
 		}
 		else
 		{
-			PotatoShoot* shoot = object::Instantiate<PotatoShoot>(Vector2(pos.x - 400.0f, pos.y - 50.0f), eLayerType::ParryObj, mAttackCnt);
+			PotatoShoot* shoot = object::Instantiate<PotatoShoot>(Vector2(pos.x - 400.0f, pos.y - 50.0f), eLayerType::ParryBullet, mAttackCnt);
 			shoot->SetDegree(180.0f);
 		}
 

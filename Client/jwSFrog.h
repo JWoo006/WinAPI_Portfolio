@@ -45,8 +45,11 @@ namespace jw
 		void FistEndAnimCompleteEvent();
 		void RollAnimCompleteEvent();
 		void RollEndAnimCompleteEvent();
+		void Roll_LAnimCompleteEvent();
 		void ClapAEndAnimCompleteEvent();
 		void ClapBEndAnimCompleteEvent();
+		void ClapCEndAnimCompleteEvent();
+		void ClapDEndAnimCompleteEvent();
 
 
 		void SetShow(bool show) { mbShow = show; }
@@ -63,12 +66,14 @@ namespace jw
 		void SetbFireFlyOn(bool on) { mbFireFlyOn = on; }
 		bool GetRollOn() { return mbRollOn; }
 		void SetRollOn(bool on) { mbRollOn = on; }
+		bool GetFanOn() { return mbFanOn; }
+		void SetFanOn(bool on) { mbFanOn = on; }
 
 	private:
 		Animator* mSFrogAnimator;
 		Collider* mSFrogCollider;
 		Cuphead* mCuphead;
-
+		
 		eSFrogState mSFrogState;
 
 
@@ -77,6 +82,8 @@ namespace jw
 		bool mbFistOn;
 		bool mbFireFlyOn;
 		bool mbRollOn;
+		bool mbFirstclap;
+		bool mbFanOn;
 
 		float OnHitChecker;
 

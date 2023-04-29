@@ -165,6 +165,12 @@ namespace jw
                     image->SetisFlipedX(true);
                 }
 
+                if (dir == eAnimationDir::Y && (image->GetisFlipedY() == false))
+                {
+                    image->ImageFlipY();
+                    image->SetisFlipedY(true);
+                }
+
                 mImages.push_back(image);
 
                 Sprite spriteInfo;

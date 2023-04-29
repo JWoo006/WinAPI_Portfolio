@@ -57,7 +57,7 @@ namespace jw
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BossBullet, true);
 		CollisionManager::SetLayer(eLayerType::Bullet, eLayerType::Monster, true);
-		CollisionManager::SetLayer(eLayerType::Player, eLayerType::ParryObj, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::ParryBullet, true);
 	}
 	void VeggieScene::Update()
 	{
@@ -167,7 +167,7 @@ namespace jw
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BossBullet, true);
 		CollisionManager::SetLayer(eLayerType::Bullet, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Bullet, eLayerType::BossBullet, true);
-		CollisionManager::SetLayer(eLayerType::Player, eLayerType::ParryObj, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::ParryBullet, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Ground, true);
 		CollisionManager::SetLayer(eLayerType::BossBullet, eLayerType::Ground, true);
 

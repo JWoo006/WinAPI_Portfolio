@@ -38,6 +38,10 @@ namespace jw
 
 		void IntroAnimCompleteEvent();
 		void SpitAnimCompleteEvent();
+		void FanStartAnimCompleteEvent();
+		void FanEndAnimCompleteEvent();
+		void MorphStartAnimCompleteEvent();
+		void MorphEndAnimCompleteEvent();
 
 
 		void SetShow(bool show) { mbShow = show; }
@@ -47,6 +51,7 @@ namespace jw
 		void SetTFrogState(eTFrogState state) { mTFrogState = state; }
 
 		bool GetIsBossOut() { return mBossOut; }
+		void SetIsBossOut(bool set) { mBossOut = set; }
 
 		bool GetisFistOn() { return mbFistOn; }
 		void SetbFistOn(bool on) { mbFistOn = on; }
@@ -54,12 +59,14 @@ namespace jw
 		void SetbFireFlyOn(bool on) { mbFireFlyOn = on; }
 		bool GetRollOn() { return mbRollOn; }
 		void SetRollOn(bool on) { mbRollOn = on; }
-
+		bool GetFanOn() { return mbFanOn; }
+		void SetFanOn(bool on) { mbFanOn = on; }
 
 	private:
 		Animator* mTFrogAnimator;
 		Collider* mTFrogCollider;
 		Cuphead* mCuphead;
+		class TFrog_FanWind* mTFrog_FanWind;
 
 		eTFrogState mTFrogState;
 
@@ -69,17 +76,22 @@ namespace jw
 		bool mbFistOn;
 		bool mbFireFlyOn;
 		bool mbRollOn;
+		bool mbFanOn;
 
 		float OnHitChecker;
 
 		int* mTFrogHp;
 		int mFireflyAtkCnt;
 
+		
 		float mFireFlyAtkTimer;
+		float mFanAtkTimer;
 		float mDeathEffectTimer;
 		float mLeaveTimer;
+		float mAtkTimer;
 
 		bool mbAttacking;
+		bool mbFanAttacking;
 		bool mTFrogDead;
 		bool mBossOut;
 

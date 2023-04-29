@@ -18,6 +18,8 @@ namespace jw
 		/*Transform* tr = GetComponent<Transform>();
 		tr->SetPos(Vector2(1100.0f, 700.0f));*/
 
+		SetName(L"VeggieIcon");
+
 		mLoadSceneType = eSceneType::Play_Veggie;
 
 		mAnimator = AddComponent<Animator>();

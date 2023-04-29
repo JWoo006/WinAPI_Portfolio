@@ -333,7 +333,23 @@ namespace jw
 		if (!mbInvincibile)
 		{
 			// 패리 오브젝트 충돌 && 패링중
-			if (other->GetOwner()->GetLayerType() == eLayerType::ParryObj && mbParrying)
+			if (other->GetOwner()->GetLayerType() == eLayerType::ParryBullet && mbParrying)
+			{
+				mbParrySuccess = true;
+
+				Transform* tr = other->GetOwner()->GetComponent<Transform>();
+				Vector2 pos = tr->GetPos();
+				object::Instantiate<ParryEffect>(Vector2(pos), eLayerType::Effect);
+
+
+				Vector2 velocity;
+				velocity.y -= 1600.0f;
+				mRigidbody->SetVelocity(velocity);
+
+				mParryCount = 1;
+			}
+
+			if (other->GetOwner()->GetLayerType() == eLayerType::ParryObject && mbParrying)
 			{
 				mbParrySuccess = true;
 
@@ -350,7 +366,7 @@ namespace jw
 			}
 
 			// 패리 오브젝트 충돌 && 패링중 X
-			if (other->GetOwner()->GetLayerType() == eLayerType::ParryObj && !mbParrying && !mbInvincibile)
+			if (other->GetOwner()->GetLayerType() == eLayerType::ParryBullet && !mbParrying && !mbInvincibile)
 			{
 				Transform* tr = GetComponent<Transform>();
 				Vector2 pos = tr->GetPos();
@@ -476,13 +492,27 @@ namespace jw
 			}
 		}
 
+		if (mbInvincibile)
+		{
+			if (other->GetOwner()->GetLayerType() == eLayerType::Ground)
+			{
+				Transform* cupTr = this->GetComponent<Transform>();
+				Transform* grTr = other->GetOwner()->GetComponent<Transform>();
+
+				Vector2 cupPos = cupTr->GetPos();
+				Vector2 grPos = grTr->GetPos();
+
+				cupTr->SetPos(Vector2(cupPos.x, grPos.y));
+			}
+		}
+
 	}
 	void Cuphead::OnCollisionStay(Collider* other)
 	{
 		if (mbInvincibile)
 		{
 			// 패리 오브젝트 충돌 && 패링중
-			if (other->GetOwner()->GetLayerType() == eLayerType::ParryObj && mbParrying && !mbParrySuccess)
+			if (other->GetOwner()->GetLayerType() == eLayerType::ParryBullet && mbParrying && !mbParrySuccess)
 			{
 				mbParrySuccess = true;
 
@@ -497,7 +527,7 @@ namespace jw
 				mParryCount = 1;
 			}
 
-			if (other->GetOwner()->GetLayerType() == eLayerType::ParryObj && !mbParrying && !mbInvincibile)
+			if (other->GetOwner()->GetLayerType() == eLayerType::ParryBullet && !mbParrying && !mbInvincibile)
 			{
 				Transform* tr = GetComponent<Transform>();
 				Vector2 pos = tr->GetPos();
@@ -536,6 +566,11 @@ namespace jw
 					pos.y += 50.0f;
 					object::Instantiate<OnHitEffect>(pos, eLayerType::Effect);
 				}
+			}
+
+			if (other->GetOwner()->GetLayerType() == eLayerType::BossBullet)
+			{
+				int a = 0;
 			}
 		}
 

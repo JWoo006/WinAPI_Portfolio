@@ -5,12 +5,14 @@
 #include "jwCollider.h"
 #include "jwTime.h"
 #include "jwObject.h"
+#include "jwRigidbody.h"
 
 #include "jwTestPlayScene.h"
 #include "jwCuphead.h"
 
 #include "jwBossExplosion.h"
 #include "jwTFrog_Firefly.h"
+#include "jwTFrog_FanWind.h"
 
 namespace jw
 {
@@ -32,16 +34,16 @@ namespace jw
 		mbFistOn = false;
 		mbFireFlyOn = false;
 		OnHitChecker = 0.0f;
-
 		
-		mFireflyAtkCnt = 1;
-
+		mFireflyAtkCnt = 3;
 
 		mFireFlyAtkTimer = 0.0f;
+		mFanAtkTimer = 0.0f;
 
 		mbAttacking = false;
 		mTFrogDead = false;
 		mBossOut = false;
+		mbFanAttacking = false;
 
 		mTFrogAnimator = AddComponent<Animator>();
 
@@ -51,8 +53,20 @@ namespace jw
 
 		mTFrogAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage2_frog\\TFrog\\firefly\\spit", Vector2::Zero, 0.04f, eImageFormat::PNG, eAnimationDir::R);
 
+		mTFrogAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage2_frog\\TFrog\\fan\\start", Vector2::Zero, 0.04f, eImageFormat::PNG, eAnimationDir::R);
+		mTFrogAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage2_frog\\TFrog\\fan\\loop", Vector2::Zero, 0.04f, eImageFormat::PNG, eAnimationDir::R);
+		mTFrogAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage2_frog\\TFrog\\fan\\end", Vector2::Zero, 0.04f, eImageFormat::PNG, eAnimationDir::R);
+
+		mTFrogAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage2_frog\\TFrog\\morph\\start", Vector2::Zero, 0.04f, eImageFormat::PNG, eAnimationDir::R);
+		mTFrogAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage2_frog\\TFrog\\morph\\loop", Vector2::Zero, 0.04f, eImageFormat::PNG, eAnimationDir::R);
+		mTFrogAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage2_frog\\TFrog\\morph\\end", Vector2::Zero, 0.04f, eImageFormat::PNG, eAnimationDir::R);
+
 		mTFrogAnimator->GetCompleteEvent(L"TFrogintro") = std::bind(&TFrog::IntroAnimCompleteEvent, this);
 		mTFrogAnimator->GetCompleteEvent(L"fireflyspit") = std::bind(&TFrog::SpitAnimCompleteEvent, this);
+		mTFrogAnimator->GetCompleteEvent(L"fanstart") = std::bind(&TFrog::FanStartAnimCompleteEvent, this);
+		mTFrogAnimator->GetCompleteEvent(L"fanend") = std::bind(&TFrog::FanEndAnimCompleteEvent, this);
+		mTFrogAnimator->GetCompleteEvent(L"morphstart") = std::bind(&TFrog::MorphStartAnimCompleteEvent, this);
+		mTFrogAnimator->GetCompleteEvent(L"morphend") = std::bind(&TFrog::MorphEndAnimCompleteEvent, this);
 
 		mTFrogState = eTFrogState::Idle;
 		mTFrogAnimator->Play(L"TFrogidle", true);
@@ -85,6 +99,7 @@ namespace jw
 			onhit();
 			break;
 		case jw::TFrog::eTFrogState::Death:
+			death();
 			break;
 		default:
 			break;
@@ -101,17 +116,7 @@ namespace jw
 				mTFrogAnimator->SetMatrixBase();
 			}
 		}
-		// 사망시 피격효과
-		if (!mbOnHit && mTFrogDead)
-		{
-			OnHitChecker += Time::DeltaTime();
-			if (OnHitChecker > 0.05f)
-			{
-				OnHitChecker = 0.0f;
-				mbOnHit = true;
-				mTFrogAnimator->SetMatrixHitFlash();
-			}
-		}
+		
 
 	}
 	void TFrog::Render(HDC hdc)
@@ -131,13 +136,19 @@ namespace jw
 		{
 			mTFrogDead = true;
 			mTFrogState = eTFrogState::Death;
-			//mTFrogAnimator->Play(L"TFrogdeath", true);
-			mTFrogAnimator->SetMatrixHitFlash();
+			mTFrogAnimator->Play(L"morphstart", false);
 		}
 
 		mbOnHit = true;
 		(*mTFrogHp) -= 1;
 		mTFrogAnimator->SetMatrixHitFlash();
+
+		if (other->GetOwner()->GetLayerType() == eLayerType::Monster && *mTFrogHp < 0 && mTFrogDead)
+		{
+			mTFrogDead = false;
+			mTFrogAnimator->Play(L"morphend", false);
+		}
+
 	}
 	void TFrog::OnCollisionStay(Collider* other)
 	{
@@ -147,10 +158,20 @@ namespace jw
 	}
 	void TFrog::idle()
 	{
+		mAtkTimer += Time::DeltaTime();
+
 		if (*mTFrogHp >0 && mbFireFlyOn)
 		{
 			mTFrogState = eTFrogState::Attack_Firefly;
 			mbFireFlyOn = false;
+		}
+
+		if (*mTFrogHp > 0 && mbFanOn && mAtkTimer > 3.0f)
+		{
+			mAtkTimer = 0.0f;
+			mTFrogState = eTFrogState::Attack_Fan;
+			mTFrogAnimator->Play(L"fanstart", false);
+			mbFanOn = false;
 		}
 	}
 	void TFrog::attack_firefly()
@@ -167,19 +188,36 @@ namespace jw
 			mbRollOn = true;
 			mbAttacking = false;			
 			mTFrogState = eTFrogState::Idle;
-			//mTFrogAnimator->Play(L"TFrogidle", true);
 		}
 	}
 	void TFrog::attack_fan()
 	{
+		Rigidbody* rb = mCuphead->GetComponent<Rigidbody>();
+		Vector2 velocity = rb->GetVelocity();
+		velocity.x = -150.0f;
+		rb->SetVelocity(velocity);
 
+		mFanAtkTimer += Time::DeltaTime();
+
+		if (mFanAtkTimer > 5.0f && mbFanAttacking)
+		{
+			mFanAtkTimer = 0.0f;
+			mbFanAttacking = false;
+			mTFrogAnimator->Play(L"fanend", false);
+			mTFrogState = eTFrogState::Idle;
+
+		}
 	}
 	void TFrog::onhit()
 	{
 	}
 	void TFrog::death()
 	{
-
+		if (mTFrog_FanWind)
+		{
+			object::Destroy(mTFrog_FanWind);
+			mTFrog_FanWind = nullptr;
+		}
 	}
 
 	void TFrog::IntroAnimCompleteEvent()
@@ -198,6 +236,51 @@ namespace jw
 		mFireflyAtkCnt--;
 		mbAttacking = false;
 		mTFrogAnimator->Play(L"TFrogidle", true);
+	}
+
+	void TFrog::FanStartAnimCompleteEvent()
+	{
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->GetPos();
+
+		mbFanAttacking = true;
+
+		mTFrogAnimator->Play(L"fanloop", true);
+		mTFrog_FanWind = object::Instantiate<TFrog_FanWind>(Vector2(pos.x - 500.0f, pos.y - 200.0f), eLayerType::Effect);
+	
+	}
+
+	void TFrog::FanEndAnimCompleteEvent()
+	{
+		mTFrogAnimator->Play(L"TFrogidle", true);
+
+		if (mTFrog_FanWind)
+		{
+			object::Destroy(mTFrog_FanWind);
+			mTFrog_FanWind = nullptr;
+		}
+		
+		mbFanOn = true;
+
+		Rigidbody* rb = mCuphead->GetComponent<Rigidbody>();
+		Vector2 velocity = rb->GetVelocity();
+		velocity.x = 0.0f;
+		rb->SetVelocity(velocity);
+	}
+
+	void TFrog::MorphStartAnimCompleteEvent()
+	{
+		mTFrogAnimator->Play(L"morphloop", true);
+
+		Rigidbody* rb = mCuphead->GetComponent<Rigidbody>();
+		Vector2 velocity = rb->GetVelocity();
+		velocity.x = 0.0f;
+		rb->SetVelocity(velocity);
+	}
+
+	void TFrog::MorphEndAnimCompleteEvent()
+	{
+		mBossOut = true;
 	}
 
 }

@@ -2,14 +2,16 @@
 #include "jwInput.h"
 #include "jwSceneManager.h"
 #include "jwResources.h"
-#include "jwCuphead_Stage.h"
 #include "jwCamera.h"
 #include "jwObject.h"
+#include "jwCollisionManager.h"
+#include "jwSceneLoad.h"
+
+#include "jwCuphead_Stage.h"
 #include "jwSceneLoad_In.h"
 #include "jwWorldMap1.h"
 #include "jwVeggieWorldIcon.h"
-#include "jwCollisionManager.h"
-#include "jwSceneLoad.h"
+#include "jwFrogWorldIcon.h"
 
 namespace jw
 {
@@ -29,6 +31,7 @@ namespace jw
 		
 		object::Instantiate<WorldMap1>(Vector2::Zero, eLayerType::BG);
 		mVeggieWorldIcon = object::Instantiate<VeggieWorldIcon>(Vector2(700.0f, 900.0f), eLayerType::BG);
+		mFrogWorldIcon = object::Instantiate<FrogWorldIcon>(Vector2(330.0f, 730.0f), eLayerType::BG);
 
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BG, true);
 
@@ -53,15 +56,24 @@ namespace jw
 
 		if (mCuphead_Stage->GetIsShowIcon())
 		{
-			if (Input::GetKeyState(eKeyCode::Z) == eKeyState::Down)
+			std::wstring iconName = mCuphead_Stage->GetIconName();
+
+			if (Input::GetKeyState(eKeyCode::Z) == eKeyState::Down && iconName == L"VeggieIcon")
 			{
 				mNextScene = (int)mVeggieWorldIcon->GetLoadSceneType();
 				SceneManager::SetNextSceneType((eSceneType)mNextScene);
 
 				Transform* tr = mCuphead_Stage->GetComponent<Transform>();
 				object::Instantiate<SceneLoad>(Vector2(tr->GetPos().x, tr->GetPos().y + 450.0f), eLayerType::UI);
+			}
 
-				//object::Instantiate<SceneLoad>(Vector2(800.0f, 1130.0f), eLayerType::UI);
+			if (Input::GetKeyState(eKeyCode::Z) == eKeyState::Down && iconName == L"FrogIcon")
+			{
+				mNextScene = (int)mFrogWorldIcon->GetLoadSceneType();
+				SceneManager::SetNextSceneType((eSceneType)mNextScene);
+
+				Transform* tr = mCuphead_Stage->GetComponent<Transform>();
+				object::Instantiate<SceneLoad>(Vector2(tr->GetPos().x, tr->GetPos().y + 450.0f), eLayerType::UI);
 			}
 		}
 

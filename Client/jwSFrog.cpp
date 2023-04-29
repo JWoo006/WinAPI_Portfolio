@@ -12,6 +12,7 @@
 
 #include "jwBossExplosion.h"
 #include "jwSFrog_Fistobj.h"
+#include "jwSFrog_Clapball.h"
 
 namespace jw
 {
@@ -34,9 +35,10 @@ namespace jw
 		mbFistOn = false;
 		mbFireFlyOn = false;
 		mbRollOn = false;
+		mbFirstclap = false;
 		
 
-		mFistAtkCnt = 1;
+		mFistAtkCnt = 9;
 		mClapAtkCnt = 3;
 
 		mAtakTimer = 0.0f;
@@ -60,10 +62,16 @@ namespace jw
 		mSFrogAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage2_frog\\SFrog\\fist\\fist_loop", Vector2::Zero, 0.04f, eImageFormat::PNG, eAnimationDir::R);
 		mSFrogAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage2_frog\\SFrog\\fist\\fist_end", Vector2::Zero, 0.04f, eImageFormat::PNG, eAnimationDir::R);
 
+		mSFrogAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage2_frog\\SFrog\\fan\\roll_L", Vector2::Zero, 0.04f, eImageFormat::PNG, eAnimationDir::L);
 		mSFrogAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage2_frog\\SFrog\\fan\\roll", Vector2::Zero, 0.04f, eImageFormat::PNG, eAnimationDir::R);
+		mSFrogAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage2_frog\\SFrog\\fan\\rolling_L", Vector2::Zero, 0.04f, eImageFormat::PNG, eAnimationDir::L);
 		mSFrogAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage2_frog\\SFrog\\fan\\rolling", Vector2::Zero, 0.04f, eImageFormat::PNG, eAnimationDir::R);
 		mSFrogAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage2_frog\\SFrog\\fan\\rollend", Vector2::Zero, 0.07f, eImageFormat::PNG, eAnimationDir::L);
+		
 		mSFrogAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage2_frog\\SFrog\\fan\\clap", Vector2::Zero, 0.04f, eImageFormat::PNG, eAnimationDir::L);
+		mSFrogAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage2_frog\\SFrog\\fan\\clap_b", Vector2::Zero, 0.04f, eImageFormat::PNG, eAnimationDir::L);
+		mSFrogAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage2_frog\\SFrog\\fan\\clap_c", Vector2::Zero, 0.04f, eImageFormat::PNG, eAnimationDir::L);
+		mSFrogAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage2_frog\\SFrog\\fan\\clap_d", Vector2::Zero, 0.04f, eImageFormat::PNG, eAnimationDir::L);
 
 
 		mSFrogAnimator->GetCompleteEvent(L"SFrogintro") = std::bind(&SFrog::IntroAnimCompleteEvent, this);
@@ -71,8 +79,12 @@ namespace jw
 		mSFrogAnimator->GetCompleteEvent(L"fistfist_ready2") = std::bind(&SFrog::FistReady2AnimCompleteEvent, this);
 		mSFrogAnimator->GetCompleteEvent(L"fistfist_end") = std::bind(&SFrog::FistEndAnimCompleteEvent, this);
 		mSFrogAnimator->GetCompleteEvent(L"fanroll") = std::bind(&SFrog::RollAnimCompleteEvent, this);
+		mSFrogAnimator->GetCompleteEvent(L"fanroll_L") = std::bind(&SFrog::Roll_LAnimCompleteEvent, this);
 		mSFrogAnimator->GetCompleteEvent(L"fanrollend") = std::bind(&SFrog::RollEndAnimCompleteEvent, this);
-		mSFrogAnimator->GetCompleteEvent(L"fanclap") = std::bind(&SFrog::ClapBEndAnimCompleteEvent, this);
+		mSFrogAnimator->GetCompleteEvent(L"fanclap") = std::bind(&SFrog::ClapAEndAnimCompleteEvent, this);
+		mSFrogAnimator->GetCompleteEvent(L"fanclap_b") = std::bind(&SFrog::ClapBEndAnimCompleteEvent, this);
+		mSFrogAnimator->GetCompleteEvent(L"fanclap_c") = std::bind(&SFrog::ClapCEndAnimCompleteEvent, this);
+		mSFrogAnimator->GetCompleteEvent(L"fanclap_d") = std::bind(&SFrog::ClapDEndAnimCompleteEvent, this);
 
 		mSFrogState = eSFrogState::Intro;
 		mSFrogAnimator->Play(L"SFrogidle", true);
@@ -108,6 +120,7 @@ namespace jw
 			onhit();
 			break;
 		case jw::SFrog::eSFrogState::Death:
+			death();
 			break;
 		default:
 			break;
@@ -124,17 +137,7 @@ namespace jw
 				mSFrogAnimator->SetMatrixBase();
 			}
 		}
-		// 사망시 피격효과
-		if (!mbOnHit && mSFrogDead)
-		{
-			OnHitChecker += Time::DeltaTime();
-			if (OnHitChecker > 0.05f)
-			{
-				OnHitChecker = 0.0f;
-				mbOnHit = true;
-				mSFrogAnimator->SetMatrixHitFlash();
-			}
-		}
+		
 
 	}
 	void SFrog::Render(HDC hdc)
@@ -153,14 +156,19 @@ namespace jw
 		if (*mSFrogHp < 0 && !mSFrogDead)
 		{
 			mSFrogDead = true;
-			mSFrogState = eSFrogState::Death;
-			//mSFrogAnimator->Play(L"SFrogdeath", true);
-			mSFrogAnimator->SetMatrixHitFlash();
+			
+			mSFrogAnimator->Play(L"fanroll_L", false);
 		}
 
 		mbOnHit = true;
 		(*mSFrogHp) -= 1;
 		mSFrogAnimator->SetMatrixHitFlash();
+
+		if (other->GetOwner()->GetLayerType() == eLayerType::Monster && *mSFrogHp < 0 && mSFrogDead)
+		{
+			mSFrogDead = false;
+			object::Destroy(this);
+		}
 	}
 	void SFrog::OnCollisionStay(Collider* other)
 	{
@@ -186,7 +194,7 @@ namespace jw
 			mAtakTimer = 0.0f;
 			mbAttacking = true;
 			mbRollOn = false;
-			mSFrogState = eSFrogState::Roll;
+			
 			mSFrogAnimator->Play(L"fanroll", false);
 		}
 	}
@@ -200,7 +208,7 @@ namespace jw
 
 		if (pos.x >= -200)
 		{
-			pos.x -= 400.0f * Time::DeltaTime();
+			pos.x -= 600.0f * Time::DeltaTime();
 		}
 		else
 		{
@@ -213,6 +221,9 @@ namespace jw
 			tr->SetPos(pos);
 			mSFrogState = eSFrogState::Attack_Clap;
 			mSFrogAnimator->Play(L"fanrollend", false);
+
+			// 큰 개구리 팬 패턴 분기
+			mbFanOn = true;
 		}
 		tr->SetPos(pos);
 	
@@ -260,7 +271,7 @@ namespace jw
 		if (mFistAtkTimer > 1.5f && mFistAtkCnt % 3 == 0 && mFistAtkCnt > 0)
 		{
 			mFistAtkTimer = 0.0f;
-			object::Instantiate<SFrog_Fistobj>(Vector2(pos), eLayerType::ParryObj, mFistAtkCnt);
+			object::Instantiate<SFrog_Fistobj>(Vector2(pos), eLayerType::ParryBullet, mFistAtkCnt);
 
 			mFistAtkCnt--;
 		}
@@ -285,13 +296,27 @@ namespace jw
 	}
 	void SFrog::attack_clap()
 	{
+		if (*mSFrogHp < 0 && !mSFrogDead)
+		{
+			mSFrogDead = true;
+			mSFrogAnimator->Play(L"fanroll_L", false);
+		}
+
 		mClapAtkTimer += Time::DeltaTime();
 
-		if (mClapAtkTimer > 1.5f)
+		if (mClapAtkTimer > 1.5f && !mbFirstclap && *mSFrogHp > 0)
 		{
+			mbFirstclap = true;
+
 			mClapAtkTimer = 0.0f;
 
 			mSFrogAnimator->Play(L"fanclap", false);
+		}
+		else if (mClapAtkTimer > 1.5f && mbFirstclap && *mSFrogHp > 0)
+		{
+			mClapAtkTimer = 0.0f;
+
+			mSFrogAnimator->Play(L"fanclap_c", false);
 		}
 	}
 	void SFrog::onhit()
@@ -299,7 +324,15 @@ namespace jw
 	}
 	void SFrog::death()
 	{
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->GetPos();
+		tr->SetScale(Vector2(1.f, 1.f));
+		mSFrogCollider->SetCenter(Vector2(80.0f, -150.0f));
+		mSFrogCollider->SetSize(Vector2(200.0f, 150.0f));
+
+		pos.x += 600.0f * Time::DeltaTime();
 		
+		tr->SetPos(pos);
 	}
 
 	void SFrog::IntroAnimCompleteEvent()
@@ -326,6 +359,7 @@ namespace jw
 
 	void SFrog::RollAnimCompleteEvent()
 	{
+		mSFrogState = eSFrogState::Roll;
 		mSFrogAnimator->Play(L"fanrolling", true);
 	}
 
@@ -334,13 +368,34 @@ namespace jw
 		mSFrogAnimator->Play(L"SFrogidleL", true);
 	}
 
+	void SFrog::Roll_LAnimCompleteEvent()
+	{
+		mSFrogState = eSFrogState::Death;
+		mSFrogAnimator->Play(L"fanrolling_L", true);
+	}
+
 	void SFrog::ClapAEndAnimCompleteEvent()
 	{
+		mSFrogAnimator->Play(L"fanclap_c", false);
 	}
 
 	void SFrog::ClapBEndAnimCompleteEvent()
 	{
-		mSFrogAnimator->Play(L"SFrogidleL", true);
+		//mSFrogAnimator->Play(L"fanclap_c", false);
+	}
+
+	void SFrog::ClapCEndAnimCompleteEvent()
+	{
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->GetPos();
+
+		object::Instantiate<SFrog_Clapball>(Vector2(pos), eLayerType::BossBullet);
+		mSFrogAnimator->Play(L"fanclap_d", false);
+	}
+
+	void SFrog::ClapDEndAnimCompleteEvent()
+	{
+		mSFrogAnimator->Play(L"fanclap_b", true);
 	}
 
 }

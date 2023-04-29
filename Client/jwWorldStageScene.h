@@ -27,6 +27,7 @@ namespace jw
 		int mNextScene;
 		Cuphead_Stage* mCuphead_Stage;
 		VeggieWorldIcon* mVeggieWorldIcon;
+		class FrogWorldIcon* mFrogWorldIcon;
 	};
 }
 

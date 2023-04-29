@@ -92,8 +92,7 @@ namespace jw
 
 		if (other->GetOwner()->GetLayerType() == eLayerType::Player)
 		{
-			bool ii = cuphead->GetIsInvincibile();
-
+			
 			if (mAttackCnt > 0)
 			{
 				mAnimator->Play(L"potatobullet_death", false);

@@ -92,8 +92,6 @@ namespace jw
 
 		if (other->GetOwner()->GetLayerType() == eLayerType::Player)
 		{
-			bool ii = cuphead->GetIsInvincibile();
-
 			mAnimator->Play(L"fistdeath", false);
 			mSpeed = 0.0f;
 		}

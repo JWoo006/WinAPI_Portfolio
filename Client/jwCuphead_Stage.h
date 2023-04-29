@@ -42,6 +42,7 @@ namespace jw
 		virtual void OnCollisionExit(class Collider* other) override;
 
 		bool GetIsShowIcon() { return mbShowIcon; }
+		std::wstring GetIconName() { return mIconName; }
 
 	private:
 		// 함수명이 소문자로 시작하는건 private의 접근지정자로 구분
@@ -52,6 +53,7 @@ namespace jw
 		eCupheadState mState;
 		Animator* mAnimator;
 		Image* mImage;
+		std::wstring mIconName;
 		bool mbShowIcon;
 	};
 }

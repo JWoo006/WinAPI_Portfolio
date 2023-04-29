@@ -24,6 +24,7 @@ namespace jw
 		Gdiplus::Bitmap* GetImage() { return mImage; }
 
 		void ImageFlipX();
+		void ImageFlipY();
 		bool GetReversed() { return mbReverse; }
 		void RotateImage();
 

@@ -391,6 +391,45 @@
     <ClInclude Include="jwTFrog_Firefly.h">
       <Filter>Contents\Stage\2 Frog\object</Filter>
     </ClInclude>
+    <ClInclude Include="jwSFrog_Clapball.h">
+      <Filter>Contents\Stage\2 Frog\object</Filter>
+    </ClInclude>
+    <ClInclude Include="jwTFrog_FanWind.h">
+      <Filter>Contents\Stage\2 Frog\object</Filter>
+    </ClInclude>
+    <ClInclude Include="jwTFrog_Slot.h">
+      <Filter>Contents\Stage\2 Frog\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="jwSlot_Spit.h">
+      <Filter>Contents\Stage\2 Frog\object</Filter>
+    </ClInclude>
+    <ClInclude Include="jwSlot_Pic.h">
+      <Filter>Contents\Stage\2 Frog\object</Filter>
+    </ClInclude>
+    <ClInclude Include="jwSlot_CoinBullet.h">
+      <Filter>Contents\Stage\2 Frog\object</Filter>
+    </ClInclude>
+    <ClInclude Include="jwSlot_LeverParry.h">
+      <Filter>Contents\Stage\2 Frog\object</Filter>
+    </ClInclude>
+    <ClInclude Include="jwSlot_Snake.h">
+      <Filter>Contents\Stage\2 Frog\object</Filter>
+    </ClInclude>
+    <ClInclude Include="jwSlot_SnakeGround.h">
+      <Filter>Contents\Stage\2 Frog\object</Filter>
+    </ClInclude>
+    <ClInclude Include="jwSlot_Fire.h">
+      <Filter>Contents\Stage\2 Frog\object</Filter>
+    </ClInclude>
+    <ClInclude Include="jwSlot_FireFlame.h">
+      <Filter>Contents\Stage\2 Frog\object</Filter>
+    </ClInclude>
+    <ClInclude Include="jwFrogScene.h">
+      <Filter>Contents\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="jwFrogWorldIcon.h">
+      <Filter>Contents\WorldMap</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -642,6 +681,45 @@
     </ClCompile>
     <ClCompile Include="jwTFrog_Firefly.cpp">
       <Filter>Contents\Stage\2 Frog\object</Filter>
+    </ClCompile>
+    <ClCompile Include="jwSFrog_Clapball.cpp">
+      <Filter>Contents\Stage\2 Frog\object</Filter>
+    </ClCompile>
+    <ClCompile Include="jwTFrog_FanWind.cpp">
+      <Filter>Contents\Stage\2 Frog\object</Filter>
+    </ClCompile>
+    <ClCompile Include="jwTFrog_Slot.cpp">
+      <Filter>Contents\Stage\2 Frog\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="jwSlot_Spit.cpp">
+      <Filter>Contents\Stage\2 Frog\object</Filter>
+    </ClCompile>
+    <ClCompile Include="jwSlot_Pic.cpp">
+      <Filter>Contents\Stage\2 Frog\object</Filter>
+    </ClCompile>
+    <ClCompile Include="jwSlot_CoinBullet.cpp">
+      <Filter>Contents\Stage\2 Frog\object</Filter>
+    </ClCompile>
+    <ClCompile Include="jwSlot_LeverParry.cpp">
+      <Filter>Contents\Stage\2 Frog\object</Filter>
+    </ClCompile>
+    <ClCompile Include="jwSlot_Snake.cpp">
+      <Filter>Contents\Stage\2 Frog\object</Filter>
+    </ClCompile>
+    <ClCompile Include="jwSlot_SnakeGround.cpp">
+      <Filter>Contents\Stage\2 Frog\object</Filter>
+    </ClCompile>
+    <ClCompile Include="jwSlot_Fire.cpp">
+      <Filter>Contents\Stage\2 Frog\object</Filter>
+    </ClCompile>
+    <ClCompile Include="jwSlot_FireFlame.cpp">
+      <Filter>Contents\Stage\2 Frog\object</Filter>
+    </ClCompile>
+    <ClCompile Include="jwFrogScene.cpp">
+      <Filter>Contents\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="jwFrogWorldIcon.cpp">
+      <Filter>Contents\WorldMap</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

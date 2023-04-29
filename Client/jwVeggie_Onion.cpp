@@ -229,7 +229,7 @@ namespace jw
 			}
 			else
 			{
-				object::Instantiate<OnionBullet>(pos, eLayerType::ParryObj, a);
+				object::Instantiate<OnionBullet>(pos, eLayerType::ParryBullet, a);
 			}
 
 			

@@ -98,6 +98,7 @@ namespace jw
 		void SetInvincibile(bool invin) { mbInvincibile = invin; }
 
 		bool GetIsParrySucess() { return mbParrySuccess; }
+		bool GetIsParrying() { return mbParrying; }
 
 	private:
 		eCupheadState mState;

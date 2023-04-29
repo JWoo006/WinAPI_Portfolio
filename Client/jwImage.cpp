@@ -174,4 +174,13 @@ namespace jw
 		DeleteObject(oldBitmap);*/
 		mbReverse = true;
 	}
+
+	void Image::ImageFlipY()
+	{
+		mImage->RotateFlip(RotateFlipType::RotateNoneFlipY);
+		/*mImage->GetHBITMAP(Color(255, 0, 255), &mBitmap);
+		HBITMAP oldBitmap = (HBITMAP)SelectObject(mHdc, mBitmap);
+		DeleteObject(oldBitmap);*/
+		mbReverse = true;
+	}
 }

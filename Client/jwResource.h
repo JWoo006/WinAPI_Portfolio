@@ -19,11 +19,14 @@ namespace jw
 		void SetPath(const std::wstring& path) { mPath = path; }
 		void SetisFlipedX(bool b) { mbisFlipedX = b; }
 		bool GetisFlipedX() { return mbisFlipedX; }
+		void SetisFlipedY(bool b) { mbisFlipedY = b; }
+		bool GetisFlipedY() { return mbisFlipedY; }
 
 	private:
 		std::wstring mKey; //키값
 		std::wstring mPath; //파일의 경로
 		bool mbisFlipedX;
+		bool mbisFlipedY;
 	};
 
 	/*class Image : public Resource

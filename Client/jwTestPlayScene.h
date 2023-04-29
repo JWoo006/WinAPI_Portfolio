@@ -49,6 +49,10 @@ namespace jw
 		class TFrog* mTFrog;
 		Animator* mTFrogAnimator;
 
+		class TFrog_Slot* mTFrog_Slot;
+		Animator* mTFrog_SlotAnimator;
+		bool mbTFrog_SlotDeadChecker;
+
 		class SceneLoad_In* mSceneLoad_In;
 
 		float mTime;

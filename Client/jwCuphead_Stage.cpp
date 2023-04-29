@@ -145,10 +145,12 @@ namespace jw
 		if (other->GetOwner()->GetLayerType() == eLayerType::BG)
 		{
 			mbShowIcon = true;
+			mIconName = other->GetOwner()->GetName();
 		}
 	}
 	void Cuphead_Stage::OnCollisionStay(Collider* other)
 	{
+		mIconName = other->GetOwner()->GetName();
 	}
 	void Cuphead_Stage::OnCollisionExit(Collider* other)
 	{
@@ -156,6 +158,7 @@ namespace jw
 		{
 			mbShowIcon = false;
 		}
+		
 	}
 	void Cuphead_Stage::move()
 	{
