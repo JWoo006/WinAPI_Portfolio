@@ -23,6 +23,8 @@ namespace jw
 		Image* mImage;
 		Image* mImage2;
 		Image* mImage3;
+
+		class Sound* mainSound;
 		int mNextScene;
 	};
 }

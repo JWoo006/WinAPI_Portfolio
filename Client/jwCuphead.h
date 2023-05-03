@@ -100,6 +100,9 @@ namespace jw
 		bool GetIsParrySucess() { return mbParrySuccess; }
 		bool GetIsParrying() { return mbParrying; }
 
+		void SetRightSpeed(float speed) { mrightspeed = speed; }
+		void SetRightDashSpeed(float speed) { mRightDashSpeed = speed; }
+
 	private:
 		eCupheadState mState;
 		Animator* mAnimator;
@@ -122,6 +125,8 @@ namespace jw
 		bool mbFlashCheck;
 		float mFlashTime;
 		
+		float mrightspeed;
+		float mRightDashSpeed;
 
 	};
 }

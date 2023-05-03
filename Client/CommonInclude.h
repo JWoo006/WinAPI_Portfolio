@@ -23,5 +23,13 @@ using namespace Gdiplus;
 // transparentBlt함수 호출하기위해 넣음
 #pragma comment(lib, "Msimg32.lib")
 
+//사운드
+#include <mmsystem.h>
+#include <dsound.h>
+#include <dinput.h>
+
+#pragma comment(lib, "winmm.lib");
+#pragma comment(lib, "dsound.lib");
+
 #define TILE_SIZE_X 64
 #define TILE_SIZE_Y 64

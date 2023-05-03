@@ -6,6 +6,7 @@ enum class eSceneType
 	WorldStage,
 	Play_Veggie,
 	Play_Frog,
+	Play_Pirate,
 	Score,
 	TestPlay,
 	End,

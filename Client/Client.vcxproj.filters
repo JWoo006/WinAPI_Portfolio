@@ -128,6 +128,18 @@
     <Filter Include="Contents\Stage\2 Frog\object">
       <UniqueIdentifier>{1955d664-0af5-43ed-a09f-7b973a88476f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Stage\3 Pirate">
+      <UniqueIdentifier>{ba34ac3c-f1ed-4cbf-bfcf-aebe5f46a916}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Stage\3 Pirate\BG">
+      <UniqueIdentifier>{8e31fb32-aa4a-4a85-b442-ef7a5373dd23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Stage\3 Pirate\Boss">
+      <UniqueIdentifier>{255e243d-43a1-4963-85b8-f3b330052b79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Stage\3 Pirate\object">
+      <UniqueIdentifier>{4041843e-67f0-4225-bdc5-1baac733699d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -430,6 +442,84 @@
     <ClInclude Include="jwFrogWorldIcon.h">
       <Filter>Contents\WorldMap</Filter>
     </ClInclude>
+    <ClInclude Include="jwPirate_BG.h">
+      <Filter>Contents\Stage\3 Pirate\BG</Filter>
+    </ClInclude>
+    <ClInclude Include="jwPirate_BG_Dock.h">
+      <Filter>Contents\Stage\3 Pirate\BG</Filter>
+    </ClInclude>
+    <ClInclude Include="jwPirate_BG_Sky.h">
+      <Filter>Contents\Stage\3 Pirate\BG</Filter>
+    </ClInclude>
+    <ClInclude Include="jwWallObject.h">
+      <Filter>Contents\Stage\3 Pirate\object</Filter>
+    </ClInclude>
+    <ClInclude Include="jwPirate_Ship_A.h">
+      <Filter>Contents\Stage\3 Pirate\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="jwPirate_Barrel.h">
+      <Filter>Contents\Stage\3 Pirate\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="jwPirate_Captain.h">
+      <Filter>Contents\Stage\3 Pirate\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="jwPirate_Ship_B.h">
+      <Filter>Contents\Stage\3 Pirate\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="jwBarrel_Dust.h">
+      <Filter>Contents\Stage\3 Pirate\object</Filter>
+    </ClInclude>
+    <ClInclude Include="jwBarrel_Fx.h">
+      <Filter>Contents\Stage\3 Pirate\object</Filter>
+    </ClInclude>
+    <ClInclude Include="jwCanonBall.h">
+      <Filter>Contents\Stage\3 Pirate\object</Filter>
+    </ClInclude>
+    <ClInclude Include="jwCanonball_sfx.h">
+      <Filter>Contents\Stage\3 Pirate\object</Filter>
+    </ClInclude>
+    <ClInclude Include="jwShip_B_jaw.h">
+      <Filter>Contents\Stage\3 Pirate\object</Filter>
+    </ClInclude>
+    <ClInclude Include="jwOctopus_Bullet.h">
+      <Filter>Contents\Stage\3 Pirate\object</Filter>
+    </ClInclude>
+    <ClInclude Include="jwBubble_Bullet.h">
+      <Filter>Contents\Stage\3 Pirate\object</Filter>
+    </ClInclude>
+    <ClInclude Include="jwSound.h">
+      <Filter>Engine\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="jwSoundManager.h">
+      <Filter>Engine\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="jwWhistle_Effect.h">
+      <Filter>Contents\Stage\3 Pirate\object</Filter>
+    </ClInclude>
+    <ClInclude Include="jwDogFish.h">
+      <Filter>Contents\Stage\3 Pirate\object</Filter>
+    </ClInclude>
+    <ClInclude Include="jwWhistle_Scope.h">
+      <Filter>Contents\Stage\3 Pirate\object</Filter>
+    </ClInclude>
+    <ClInclude Include="jwDogFish_Explosion.h">
+      <Filter>Contents\Stage\3 Pirate\object</Filter>
+    </ClInclude>
+    <ClInclude Include="jwDogFish_Splash.h">
+      <Filter>Contents\Stage\3 Pirate\object</Filter>
+    </ClInclude>
+    <ClInclude Include="jwShip_B_Uvula.h">
+      <Filter>Contents\Stage\3 Pirate\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="jwLazar.h">
+      <Filter>Contents\Stage\3 Pirate\object</Filter>
+    </ClInclude>
+    <ClInclude Include="jwPirateScene.h">
+      <Filter>Contents\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="jwPirateWorldIcon.h">
+      <Filter>Contents\WorldMap</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -719,6 +809,84 @@
       <Filter>Contents\Scene</Filter>
     </ClCompile>
     <ClCompile Include="jwFrogWorldIcon.cpp">
+      <Filter>Contents\WorldMap</Filter>
+    </ClCompile>
+    <ClCompile Include="jwPirate_BG.cpp">
+      <Filter>Contents\Stage\3 Pirate\BG</Filter>
+    </ClCompile>
+    <ClCompile Include="jwPirate_BG_Dock.cpp">
+      <Filter>Contents\Stage\3 Pirate\BG</Filter>
+    </ClCompile>
+    <ClCompile Include="jwPirate_BG_Sky.cpp">
+      <Filter>Contents\Stage\3 Pirate\BG</Filter>
+    </ClCompile>
+    <ClCompile Include="jwWallObject.cpp">
+      <Filter>Contents\Stage\3 Pirate\object</Filter>
+    </ClCompile>
+    <ClCompile Include="jwPirate_Ship_A.cpp">
+      <Filter>Contents\Stage\3 Pirate\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="jwPirate_Barrel.cpp">
+      <Filter>Contents\Stage\3 Pirate\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="jwPirate_Captain.cpp">
+      <Filter>Contents\Stage\3 Pirate\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="jwPirate_Ship_B.cpp">
+      <Filter>Contents\Stage\3 Pirate\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="jwBarrel_Dust.cpp">
+      <Filter>Contents\Stage\3 Pirate\object</Filter>
+    </ClCompile>
+    <ClCompile Include="jwBarrel_Fx.cpp">
+      <Filter>Contents\Stage\3 Pirate\object</Filter>
+    </ClCompile>
+    <ClCompile Include="jwCanonBall.cpp">
+      <Filter>Contents\Stage\3 Pirate\object</Filter>
+    </ClCompile>
+    <ClCompile Include="jwCanonball_sfx.cpp">
+      <Filter>Contents\Stage\3 Pirate\object</Filter>
+    </ClCompile>
+    <ClCompile Include="jwShip_B_jaw.cpp">
+      <Filter>Contents\Stage\3 Pirate\object</Filter>
+    </ClCompile>
+    <ClCompile Include="jwOctopus_Bullet.cpp">
+      <Filter>Contents\Stage\3 Pirate\object</Filter>
+    </ClCompile>
+    <ClCompile Include="jwBubble_Bullet.cpp">
+      <Filter>Contents\Stage\3 Pirate\object</Filter>
+    </ClCompile>
+    <ClCompile Include="jwSound.cpp">
+      <Filter>Engine\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="jwSoundManager.cpp">
+      <Filter>Engine\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="jwWhistle_Effect.cpp">
+      <Filter>Contents\Stage\3 Pirate\object</Filter>
+    </ClCompile>
+    <ClCompile Include="jwDogFish.cpp">
+      <Filter>Contents\Stage\3 Pirate\object</Filter>
+    </ClCompile>
+    <ClCompile Include="jwWhistle_Scope.cpp">
+      <Filter>Contents\Stage\3 Pirate\object</Filter>
+    </ClCompile>
+    <ClCompile Include="jwDogFish_Explosion.cpp">
+      <Filter>Contents\Stage\3 Pirate\object</Filter>
+    </ClCompile>
+    <ClCompile Include="jwDogFish_Splash.cpp">
+      <Filter>Contents\Stage\3 Pirate\object</Filter>
+    </ClCompile>
+    <ClCompile Include="jwShip_B_Uvula.cpp">
+      <Filter>Contents\Stage\3 Pirate\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="jwLazar.cpp">
+      <Filter>Contents\Stage\3 Pirate\object</Filter>
+    </ClCompile>
+    <ClCompile Include="jwPirateScene.cpp">
+      <Filter>Contents\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="jwPirateWorldIcon.cpp">
       <Filter>Contents\WorldMap</Filter>
     </ClCompile>
   </ItemGroup>

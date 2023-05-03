@@ -1,6 +1,7 @@
 #include "jwSceneManager.h"
 #include "jwVeggieScene.h"
 #include "jwFrogScene.h"
+#include "jwPirateScene.h"
 #include "jwTitleScene.h"
 #include "jwScoreScene.h"
 #include "jwWorldStageScene.h"
@@ -27,6 +28,8 @@ namespace jw
         mScenes[(UINT)eSceneType::Play_Veggie]->SetName(L"VeggieScene");
         mScenes[(UINT)eSceneType::Play_Frog] = new FrogScene();
         mScenes[(UINT)eSceneType::Play_Frog]->SetName(L"FrogScene");
+        mScenes[(UINT)eSceneType::Play_Pirate] = new PirateScene();
+        mScenes[(UINT)eSceneType::Play_Pirate]->SetName(L"PirateScene");
         mScenes[(UINT)eSceneType::Score] = new ScoreScene();
         mScenes[(UINT)eSceneType::Score]->SetName(L"ScoreScene");
         mScenes[(UINT)eSceneType::TestPlay] = new TestPlayScene();

@@ -41,22 +41,29 @@ namespace jw
 		Animator* mCupheadAnimator;
 
 		int bossHP;
+		int boss2HP;
 		int bossPattern;
 
-		class SFrog* mSFrog;
-		Animator* mSFrogAnimator;
+		class Pirate_Ship_A* mShip_A;
+		Animator* mShip_A_Animator;
 
-		class TFrog* mTFrog;
-		Animator* mTFrogAnimator;
+		class Pirate_Ship_B* mShip_B;
+		Animator* mShip_B_Animator;
+		bool mbShip_B_DeadChecker;
 
-		class TFrog_Slot* mTFrog_Slot;
-		Animator* mTFrog_SlotAnimator;
-		bool mbTFrog_SlotDeadChecker;
+		class Pirate_Captain* mCaptain;
+		Animator* mCaptain_Animator;
+
+		class Pirate_Barrel* mBarrel;
+
+		
 
 		class SceneLoad_In* mSceneLoad_In;
 
 		float mTime;
 		bool mbTimeStop;
 		Animator* mFightTextAnimator;
+
+		class Bubble_Bullet* mBubble;
 	};
 }

@@ -15,10 +15,17 @@
 #include "jwSceneLoad_In.h"
 #include "jwSceneLoad.h"
 
-#include "jwFrogStageBG.h"
-#include "jwSFrog.h"
-#include "jwTFrog.h"
-#include "jwTFrog_Slot.h"
+#include "jwPirate_BG.h"
+#include "jwPirate_BG_Dock.h"
+#include "jwPirate_BG_Sky.h"
+#include "jwPirate_Ship_A.h"
+#include "jwPirate_Barrel.h"
+#include "jwPirate_Captain.h"
+#include "jwPirate_Ship_B.h"
+
+#include "jwBubble_Bullet.h"
+#include "jwDogFish.h"
+
 
 namespace jw
 {
@@ -33,11 +40,14 @@ namespace jw
 		//override를 써서 자식쪽으로 오지만 부모쪽 함수로 지정가능
 		Scene::Initialize();
 
-
-		object::Instantiate<FrogStageBG>(eLayerType::BG);
-
+		object::Instantiate<Pirate_BG_Sky>(Vector2(-1.0f, 800.0f), eLayerType::BG);
+		object::Instantiate<Pirate_BG>(Vector2(800.0f, 900.0f), eLayerType::BG);
+		object::Instantiate<Pirate_BG_Dock>(Vector2(0.0f, 700.0f), eLayerType::BG);
+		
 		object::Instantiate<BasicGround>(Vector2(-1.0f, 800.0f), eLayerType::Ground);
-		//object::Instantiate<Ground_Veggie>(Vector2(-1.0f, 800.0f), eLayerType::Ground);
+		
+		
+		
 
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BossBullet, true);
@@ -48,6 +58,8 @@ namespace jw
 	{
 		mTime += Time::DeltaTime();
 
+		
+
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
 			int next = (int)eSceneType::WorldStage;
@@ -55,14 +67,15 @@ namespace jw
 			SceneManager::LoadScene((eSceneType)next);	
 
 		} 
+	
 
-		if (mSceneLoad_In && mSFrog && mTFrog && mSceneLoad_In->EndCheck())
+		if (mSceneLoad_In && mSceneLoad_In->EndCheck())
 		{
 
 			mSceneLoad_In->SetEndCheck(false);
 
 			mCupheadAnimator->Play(L"CupheadIntro", false);
-			mTFrogAnimator->Play(L"TFrogintro", false);
+			mCaptain_Animator->Play(L"Captainintro_start", false);
 			object::Destroy(mSceneLoad_In);
 		}
 
@@ -73,56 +86,37 @@ namespace jw
 			FightTextShow();
 		}
 
-		// 1페이즈 패턴 분기
-		if (mSFrog && mTFrog && mSFrog->GetisFireFlyOn())
+		if (mCaptain && mShip_A && mShip_A->GetIsBossOut())
 		{
-			mSFrog->SetbFireFlyOn(false);
-			mTFrog->SetbFireFlyOn(true);
-		}
-		if (mSFrog && mTFrog && mTFrog->GetRollOn())
-		{
-			mTFrog->SetRollOn(false);
-			mSFrog->SetRollOn(true);
-		}
-		if (mSFrog && mTFrog && mSFrog->GetFanOn())
-		{
-			mSFrog->SetFanOn(false);
-			mTFrog->SetFanOn(true);
+			object::Destroy(mCaptain);
+			mCaptain = nullptr;
+			//object::Destroy(mShip_A);
+			//mShip_A = nullptr;
 		}
 
-		if (mTFrog && mTFrog->GetTFrogState() == TFrog::eTFrogState::Death)
+		if (mShip_A && mShip_A->GetIsBossLeave())
 		{
-			CollisionManager::SetLayer(eLayerType::Player, eLayerType::BossBullet, false);
-		}
+			object::Destroy(mShip_A);
+			mShip_A = nullptr;
 
-		if (mTFrog_Slot && mTFrog_Slot->GetTFrog_SlotState() == TFrog_Slot::eTFrog_SlotState::Death)
-		{
-			CollisionManager::SetLayer(eLayerType::Player, eLayerType::BossBullet, false);
-		}
-
-		if (mTFrog && mTFrog->GetIsBossOut() )
-		{
-			object::Destroy(mTFrog);
-			mTFrog = nullptr;
-			
-			bossHP = 250;
+			boss2HP = 30;
 			StageInfo stageinfo2;
-			stageinfo2.pBossHp = &bossHP;
+			stageinfo2.pBossHp = &boss2HP;
 			stageinfo2.pCuphead = mCuphead;
 
-			CollisionManager::SetLayer(eLayerType::Player, eLayerType::BossBullet, true);
-
-			mTFrog_Slot = object::Instantiate<TFrog_Slot>(Vector2(1400.0f, 800.0f), eLayerType::Monster, stageinfo2.pCuphead, stageinfo2.pBossHp);
-			mTFrog_SlotAnimator = mTFrog_Slot->GetComponent<Animator>();
-
+			mShip_B = object::Instantiate<Pirate_Ship_B>(Vector2(1400.0f, 1000.0f), eLayerType::Monster, stageinfo2.pCuphead, stageinfo2.pBossHp);
 		}
 
-		if (mTFrog_Slot && mTFrog_Slot->GetIsBossOut() && !mbTFrog_SlotDeadChecker)
+		if (mShip_B && mShip_B->GetIsBossOut() && !mbShip_B_DeadChecker)
 		{
-			mbTFrog_SlotDeadChecker = true;
+			mbShip_B_DeadChecker = true;
+
+			mBarrel->SetBarrelState(Pirate_Barrel::ePirate_Barrel_State::Death);
+
 			SceneManager::SetNextSceneType(eSceneType::Score);
 			object::Instantiate<SceneLoad>(Vector2(800.0f, 900.0f), eLayerType::UI);
 		}
+
 
 		Scene::Update();
 	}
@@ -138,6 +132,7 @@ namespace jw
 	}
 	void TestPlayScene::OnEnter()
 	{
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BG22, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BossBullet, true);
 		CollisionManager::SetLayer(eLayerType::Bullet, eLayerType::Monster, true);
@@ -146,7 +141,6 @@ namespace jw
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::ParryObject, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Ground, true);
 		CollisionManager::SetLayer(eLayerType::BossBullet, eLayerType::Ground, true);
-		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Monster, true);
 
 		mSceneLoad_In = object::Instantiate<SceneLoad_In>(Vector2(800.0f, 900.0f), eLayerType::UI);
 
@@ -160,21 +154,19 @@ namespace jw
 			mCupheadAnimator->GetCompleteEvent(L"CupheadIntro") = std::bind(&TestPlayScene::CupheadIntroCompleteEvent, this);
 		}
 
-		// 보스 체력 설정
 		bossHP = 200;
 		StageInfo stageinfo;
 		stageinfo.pBossHp = &bossHP;
 		stageinfo.pCuphead = mCuphead;
 
-		mTFrog = object::Instantiate<TFrog>(Vector2(1400.0f, 800.0f), eLayerType::Monster, stageinfo.pCuphead, stageinfo.pBossHp);
-		mTFrogAnimator = mTFrog->GetComponent<Animator>();
-		mTFrogAnimator->GetCompleteEvent(L"TFrogintro") = std::bind(&TestPlayScene::BossIntroCompleteEvent, this);
 
-		//mTFrog->SetIsBossOut(true);
+		mShip_A = object::Instantiate<Pirate_Ship_A>(Vector2(1400.0f, 1000.0f), eLayerType::BG22, stageinfo.pCuphead, stageinfo.pBossHp);
+		//mShip_A->SetBossLeave(true);
+		//mShip_A->SetBossOut(true);
+		mBarrel = object::Instantiate<Pirate_Barrel>(Vector2(1100.0f, 200.0f), eLayerType::BG22, stageinfo.pCuphead, stageinfo.pBossHp);
 
-		mSFrog = object::Instantiate<SFrog>(Vector2(1200.0f, 800.0f), eLayerType::Monster, stageinfo.pCuphead, stageinfo.pBossHp);
-		mSFrog->SetbFistOn(true);
-		mSFrogAnimator = mSFrog->GetComponent<Animator>();
+		mCaptain = object::Instantiate<Pirate_Captain>(Vector2(1400.0f, 550.0f), eLayerType::Monster, stageinfo.pCuphead, stageinfo.pBossHp);
+		mCaptain_Animator = mCaptain->GetComponent<Animator>();
 
 	}
 	void TestPlayScene::OnExit()
@@ -186,12 +178,12 @@ namespace jw
 	void TestPlayScene::CupheadIntroCompleteEvent()
 	{
 		mCupheadAnimator->Play(L"CupheadIdle_R", true);
+		mBarrel->SetBarrelState(Pirate_Barrel::ePirate_Barrel_State::Idle);
 	}
 
 	void TestPlayScene::BossIntroCompleteEvent()
 	{
-		mSFrogAnimator->Play(L"SFrogintro", true);
-		mTFrogAnimator->Play(L"TFrogidle", true);
+
 	}
 
 	void TestPlayScene::FightTextShow()

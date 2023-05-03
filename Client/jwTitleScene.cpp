@@ -10,7 +10,7 @@
 #include "jwObject.h"
 #include "jwCamera.h"
 #include "jwSceneLoad.h"
-
+#include "jwSound.h"
 
 namespace jw
 {
@@ -24,6 +24,9 @@ namespace jw
 	{
 		//override를 써서 자식쪽으로 오지만 부모쪽 함수로 지정가능
 		Scene::Initialize();
+
+		mainSound = Resources::Load<Sound>(L"Title", L"..\\Resources\\Sound\\Title\\mus_dlc_title.wav");
+		//mainSound->Play(true);
 
 		object::Instantiate<TitleBG>(eLayerType::BG);
 		object::Instantiate<TitleAnim1>(Vector2(800.0f, 800.0f), eLayerType::BG);
@@ -60,5 +63,6 @@ namespace jw
 	}
 	void TitleScene::OnExit()
 	{
+		mainSound->Stop(false);
 	}
 }

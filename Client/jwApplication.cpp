@@ -5,6 +5,7 @@
 #include "jwInput.h"
 #include "jwCollisionManager.h"
 #include "jwCamera.h"
+#include "jwSoundManager.h"
 
 namespace jw
 {
@@ -45,8 +46,10 @@ namespace jw
 
 		Time::Initialize();
 		Input::Initialize();
+		SoundManager::Initialize();
 		SceneManager::Initialize();
 		Camera::Initialize();
+		
 
 		SetMenuBar(false);
 	}

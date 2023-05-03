@@ -23,11 +23,13 @@ namespace jw
 
 	private:
 		Image* mImage;
+		class Sound* mainSound;
 		float mTime;
 		int mNextScene;
 		Cuphead_Stage* mCuphead_Stage;
 		VeggieWorldIcon* mVeggieWorldIcon;
 		class FrogWorldIcon* mFrogWorldIcon;
+		class PirateWorldIcon* mPirateWorldIcon;
 	};
 }
 

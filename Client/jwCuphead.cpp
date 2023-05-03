@@ -33,6 +33,8 @@ namespace jw
 		, mInvincibileTime(0.0f)
 		, mbFlashCheck(false)
 		, mFlashTime(0.0f)
+		, mrightspeed(400.0f)
+		, mRightDashSpeed(1000.0f)
 	{
 	}
 	Cuphead::~Cuphead()
@@ -176,13 +178,13 @@ namespace jw
 			shoot_duck();
 			break;
 		case jw::Cuphead::eCupheadState::Dash_Ground_L:
-			collider->SetCenter(Vector2(-40.0f, -125.0f));
-			collider->SetSize(Vector2(90.0f, 130.0f));
+			collider->SetCenter(Vector2(-40.0f, -65.0f));
+			collider->SetSize(Vector2(90.0f, 70.0f));
 			dash();
 			break;
 		case jw::Cuphead::eCupheadState::Dash_Ground_R:
-			collider->SetCenter(Vector2(-40.0f, -125.0f));
-			collider->SetSize(Vector2(90.0f, 130.0f));
+			collider->SetCenter(Vector2(-40.0f, -65.0f));
+			collider->SetSize(Vector2(90.0f, 70.0f));
 			dash();
 			break;
 		case jw::Cuphead::eCupheadState::Dash_Air_L:
@@ -651,7 +653,7 @@ namespace jw
 		else if (Input::GetKeyDown(eKeyCode::L_SHIFT) && mState == eCupheadState::Idle_R)
 		{
 			Vector2 velocity = mRigidbody->GetVelocity();
-			velocity.x += 1000.0f;
+			velocity.x += mRightDashSpeed;
 			mRigidbody->SetVelocity(velocity);
 
 			Transform* tr = GetComponent<Transform>();
@@ -663,7 +665,7 @@ namespace jw
 			mAnimator->Play(L"DashGround_R", false);
 		}
 
-		if (Input::GetKeyDown(eKeyCode::UP))
+		if (Input::GetKeyDown(eKeyCode::UP) || Input::GetKey(eKeyCode::UP))
 		{
 			if (GetCupheadState() == eCupheadState::Idle_L)
 			{
@@ -677,15 +679,19 @@ namespace jw
 			}
 		}
 
-		if (Input::GetKeyDown(eKeyCode::DOWN))
+		if (Input::GetKeyDown(eKeyCode::DOWN) || Input::GetKey(eKeyCode::DOWN))
 		{
 			if (GetCupheadState() == eCupheadState::Idle_L)
 			{
+				collider->SetCenter(Vector2(-40.0f, -65.0f));
+				collider->SetSize(Vector2(90.0f, 70.0f));
 				mState = eCupheadState::Duck_L;
 				mAnimator->Play(L"DuckDuck_start_L", false);
 			}
 			else if (GetCupheadState() == eCupheadState::Idle_R)
 			{
+				collider->SetCenter(Vector2(-40.0f, -65.0f));
+				collider->SetSize(Vector2(90.0f, 70.0f));
 				mState = eCupheadState::Duck_R;
 				mAnimator->Play(L"DuckDuck_start_R", false);
 			}
@@ -705,7 +711,7 @@ namespace jw
 
 		if (Input::GetKey(eKeyCode::RIGHT))
 		{
-			pos.x += 400.0f * Time::DeltaTime();
+			pos.x += mrightspeed * Time::DeltaTime();
 		}
 
 		if (Input::GetKeyUp(eKeyCode::LEFT) || Input::GetKeyUp(eKeyCode::UP) || Input::GetKeyUp(eKeyCode::DOWN))
@@ -910,7 +916,7 @@ namespace jw
 
 		if (Input::GetKey(eKeyCode::RIGHT) || Input::GetKeyDown(eKeyCode::RIGHT))
 		{
-			pos.x += 400.0f * Time::DeltaTime();
+			pos.x += mrightspeed * Time::DeltaTime();
 			if (GetCupheadState() == eCupheadState::Jump_L)
 			{
 				mState = eCupheadState::Jump_R;
@@ -1463,7 +1469,7 @@ namespace jw
 				}
 				if (Input::GetKey(eKeyCode::RIGHT))
 				{
-					pos.x += 400.0f * Time::DeltaTime();
+					pos.x += mrightspeed * Time::DeltaTime();
 				}
 				tr->SetPos(pos);
 
@@ -1820,10 +1826,10 @@ namespace jw
 				if (mSecond > mFiredelay)
 				{
 					PeaShot_Normal* bullet
-						= object::Instantiate<PeaShot_Normal>((pos + Vector2(-60.0f, -10.0f)), eLayerType::Bullet,GetCupheadState());
+						= object::Instantiate<PeaShot_Normal>((pos + Vector2(-60.0f, -100.0f)), eLayerType::Bullet,GetCupheadState());
 					bullet->SetDegree(-135.0f);
 
-					object::Instantiate<PeashotSpark>((pos + Vector2(-90.0f, -90.0f)), eLayerType::Effect);
+					object::Instantiate<PeashotSpark>((pos + Vector2(-90.0f, -100.0f)), eLayerType::Effect);
 
 					mSecond = 0.0f;
 				}
@@ -1872,16 +1878,16 @@ namespace jw
 				if (mSecond > mFiredelay)
 				{
 					PeaShot_Normal* bullet
-						= object::Instantiate<PeaShot_Normal>((tr->GetPos() + Vector2(60.0f, -10.0f)), eLayerType::Bullet, GetCupheadState());
+						= object::Instantiate<PeaShot_Normal>((tr->GetPos() + Vector2(60.0f, -100.0f)), eLayerType::Bullet, GetCupheadState());
 					bullet->SetDegree(-45.0f);
 
-					object::Instantiate<PeashotSpark>((tr->GetPos() + Vector2(70.0f, -90.0f)), eLayerType::Effect);
+					object::Instantiate<PeashotSpark>((tr->GetPos() + Vector2(70.0f, -100.0f)), eLayerType::Effect);
 
 					mSecond = 0.0f;
 				}
 				if (Input::GetKey(eKeyCode::RIGHT))
 				{
-					pos.x += 400.0f * Time::DeltaTime();
+					pos.x += mrightspeed * Time::DeltaTime();
 				}
 				tr->SetPos(pos);
 
@@ -2061,7 +2067,7 @@ namespace jw
 				}
 				if (Input::GetKeyDown(eKeyCode::RIGHT) || Input::GetKey(eKeyCode::RIGHT))
 				{
-					pos.x += 400.0f * Time::DeltaTime();
+					pos.x += mrightspeed * Time::DeltaTime();
 					mState = eCupheadState::Shoot_Jump_R;
 				}
 
@@ -2559,7 +2565,7 @@ namespace jw
 				}
 				if (Input::GetKey(eKeyCode::UP) && Input::GetKey(eKeyCode::RIGHT))
 				{
-					pos.x += 400.0f * Time::DeltaTime();
+					pos.x += mrightspeed * Time::DeltaTime();
 				}
 				if (Input::GetKey(eKeyCode::UP) && Input::GetKeyUp(eKeyCode::RIGHT))
 				{

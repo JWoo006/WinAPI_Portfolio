@@ -7,11 +7,14 @@
 #include "jwCollisionManager.h"
 #include "jwSceneLoad.h"
 
+#include "jwSound.h"
+
 #include "jwCuphead_Stage.h"
 #include "jwSceneLoad_In.h"
 #include "jwWorldMap1.h"
 #include "jwVeggieWorldIcon.h"
 #include "jwFrogWorldIcon.h"
+#include "jwPirateWorldIcon.h"
 
 namespace jw
 {
@@ -27,11 +30,14 @@ namespace jw
 		//override를 써서 자식쪽으로 오지만 부모쪽 함수로 지정가능
 		Scene::Initialize();
 
+		mainSound = Resources::Load<Sound>(L"WorldMapTheme", L"..\\Resources\\Sound\\WorldMap\\bgm_map_world_1.wav");
+
 		mCuphead_Stage = object::Instantiate<Cuphead_Stage>(eLayerType::Player);
 		
 		object::Instantiate<WorldMap1>(Vector2::Zero, eLayerType::BG);
 		mVeggieWorldIcon = object::Instantiate<VeggieWorldIcon>(Vector2(700.0f, 900.0f), eLayerType::BG);
 		mFrogWorldIcon = object::Instantiate<FrogWorldIcon>(Vector2(330.0f, 730.0f), eLayerType::BG);
+		mPirateWorldIcon = object::Instantiate<PirateWorldIcon>(Vector2(330.0f, 230.0f), eLayerType::BG);
 
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BG, true);
 
@@ -75,6 +81,15 @@ namespace jw
 				Transform* tr = mCuphead_Stage->GetComponent<Transform>();
 				object::Instantiate<SceneLoad>(Vector2(tr->GetPos().x, tr->GetPos().y + 450.0f), eLayerType::UI);
 			}
+
+			if (Input::GetKeyState(eKeyCode::Z) == eKeyState::Down && iconName == L"PirateIcon")
+			{
+				mNextScene = (int)mPirateWorldIcon->GetLoadSceneType();
+				SceneManager::SetNextSceneType((eSceneType)mNextScene);
+
+				Transform* tr = mCuphead_Stage->GetComponent<Transform>();
+				object::Instantiate<SceneLoad>(Vector2(tr->GetPos().x, tr->GetPos().y + 450.0f), eLayerType::UI);
+			}
 		}
 
 		
@@ -104,9 +119,11 @@ namespace jw
 		Camera::SetTarget(mCuphead_Stage);
 
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BG, true);
+
+		//mainSound->Play(true);
 	}
 	void WorldStageScene::OnExit()
 	{
-		
+		//mainSound->Stop(true);
 	}
 }
