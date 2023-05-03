@@ -46,7 +46,7 @@ namespace jw
         }
 
         // 현재 사용할 씬 설정
-        mActiveScene = mScenes[(UINT)eSceneType::WorldStage];
+        mActiveScene = mScenes[(UINT)eSceneType::Title];
     }
     void SceneManager::Update()
     {

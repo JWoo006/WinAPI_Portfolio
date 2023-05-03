@@ -26,7 +26,7 @@ namespace jw
 		Scene::Initialize();
 
 		mainSound = Resources::Load<Sound>(L"Title", L"..\\Resources\\Sound\\Title\\mus_dlc_title.wav");
-		//mainSound->Play(true);
+		mainSound->Play(true);
 
 		object::Instantiate<TitleBG>(eLayerType::BG);
 		object::Instantiate<TitleAnim1>(Vector2(800.0f, 800.0f), eLayerType::BG);

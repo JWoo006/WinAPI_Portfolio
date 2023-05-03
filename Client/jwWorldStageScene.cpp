@@ -120,10 +120,10 @@ namespace jw
 
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BG, true);
 
-		//mainSound->Play(true);
+		mainSound->Play(true);
 	}
 	void WorldStageScene::OnExit()
 	{
-		//mainSound->Stop(true);
+		mainSound->Stop(true);
 	}
 }
