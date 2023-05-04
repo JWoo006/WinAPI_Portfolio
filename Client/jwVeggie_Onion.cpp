@@ -10,6 +10,8 @@
 #include "jwOnionBullet.h"
 #include "jwBossExplosion.h"
 
+#include "jwSound.h"
+
 namespace jw
 {
 	Veggie_Onion::Veggie_Onion()
@@ -20,6 +22,9 @@ namespace jw
 	}
 	void Veggie_Onion::Initialize()
 	{
+		mAtkSound = Resources::Load<Sound>(L"sfx_level_veggies_Onion_Crying", L"..\\Resources\\Sound\\Veggie\\sfx_level_veggies_Onion_Crying.wav");
+		mDeathSound = Resources::Load<Sound>(L"sfx_level_knockout_boom_01", L"..\\Resources\\Sound\\BossOut\\sfx_level_knockout_boom_01.wav");
+
 		mbShow = false;
 		mbOnHit = false;
 		OnHitChecker = 0.0f;
@@ -149,6 +154,9 @@ namespace jw
 			mOnionState = eVeggie_OnionState::Death;
 			mOnionAnimator->Play(L"oniondeath", true);
 			mOnionAnimator->SetMatrixHitFlash();
+
+			mAtkSound->Stop(true);
+			mDeathSound->Play(false);
 		}
 
 		mbOnHit = true;
@@ -177,6 +185,8 @@ namespace jw
 
 		if (mOnionHp > 0 && mCryReadyTimer > 2.0f)
 		{
+			mAtkSound->Play(false);
+
 			mOnionState = eVeggie_OnionState::Attacking;
 			mOnionAnimator->Play(L"onioncry_start", false);
 		}
@@ -377,6 +387,8 @@ namespace jw
 
 		if (mOnionHp > 0)
 		{
+			mAtkSound->Stop(true);
+
 			mOnionState = eVeggie_OnionState::Idle;
 			mOnionAnimator->Play(L"onioncry_ready", true);
 

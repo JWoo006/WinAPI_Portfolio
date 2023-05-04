@@ -5,6 +5,7 @@
 #include "jwAnimator.h"
 #include "jwObject.h"
 
+
 namespace jw
 {
 	CarrotHypno_Eye::CarrotHypno_Eye()
@@ -15,6 +16,8 @@ namespace jw
 	}
 	void CarrotHypno_Eye::Initialize()
 	{
+
+		
 
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage1_veggie\\carrot\\hypno_eye", Vector2::Zero, 0.07f, eImageFormat::PNG, eAnimationDir::R);

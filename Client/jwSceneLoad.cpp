@@ -4,12 +4,23 @@
 #include "jwSceneManager.h"
 #include "jwObject.h"
 
+#include "jwResources.h"
+#include "jwSound.h"
+
 namespace jw
 {
 
 	SceneLoad::SceneLoad()
 	{
 		mNextScene = SceneManager::getNextSceneType();
+
+		mSound = Resources::Load<Sound>(L"LevelSelect", L"..\\Resources\\Sound\\sfx_WorldMap_LevelSelect_StartLevel.wav");
+		if (mNextScene != eSceneType::Score)
+		{
+			mSound->Play(false);
+		}
+		
+		
 
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Effect\\Circle_out", Vector2::Zero, 0.06f, eImageFormat::PNG, eAnimationDir::R);

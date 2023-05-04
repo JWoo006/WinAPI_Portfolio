@@ -20,6 +20,10 @@
 #include "jwTFrog.h"
 #include "jwTFrog_Slot.h"
 
+#include "jwResources.h"
+#include "jwSound.h"
+
+
 namespace jw
 {
 	FrogScene::FrogScene()
@@ -33,6 +37,9 @@ namespace jw
 		//override를 써서 자식쪽으로 오지만 부모쪽 함수로 지정가능
 		Scene::Initialize();
 
+		mIntroSound1 = Resources::Load<Sound>(L"sfx_level_announcer_0001_b", L"..\\Resources\\Sound\\Announcer\\sfx_level_announcer_0001_b.wav");
+		mIntroSound2 = Resources::Load<Sound>(L"sfx_level_announcer_0002_b", L"..\\Resources\\Sound\\Announcer\\sfx_level_announcer_0002_b.wav");
+		mBGSound = Resources::Load<Sound>(L"MUS_Frogs", L"..\\Resources\\Sound\\Frog\\MUS_Frogs.wav");
 
 		object::Instantiate<FrogStageBG>(eLayerType::BG);
 
@@ -46,6 +53,17 @@ namespace jw
 	}
 	void FrogScene::Update()
 	{
+		if (mbIntroSoundChecker)
+		{
+			mIntroSoundTimer += Time::DeltaTime();
+
+			if (mIntroSoundTimer > 4.0f && mbIntroSoundChecker)
+			{
+				mbIntroSoundChecker = false;
+				mIntroSound2->Play(false);
+			}
+		}
+
 		mTime += Time::DeltaTime();
 
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
@@ -122,6 +140,8 @@ namespace jw
 			mbTFrog_SlotDeadChecker = true;
 			SceneManager::SetNextSceneType(eSceneType::Score);
 			object::Instantiate<SceneLoad>(Vector2(800.0f, 900.0f), eLayerType::UI);
+
+			mBGSound->Stop(true);
 		}
 
 		Scene::Update();
@@ -199,6 +219,10 @@ namespace jw
 		ftw = object::Instantiate<FightText_WALLOP>(Vector2(800.0f, 900.0f), eLayerType::UI);
 		mFightTextAnimator = ftw->GetComponent<Animator>();
 		mFightTextAnimator->GetCompleteEvent(L"ImageFightText") = std::bind(&FrogScene::FightStart, this);
+
+		mIntroSound1->Play(false);
+		mBGSound->Play(true);
+		mbIntroSoundChecker = true;
 
 	}
 

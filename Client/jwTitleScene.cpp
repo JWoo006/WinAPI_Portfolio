@@ -40,11 +40,13 @@ namespace jw
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
 			mNextScene = (int)eSceneType::WorldStage;
-
+			mainSound->Stop(false);
 			SceneManager::SetNextSceneType((eSceneType)mNextScene);
 			//SceneManager::LoadScene((eSceneType)mNextScene);
 			object::Instantiate<SceneLoad>(Vector2(800.0f, 900.0f), eLayerType::UI);
 			//SceneLoad* sceneload = new SceneLoad();
+
+			
 		}
 		Scene::Update();
 	}
@@ -63,6 +65,6 @@ namespace jw
 	}
 	void TitleScene::OnExit()
 	{
-		mainSound->Stop(false);
+		
 	}
 }

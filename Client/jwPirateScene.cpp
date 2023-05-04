@@ -23,6 +23,8 @@
 #include "jwPirate_Captain.h"
 #include "jwPirate_Ship_B.h"
 
+#include "jwResources.h"
+#include "jwSound.h"
 
 
 namespace jw
@@ -37,6 +39,10 @@ namespace jw
 	{
 		//override를 써서 자식쪽으로 오지만 부모쪽 함수로 지정가능
 		Scene::Initialize();
+
+		mIntroSound1 = Resources::Load<Sound>(L"sfx_level_announcer_0001_c", L"..\\Resources\\Sound\\Announcer\\sfx_level_announcer_0001_c.wav");
+		mIntroSound2 = Resources::Load<Sound>(L"sfx_level_announcer_0002_c", L"..\\Resources\\Sound\\Announcer\\sfx_level_announcer_0002_c.wav");
+		mBGSound = Resources::Load<Sound>(L"MUS_Pirate", L"..\\Resources\\Sound\\Pirate\\MUS_Pirate.wav");
 
 		object::Instantiate<Pirate_BG_Sky>(Vector2(-1.0f, 800.0f), eLayerType::BG);
 		object::Instantiate<Pirate_BG>(Vector2(800.0f, 900.0f), eLayerType::BG);
@@ -54,9 +60,18 @@ namespace jw
 	}
 	void PirateScene::Update()
 	{
+		if (mbIntroSoundChecker)
+		{
+			mIntroSoundTimer += Time::DeltaTime();
+
+			if (mIntroSoundTimer > 4.0f && mbIntroSoundChecker)
+			{
+				mbIntroSoundChecker = false;
+				mIntroSound2->Play(false);
+			}
+		}
+
 		mTime += Time::DeltaTime();
-
-
 
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
@@ -97,7 +112,7 @@ namespace jw
 			object::Destroy(mShip_A);
 			mShip_A = nullptr;
 
-			boss2HP = 30;
+			boss2HP = 40;
 			StageInfo stageinfo2;
 			stageinfo2.pBossHp = &boss2HP;
 			stageinfo2.pCuphead = mCuphead;
@@ -152,7 +167,7 @@ namespace jw
 			mCupheadAnimator->GetCompleteEvent(L"CupheadIntro") = std::bind(&PirateScene::CupheadIntroCompleteEvent, this);
 		}
 
-		bossHP = 200;
+		bossHP = 150;
 		StageInfo stageinfo;
 		stageinfo.pBossHp = &bossHP;
 		stageinfo.pCuphead = mCuphead;
@@ -189,6 +204,10 @@ namespace jw
 		ftw = object::Instantiate<FightText_WALLOP>(Vector2(800.0f, 900.0f), eLayerType::UI);
 		mFightTextAnimator = ftw->GetComponent<Animator>();
 		mFightTextAnimator->GetCompleteEvent(L"ImageFightText") = std::bind(&PirateScene::FightStart, this);
+
+		mIntroSound1->Play(false);
+		mBGSound->Play(true);
+		mbIntroSoundChecker = true;
 
 	}
 

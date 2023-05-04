@@ -5,6 +5,7 @@
 #include "jwAnimator.h"
 #include "jwCollider.h"
 #include "jwObject.h"
+#include "jwSound.h"
 
 namespace jw
 {
@@ -67,10 +68,14 @@ namespace jw
 			if (mFlag)
 			{
 				mAnimator->Play(L"slotflame_b", false);
+				Sound* mSound1 = Resources::Load<Sound>(L"sfx_frogs_flame_platform_fire_burst_01", L"..\\Resources\\Sound\\Frog\\sfx_frogs_flame_platform_fire_burst_01.wav");
+				mSound1->Play(false);
 			}
 			else
 			{
 				mAnimator->Play(L"slotflame_b_down", false);
+				Sound* mSound1 = Resources::Load<Sound>(L"sfx_frogs_flame_platform_fire_burst_01", L"..\\Resources\\Sound\\Frog\\sfx_frogs_flame_platform_fire_burst_01.wav");
+				mSound1->Play(false);
 			}
 		}
 

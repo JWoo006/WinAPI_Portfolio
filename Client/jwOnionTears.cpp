@@ -21,11 +21,11 @@ namespace jw
 	{
 
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage1_veggie\\onion\\tears\\intro_L", Vector2::Zero, 0.07f, eImageFormat::PNG, eAnimationDir::L);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage1_veggie\\onion\\tears\\intro_L", Vector2::Zero, 0.07f, eImageFormat::PNG, eAnimationDir::R);
 		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage1_veggie\\onion\\tears\\intro_R", Vector2::Zero, 0.07f, eImageFormat::PNG, eAnimationDir::R);
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage1_veggie\\onion\\tears\\loop_L", Vector2::Zero, 0.1f, eImageFormat::PNG, eAnimationDir::L);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage1_veggie\\onion\\tears\\loop_L", Vector2::Zero, 0.1f, eImageFormat::PNG, eAnimationDir::R);
 		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage1_veggie\\onion\\tears\\loop_R", Vector2::Zero, 0.1f, eImageFormat::PNG, eAnimationDir::R);
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage1_veggie\\onion\\tears\\outro_L", Vector2::Zero, 0.1f, eImageFormat::PNG, eAnimationDir::L);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage1_veggie\\onion\\tears\\outro_L", Vector2::Zero, 0.1f, eImageFormat::PNG, eAnimationDir::R);
 		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage1_veggie\\onion\\tears\\outro_R", Vector2::Zero, 0.1f, eImageFormat::PNG, eAnimationDir::R);
 		
 		mAnimator->GetCompleteEvent(L"tearsintro_L") = std::bind(&OnionTears::CryStart_L_AnimCompleteEvent, this);

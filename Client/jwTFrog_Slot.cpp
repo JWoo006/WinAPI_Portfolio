@@ -17,6 +17,9 @@
 #include "jwSlot_LeverParry.h"
 #include "jwSlot_Snake.h"
 #include "jwSlot_Fire.h"
+#include "jwKnockout.h"
+
+#include "jwSound.h"
 
 
 namespace jw
@@ -34,6 +37,13 @@ namespace jw
 	}
 	void TFrog_Slot::Initialize()
 	{
+		mDeathSound = Resources::Load<Sound>(L"sfx_level_knockout_boom_01", L"..\\Resources\\Sound\\BossOut\\sfx_level_knockout_boom_01.wav");
+		mSpitSound = Resources::Load<Sound>(L"sfx_frogs_morphed_mouth_01", L"..\\Resources\\Sound\\Frog\\sfx_frogs_morphed_mouth_01.wav");
+		mLeverDownSound = Resources::Load<Sound>(L"sfx_frogs_morphed_arm_down_01", L"..\\Resources\\Sound\\Frog\\sfx_frogs_morphed_arm_down_01.wav");
+		mSlotRollSound = Resources::Load<Sound>(L"sfx_level_frogs_morphed_dial_spin_loop_01", L"..\\Resources\\Sound\\Frog\\sfx_level_frogs_morphed_dial_spin_loop_01.wav");
+		mSlotRollEndSound = Resources::Load<Sound>(L"sfx_frogs_morphed_spin_01", L"..\\Resources\\Sound\\Frog\\sfx_frogs_morphed_spin_01.wav");
+		mPlatformSound = Resources::Load<Sound>(L"sfx_level_frogs_platform_loop_01", L"..\\Resources\\Sound\\Frog\\sfx_level_frogs_platform_loop_01.wav");
+
 		mbShow = true;
 		mbOnHit = false;
 		OnHitChecker = 0.0f;
@@ -170,6 +180,10 @@ namespace jw
 			mTFrog_SlotState = eTFrog_SlotState::Death;
 			mTFrog_SlotAnimator->Play(L"slotdeath", true);
 			mTFrog_SlotAnimator->SetMatrixHitFlash();
+
+			object::Instantiate<Knockout>(Vector2(800.0f, 900.0f), eLayerType::UI);
+			mDeathSound->Play(false);
+			mPlatformSound->Stop(true);
 		}
 
 		mbOnHit = true;
@@ -193,7 +207,9 @@ namespace jw
 		{
 			mAtkTimer = 0.0f;
 			mTFrog_SlotState = eTFrog_SlotState::Attack_Coin;
-			mTFrog_SlotAnimator->Play(L"slotleverstart", false);			
+			mTFrog_SlotAnimator->Play(L"slotleverstart", false);	
+
+			mLeverDownSound->Play(false);
 		}
 
 		
@@ -232,6 +248,9 @@ namespace jw
 					mTFrog_SlotAnimator->Play(L"slotattack_start", false);
 					mbSnakeOn = false;
 					mbFireOn = true;
+
+					mSlotRollSound->Stop(true);
+					mSlotRollEndSound->Play(false);
 				}
 				
 			}
@@ -254,6 +273,9 @@ namespace jw
 					mTFrog_SlotAnimator->Play(L"slotattack_start", false);
 					mbSnakeOn = true;
 					mbFireOn = false;
+
+					mSlotRollSound->Stop(true);
+					mSlotRollEndSound->Play(false);
 				}
 			}
 
@@ -305,6 +327,8 @@ namespace jw
 			mSpitAtkTimer = 0.0f;
 			//object::Instantiate<Slot_Spit>(Vector2(mPos.x - 70.0f, mPos.y - 480.0f), eLayerType::Effect, mCuphead);
 			object::Instantiate<Slot_Spit>(Vector2(mPos.x + 50.0f, mPos.y - 480.0f), eLayerType::Effect, mCuphead);
+
+			mSpitSound->Play(false);
 		}
 	}
 	void TFrog_Slot::attack_snake()
@@ -324,6 +348,8 @@ namespace jw
 			mTFrog_SlotAnimator->Play(L"slotidle", true);
 			mTFrog_SlotState = eTFrog_SlotState::Idle;
 			mSnakeAtkCnt = 15;
+
+			mPlatformSound->Stop(true);
 		}
 	}
 	void TFrog_Slot::attack_fire()
@@ -343,6 +369,8 @@ namespace jw
 			mTFrog_SlotAnimator->Play(L"slotidle", true);
 			mTFrog_SlotState = eTFrog_SlotState::Idle;
 			mFireAtkCnt = 10;
+
+			mPlatformSound->Stop(true);
 		}
 	}
 	void TFrog_Slot::onhit()
@@ -409,11 +437,14 @@ namespace jw
 		mSpitAtkTimer = 0.0f;
 		mbLeverParryOn = true;
 		mTFrog_SlotAnimator->Play(L"slotidle", true);
+
+		mSlotRollSound->Play(true);
 	}
 
 	void TFrog_Slot::AttackStartAnimCompleteEvent()
 	{
 		mTFrog_SlotAnimator->Play(L"slotattackloop", true);
+		mPlatformSound->Play(true);
 	}
 
 	

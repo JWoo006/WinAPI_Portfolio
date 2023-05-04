@@ -7,6 +7,7 @@ namespace jw
 	class Transform;
 	class Cuphead;
 	class Slot_Pic;
+	class Sound;
 	class TFrog_Slot : public GameObject
 	{
 	public:
@@ -66,6 +67,13 @@ namespace jw
 		
 
 	private:
+		Sound* mDeathSound;
+		Sound* mSpitSound;
+		Sound* mLeverDownSound;
+		Sound* mSlotRollSound;
+		Sound* mSlotRollEndSound;
+		Sound* mPlatformSound;
+
 		Animator* mTFrog_SlotAnimator;
 		Collider* mTFrog_SlotCollider;
 		Transform* mTransform;
@@ -73,6 +81,8 @@ namespace jw
 		Cuphead* mCuphead;
 		eTFrog_SlotState mTFrog_SlotState;
 		
+		
+
 		Slot_Pic* mSlot_Pic1;
 		Transform* mSPic1_Tr;
 		Vector2 mSPic1_Pos;

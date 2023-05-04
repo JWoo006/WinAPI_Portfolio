@@ -9,9 +9,13 @@
 
 #include "jwCuphead.h"
 #include "jwBossExplosion.h"
+#include "jwKnockout.h"
 #include "jwShip_B_jaw.h"
 #include "jwShip_B_Uvula.h"
 #include "jwLazar.h"
+
+#include "jwSound.h"
+
 
 namespace jw
 {
@@ -28,6 +32,10 @@ namespace jw
 	}
 	void Pirate_Ship_B::Initialize()
 	{
+		mDeathSound = Resources::Load<Sound>(L"sfx_level_knockout_boom_01", L"..\\Resources\\Sound\\BossOut\\sfx_level_knockout_boom_01.wav");
+		mBubbleShotSound = Resources::Load<Sound>(L"sfx_pirate_boat_uvula_shoot_01", L"..\\Resources\\Sound\\Pirate\\sfx_pirate_boat_uvula_shoot_01.wav");
+		mLazarSound = Resources::Load<Sound>(L"sfx_pirate_boat_beam_fire", L"..\\Resources\\Sound\\Pirate\\sfx_pirate_boat_beam_fire.wav");
+
 		mbShow = true;
 		mbOnHit = false;
 		OnHitChecker = 0.0f;
@@ -139,6 +147,9 @@ namespace jw
 			mShipBState = ePirate_Ship_B_State::Death;
 			mShipBAnimator->Play(L"WhaleBoat_Bdeath", true);
 			mShipBAnimator->SetMatrixHitFlash();
+
+			object::Instantiate<Knockout>(Vector2(800.0f, 900.0f), eLayerType::UI);
+			mDeathSound->Play(false);
 		}
 
 		mbOnHit = true;
@@ -217,6 +228,8 @@ namespace jw
 			mBubbleAtkTimer = 0.0f;
 
 			mUvulaAnimator->Play(L"UvulaShoot_A", false);
+
+			mBubbleShotSound->Play(false);
 
 			mBubbleAtkCnt--;
 		}
@@ -300,6 +313,8 @@ namespace jw
 
 		mShipBAnimator->Play(L"lazarfire", true);
 		mLazar = object::Instantiate<Lazar>(Vector2(550.0f, 750.0f), eLayerType::BossBullet);
+
+		mLazarSound->Play(false);
 	}
 
 

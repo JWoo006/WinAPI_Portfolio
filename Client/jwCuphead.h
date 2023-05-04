@@ -8,6 +8,7 @@ namespace jw
 	class Animator;
 	class PeashotSpark;
 	class Collider;
+	class Sound;
 	class Cuphead : public GameObject
 	{
 	public:
@@ -109,6 +110,13 @@ namespace jw
 		Rigidbody* mRigidbody;
 		PeashotSpark* spark;
 		Collider* collider;
+		
+		Sound* mFireSound;
+		Sound* mDashSound;
+		Sound* mJumpSound;
+		Sound* mParrySound;
+		Sound* mOnHitSound;
+
 		float mSecond;
 		float mDashTime;
 		float mFiredelay;

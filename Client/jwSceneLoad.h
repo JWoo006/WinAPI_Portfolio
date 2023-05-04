@@ -5,6 +5,7 @@ namespace jw
 {
 	class Animator;
 	class Scene;
+	class Sound;
 	class SceneLoad : public GameObject
 	{
 	public:
@@ -20,6 +21,7 @@ namespace jw
 	private:
 		Animator* mAnimator;
 		Scene* mPrevScene;
+		Sound* mSound;
 
 		eSceneType mNextScene;
 	};

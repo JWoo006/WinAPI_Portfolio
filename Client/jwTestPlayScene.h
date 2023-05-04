@@ -6,6 +6,7 @@ namespace jw
 	class Background;
 	class Cuphead;
 	class Animator;
+	class Sound;
 	class TestPlayScene : public Scene
 	{
 	public:
@@ -56,7 +57,11 @@ namespace jw
 
 		class Pirate_Barrel* mBarrel;
 
-		
+		float mIntroSoundTimer;
+		bool mbIntroSoundChecker;
+		Sound* mIntroSound1;
+		Sound* mIntroSound2;
+		Sound* mBGSound;
 
 		class SceneLoad_In* mSceneLoad_In;
 

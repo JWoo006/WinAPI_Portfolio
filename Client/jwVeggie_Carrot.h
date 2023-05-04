@@ -5,6 +5,7 @@ namespace jw
 {
 	class Animator;
 	class Cuphead;
+	class Sound;
 	class Veggie_Carrot : public GameObject
 	{
 	public:
@@ -51,6 +52,11 @@ namespace jw
 		Animator* mCarrotAnimator;
 		Collider* mCarrotCollider;
 		Cuphead* mCuphead;
+
+		Sound* mDeathSound;
+		Sound* mMindSound_start;
+		Sound* mMindSound_loop;
+
 
 		eVeggie_CarrotState mCarrotState;
 

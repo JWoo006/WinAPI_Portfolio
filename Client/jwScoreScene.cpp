@@ -11,6 +11,8 @@
 #include "jwWinscreen_Board.h"
 #include "jwWinscreen_ResultAnim.h"
  
+#include "jwSound.h"
+
 namespace jw
 {
 	ScoreScene::ScoreScene()
@@ -37,7 +39,8 @@ namespace jw
 			int next = (int)eSceneType::WorldStage;
 
 			SceneManager::LoadScene((eSceneType)next);
-
+			Sound* mSound1 = Resources::Load<Sound>(L"MUS_VictoryScreen", L"..\\Resources\\Sound\\Score\\MUS_VictoryScreen.wav");
+			mSound1->Stop(true);
 		}
 
 		Scene::Update();
@@ -54,6 +57,9 @@ namespace jw
 	void ScoreScene::OnEnter()
 	{
 		object::Instantiate<SceneLoad_In>(Vector2(800.0f, 900.0f), eLayerType::UI);
+
+		Sound* mSound1 = Resources::Load<Sound>(L"MUS_VictoryScreen", L"..\\Resources\\Sound\\Score\\MUS_VictoryScreen.wav");
+		mSound1->Play(false);
 	}
 	void ScoreScene::OnExit()
 	{

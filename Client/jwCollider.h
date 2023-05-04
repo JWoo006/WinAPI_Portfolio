@@ -31,6 +31,7 @@ namespace jw
 		Vector2 mCenter;
 		Vector2 mSize;
 		Vector2 mPos;
+		bool mbShow;
 	};
 
 }

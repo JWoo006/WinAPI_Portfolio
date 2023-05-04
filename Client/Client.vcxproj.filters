@@ -520,6 +520,9 @@
     <ClInclude Include="jwPirateWorldIcon.h">
       <Filter>Contents\WorldMap</Filter>
     </ClInclude>
+    <ClInclude Include="jwKnockout.h">
+      <Filter>Contents\Object\SceneObj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -888,6 +891,9 @@
     </ClCompile>
     <ClCompile Include="jwPirateWorldIcon.cpp">
       <Filter>Contents\WorldMap</Filter>
+    </ClCompile>
+    <ClCompile Include="jwKnockout.cpp">
+      <Filter>Contents\Object\SceneObj</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

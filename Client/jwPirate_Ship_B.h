@@ -6,6 +6,7 @@ namespace jw
 {
 	class Animator;
 	class Cuphead;
+	class Sound;
 	class Pirate_Ship_B : public GameObject
 	{
 	public:
@@ -52,6 +53,10 @@ namespace jw
 
 
 	private:
+		Sound* mDeathSound;
+		Sound* mBubbleShotSound;
+		Sound* mLazarSound;
+
 		Animator* mShipBAnimator;
 		Collider* mShipBCollider;
 		Cuphead* mCuphead;

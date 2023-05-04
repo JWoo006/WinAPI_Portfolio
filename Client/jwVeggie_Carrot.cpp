@@ -10,6 +10,10 @@
 #include "jwCarrotHypno_Beam.h"
 #include "jwCarrotHypno_Eye.h"
 #include "jwBossExplosion.h"
+#include "jwKnockout.h"
+
+#include "jwSound.h"
+
 
 namespace jw
 {
@@ -25,6 +29,11 @@ namespace jw
 	}
 	void Veggie_Carrot::Initialize()
 	{
+
+		mDeathSound = Resources::Load<Sound>(L"sfx_level_knockout_boom_01", L"..\\Resources\\Sound\\BossOut\\sfx_level_knockout_boom_01.wav");
+		mMindSound_start = Resources::Load<Sound>(L"sfx_level_veggies_Carrot_MindMeld_Start", L"..\\Resources\\Sound\\Veggie\\sfx_level_veggies_Carrot_MindMeld_Start.wav");;
+		mMindSound_loop = Resources::Load<Sound>(L"sfx_level_veggies_Carrot_MindMeld_Loop", L"..\\Resources\\Sound\\Veggie\\sfx_level_veggies_Carrot_MindMeld_Loop.wav");;
+
 		mbShow = false;
 		mbOnHit = false;
 		OnHitChecker = 0.0f;
@@ -140,10 +149,21 @@ namespace jw
 	{
 		if (mCarrotHp < 0 && !mCarrotDead)
 		{
+			if (mHypno_eye != nullptr)
+			{
+				object::Destroy(mHypno_eye);
+				mHypno_eye = nullptr;
+			}
+
 			mCarrotDead = true;
 			mCarrotState = eVeggie_CarrotState::Death;
 			mCarrotAnimator->Play(L"carrotdeath", true);
 			mCarrotAnimator->SetMatrixHitFlash();
+
+			object::Instantiate<Knockout>(Vector2(800.0f, 900.0f), eLayerType::UI);
+			mDeathSound->Play(false);
+			mMindSound_start->Stop(true);
+			mMindSound_loop->Stop(true);
 		}
 
 		mbOnHit = true;
@@ -207,6 +227,8 @@ namespace jw
 			mHypno_attackTimer = 0.0f;
 			mHypnoDelayCnt--;
 
+			
+
 			object::Instantiate<CarrotHypno_Beam>(Vector2(800.0f, 300.0f), eLayerType::BossBullet, mCuphead);
 		}
 		if (mCarrotHp > 0 && mHypno_attackTimer > 3.0f && mHypnoDelayCnt <= 0)
@@ -219,6 +241,7 @@ namespace jw
 			{
 				mCarrotAnimator->Play(L"carrothypno_ready_R", true);
 				object::Destroy(mHypno_eye);
+				mHypno_eye = nullptr;
 			}
 		}
 
@@ -272,6 +295,8 @@ namespace jw
 	void Veggie_Carrot::IntroAnimCompleteEvent()
 	{
 		mCarrotAnimator->Play(L"carrotidle", true);
+
+		mMindSound_loop->Play(true);
 	}
 
 	void Veggie_Carrot::Hypno_ReadyAnimCompleteEvent()
@@ -284,6 +309,11 @@ namespace jw
 	{
 		mCarrotState = eVeggie_CarrotState::Attack1;
 		mCarrotAnimator->Play(L"carrotidle", true);
+
+		mHypnoDelayCnt = 4;
+		mHypnoCnt = 3;
+
+		mMindSound_start->Play(false);
 	}
 	
 }

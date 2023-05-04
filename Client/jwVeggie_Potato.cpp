@@ -10,6 +10,9 @@
 #include "jwPotatoAttackEffect.h"
 #include "jwBossExplosion.h"
 
+#include "jwSound.h"
+
+
 namespace jw
 {
 	Veggie_Potato::Veggie_Potato()
@@ -20,6 +23,10 @@ namespace jw
 	}
 	void Veggie_Potato::Initialize()
 	{
+
+		mAtkSound = Resources::Load<Sound>(L"sfx_level_veggies_Potato_Spit_01", L"..\\Resources\\Sound\\Veggie\\sfx_level_veggies_Potato_Spit_01.wav");
+		mDeathSound = Resources::Load<Sound>(L"sfx_level_knockout_boom_01", L"..\\Resources\\Sound\\BossOut\\sfx_level_knockout_boom_01.wav");
+
 		mbShow = false;
 		mbOnHit = false;
 		OnHitChecker = 0.0f;
@@ -134,6 +141,8 @@ namespace jw
 			mPotatoState = eVeggie_PotatoState::Death;
 			mPotatoAnimator->Play(L"potatodeath", true);
 			mPotatoAnimator->SetMatrixHitFlash();
+
+			mDeathSound->Play(false);
 		}
 
 		mbOnHit = true;
@@ -253,11 +262,15 @@ namespace jw
 		
 		if (mAttackCnt > 0)
 		{
+			mAtkSound->Play(false);
+
 			PotatoShoot* shoot = object::Instantiate<PotatoShoot>(Vector2(pos.x - 400.0f, pos.y - 50.0f), eLayerType::BossBullet, mAttackCnt);
 			shoot->SetDegree(180.0f);
 		}
 		else
 		{
+			mAtkSound->Play(false);
+
 			PotatoShoot* shoot = object::Instantiate<PotatoShoot>(Vector2(pos.x - 400.0f, pos.y - 50.0f), eLayerType::ParryBullet, mAttackCnt);
 			shoot->SetDegree(180.0f);
 		}

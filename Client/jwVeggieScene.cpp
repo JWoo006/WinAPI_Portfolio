@@ -8,6 +8,7 @@
 #include "jwTime.h"
 
 #include "jwCuphead.h"
+#include "jwBasicGround.h"
 #include "jwGround_Veggie.h"
 #include "jwStage1_BG_header.h"
 #include "jwVeggie_Potato.h"
@@ -19,6 +20,9 @@
 #include "jwSceneLoad_In.h"
 #include "jwSceneLoad.h"
 #include "jwCarrot_Bomb.h"
+
+#include "jwResources.h"	
+#include "jwSound.h"
 
 
 namespace jw
@@ -34,6 +38,10 @@ namespace jw
 		//override를 써서 자식쪽으로 오지만 부모쪽 함수로 지정가능
 		Scene::Initialize();
 
+		mIntroSound1 = Resources::Load<Sound>(L"Announcer_intro1a", L"..\\Resources\\Sound\\Announcer\\sfx_level_announcer_0001_a.wav");
+		mIntroSound2 = Resources::Load<Sound>(L"Announcer_intro2a", L"..\\Resources\\Sound\\Announcer\\sfx_level_announcer_0002_a.wav");
+		mBGSound = Resources::Load<Sound>(L"bgm_level_veggies", L"..\\Resources\\Sound\\Veggie\\bgm_level_veggies.wav");
+
 		PotatoShow = false;
 		OnionShow = false;
 		CarrotShow = false;
@@ -48,7 +56,7 @@ namespace jw
 		object::Instantiate<Stage1_BG1>(eLayerType::BG);
 		//object::Instantiate<Stage1_BG2>(eLayerType::BG3);
 
-		object::Instantiate<Ground_Veggie>(Vector2(-1.0f, 800.0f), eLayerType::Ground);
+		object::Instantiate<BasicGround>(Vector2(-1.0f, 800.0f), eLayerType::Ground);
 		
 		//object::Instantiate<testEnemy>(Vector2(300.0f, 500.0f), eLayerType::ParryObj);
 		
@@ -61,6 +69,17 @@ namespace jw
 	}
 	void VeggieScene::Update()
 	{
+		if (mbIntroSoundChecker)
+		{
+			mIntroSoundTimer += Time::DeltaTime();
+
+			if (mIntroSoundTimer > 4.0f && mbIntroSoundChecker)
+			{
+				mbIntroSoundChecker = false;
+				mIntroSound2->Play(false);
+			}
+		}
+
 		mTime += Time::DeltaTime();
 
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
@@ -128,6 +147,10 @@ namespace jw
 		// 당근
 		if (!CarrotShow && OnionDeadChecker && PotatoDeadChecker)
 		{
+			Sound* mCarrotShowSound 
+				= Resources::Load<Sound>(L"sfx_level_veggies_Carrot_Rise", L"..\\Resources\\Sound\\Veggie\\sfx_level_veggies_Carrot_Rise.wav");
+			mCarrotShowSound->Play(false);
+
 			CarrotShow = true;
 			mBossCarrotEffect = object::Instantiate<PotatoIntroEffect>(Vector2(800.0f, 700.0f), eLayerType::BG22);
 			Transform* tr = mBossCarrotEffect->GetComponent<Transform>();
@@ -135,6 +158,10 @@ namespace jw
 		}
 		if (CarrotShow && PotatoDeadChecker && PotatoDeadChecker && mBossCarrotEffect->GetisShow())
 		{
+			Sound* mCarrotShowSound2
+				= Resources::Load<Sound>(L"sfx_level_veggies_Carrot_MindMeld_Start", L"..\\Resources\\Sound\\Veggie\\sfx_level_veggies_Carrot_MindMeld_Start.wav");
+			mCarrotShowSound2->Play(false);
+
 			mBossCarrotEffect->SetShow(false);
 			mBossCarrot = object::Instantiate<Veggie_Carrot>(Vector2(800.0f, 650.0f), eLayerType::Monster, mCuphead);
 			//object::Destroy(mBossCarrotEffect);
@@ -163,6 +190,7 @@ namespace jw
 	}
 	void VeggieScene::OnEnter()
 	{
+
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BossBullet, true);
 		CollisionManager::SetLayer(eLayerType::Bullet, eLayerType::Monster, true);
@@ -180,6 +208,8 @@ namespace jw
 	}
 	void VeggieScene::OnExit()
 	{
+		mBGSound->Stop(true);
+
 		object::Destroy(mCuphead);
 		mCuphead = nullptr;
 	}
@@ -207,6 +237,10 @@ namespace jw
 		//mBossCarrotEffect = object::Instantiate<PotatoIntroEffect>(Vector2(800.0f, 700.0f), eLayerType::Effect);
 		//Transform* tr = mBossCarrotEffect->GetComponent<Transform>();
 		//tr->SetScale(Vector2(1.0f, 1.0f));
+
+		mIntroSound1->Play(false);
+		mBGSound->Play(true);
+		mbIntroSoundChecker = true;
 	}
 
 	void VeggieScene::FightStart()

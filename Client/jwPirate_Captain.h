@@ -5,6 +5,7 @@ namespace jw
 {
 	class Animator;
 	class Cuphead;
+	class Sound;
 	class Pirate_Captain : public GameObject
 	{
 	public:
@@ -56,6 +57,14 @@ namespace jw
 		bool GetIsBossOut() { return mBossOut; }
 
 	private:
+		Sound* mIntroLaughSound;
+		Sound* mOctopusStartSound;
+		Sound* mOctopusFireSound;
+		Sound* mOctopusEndSound;
+		Sound* mWhistleSound;
+		Sound* mScopeSound;
+		Sound* mDogFishSound;
+
 		Animator* mCaptainAnimator;
 		Collider* mCaptainCollider;
 		class Transform* mCaptainTr;

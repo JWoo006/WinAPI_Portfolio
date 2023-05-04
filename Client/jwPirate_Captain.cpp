@@ -14,6 +14,8 @@
 #include "jwDogFish.h"
 #include "jwDogFish_Splash.h"
 
+#include "jwSound.h"
+
 namespace jw
 {
 	Pirate_Captain::Pirate_Captain()
@@ -29,6 +31,14 @@ namespace jw
 	}
 	void Pirate_Captain::Initialize()
 	{
+		mIntroLaughSound = Resources::Load<Sound>(L"sfx_pirate_laugh 1", L"..\\Resources\\Sound\\Pirate\\sfx_pirate_laugh 1.wav");
+		mOctopusStartSound = Resources::Load<Sound>(L"sfx_pirate_gun_start", L"..\\Resources\\Sound\\Pirate\\sfx_pirate_gun_start.wav");
+		mOctopusFireSound = Resources::Load<Sound>(L"sfx_pirate_gun_shoot_01", L"..\\Resources\\Sound\\Pirate\\sfx_pirate_gun_shoot_01.wav");
+		mOctopusEndSound = Resources::Load<Sound>(L"sfx_pirate_gun_end", L"..\\Resources\\Sound\\Pirate\\sfx_pirate_gun_end.wav");
+		mWhistleSound = Resources::Load<Sound>(L"sfx_pirate_whistle", L"..\\Resources\\Sound\\Pirate\\sfx_pirate_whistle.wav");
+		mScopeSound = Resources::Load<Sound>(L"sfx_pirate_periscope_warning", L"..\\Resources\\Sound\\Pirate\\sfx_pirate_periscope_warning.wav");
+		mDogFishSound = Resources::Load<Sound>(L"sfx_pirate_dogfish_jump", L"..\\Resources\\Sound\\Pirate\\sfx_pirate_dogfish_jump.wav");
+
 		mbShow = true;
 		mbOnHit = false;
 		OnHitChecker = 0.0f;
@@ -183,6 +193,8 @@ namespace jw
 			mbAttacking = true;	
 		    mCaptainTr->SetPos(Vector2(mCaptainPos.x + 100.0f, mCaptainPos.y));
 			mCaptainAnimator->Play(L"Captainoctopus_pick", false);
+
+			mOctopusStartSound->Play(false);
 		}
 
 		if (mAtkTimer > 3.0f && !mbAttacking && *mCaptainHp > 0 && *mCaptainHp < 100 )
@@ -190,6 +202,7 @@ namespace jw
 			mbAttacking = true;
 
 			mCaptainAnimator->Play(L"CaptainWhistle", false);
+
 		}
 	}
 	void Pirate_Captain::attack()
@@ -237,6 +250,8 @@ namespace jw
 		{
 			mbOctoAtkEnd = true;
 			mCaptainAnimator->Play(L"Captainoctopus_down", false);
+
+			mOctopusEndSound->Play(false);
 		}
 	}
 
@@ -260,6 +275,8 @@ namespace jw
 		if (mbScopeOut && mDogAtkTimer > 2.0f && mDogAtkCnt > 0)
 		{
 			mDogAtkTimer = 0.0f;
+
+			mDogFishSound->Play(false);
 
 			object::Instantiate<DogFish>(Vector2(1200.0f, 900.0f), eLayerType::Effect);
 			object::Instantiate<DogFish_Splash>(Vector2(1200.0f, 900.0f), eLayerType::Effect);
@@ -291,11 +308,15 @@ namespace jw
 	void Pirate_Captain::IntroStartAnimCompleteEvent()
 	{
 		mCaptainAnimator->Play(L"Captainintro_loop", true);
+
+		mIntroLaughSound->Play(true);
 	}
 
 	void Pirate_Captain::IntroEndAnimCompleteEvent()
 	{
 		mCaptainAnimator->Play(L"Captainidle", true);	
+
+		mIntroLaughSound->Stop(true);
 	}
 
 	void Pirate_Captain::octo_pickAnimCompleteEvent()
@@ -314,6 +335,8 @@ namespace jw
 
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
+
+		mOctopusFireSound->Play(false);
 
 		object::Instantiate<Octopus_Bullet>(Vector2(pos.x - 100.0f , pos.y - 100.0f), eLayerType::BossBullet, mCuphead);
 		mbOctoFire = false;
@@ -339,6 +362,8 @@ namespace jw
 		Vector2 pos = tr->GetPos();
 		object::Instantiate<Whistle_Effect>(Vector2(pos.x - 200.0f, pos.y - 300.0f), eLayerType::Effect);
 
+		mWhistleSound->Play(false);
+
 		mCaptainAnimator->Play(L"CaptainWhistle_B", false);
 	}
 
@@ -349,6 +374,9 @@ namespace jw
 		mCaptainState = ePirate_Captain_State::Attack_Whistle;
 		object::Instantiate<Whistle_Scope>(Vector2(1400.0f, 900.0f), eLayerType::Effect);
 		mCaptainAnimator->Play(L"Captainidle", true);
+
+		//스코프 사운드
+		mScopeSound->Play(false);
 	}
 
 

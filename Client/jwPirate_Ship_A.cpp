@@ -11,6 +11,8 @@
 #include "jwCanonBall.h"
 #include "jwCanonball_sfx.h"
 
+#include "jwSound.h"
+
 namespace jw
 {
 	Pirate_Ship_A::Pirate_Ship_A()
@@ -26,6 +28,10 @@ namespace jw
 	}
 	void Pirate_Ship_A::Initialize()
 	{
+		mCanonChewSound = Resources::Load<Sound>(L"sfx_pirate_boat_cannon_chew", L"..\\Resources\\Sound\\Pirate\\sfx_pirate_boat_cannon_chew.wav");
+		mCanonFireSound = Resources::Load<Sound>(L"sfx_pirate_boat_cannon_fire", L"..\\Resources\\Sound\\Pirate\\sfx_pirate_boat_cannon_fire.wav");
+		mTransformSound = Resources::Load<Sound>(L"sfx_pirate_boat_transform", L"..\\Resources\\Sound\\Pirate\\sfx_pirate_boat_transform.wav");
+			 
 		mbShow = true;
 		mbOnHit = false;
 		OnHitChecker = 0.0f;
@@ -198,6 +204,7 @@ namespace jw
 			mAtakTimer = 0.0f;
 
 			mShipAnimator->Play(L"WhaleBoat_ASpits_cannonball", false);
+			mCanonChewSound->Play(false);
 		}
 
 		if (*mShipHp < 0 && !mBossDead)
@@ -238,6 +245,8 @@ namespace jw
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 
+
+		mCanonFireSound->Play(false);
 		object::Instantiate<CanonBall>(Vector2(pos.x - 100.0f, pos.y - 200.0f), eLayerType::BossBullet);
 
 		object::Instantiate<Canonball_sfx>(Vector2(pos.x - 250.0f , pos.y - 150.0f), eLayerType::Effect);
@@ -253,6 +262,8 @@ namespace jw
 	{
 		
 		mShipAnimator->Play(L"WhaleBoat_BWince_loop", true);
+
+		mTransformSound->Play(false);
 	}
 
 	void Pirate_Ship_A::TransformAnimCompleteEvent()

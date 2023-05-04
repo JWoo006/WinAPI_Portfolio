@@ -162,6 +162,7 @@
     <ClInclude Include="jwFrogWorldIcon.h" />
     <ClInclude Include="jwFrogScene.h" />
     <ClInclude Include="jwFrogStageBG.h" />
+    <ClInclude Include="jwKnockout.h" />
     <ClInclude Include="jwLazar.h" />
     <ClInclude Include="jwOctopus_Bullet.h" />
     <ClInclude Include="jwPirateScene.h" />
@@ -286,6 +287,7 @@
     <ClCompile Include="jwFrogWorldIcon.cpp" />
     <ClCompile Include="jwFrogScene.cpp" />
     <ClCompile Include="jwFrogStageBG.cpp" />
+    <ClCompile Include="jwKnockout.cpp" />
     <ClCompile Include="jwLazar.cpp" />
     <ClCompile Include="jwOctopus_Bullet.cpp" />
     <ClCompile Include="jwPirateScene.cpp" />

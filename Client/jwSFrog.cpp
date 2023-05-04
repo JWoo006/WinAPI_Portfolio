@@ -14,6 +14,8 @@
 #include "jwSFrog_Fistobj.h"
 #include "jwSFrog_Clapball.h"
 
+#include "jwSound.h"
+
 namespace jw
 {
 	SFrog::SFrog()
@@ -29,6 +31,17 @@ namespace jw
 	}
 	void SFrog::Initialize()
 	{
+		mfistatkSound = Resources::Load<Sound>(L"sfx_frogs_short_ragefist_attack_loop_01", L"..\\Resources\\Sound\\Frog\\sfx_frogs_short_ragefist_attack_loop_01.wav");
+		mFistFireballSound = Resources::Load<Sound>(L"sfx_frogs_short_fireball_01", L"..\\Resources\\Sound\\Frog\\sfx_frogs_short_fireball_01.wav");
+		mFistFireballSound = Resources::Load<Sound>(L"sfx_frogs_short_fireball_01", L"..\\Resources\\Sound\\Frog\\sfx_frogs_short_fireball_01.wav");
+
+		mRollingStartSound = Resources::Load<Sound>(L"sfx_frogs_short_rolling_start_01", L"..\\Resources\\Sound\\Frog\\sfx_frogs_short_rolling_start_01.wav");
+		mRollingLoopSound = Resources::Load<Sound>(L"sfx_frogs_short_rolling_loop_01", L"..\\Resources\\Sound\\Frog\\sfx_frogs_short_rolling_loop_01.wav");
+		mRollingCrashSound = Resources::Load<Sound>(L"sfx_frogs_short_rolling_crash_01", L"..\\Resources\\Sound\\Frog\\sfx_frogs_short_rolling_crash_01.wav");
+		mRollingEndSound = Resources::Load<Sound>(L"sfx_frogs_short_rolling_end", L"..\\Resources\\Sound\\Frog\\sfx_frogs_short_rolling_end.wav");
+
+		mClapAtkSound = Resources::Load<Sound>(L"sfx_frogs_short_clap_shock_01", L"..\\Resources\\Sound\\Frog\\sfx_frogs_short_clap_shock_01.wav");
+
 		mbShow = true;
 		mbOnHit = false;
 		OnHitChecker = 0.0f;
@@ -158,6 +171,8 @@ namespace jw
 			mSFrogDead = true;
 			
 			mSFrogAnimator->Play(L"fanroll_L", false);
+
+			mRollingStartSound->Play(false);
 		}
 
 		mbOnHit = true;
@@ -166,6 +181,8 @@ namespace jw
 
 		if (other->GetOwner()->GetLayerType() == eLayerType::Monster && *mSFrogHp < 0 && mSFrogDead)
 		{
+			mRollingLoopSound->Stop(false);
+
 			mSFrogDead = false;
 			object::Destroy(this);
 		}
@@ -187,6 +204,8 @@ namespace jw
 			mbFistOn = false;
 			mSFrogState = eSFrogState::Attack_Fist;
 			mSFrogAnimator->Play(L"fistfist_ready1", false);
+
+			
 		}
 
 		if (*mSFrogHp > 0 && !mbAttacking && mAtakTimer > 2.0f && mbRollOn)
@@ -196,6 +215,8 @@ namespace jw
 			mbRollOn = false;
 			
 			mSFrogAnimator->Play(L"fanroll", false);
+
+			mRollingStartSound->Play(false);
 		}
 	}
 	void SFrog::roll()
@@ -221,6 +242,10 @@ namespace jw
 			tr->SetPos(pos);
 			mSFrogState = eSFrogState::Attack_Clap;
 			mSFrogAnimator->Play(L"fanrollend", false);
+
+			mRollingLoopSound->Stop(true);
+			mRollingCrashSound->Play(false);
+			mRollingCrashSound->Play(false);
 
 			// 큰 개구리 팬 패턴 분기
 			mbFanOn = true;
@@ -271,6 +296,8 @@ namespace jw
 		if (mFistAtkTimer > 1.5f && mFistAtkCnt % 3 == 0 && mFistAtkCnt > 0)
 		{
 			mFistAtkTimer = 0.0f;
+
+			mFistFireballSound->Play(false);
 			object::Instantiate<SFrog_Fistobj>(Vector2(pos), eLayerType::ParryBullet, mFistAtkCnt);
 
 			mFistAtkCnt--;
@@ -278,6 +305,8 @@ namespace jw
 		else if (mFistAtkTimer > 1.5f &&  mFistAtkCnt > 0)
 		{
 			mFistAtkTimer = 0.0f;
+
+			mFistFireballSound->Play(false);
 			object::Instantiate<SFrog_Fistobj>(Vector2(pos), eLayerType::BossBullet, mFistAtkCnt);
 
 			mFistAtkCnt--;
@@ -349,29 +378,38 @@ namespace jw
 	void SFrog::FistReady2AnimCompleteEvent()
 	{
 		mSFrogAnimator->Play(L"fistfist_loop", true);
+		mfistatkSound->Play(true);
 	}
 
 	void SFrog::FistEndAnimCompleteEvent()
 	{
 		mSFrogAnimator->Play(L"SFrogidle", true);
 		mbFireFlyOn = true;
+
+		mfistatkSound->Stop(true);
 	}
 
 	void SFrog::RollAnimCompleteEvent()
 	{
 		mSFrogState = eSFrogState::Roll;
 		mSFrogAnimator->Play(L"fanrolling", true);
+		
+		mRollingLoopSound->Play(true);
 	}
 
 	void SFrog::RollEndAnimCompleteEvent()
 	{
 		mSFrogAnimator->Play(L"SFrogidleL", true);
+
+
 	}
 
 	void SFrog::Roll_LAnimCompleteEvent()
 	{
 		mSFrogState = eSFrogState::Death;
 		mSFrogAnimator->Play(L"fanrolling_L", true);
+
+		mRollingLoopSound->Play(true);
 	}
 
 	void SFrog::ClapAEndAnimCompleteEvent()
@@ -391,6 +429,8 @@ namespace jw
 
 		object::Instantiate<SFrog_Clapball>(Vector2(pos), eLayerType::BossBullet);
 		mSFrogAnimator->Play(L"fanclap_d", false);
+
+		mClapAtkSound->Play(false);
 	}
 
 	void SFrog::ClapDEndAnimCompleteEvent()

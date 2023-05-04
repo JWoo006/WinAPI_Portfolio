@@ -15,6 +15,7 @@
 #include "jwDashEffect.h"
 #include "jwParryEffect.h"
 #include "jwOnHitEffect.h"
+#include "jwSound.h"
 
 namespace jw
 {
@@ -44,9 +45,15 @@ namespace jw
 	{
 		mFiredelay = PeaShot_Normal::GetDelay();
 
+		mFireSound = Resources::Load<Sound>(L"cup_default_fire", L"..\\Resources\\Sound\\Cuphead\\sfx_player_default_fire_loop_01.wav");
+		mDashSound = Resources::Load<Sound>(L"cup_dash", L"..\\Resources\\Sound\\Cuphead\\sfx_player_dash_01.wav");
+		mJumpSound = Resources::Load<Sound>(L"cup_jump", L"..\\Resources\\Sound\\Cuphead\\sfx_player_jump_01.wav");
+		mParrySound = Resources::Load<Sound>(L"cup_parry", L"..\\Resources\\Sound\\Cuphead\\sfx_player_parry_slap_01.wav");
+		mOnHitSound = Resources::Load<Sound>(L"cup_onhit", L"..\\Resources\\Sound\\Cuphead\\sfx_player_hit_01.wav");
+
 		mAnimator = AddComponent<Animator>();
 
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Intro", Vector2::Zero, 0.05f, eImageFormat::PNG, eAnimationDir::R);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Intro", Vector2::Zero, 0.04f, eImageFormat::PNG, eAnimationDir::R);
 
 		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Idle_L", Vector2::Zero, 0.07f, eImageFormat::PNG, eAnimationDir::L);
 		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Cuphead\\Idle_R", Vector2::Zero, 0.07f, eImageFormat::PNG, eAnimationDir::R);
@@ -124,13 +131,15 @@ namespace jw
 	{
 		GameObject::Update();
 
-		if (this->GetState() == eState::Death)
-		{
-			int a = 0;
-		}
 
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
+
+
+		if (Input::GetKeyDown(eKeyCode::P))
+		{
+			tr->SetPos(Vector2(100.0f, 800.0f));
+		}
 
 		Onhit();
 
@@ -138,31 +147,37 @@ namespace jw
 		{
 
 		case jw::Cuphead::eCupheadState::Move_L:
+			mFireSound->Stop(true);
 			collider->SetCenter(Vector2(-40.0f, -125.0f));
 			collider->SetSize(Vector2(90.0f, 130.0f));
 			move();
 			break;
 		case jw::Cuphead::eCupheadState::Move_R:
+			mFireSound->Stop(true);
 			collider->SetCenter(Vector2(-40.0f, -125.0f));
 			collider->SetSize(Vector2(90.0f, 130.0f));
 			move();
 			break;
 		case jw::Cuphead::eCupheadState::Jump_L:
+			mFireSound->Stop(true);
 			collider->SetCenter(Vector2(-40.0f, -125.0f));
 			collider->SetSize(Vector2(90.0f, 130.0f));
 			jump();
 			break;
 		case jw::Cuphead::eCupheadState::Jump_R:
+			mFireSound->Stop(true);
 			collider->SetCenter(Vector2(-40.0f, -125.0f));
 			collider->SetSize(Vector2(90.0f, 130.0f));
 			jump();
 			break;
 		case jw::Cuphead::eCupheadState::Duck_L:
+			mFireSound->Stop(true);
 			collider->SetCenter(Vector2(-40.0f, -65.0f));
 			collider->SetSize(Vector2(90.0f, 70.0f));
 			duck();
 			break;
 		case jw::Cuphead::eCupheadState::Duck_R:
+			mFireSound->Stop(true);
 			collider->SetCenter(Vector2(-40.0f, -65.0f));
 			collider->SetSize(Vector2(90.0f, 70.0f));
 			duck();
@@ -178,21 +193,29 @@ namespace jw
 			shoot_duck();
 			break;
 		case jw::Cuphead::eCupheadState::Dash_Ground_L:
+			mFireSound->Stop(true);
+			mDashSound->Play(false);
 			collider->SetCenter(Vector2(-40.0f, -65.0f));
 			collider->SetSize(Vector2(90.0f, 70.0f));
 			dash();
 			break;
 		case jw::Cuphead::eCupheadState::Dash_Ground_R:
+			mFireSound->Stop(true);
+			mDashSound->Play(false);
 			collider->SetCenter(Vector2(-40.0f, -65.0f));
 			collider->SetSize(Vector2(90.0f, 70.0f));
 			dash();
 			break;
 		case jw::Cuphead::eCupheadState::Dash_Air_L:
+			mFireSound->Stop(true);
+			mDashSound->Play(false);
 			collider->SetCenter(Vector2(-40.0f, -125.0f));
 			collider->SetSize(Vector2(90.0f, 130.0f));
 			dash();
 			break;
 		case jw::Cuphead::eCupheadState::Dash_Air_R:
+			mFireSound->Stop(true);
+			mDashSound->Play(false);
 			collider->SetCenter(Vector2(-40.0f, -125.0f));
 			collider->SetSize(Vector2(90.0f, 130.0f));
 			dash();
@@ -204,102 +227,125 @@ namespace jw
 			parry();
 			break;
 		case jw::Cuphead::eCupheadState::Aim_UP_L:
+			mFireSound->Stop(true);
 			collider->SetCenter(Vector2(-40.0f, -125.0f));
 			collider->SetSize(Vector2(90.0f, 130.0f));
 			aim_up();
 			break;
 		case jw::Cuphead::eCupheadState::Aim_UP_R:
+			mFireSound->Stop(true);
 			collider->SetCenter(Vector2(-40.0f, -125.0f));
 			collider->SetSize(Vector2(90.0f, 130.0f));
 			aim_up();
 			break;
 		case jw::Cuphead::eCupheadState::Shoot_L:
+			mFireSound->Play(true);
 			collider->SetCenter(Vector2(-40.0f, -125.0f));
 			collider->SetSize(Vector2(90.0f, 130.0f));
 			shoot();
 			break;
 		case jw::Cuphead::eCupheadState::Shoot_R:
+			mFireSound->Play(true);
 			collider->SetCenter(Vector2(-40.0f, -125.0f));
 			collider->SetSize(Vector2(90.0f, 130.0f));
 			shoot();
 			break;
 		case jw::Cuphead::eCupheadState::Shoot_Run_L:
+			mFireSound->Play(true);
 			collider->SetCenter(Vector2(-40.0f, -125.0f));
 			collider->SetSize(Vector2(90.0f, 130.0f));
 			shoot_run();
 			break;
 		case jw::Cuphead::eCupheadState::Shoot_Run_R:
+			mFireSound->Play(true);
 			collider->SetCenter(Vector2(-40.0f, -125.0f));
 			collider->SetSize(Vector2(90.0f, 130.0f));
 			shoot_run();
 			break;
 		case jw::Cuphead::eCupheadState::Shoot_UP_L:
+			mFireSound->Play(true);
 			collider->SetCenter(Vector2(-40.0f, -125.0f));
 			collider->SetSize(Vector2(90.0f, 130.0f));
 			shoot_up();
 			break;
 		case jw::Cuphead::eCupheadState::Shoot_UP_R:
+			mFireSound->Play(true);
 			collider->SetCenter(Vector2(-40.0f, -125.0f));
 			collider->SetSize(Vector2(90.0f, 130.0f));
 			shoot_up();
 			break;
 		case jw::Cuphead::eCupheadState::Shoot_Run_diag_Up_L:
+			mFireSound->Play(true);
 			collider->SetCenter(Vector2(-40.0f, -125.0f));
 			collider->SetSize(Vector2(90.0f, 130.0f));
 			shoot_run_diag_up();
 			break;
 		case jw::Cuphead::eCupheadState::Shoot_Run_diag_Up_R:
+			mFireSound->Play(true);
 			collider->SetCenter(Vector2(-40.0f, -125.0f));
 			collider->SetSize(Vector2(90.0f, 130.0f));
 			shoot_run_diag_up();
 			break;
 		case jw::Cuphead::eCupheadState::Shoot_Jump_L:
+			mFireSound->Play(true);
 			collider->SetCenter(Vector2(-40.0f, -125.0f));
 			collider->SetSize(Vector2(90.0f, 130.0f));
 			shoot_jump();
 			break;
 		case jw::Cuphead::eCupheadState::Shoot_Jump_R:
+			mFireSound->Play(true);
 			collider->SetCenter(Vector2(-40.0f, -125.0f));
 			collider->SetSize(Vector2(90.0f, 130.0f));
 			shoot_jump();
 			break;
 		case jw::Cuphead::eCupheadState::Shoot_Jump_Up_L:
+			mFireSound->Play(true);
 			collider->SetCenter(Vector2(-40.0f, -125.0f));
 			collider->SetSize(Vector2(90.0f, 130.0f));
 			shoot_jump_up();
 			break;
 		case jw::Cuphead::eCupheadState::Shoot_Jump_Up_R:
+			mFireSound->Play(true);
 			collider->SetCenter(Vector2(-40.0f, -125.0f));
 			collider->SetSize(Vector2(90.0f, 130.0f));
 			shoot_jump_up();
 			break;
 		case jw::Cuphead::eCupheadState::Shoot_Jump_diag_Up_L:
+			mFireSound->Play(true);
 			collider->SetCenter(Vector2(-40.0f, -125.0f));
 			collider->SetSize(Vector2(90.0f, 130.0f));
 			shoot_jump_diag_up();
 			break;
 		case jw::Cuphead::eCupheadState::Shoot_Jump_diag_Up_R:
+			mFireSound->Play(true);
 			collider->SetCenter(Vector2(-40.0f, -125.0f));
 			collider->SetSize(Vector2(90.0f, 130.0f));
 			shoot_jump_diag_up();
 			break;
 		case jw::Cuphead::eCupheadState::OnHit_L:
+			mFireSound->Stop(true);
+			mOnHitSound->Play(false);
 			collider->SetCenter(Vector2(-40.0f, -125.0f));
 			collider->SetSize(Vector2(90.0f, 130.0f));
 		case jw::Cuphead::eCupheadState::OnHit_R:
+			mFireSound->Stop(true);
+			mOnHitSound->Play(false);
 			collider->SetCenter(Vector2(-40.0f, -125.0f));
 			collider->SetSize(Vector2(90.0f, 130.0f));
 		case jw::Cuphead::eCupheadState::Death:
+			mFireSound->Stop(true);
 			collider->SetCenter(Vector2(-40.0f, -125.0f));
 			collider->SetSize(Vector2(90.0f, 130.0f));
 			death();
 			break;
 		case jw::Cuphead::eCupheadState::Idle_L:
+			mFireSound->Stop(true);
 			collider->SetCenter(Vector2(-40.0f, -125.0f));
 			collider->SetSize(Vector2(90.0f, 130.0f));
 			idle();
 			break;
 		case jw::Cuphead::eCupheadState::Idle_R:
+			mFireSound->Stop(true);
 			collider->SetCenter(Vector2(-40.0f, -125.0f));
 			collider->SetSize(Vector2(90.0f, 130.0f));
 			idle();
@@ -339,6 +385,8 @@ namespace jw
 			{
 				mbParrySuccess = true;
 
+				mParrySound->Play(false);
+
 				Transform* tr = other->GetOwner()->GetComponent<Transform>();
 				Vector2 pos = tr->GetPos();
 				object::Instantiate<ParryEffect>(Vector2(pos), eLayerType::Effect);
@@ -354,6 +402,8 @@ namespace jw
 			if (other->GetOwner()->GetLayerType() == eLayerType::ParryObject && mbParrying)
 			{
 				mbParrySuccess = true;
+
+				mParrySound->Play(false);
 
 				Transform* tr = other->GetOwner()->GetComponent<Transform>();
 				Vector2 pos = tr->GetPos();
@@ -516,6 +566,25 @@ namespace jw
 			// 패리 오브젝트 충돌 && 패링중
 			if (other->GetOwner()->GetLayerType() == eLayerType::ParryBullet && mbParrying && !mbParrySuccess)
 			{
+				mParrySound->Play(false);
+
+				mbParrySuccess = true;
+
+				Transform* tr = other->GetOwner()->GetComponent<Transform>();
+				Vector2 pos = tr->GetPos();
+				object::Instantiate<ParryEffect>(Vector2(pos), eLayerType::Effect);
+
+				Vector2 velocity;
+				velocity.y -= 1600.0f;
+				mRigidbody->SetVelocity(velocity);
+
+				mParryCount = 1;
+			}
+
+			if (other->GetOwner()->GetLayerType() == eLayerType::ParryObject && mbParrying && !mbParrySuccess)
+			{
+				mParrySound->Play(false);
+
 				mbParrySuccess = true;
 
 				Transform* tr = other->GetOwner()->GetComponent<Transform>();
@@ -614,6 +683,7 @@ namespace jw
 		// 점프
 		if (Input::GetKeyDown(eKeyCode::Z) && mJumpCount >= 1)
 		{
+			mJumpSound->Play(false);
 			mJumpCount--;
 			mbGroundCheck = false;
 
@@ -766,6 +836,7 @@ namespace jw
 		// 점프
 		if (Input::GetKeyDown(eKeyCode::Z) && mJumpCount >= 1)
 		{
+			mJumpSound->Play(false);
 			mJumpCount--;
 			mbGroundCheck = false;
 
@@ -827,6 +898,7 @@ namespace jw
 		// 패리
 		if (Input::GetKeyDown(eKeyCode::Z) && mParryCount > 0)
 		{
+
 			mParryCount--;
 
 			if (mState == eCupheadState::Jump_L)
@@ -1001,7 +1073,7 @@ namespace jw
 		// 점프
 		if (Input::GetKeyDown(eKeyCode::Z) && mJumpCount >= 1)
 		{
-
+			mJumpSound->Play(false);
 			mJumpCount--;
 			mbGroundCheck = false;
 
@@ -1176,6 +1248,7 @@ namespace jw
 		// 점프
 		if (Input::GetKeyDown(eKeyCode::Z) && mJumpCount >= 1)
 		{
+			mJumpSound->Play(false);
 			mJumpCount--;
 			mbGroundCheck = false;
 
@@ -1334,6 +1407,7 @@ namespace jw
 		// 점프
 		if (Input::GetKeyDown(eKeyCode::Z) && mJumpCount >= 1)
 		{
+			mJumpSound->Play(false);
 			mJumpCount--;
 			mbGroundCheck = false;
 
@@ -1513,6 +1587,7 @@ namespace jw
 		// 점프
 		if (Input::GetKeyDown(eKeyCode::Z) && mJumpCount >= 1)
 		{
+			mJumpSound->Play(false);
 			mJumpCount--;
 			mbGroundCheck = false;
 
@@ -1664,6 +1739,7 @@ namespace jw
 		// 점프
 		if (Input::GetKeyDown(eKeyCode::Z) && mJumpCount >= 1)
 		{
+			mJumpSound->Play(false);
 			mJumpCount--;
 			mbGroundCheck = false;
 
@@ -1789,6 +1865,7 @@ namespace jw
 		// 점프
 		if (Input::GetKeyDown(eKeyCode::Z) && mJumpCount >= 1)
 		{
+			mJumpSound->Play(false);
 			mJumpCount--;
 			mbGroundCheck = false;
 
@@ -1925,6 +2002,7 @@ namespace jw
 		// 점프
 		if (Input::GetKeyDown(eKeyCode::Z) && mJumpCount >= 1)
 		{
+			mJumpSound->Play(false);
 			mJumpCount--;
 			mbGroundCheck = false;
 
@@ -2173,6 +2251,7 @@ namespace jw
 		// 패리
 		if (Input::GetKeyDown(eKeyCode::Z) && mParryCount > 0)
 		{
+
 			mParryCount--;
 
 			if (mState == eCupheadState::Shoot_Jump_L)

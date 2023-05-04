@@ -5,6 +5,7 @@ namespace jw
 {
 	class Animator;
 	class Cuphead;
+	class Sound;
 	class Pirate_Ship_A : public GameObject
 	{
 	public:
@@ -53,6 +54,10 @@ namespace jw
 		void SetBossLeave(bool on) { mBossLeave = on; }
 
 	private:
+		Sound* mCanonChewSound;
+		Sound* mCanonFireSound;
+		Sound* mTransformSound;
+
 		Animator* mShipAnimator;
 		Collider* mShipCollider;
 		Cuphead* mCuphead;

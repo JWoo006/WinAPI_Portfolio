@@ -12,6 +12,8 @@
 #include "jwBarrel_Dust.h"
 #include "jwBarrel_Fx.h"
 
+#include "jwSound.h"
+
 namespace jw
 {
 	Pirate_Barrel::Pirate_Barrel()
@@ -309,6 +311,8 @@ namespace jw
 	void Pirate_Barrel::DropAnimCompleteEvent()
 	{
 		mBarrelAnimator->Play(L"Barreldrop_loop", true);
+		Sound* mSound1 = Resources::Load<Sound>(L"sfx_pirate_barrel_drop_attack", L"..\\Resources\\Sound\\Pirate\\sfx_pirate_barrel_drop_attack.wav");
+		mSound1->Play(false);
 	}
 
 	void Pirate_Barrel::SmashAnimCompleteEvent()

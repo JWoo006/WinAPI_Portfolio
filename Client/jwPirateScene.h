@@ -6,6 +6,7 @@ namespace jw
 	class Background;
 	class Cuphead;
 	class Animator;
+	class Sound;
 	class PirateScene : public Scene
 	{
 	public:
@@ -34,6 +35,12 @@ namespace jw
 
 
 	private:
+		float mIntroSoundTimer;
+		bool mbIntroSoundChecker;
+		Sound* mIntroSound1;
+		Sound* mIntroSound2;
+		Sound* mBGSound;
+
 		Background* mbackground;
 		FightText_WALLOP* ftw;
 

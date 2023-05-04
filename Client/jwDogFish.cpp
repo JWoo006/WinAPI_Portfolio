@@ -8,6 +8,7 @@
 #include "jwCuphead.h"
 
 #include "jwDogFish_Explosion.h"
+#include "jwSound.h"
 
 namespace jw
 {
@@ -77,6 +78,9 @@ namespace jw
 			mbDead = true;
 
 			this->SetLayerType(eLayerType::Effect);
+
+			Sound* mSound1 = Resources::Load<Sound>(L"sfx_pirate_dogfish_death_poof_01", L"..\\Resources\\Sound\\Pirate\\sfx_pirate_dogfish_death_poof_01.wav");
+			mSound1->Play(false);
 
 			mDogFishState = eDogFishState::Death;
 			mAnimator->Play(L"Captaindogfish_death", true);

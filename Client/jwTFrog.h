@@ -5,6 +5,7 @@ namespace jw
 {
 	class Animator;
 	class Cuphead;
+	class Sound;
 	class TFrog : public GameObject
 	{
 	public:
@@ -63,6 +64,11 @@ namespace jw
 		void SetFanOn(bool on) { mbFanOn = on; }
 
 	private:
+		Sound* mFanStartSound;
+		Sound* mFanLoopSound;
+		Sound* mFanEndSound;
+		Sound* mMorphEndSound;
+
 		Animator* mTFrogAnimator;
 		Collider* mTFrogCollider;
 		Cuphead* mCuphead;

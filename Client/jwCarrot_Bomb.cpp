@@ -8,6 +8,8 @@
 #include "jwObject.h"
 #include "jwCuphead.h"
 
+#include "jwSound.h"
+
 namespace jw
 {
 	Carrot_Bomb::Carrot_Bomb()
@@ -38,8 +40,8 @@ namespace jw
 	{
 
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage1_veggie\\carrot\\carrot_bomb", Vector2::Zero, 0.1f, eImageFormat::PNG, eAnimationDir::R);
-		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage1_veggie\\carrot\\bomb_death", Vector2::Zero, 0.1f, eImageFormat::PNG, eAnimationDir::R);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage1_veggie\\carrot\\carrot_bomb", Vector2::Zero, 0.05f, eImageFormat::PNG, eAnimationDir::R);
+		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage1_veggie\\carrot\\bomb_death", Vector2::Zero, 0.05f, eImageFormat::PNG, eAnimationDir::R);
 		
 		mAnimator->GetCompleteEvent(L"carrotbomb_death") = std::bind(&Carrot_Bomb::AnimCompleteEvent, this);
 		
@@ -107,6 +109,9 @@ namespace jw
 		{
 			mAnimator->Play(L"carrotbomb_death", false);
 			mSpeed = 0.0f;
+
+			Sound* mSound1 = Resources::Load<Sound>(L"Carrot_Bomb_Explode_01", L"..\\Resources\\Sound\\Veggie\\sfx_level_veggies_Carrot_Bomb_Explode_01.wav");
+			mSound1->Play(false);
 			
 		}
 
@@ -120,6 +125,10 @@ namespace jw
 
 			if (mHp < 0)
 			{
+				Sound* mSound1
+					= Resources::Load<Sound>(L"Carrot_Bomb_Explode_01", L"..\\Resources\\Sound\\Veggie\\sfx_level_veggies_Carrot_Bomb_Explode_01.wav");
+				mSound1->Play(false);
+
 				mbDeadChecker = true;
 
 				mAnimator->Play(L"carrotbomb_death", false);

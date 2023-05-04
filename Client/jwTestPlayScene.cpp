@@ -26,6 +26,9 @@
 #include "jwBubble_Bullet.h"
 #include "jwDogFish.h"
 
+#include "jwResources.h"
+#include "jwSound.h"
+
 
 namespace jw
 {
@@ -40,12 +43,14 @@ namespace jw
 		//override를 써서 자식쪽으로 오지만 부모쪽 함수로 지정가능
 		Scene::Initialize();
 
-		object::Instantiate<Pirate_BG_Sky>(Vector2(-1.0f, 800.0f), eLayerType::BG);
-		object::Instantiate<Pirate_BG>(Vector2(800.0f, 900.0f), eLayerType::BG);
-		object::Instantiate<Pirate_BG_Dock>(Vector2(0.0f, 700.0f), eLayerType::BG);
+		//object::Instantiate<Pirate_BG_Sky>(Vector2(-1.0f, 800.0f), eLayerType::BG);
+		//object::Instantiate<Pirate_BG>(Vector2(800.0f, 900.0f), eLayerType::BG);
+		//object::Instantiate<Pirate_BG_Dock>(Vector2(0.0f, 700.0f), eLayerType::BG);
 		
 		object::Instantiate<BasicGround>(Vector2(-1.0f, 800.0f), eLayerType::Ground);
 		
+		mIntroSound1 = Resources::Load<Sound>(L"Announcer_intro1a", L"..\\Resources\\Sound\\Announcer\\sfx_level_announcer_0001_a.wav");
+		mIntroSound2 = Resources::Load<Sound>(L"Announcer_intro2a", L"..\\Resources\\Sound\\Announcer\\sfx_level_announcer_0002_a.wav");
 		
 		
 
@@ -58,7 +63,16 @@ namespace jw
 	{
 		mTime += Time::DeltaTime();
 
-		
+		if (mbIntroSoundChecker)
+		{
+			mIntroSoundTimer += Time::DeltaTime();
+
+			if (mIntroSoundTimer > 4.0f && mbIntroSoundChecker)
+			{
+				mbIntroSoundChecker = false;
+				mIntroSound2->Play(false);
+			}
+		}
 
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
@@ -75,7 +89,7 @@ namespace jw
 			mSceneLoad_In->SetEndCheck(false);
 
 			mCupheadAnimator->Play(L"CupheadIntro", false);
-			mCaptain_Animator->Play(L"Captainintro_start", false);
+			//mCaptain_Animator->Play(L"Captainintro_start", false);
 			object::Destroy(mSceneLoad_In);
 		}
 
@@ -99,7 +113,7 @@ namespace jw
 			object::Destroy(mShip_A);
 			mShip_A = nullptr;
 
-			boss2HP = 30;
+			boss2HP = 11;
 			StageInfo stageinfo2;
 			stageinfo2.pBossHp = &boss2HP;
 			stageinfo2.pCuphead = mCuphead;
@@ -132,6 +146,8 @@ namespace jw
 	}
 	void TestPlayScene::OnEnter()
 	{
+		
+
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BG22, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BossBullet, true);
@@ -161,8 +177,8 @@ namespace jw
 
 
 		mShip_A = object::Instantiate<Pirate_Ship_A>(Vector2(1400.0f, 1000.0f), eLayerType::BG22, stageinfo.pCuphead, stageinfo.pBossHp);
-		//mShip_A->SetBossLeave(true);
-		//mShip_A->SetBossOut(true);
+		mShip_A->SetBossLeave(true);
+		mShip_A->SetBossOut(true);
 		mBarrel = object::Instantiate<Pirate_Barrel>(Vector2(1100.0f, 200.0f), eLayerType::BG22, stageinfo.pCuphead, stageinfo.pBossHp);
 
 		mCaptain = object::Instantiate<Pirate_Captain>(Vector2(1400.0f, 550.0f), eLayerType::Monster, stageinfo.pCuphead, stageinfo.pBossHp);
@@ -191,13 +207,17 @@ namespace jw
 		ftw = object::Instantiate<FightText_WALLOP>(Vector2(800.0f, 900.0f), eLayerType::UI);
 		mFightTextAnimator = ftw->GetComponent<Animator>();
 		mFightTextAnimator->GetCompleteEvent(L"ImageFightText") = std::bind(&TestPlayScene::FightStart, this);
-	
+
+		mIntroSound1->Play(false);
+		mbIntroSoundChecker = true;
 	}
 
 	void TestPlayScene::FightStart()
 	{
 		object::Destroy(ftw);
 		// 보스 공격 시작
+
+		
 	}
 
 }

@@ -8,6 +8,8 @@
 #include "jwObject.h"
 #include "jwCuphead.h"
 
+#include "jwSound.h"
+
 namespace jw
 {
 	CarrotHypno_Beam::CarrotHypno_Beam()
@@ -36,6 +38,10 @@ namespace jw
 	}
 	void CarrotHypno_Beam::Initialize()
 	{
+
+		Sound* mSound1
+			= Resources::Load<Sound>(L"Carrot_MindMeld_BeamFire", L"..\\Resources\\Sound\\Veggie\\sfx_level_veggies_Carrot_MindMeld_BeamFire_01.wav");
+		mSound1->Play(false);
 
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimations(L"..\\Resources\\Image\\Stage1_veggie\\carrot\\hypno_ring", Vector2::Zero, 0.1f, eImageFormat::PNG, eAnimationDir::R);

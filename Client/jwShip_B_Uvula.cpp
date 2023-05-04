@@ -84,7 +84,7 @@ namespace jw
 	void Ship_B_Uvula::Shoot_A_AnimCompleteEvent()
 	{
 		mbShootBubble = true;
-		mBubble = object::Instantiate<Bubble_Bullet>(Vector2(1300.0f, 500.0f), eLayerType::BossBullet);
+		mBubble = object::Instantiate<Bubble_Bullet>(Vector2(1300.0f, 600.0f), eLayerType::BossBullet);
 
 
 		mAnimator->Play(L"UvulaShoot_B", false);

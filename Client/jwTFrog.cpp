@@ -14,6 +14,8 @@
 #include "jwTFrog_Firefly.h"
 #include "jwTFrog_FanWind.h"
 
+#include "jwSound.h"
+
 namespace jw
 {
 	TFrog::TFrog()
@@ -29,6 +31,12 @@ namespace jw
 	}
 	void TFrog::Initialize()
 	{
+		mFanStartSound = Resources::Load<Sound>(L"sfx_frogs_tall_fan_start_01", L"..\\Resources\\Sound\\Frog\\sfx_frogs_tall_fan_start_01.wav");
+		mFanLoopSound = Resources::Load<Sound>(L"sfx_frogs_tall_fan_attack_loop_01", L"..\\Resources\\Sound\\Frog\\sfx_frogs_tall_fan_attack_loop_01.wav");
+		mFanEndSound = Resources::Load<Sound>(L"sfx_frogs_tall_fan_end_01", L"..\\Resources\\Sound\\Frog\\sfx_frogs_tall_fan_end_01.wav");
+
+		mMorphEndSound = Resources::Load<Sound>(L"sfx_frogs_tall_morph_end_01", L"..\\Resources\\Sound\\Frog\\sfx_frogs_tall_morph_end_01.wav");
+
 		mbShow = true;
 		mbOnHit = false;
 		mbFistOn = false;
@@ -147,6 +155,10 @@ namespace jw
 		{
 			mTFrogDead = false;
 			mTFrogAnimator->Play(L"morphend", false);
+
+			mFanLoopSound->Stop(true);
+			mMorphEndSound->Play(false);
+
 		}
 
 	}
@@ -172,6 +184,8 @@ namespace jw
 			mTFrogState = eTFrogState::Attack_Fan;
 			mTFrogAnimator->Play(L"fanstart", false);
 			mbFanOn = false;
+
+			mFanStartSound->Play(false);
 		}
 	}
 	void TFrog::attack_firefly()
@@ -205,6 +219,9 @@ namespace jw
 			mbFanAttacking = false;
 			mTFrogAnimator->Play(L"fanend", false);
 			mTFrogState = eTFrogState::Idle;
+
+			mFanLoopSound->Stop(true);
+			mFanEndSound->Play(false);
 
 		}
 	}
@@ -247,6 +264,8 @@ namespace jw
 
 		mTFrogAnimator->Play(L"fanloop", true);
 		mTFrog_FanWind = object::Instantiate<TFrog_FanWind>(Vector2(pos.x - 500.0f, pos.y - 200.0f), eLayerType::Effect);
+
+		mFanLoopSound->Play(true);
 	
 	}
 

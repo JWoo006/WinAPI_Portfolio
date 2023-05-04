@@ -112,7 +112,7 @@ namespace jw
 			mSpeed = 0.0f;
 		}
 
-		if (other->GetOwner()->GetLayerType() == eLayerType::Bullet && !mbDeadChecker)
+		/*if (other->GetOwner()->GetLayerType() == eLayerType::Bullet && !mbDeadChecker)
 		{
 			mbDeadChecker = true;
 
@@ -128,7 +128,7 @@ namespace jw
 			}
 
 			mSpeed = 0.0f;
-		}
+		}*/
 	}
 	void Octopus_Bullet::OnCollisionStay(Collider* other)
 	{

@@ -5,6 +5,7 @@ namespace jw
 {
 	class Animator;
 	class Collider;
+	class Sound;
 	class Veggie_Potato : public GameObject
 	{
 	public:
@@ -52,6 +53,9 @@ namespace jw
 	private:
 		Animator* mPotatoAnimator;
 		Collider* mPotatoCollider;
+
+		Sound* mAtkSound;
+		Sound* mDeathSound;
 
 		eVeggie_PotatoState mPotatoState;
 

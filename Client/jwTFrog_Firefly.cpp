@@ -6,6 +6,7 @@
 #include "jwCollider.h"
 #include "jwObject.h"
 #include "jwCuphead.h"
+#include "jwSound.h"
 
 namespace jw
 {
@@ -92,6 +93,9 @@ namespace jw
 			mAnimator->Play(L"fireflydeath", false);
 			mSpeed = 0.0f;
 
+			Sound* mSound1
+				= Resources::Load<Sound>(L"sfx_frogs_tall_firefly_death_01", L"..\\Resources\\Sound\\Frog\\sfx_frogs_tall_firefly_death_01.wav");
+			mSound1->Play(false);
 		}
 
 		if (other->GetOwner()->GetLayerType() == eLayerType::Bullet && !mbDeadChecker)
@@ -104,6 +108,10 @@ namespace jw
 
 			mAnimator->Play(L"fireflydeath", false);
 			mSpeed = 0.0f;
+
+			Sound* mSound1
+				= Resources::Load<Sound>(L"sfx_frogs_tall_firefly_death_01", L"..\\Resources\\Sound\\Frog\\sfx_frogs_tall_firefly_death_01.wav");
+			mSound1->Play(false);
 		}
 	}
 	void TFrog_Firefly::OnCollisionStay(Collider* other)

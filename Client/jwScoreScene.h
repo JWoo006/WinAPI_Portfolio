@@ -4,6 +4,7 @@
 
 namespace jw
 {
+	class Sound;
 	class ScoreScene : public Scene
 	{
 	public:

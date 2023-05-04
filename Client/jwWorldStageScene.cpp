@@ -66,6 +66,8 @@ namespace jw
 
 			if (Input::GetKeyState(eKeyCode::Z) == eKeyState::Down && iconName == L"VeggieIcon")
 			{
+				mainSound->Stop(true);
+
 				mNextScene = (int)mVeggieWorldIcon->GetLoadSceneType();
 				SceneManager::SetNextSceneType((eSceneType)mNextScene);
 
@@ -75,6 +77,8 @@ namespace jw
 
 			if (Input::GetKeyState(eKeyCode::Z) == eKeyState::Down && iconName == L"FrogIcon")
 			{
+				mainSound->Stop(true);
+
 				mNextScene = (int)mFrogWorldIcon->GetLoadSceneType();
 				SceneManager::SetNextSceneType((eSceneType)mNextScene);
 
@@ -84,6 +88,8 @@ namespace jw
 
 			if (Input::GetKeyState(eKeyCode::Z) == eKeyState::Down && iconName == L"PirateIcon")
 			{
+				mainSound->Stop(true);
+
 				mNextScene = (int)mPirateWorldIcon->GetLoadSceneType();
 				SceneManager::SetNextSceneType((eSceneType)mNextScene);
 
@@ -124,6 +130,6 @@ namespace jw
 	}
 	void WorldStageScene::OnExit()
 	{
-		mainSound->Stop(true);
+		//mainSound->Stop(true);
 	}
 }
