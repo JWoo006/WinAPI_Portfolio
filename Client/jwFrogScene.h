@@ -64,6 +64,7 @@ namespace jw
 
 		float mTime;
 		bool mbTimeStop;
+		bool mbIntroStart;
 		Animator* mFightTextAnimator;
 	};
 }

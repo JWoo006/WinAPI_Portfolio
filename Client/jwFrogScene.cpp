@@ -72,10 +72,30 @@ namespace jw
 
 			SceneManager::LoadScene((eSceneType)next);
 
+			mBGSound->Stop(true);
+
+			if (mTFrog != nullptr)
+			{
+				object::Destroy(mTFrog);
+				mTFrog = nullptr;
+			}
+
+			if (mSFrog != nullptr)
+			{
+				object::Destroy(mSFrog);
+				mSFrog = nullptr;
+			}
+
+			if (mTFrog_Slot != nullptr)
+			{
+				object::Destroy(mTFrog_Slot);
+				mTFrog_Slot = nullptr;
+			}
 		}
 
-		if (mSceneLoad_In && mSFrog && mTFrog && mSceneLoad_In->EndCheck())
+		if (mSceneLoad_In && mSFrog && mTFrog && mSceneLoad_In->EndCheck() && !mbIntroStart)
 		{
+			mbIntroStart = true;
 
 			mSceneLoad_In->SetEndCheck(false);
 

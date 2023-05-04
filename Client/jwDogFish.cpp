@@ -87,6 +87,8 @@ namespace jw
 			Transform* tr = GetComponent<Transform>();
 			Vector2 pos = tr->GetPos();
 			object::Instantiate<DogFish_Explosion>(Vector2(pos.x, 800.0f), eLayerType::Effect);
+
+			
 		}
 	}
 	void DogFish::OnCollisionStay(Collider* other)
@@ -166,8 +168,6 @@ namespace jw
 		mDogFishState = eDogFishState::Move;
 		mDegree = 180.0f;
 		mAnimator->Play(L"Captaindogfish_introB", false);
-
-		this->SetLayerType(eLayerType::BossBullet);
 
 		Transform* tr = GetComponent<Transform>();
 

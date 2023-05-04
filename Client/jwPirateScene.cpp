@@ -79,11 +79,35 @@ namespace jw
 
 			SceneManager::LoadScene((eSceneType)next);
 
+			mBGSound->Stop(true);
+
+			if (mCaptain != nullptr)
+			{
+				object::Destroy(mCaptain);
+				mCaptain = nullptr;
+			}
+			if (mBarrel != nullptr)
+			{
+				object::Destroy(mBarrel);
+				mBarrel = nullptr;
+			}
+			if (mShip_A != nullptr)
+			{
+				object::Destroy(mShip_A);
+				mShip_A = nullptr;
+			}
+			if (mShip_B != nullptr)
+			{
+				object::Destroy(mShip_B);
+				mShip_B = nullptr;
+			}
+
 		}
 
 
-		if (mSceneLoad_In && mSceneLoad_In->EndCheck())
+		if (mSceneLoad_In && mSceneLoad_In->EndCheck() && !mbIntroStart)
 		{
+			mbIntroStart = false;
 
 			mSceneLoad_In->SetEndCheck(false);
 

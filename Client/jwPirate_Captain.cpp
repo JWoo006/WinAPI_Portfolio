@@ -278,7 +278,7 @@ namespace jw
 
 			mDogFishSound->Play(false);
 
-			object::Instantiate<DogFish>(Vector2(1200.0f, 900.0f), eLayerType::Effect);
+			object::Instantiate<DogFish>(Vector2(1200.0f, 900.0f), eLayerType::BossBullet);
 			object::Instantiate<DogFish_Splash>(Vector2(1200.0f, 900.0f), eLayerType::Effect);
 
 			mDogAtkCnt--;

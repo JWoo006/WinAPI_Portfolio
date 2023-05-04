@@ -91,10 +91,30 @@ namespace jw
 				next = (int)eSceneType::Title;
 			}
 
-			next = (int)eSceneType::Score;
+			next = (int)eSceneType::WorldStage;
 			
 			SceneManager::LoadScene((eSceneType)next);
 			
+			mBGSound->Stop(false);
+
+			if (mBossPotato != nullptr)
+			{
+				object::Destroy(mBossPotato);
+				mBossPotato = nullptr;
+			}
+			if (mBossCarrot != nullptr)
+			{
+				object::Destroy(mBossCarrot);
+				mBossCarrot = nullptr;
+			}
+			if (mBossOnion != nullptr)
+			{
+				object::Destroy(mBossOnion);
+				mBossOnion = nullptr;
+			}
+
+
+
 		}
 
 		if (mSceneLoad_In->EndCheck())
